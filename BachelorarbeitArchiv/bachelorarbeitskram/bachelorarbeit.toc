@@ -1,0 +1,10 @@
+\select@language {ngerman}
+\contentsline {section}{\numberline {1}Einleitung}{4}{section.1}
+\contentsline {section}{\numberline {2}Einf\"uhrende Definitionen}{4}{section.2}
+\contentsline {section}{\numberline {3}Thurston's H\"ohenfunktion f\"ur Domino Tilings}{10}{section.3}
+\contentsline {section}{\numberline {4}Verallgemeinerung: $\alpha $-Orientierungen}{15}{section.4}
+\contentsline {section}{\numberline {5}Situation auf dem Torus}{22}{section.5}
+\contentsline {subsection}{\numberline {5.1}Gegenbeispiele}{23}{subsection.5.1}
+\contentsline {subsection}{\numberline {5.2}Einschr\"ankung der ben\"otigten Kreisklassen}{31}{subsection.5.2}
+\contentsline {section}{\numberline {6}Fazit}{34}{section.6}
+\contentsline {section}{Literaturverzeichnis}{36}{section*.22}

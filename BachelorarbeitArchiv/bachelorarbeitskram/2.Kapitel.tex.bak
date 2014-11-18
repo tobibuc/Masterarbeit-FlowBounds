@@ -1,0 +1,201 @@
+Ein Domino Tiling ist eine Pflasterung einer Fläche mit Dominos, also mit Formen die aus zwei nebeneinanderliegenden Einheitsquadraten bestehen. Dabei muss der komplette Bereich überdeckt sein, das heißt es dürfen keine Lücken vorhanden sein. 
+%äquivalenz mit matchings
+Es gibt von diesen Domino Tilings eine offensichtliche Äquivalenz zu Matchings: Konstruiert man einen Graphen, dessen Knoten jeweils in der Mitte der Einheitsquadrate der Dominos liegen, und verbindet diese Knoten jeweils mit den direkten horizontalen und vertikalen Nachbarn, so erhält man einen Gittergraphen. Die Kanten des Graphen, die dann innerhalb des eines Dominos liegen, bilden dann die Kanten eines perfekten Matchings. Eine notwendige Bedingung für die Existenz eines solchen perfekten Matchings ist natürlich, dass es in dem Gittergraphen eine gerade Anzahl von Knoten gibt. Entsprechend gilt für die Domino Tilings, dass z.B. bei einer rechteckigen Fläche nicht beide Seitenlängen ungerade sein dürfen.
+Eine weitere Äquivalenz kann man zu den $\alpha$-Orientierungen des gleichen, nun aber gerichteten, Gittergraphen finden. \\
+
+%alpha-or
+Eine $\alpha$-Orientierung ist eine Orientierung der Kanten des Graphen, so dass zu einer Abbildung $\alpha : V\to \N $ der Ausgrad $out(v)=\alpha(v) \forall v\in V$, $\alpha$ gibt also die Anzahl der ausgehenden Kanten an. 
+Die Frage ob es für einen gegebenen Graphen eine $\alpha$-Orientierung gibt, lässt sich in polynomieller Zeit beantworten indem man auf einem leicht modifiziertem Graphen einen maximalen Fluss berechnet.
+%ALGO???
+
+Betrachten wir unseren Graphen als Gitter von ganzzahligen Punkten $v=(v_1,v_2)$, beginnend bei $(0,0)$. Dann können wir unser alpha definieren als:
+$$\alpha(v)=
+\begin{cases}
+1 & v_1+v_2 \text{ gerade}\\
+3 & v_1+v_2 \text{ ungerade}
+\end{cases}
+$$
+Jeder Knoten des Graphen hat nun entweder eine eingehende und $3$ ausgehende oder eine ausgehende und $3$ eingehende Kanten. Insbesondere gibt es für jeden Knoten eine eindeutige Kante, die einzige eingehende oder einzige ausgehende des Knotens. Diese eindeutige gerichtete Kante, die sich je zwei benachbarte Knoten teilen, entspricht dann genau den Matchingkanten eines perfekten Matchings. Im folgenden wird eine solche $\alpha$-Orientierung als $3-1-\alpha$-Orientierung bezeichnet.
+
+
+Man kann also zwischen den Domino-Tilings und den $\alpha$-Orientierungen eines Graphen (zu einem geeignet definierten $\alpha$ wie oben) eine einfache Bijektion herstellen, alpha-Orientierungen sind insofern eine Verallgemeinerung von Matchings.
+
+
+Nun lassen sich verschiedene Fragen zu diesen Tilings/Matchings/$\alpha$-Orientierungen stellen. 
+Die Existenz kann man, wie bereits erwähnt, einfach (polynomiell) überprüfen, auch schon für allgemeine $\alpha$-Orientierungen auf beliebigen Graphen. Betrachtet man rechteckige Gittergraphen, so muss man noch nicht mal diesen Algorithmus ausführen, um herauszufinden ob eine $3-1-\alpha$-Orientierung existiert - sofern die notwendige Bedingung erfüllt ist, dass höchstens eine der beiden Seitenlängen ungerade ist, existiert auch ein entsprechendes Domino Tiling.
+Und zwar kann man an einer Ecke anfangen die Fläche zu pflastern, so dass die längere Seite der Dominos jeweils zu der geraden Seite zeigt. Da jede Schicht so lückenlos ausgefüllt werden kann, erhalten wir immer ein zulässiges Domino Tiling. 
+
+Für die beabsichtigten Domino-Tilings auf dem Torus ist die Existenz also gesichert. Eine andere natürliche Frage ist die der Anzahl möglicher Tilings. 
+%Referenzen angeben wo dies untersucht wird???
+Dies wollen wir hier aber nicht weiter betrachten, für bestimmte Formen, beispielsweise Rechtecke sind aber explizite Formeln bekannt. %TODO
+
+Worum es hier im Kern gehen soll, ist die Transformierbarkeit von Tilings mittels Flips. Ein Flip ist dabei die Operation, die zwei benachbarte, sich die lange Seite teilende Dominos um 90 Grad dreht. In der zugehörigen $3-1-\alpha$-Orientierung entspricht das dem umdrehen eines gerichteten Face-Kreises, d.h. eines gerichteten Kreises, der keine Kanten in seinem Inneren hat (bezüglich einer festen planaren Einbettung auf einer Fläche).
+
+Für planare Graphen ist es möglich, alle Tilings einer Fläche mittels solchen Face-Flips zu erreichen. Mehr noch, man kann den Tilings einer planaren Fläche eine Ordnungsrelation geben, die einen distributiven Verband bildet.
+
+%Definition eines distributiven Verbandes
+\begin{definition}
+Sei $P=(X,\le )$ ein Poset/Halbordnung. $P$ ist ein distributiver Verband, wenn $\forall x,y\in X \exists x\lor y, x\land y \in X$ so dass gilt
+\begin{itemize}
+\item $x\lor y \ge x \ge x\land y$ und $x\lor y \ge y \ge x\land y$
+\item $\forall z\in X: z\ge x,y\Rightarrow x\lor y\le z$
+\item $\forall z\in X: z\le x,y \Rightarrow x\land y\ge z$
+\item $\forall x,y,z \in X: x\land(y\lor z)=(x\land y)\lor (x\land z)$ (Distributivität)
+\end{itemize}
+\end{definition}
+ 
+
+%beweis planarer fall
+\begin{theorem}
+Auf der Menge der $\alpha$-Orientierungen eines planaren Graphen wird durch Kreisflips ein distributiver Verband induziert. Insbesondere genügen in einem stark zusamenhängenden Graphen Face-Flips.
+\end{theorem}
+%TODO wird rausgenomen
+%Da es in dieser Arbeit vor allem um den Flip-Zusammenhang geht (auf dem Torus ist dieser nicht durch Face-Flips zu gewährleisten), will ich hier auch nur den Flip-Zusammenhang im planaren Fall beweisen. Der Beweis, dass man sogar einen distributiven Verband erhält, ist in [] nachzulesen.
+
+\begin{cor}
+Je zwei $\alpha$-Orientierungen eines Graphen (zu gleichem $\alpha$) lassen sich mit einer Folge von Flips essentieller Kreise ineinander überführen. \\
+Ein Kreis $C$ heißt essentiell, wenn er folgende Eigenschaften hat:
+\\Er ist 
+\begin{itemize}
+\item ein einfacher Kreis
+\item hat keine Sehne/keinen gerichteten Pfad im Inneren
+\item die Kanten, die vom Rand ins Innere des Kreises gehen sind in allen $\alpha$-Orientierungen gleich gerichtet, also nie in einem gerichteten Kreis enthalten
+\item Es gibt eine $\alpha$-Orientierung, in der $C$ gerichtet ist
+\end{itemize}
+Bemerkung: In stark zusammenhängenden Graphen sind die essentiellen gerade die Face-Kreise.
+\end{cor}
+
+Es gibt verschiedene Beweise (von unterschiedlicher Allgemeinheit), ich zeige hier zunächst einen direkt auf Domino Tilings zugeschnittenen Beweis.
+
+\section{Thurston's Höhenfunktion für Domino Tilings}
+In unserer bisherigen Definition von Domino Tilings und dazugehörigen $\alpha$-Orientierungen haben wir den Graphen betrachtet, der entsteht wenn wir die Knoten in die Mitte der Zellen eines gegebenen Domino Tilings legen.  Wenn man aber ein Tiling gegeben hat, ist es aber ebenso natürlich die Ränder der Dominos als Kanten zu interpretieren und die Ecken als Knoten. Auch in der Mitte der langen Seiten eines Dominos wird jeweils ein Knoten des Graphen gesetzt, und eine Kante zwischen diesen beiden Knoten für jedes Domino. 
+
+Man erhält so einen Gittergraphen in der Größe der überdeckten Fläche. Wir richten die Kanten so, dass die an einer Gitterzelle anliegenden Kanten immer einen gerichteten Kreis bilden, abwechselnd im Uhrzeigersinn und gegen den Uhrzeigersinn. Stellt man sich das Gitter als Schachbrett vor, dann kann man sagen links von einer Kante liegt ein schwarzes Feld und recht ein weißes.
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/thurston1.pstex_t}}
+  \caption{Beispiel eines Graphen aus einem planaren Domino Tiling}
+\end{figure}
+
+Bis hierhin ist die Konstruktion noch unabhängig vom konkreten Domino Tiling. Definiere daher eine Höhenfunktion $ h_T: V\to \mathbb{Z}$ auf den Knoten dieses Graphen, die ein Domino Tiling $T$ eindeutig kodiert: 
+\begin{itemize}
+\item Wähle einen beliebigen Knoten $v_0$ und setze $h_T(v_0)=0$. (Man kann statt $0$ auch einen beliebigen anderen Wert wählen)
+\item Falls Kante $(v,v')$ ein Domino schneidet, also zwischen zwei Zellen des gleichen Dominos liegt, setze $h_T(v')=h_T(v)-3$. 
+\item Sonst setze für die Kante $(v,v')$ iterativ den Wert $h_T(v')=h_T(v)+1$.
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/thurston2.pstex_t}}
+  \caption{Ein Domino Tiling mit der oben definierten Höhenfunktion}
+\end{figure}
+
+Nun muss natürlich noch überprüft werden, ob diese Definition auch immer konsistent ist, und dass sie ein Domino Tiling eindeutig kodiert. 
+\begin{lemma}
+Die Höhenfunktion $h_T$ zu einem Domino Tiling $T$ ist (bei gleicher Wahl von $v_0$) unabhängig davon, in welcher Reihenfolge die Höhe der Knoten berechnet wird. 
+\end{lemma}
+\begin{proof}
+Bezeichne mit Höhendifferenz von $v$ zu $v'$ die \it Anzahl vorwärts gerichteter Kanten auf legalem Weg von $v$ zu $v'$ - Anzahl rückwärts gerichteter Kanten auf legalem Weg von $v$ zu $v'$ \rm , wobei legal bedeutet dass keine Kanten benutzt wurden, die ein Domino in $T$ schneiden.
+Zunächst einmal stellen wir fest, dass zur Berechnung der Höhe jedes Knotens die Bedingung ausreicht, dass für jede Kante $(v,v')$ gilt $h_T(v')=h_T(v)+1$, da der Graph auch ohne die Kanten welche Dominos schneiden noch zusammenhängend ist. Weiterhin sieht man leicht, dass die zweite Bedingung (falls Kante $(v,v')$ ein Domino schneidet, setze $h_T(v')=h_T(v)-3$) hieraus bereits folgt: Da jede Zelle von einem gerichteten Kreis umschlossen wird und zu genau einem Domino gehört, hat jede Zelle auch genau eine Kante die ihr Domino schneidet. Die anderen 3 Kanten haben zusammen eine Höhendifferenz von 3 (in Kreisrichtung), so dass die Differenz für die das Domino schneidende Kante automatisch -3 ist. $\Rightarrow$ Es genügt also zu zeigen, dass die Konstruktion über Randkanten der Dominos konsistent ist. Die Höhe eines Knotens $v$ ist dann genau die Höhendifferenz zu $v_0$. \\
+
+\it Behauptung: \rm Ein Kreis ohne Kanten, welche ein Domino schneiden, hat Höhendifferenz 0. \\
+\it Beweis der Behauptung:\rm Induktion - man sieht leicht an einem einzelnen Domino dass die Höhendifferenz 0 ist, da je $3$ Kanten vorwärts und $3$ Kanten rückwärts gerichtet sind. Hat man einen größeren Kreis, findet man darin einen Weg, an dem man den Kreis in zwei kleinere aufteilen kann. Die Summe der Höhendifferenzen der beiden kleinen Kreise ergibt die Höhendifferenz des großen Kreises - da die kleineren nach Induktionsvoraussetzung Höhendifferenz 0 haben, gilt dies auch für den großen Kreis.\\
+
+Betrachte zwei legale Wege $p_1$ und $p_2$ von $v_0$ zu $v$. Dann ist $p_1$ mit $\overleftarrow{p_2}$ ($p_2$ rückwärts) ein legaler Kreis. Die Höhendifferenz des Kreises ist die Differenz beider Höhendifferenzen der beiden Pfade. Da die Höhendifferenz in Kreisen immer 0 beträgt, muss sie also bei beiden Pfaden gleich groß sein.
+\end{proof}
+Da sich die Höhenfunktion über relative Höhendifferenzen im Graphen berechnet, der Startknoten und im Prinzip der Startwert aber beliebig sind, kann es zu einem Domino Tiling $T$ mehrere Höhenfunktionen geben. Diese unterscheiden sich aber nur um eine additive Konstante, d.h. für alle Höhenfunktionen $h_T, {h'}_T$ gibt es eine Zahl $c\in \R$ so dass gilt $h_T(v)+c={h'}_T(v) \, \forall v\in V$.\\
+
+Wir können ebenfalls zeigen, dass zu jeder konsistenten Höhenfunktion des Graphen ein Domino Tiling gehört:
+\begin{lemma}\label{3bedinglemma}
+Sei eine Funktion $h: V \to \mathbb{Z}$ gegeben, so dass
+\begin{itemize}
+\item $f(v_0)=0$
+\item Für jede Kante $(v,v')$ gilt entweder $h(v')=h(v)+1$ oder $h(v')=h(v)-3$
+\item Auf dem Rand gilt für jede Kante die Beziehung $h(v')=h(v)+1$.
+\end{itemize}
+Dann ist $h$ tatsächlich die Höhenfunktion $h_T$ für ein Domino Tiling $T$.
+\end{lemma}
+\begin{proof}
+Da wieder jede Zelle von einem gerichteten Kreis (der Länge 4) umgeben ist, gibt es in jeder Zelle genau eine Kante $e=(v,v')$ mit $h(v')=h(v)-3$. Wegen der dritten Bedingung kann diese nicht auf dem Rand des Graphen liegen. Auf der anderen Seite dieser Kante liegt deshalb eine weitere Zelle, für die auch $e$ die eindeutige Kante mit  $h(v')=h(v)-3$ ist. Beide zusammen bilden ein Domino. Dieses Argument kann man nun für jede einzelne Zelle anwenden, und erhält daraus ein eindeutiges Domino Tiling $T$.
+\end{proof}
+
+Man kann beobachten, dass die Werte eines Knotens in Höhenfunktionen zu verschiedenen Tilings sich nur um Vielfache von 4 unterscheiden:
+
+\begin{lemma}
+Seien $T,T'$ Domino Tilings, und die Höhenfunktionen bezüglich des gleichen Wertes für $v_0$ definiert. Dann ist für jeden Knoten $v$ die Differenz $h_T(v)-h_{T'}(v)$ ein Vielfaches von $4$.
+\end{lemma}
+\begin{proof}
+Für jede Kante $(v,v')$ gilt $h_T(v')=h_T(v)+1$ oder $h_T(v')=h_T(v)-3$. Wenn also der Unterschied für $v$ ein vielfaches von $4$ ist, dann muss das auch für seinen Nachbarn $v'$ gelten. Laut Voraussetzung ist aber $h_T(v_0)=h_{T'}(v_0)$, was ein Vielfaches von 4 ist. Induktiv muss diese Aussage also auch für alle andern Knoten gelten.
+\end{proof}
+
+Die Höhenfunktion für Domino Tilings ist also wohldefiniert und legt intuitiv nahe, folgende Ordnung auf Domino Tilings zu definieren: $$T\le T' \iff h_T(v)\le h_{T'}(v)\, \forall v\in V$$. Wir wollen zeigen, dass das tatsächlich ein distributiver Verband ist. 
+
+\begin{theorem}
+Seien $T,T'$ Domino Tilings und die Höhenfunktion so dass $v_0$ auf dem Rand liegt und $h_T(v_0)=h_{T'}(v_0)$. Dann sind die Funktionen $\min (h_T,h_{T'})$ und $\max (h_T,h_{T'})$ ebenfalls Höhenfunktionen von Domino Tilings.
+\end{theorem}
+\begin{proof}
+Wir werden hier nur die Aussage für $\min (h_T,h_{T'})$ zeigen, der Beweis für $\max (h_T,h_{T'})$ funktioniert analog. Zu zeigen ist, dass $\min (h_T,h_{T'})$ und $\max (h_T,h_{T'})$ eine Höhenfunktion wie in Lemma \ref{3bedinglemma} ergeben, dann ist dies auch sofort die Höhenfunktion eines Domino Tiling.\\
+Betrachte ein Paar $v,v'$ von benachbarten Knoten mit der gerichteten Kante $(v,v')$. Wenn nun gilt $$h_T(v)<h_{T'}(v)$$ dann folgt sofort $h_T(v)\le h_{T'}(v)-4$. Andererseits muss im jeweiligen Tiling die Höhenfunktion konsistent sein, d.h. es gilt insbesondere $h_T(v')\le h_T(v)+1$ und $h_{T'}(v')\ge h_{T'}(v)-3$.
+Zusammen erhalten wir:
+$$h_T(v')\le h_T(v)+1\le h_{T'}(v)-4+1\le h_{T'}(v')+3-4+1=h_{T'}(v')$$
+Das bedeutet $h_T(v)<h_{T'}(v)\Rightarrow \min(h_T(v'),h_{T'}(v'))=h_T(v')$, die Höhenfunktion setzt sich also auf de Nachbarn von $v$ fort, wenn die Werte in $v$ ungleich sind (der Fall $h_T(v)>h_{T'}(v)$ ist analog), dies sichert die Konsistenz der zweiten Bedingung aus Lemma \ref{3bedinglemma}. Wo die beiden Höhenfunktionen die gleichen Werte annehmen, ist die Konsistenz sowieso klar, da $h_T, h_{T'}$ Höhenfunktionen sind.
+\end{proof}
+
+\begin{cor}
+Die oben definierte Ordnung auf planaren Domino Tilings $$T\le T' \iff h_T(v)\le h_{T'}(v)\, \forall v\in V$$ induziert einen distributiven Verband. 
+\end{cor}
+\begin{proof}
+Eine Menge von Vektoren mit der Dominanzordnung, die unter Maximums- und Minimumsbildung abgeschlossen ist bildet einen distributiven Verband. Fasse also die Höhenfunktionen als entsprechende Vektoren auf, der obige Satz zeigt, dass max/min jeweils wieder Höhenfunktionen sind.
+\end{proof}
+
+% beziehung zu flips 
+Nun kann man sich die Frage stellen, wie denn der Übergang zu einem jeweils nächstgrößeren/kleineren Element in diesem Verband aussieht. Die Antwort lautet: es sind Flips, wie wir sie auch in dem Beweis für allgemeine $\alpha$-Orientierungen verwenden werden. 
+Ein Flip (Face-Flip) ist dabei das ersetzen von zwei nebeneinanderliegenden horizontalen durch zwei  nebeneinanderliegende vertikale Dominos oder anders herum. 
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/thurston3.pstex_t}}
+  \caption{Darstellung der Flips von benachbarten Dominos, links ist der jeweils kleinere}
+\end{figure}
+
+Bei einem solchen Flip wird genau der Wert des Knotens in der Mitte der beiden geflippten Dominos um $\pm 4$ verändert, auf allen anderen Knoten bleibt die Höhenfunktion dabei konstant - die Höhenfunktion ist ja für jeden Knoten $v$ durch die Höhendiffernez auf einem legalen Weg von $v_0$ zu $v$ definiert der bis auf den Knoten in der Mitte der beiden Dominos ja unberührt bleibt. Im Bild ist angenommen, dass die schraffierten Zellen von den Kanten des Graphen gegen den Uhrzeigersinn und die weißen im Uhrzeigersinn umlaufen werden. Macht man sich klar, wie dann die Höhendifferenz auf dem letzten Stück zum Mittelknoten sich ändert, sieht man dass die dargestellten Flips in Pfeilrichtung "'aufwärts"' gehen.\\
+
+Da sich diese Arbeit mit "'Domino Tilings auf dem Torus"' beschäftigen will, muss man hier natürlich Fragen ob dieser Ansatz sich auf torische Domino Tilings ebenfalls anwenden lässt. Wo wurde die Planarität explizit ausgenutzt? Wo ergeben sich Probleme, wenn man die Höhenfunktion auf den Torus übertragen will? \\
+\begin{itemize}
+\item Zum einen ist nicht klar, ob die Höhenfunktion noch wohldefiniert ist. Bei ungerader Breite/Höhe, gemessen in Anzahl der Zellen, ist die Höhendifferenz eines legalen Weges nicht mehr unabhängig vom Weg! Die Definition müsste also angepasst werden.
+\item Die Azyklizität der Ordnungsrelation ist auf dem Torus nicht mehr gegeben, siehe Abbildung
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{0.7}
+  {\input{Bilder/thurston4.pstex_t}}
+  \caption{Eine Folge von Flips auf einem torischen Domino Tiling, die wieder zum ursprünglichen Tiling bei echt größerer Höhenfunktion führt}
+\end{figure}
+
+\section{Verallgemeinerung: $\alpha$-Orientierungen}
+
+Wir haben bereits $\alpha$-Orientierungen von Graphen definiert und gesehen, dass diese ebenso Wie Höhenfunktionen Domino Tilings kodieren können. Darüber hinaus ist das Konzept der $\alpha$-Orientierungen ohne Probleme auf den Torus zu übertragen.\\
+
+Wir beweisen hier eine analoge Aussage wie oben, diesmal aber allgemeiner für beliebige $\alpha$-Orientierungen. 
+
+\begin{theorem}
+Sei ein planarer Graph $G$ mit einer festen, kreuzungsfreien Einbettung in die Ebene gegeben. Die Menge aller $\alpha$-Orientierungen von $G$ hat die Struktur eines distributiven Verbandes.
+\end{theorem}
+
+
+
+\begin{proof}
+
+\begin{itemize}
+\item Wir betrachten nach Aussage des Satzes nur essentielle Kreise, und für diesen Beweis eine feste kreuzungsfreie Einbettung des Graphen. Kanten, die in allen $\alpha$-Orientierungen gleich gerichtet sind, liegen nie in einem gerichteten Kreis, da das umdrehen dieses gerichteten Kreises wieder eine $\alpha$-Orientierung erzeugt, in der diese Kante anders gerichtet wäre. Folglich liegt die Kante in einem gerichteten Schnitt. %(In einem gerichteten Graphen liegt jede Kante entweder in einem gerichteten Kreis oder in einem gerichteten Schnitt.) 
+Transformiere den gegebenen Graphen $D$ zu $D'$ indem alle gerichteten Schnitte in $D$ gelöscht werden und betrachte die auf die Knoten von $D'$ eingeschränkte $\alpha$-Orientierung $\alpha '$. $D'$ ist nun stark zusammenhängend.
+
+\item Betrachte nun den Differenzgraphen der beiden ineinander zu überführenden Orientierungen. Da die Gesamtzahl der eingehenden und ausgehenden Kanten an jedem Knoten gleich bleibt, hat der Differenzgraph an jedem Knoten genausoviele eingehende wie ausgehende Kanten - mit anderen Worten er ist eine Eulersche Orientierung. Diese lässt sich in eine kantendisjunkte Menge von gerichteten Kreisen zerlegen, deren Richtung nun umzudrehen ist. Diese sind nicht unbedingt essentiell, lassen sich aber aus solchen Kreisen zusammensetzen: %bild einfügen?
+\item 
+%(brauch ich nicht???:  Da die Menge der zu drehenden Kreise kantendisjunkt ist, kann man die Kreiszerlegung so wählen, dass das Innere zweier Kreise entweder disjunkt ist oder das Innere eines Kreises vollständig in dem anderen Kreis liegt.
+Sei ein einfacher gerichteter Kreis $C$ in $D'$ gegeben, der zu drehen ist. Falls dieser ein Face-Kreis ist sind wir fertig. Falls nicht, dann muss es zwei Kreisknoten $u$ und $v$ und eine Kante oder einen gerichteten Pfad $p$ im Innern von $u$ nach $v$  geben. 
+Zerlege $C$ nun an diesem Pfad in $C_1=p+ (v,u)-\text{Pfad in }C$ und $C_2=\overleftarrow{p}+ (u,v)-\text{Pfad in }C$. Das Drehen von $C_1$ und anschließend $C_2$ ergibt dann den gleichen Graphen wie das Drehen von $C$. Da beide neuen Kreise kleiner sind, kann man induktiv fortfahren und muss so nur Face-Kreise von $D'$ bzw essentielle Kreise von $D$ benutzen.
+\end{itemize}
+\end{proof}

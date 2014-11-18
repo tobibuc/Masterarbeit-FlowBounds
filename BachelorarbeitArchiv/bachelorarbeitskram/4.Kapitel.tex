@@ -1,0 +1,84 @@
+
+Wie wir nun wissen, kann man nicht unbedingt erwarten mit wenigen Kreisklassen den Flipzusammenhang wieder herzustellen. %TODO Es waere gut nen Beweis zu haben dass es nicht mit konstant vielen Kreisklassen geht...
+Allerdings wissen wir auch, dass sich bestimmte Kreisflips durch mehrere andere erzeugen lassen. Wir betrachten deshalb die Kombination von Faces und anderen Kreisklassen.
+ Dabei ist das, was in diesem Kapitel zu finden ist, nur ein Anfang, in dem per Hand einige Kreise aus anderen konstruiert werden. W\"unschenswert w\"are nat\"urlich eher ein Ergebnis, dass allgemein angibt wie viele Kreise man sparen kann wenn man eine bestimmte Menge von Kreisen zu flippen erlaubt - leider ist mir so etwas nicht gelungen. Außerdem ist zu beachten, dass nicht klar ist, ob eine Menge von Kreisen mit denen man den Flipzusammenhang nachweisbar nicht herstellen kann auch bedeutet, dass man dies nicht doch mit einer kleinen Menge von Kreisen bewerkstelligen kann.\\
+
+Face-Flips sind sehr nat\"urlich und erm\"oglichen uns bereits eine sehr gro\ss e Anzahl von Kreisklassen zu flippen, außerdem ein natürlicher Teil der Kreisraumbasis. Deshalb werden wir immer Face-Flips zulassen. Da diese wie gezeigt nicht ausreichen, brauchen wir mindestens eine weitere Klasse von Kreisen deren Flips wir erlauben. Das einfachste Beispiel hierfür sind die Kreise, die ohne einen Knick immer geradeaus gehen, aus Symmetriegr\"unden nehmen wir gleich sowohl die horizontalen als auch die vertikalen Kreise.
+
+\begin{definition}
+Die Menge der Knoten $(x,y)$, die im torischen Gittergraphen der $(3,1)$-Orientierung die jeweils gleiche Koordinate $x$ oder die gleiche Koordinate $y$ haben, nennen wir horizontale oder vertikale Achse des Graphen. Ein Kreis in diesem Graphen heißt gerade, wenn alle seine Knoten auf der gleichen Achse liegen.\\
+
+Als Beule (bezüglich einer Achse) bezeichnen wir einen Pfad $P$, so dass $P$ nur Start- und Endknoten auf der Achse hat und mit Kanten des geraden Kreises dieser Achse zu einem einfachen nullhomologen Kreis erweitert werden kann. Die Länge der Beule ist dabei der maximale Abstand eines Punktes auf $P$ zur Achse bezüglich der Seite, zu der $P$ die Achse verlässt und betritt. Die Breite ist die Anzahl der Kanten, die auf dem geraden Achsenkreis benötigt werden, um $P$ zu einem einfachen nullhomologen Kreis zu erweitern.
+\end{definition}
+
+%Bild?
+Was bringt uns das nun? Wir werden sehen, dass sich Kreise mit schmalen Beulen sich durch gerade und Face-Kreise erzeugen lassen. 
+%[schon oben definiert]Eine Ausstülpung des Kreises ist dabei ein Teil des Kreises, der von der Hauptrichtung zu einer Seite des Kreises abzweigt und auf der gleichen Seite wieder in den Hauptkreis einm\"undet. 
+
+Betrachte als Hauptkreis einen geraden Kreis mit einer Beule der Breite 1, der gerichtet ist, also theoretisch im ganzen flipbar w\"are. Im folgenden Bild sieht man sehr gut, wie leicht sich diese aus Facekreisen und dem Hauptkreis zusammensetzen lässt. 
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/beule1.pstex_t}}
+\caption{Beispiel wie eine Ausstülpung durch eine Kombination mit nullhomologen Kreisen geflippt wird}
+\end{figure}
+
+Gleiches funktioniert nicht nur in diesem Beispiel, sondern für Beulen der Breite 1 bei beliebiger Länge: die Beule an sich ist ja ein nullhomologer Kreis, der bis auf die mit dem Hauptkreis geteilte Kante gerichtet sein muss. Diese Kante kann wenn sie entgegen den anderen gerichtet ist durch das flippen des Hauptkreises umgedreht werden, andernfalls ist sie für den Hauptkreis ungerichtet und wird durch den Flip des nullhomologen Kreises gedreht. Dabei muss man natürlich die Reihenfolge beachten, das ganze ist in Abbildung \ref{beule2}
+schematisch dargestellt.\\
+
+\begin{figure}[h!]
+
+  \centering
+  \scalebox{1}{\input{Bilder/beule2.pstex_t}}
+\caption{Unterschiedliche Reihenfolge des der Flips, abhängig von der Richtung der (roten) Zwischenkante}
+\label{beule2}
+\end{figure}
+
+Dieses Vorgehen wird schwieriger, wenn die Breite der Beulen zunimmt. Die hier rot gemalte Zwischenkante wird zu einem Pfad von mehreren Zwischenkanten. Diese sind dann aber möglicherweise nicht gerichtet!  Abbildung \ref{2erbeule}
+verdeutlicht das Problem:\\
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/2erbeule.pstex_t}}
+\caption{Bei dieser $2\times 1$ Beule ist es nicht mehr direkt möglich, entlang des schwarz eingezeichneten Kreises einen Flip aus dem geraden Kreis und einem nullhomologen Kreis zusammenzusetzen. Im Domino Tiling (rechte Darstellung) erkennt man, dass es nicht mal klar ist ob überhaupt Face-Flips möglich sind.}
+\label{2erbeule}
+\end{figure}
+
+
+Wie es scheint können wir bei dieser Form von Beulen zumindest mit der obigen Methode nichts erreichen. Die gute Nachricht ist aber: Wir sind nicht bei allen größeren Ausstülpungen verloren. Häufig ist es möglich, zumindest einen Teil des Kreises über Faceflips zu drehen. % und das was übrigbleibt ist dann eben eine solche $2\times 1$ Beule.? ->NEIN
+Betrachte die Situation in einer Ecke (Abb \ref{abkuerzung}) 
+
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/beule3.pstex_t}}
+\caption{Eine der beiden grünen Kanten muss eine eingehende Kante in den gemeinsamen Knoten sein. Alle nichtgrünen Kanten folgen zwangsweise aus der Form des Pfades. Je nachdem wie man die Kantenrichtung wählt, erhält man entweder eine Abkürzung des großen Kreises, oder man erhält einen kleinen nullhomologen Kreis aus zwei Faces den man flippen kann. In beiden Fällen reduziert sich die Größe des benötigten Kreises.}
+\label{abkuerzung}
+\end{figure}
+
+Analog dazu ist das Bild, wenn der Eckknoten 3 eingehende und eine ausgehende Kante hat, nur dass die Wege dann jeweils in die andere Richtung laufen. Es genügt also, einen kleineren Kreis zuzulassen um den größeren zu erzeugen. Dieses Argument kann man nun induktiv immer weiter fortführen, da in der Regel auch der entsprechende kleinere Kreis eine solche Ecke besitzt. 
+Wie weit kann man die Größe der Beulen so einschränken? Leider kann das Domino Tiling durchaus so aussehen, dass ein großer Teil der Beule übrig bleibt. Wir können also damit nur Ecken ausschließen, die aus "' hoch, hoch, rechts, rechts"' oder entsprechend gedrehten/gespiegelten Kanten bestehen.\\ Betrachte dazu Abbildung \ref{problembeule}
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/beule4.pstex_t}}
+\caption{Beispiel einer Beule, in der man keinen Face-Flip mehr anwenden kann um die Größe zu reduzieren}
+\label{problembeule}
+\end{figure}
+
+sie zeigt ein Beispiel an dem keine solchen Ecken mehr vorhanden sind. Mit dem geraden Kreis als Grundkreis sind wir an dieser Stelle also auch am Ende, da wir im Gegensatz zu den Beulen der Breite 1 diese breiteren nicht durch Facekreise zusammensetzen können. Bei Breite 2 kommt es bereits auf die Länge an: ist die Länge gerade, dann lassen sie sich ebenso wie Beulen der Breite 1 durch Facekreise und den Grundkreis zusammensetzen, ist die Länge ungerade funktioniert das allerdings auch schon nicht mehr.
+
+
+%%% FAZIT
+\section{Fazit}
+
+Wie wir gesehen haben, lassen sich die positiven Resultate aus dem planaren Fall hier nicht direkt auf den Fall der torischen Domino Tilings erweitern. Insbesondere steigt die Zahl der benötigten Kreisklassen von einer (Face-Kreise) auf möglicherweise beliebig viele abhängig von der Gittergröße. Dadurch ist insbesondere nicht klar, wie man möglichst günstig Flipzusammenhang konstruieren kann. Gleichzeitig konnte ich nicht zeigen, dass eine große Menge ungünstiger Kreisklassen auch implizieren, dass es keine kleinen Mengen gibt die ausreichend sind. Wir haben im letzten Kapitel gesehen, dass man durchaus Kreise aus anderen zusammensetzen kann, zumindest für den Fall von Faces und einem Grundkreis der nicht nullhomolog ist. 
+
+Eine interessante Fragestellung wäre nun zum Beispiel, ob durch das Zusammenspiel mehrerer nicht nullhomologer Kreise mit Facekreisen deutlich mehr zu erreichen ist. Auf allgemeinen $\alpha$-Orientierungen stimmt es leider auch nicht, dass alle nullhomologen Kreise sich immer durch Faces zusammensetzen lassen, es wäre interessant zu sehen ob das auch für die Orientierungen gilt, die durch Domino Tilings induziert werden. %TODO geht da nicht mehr???
+Ebenfalls konnte ich für aus Domino Tilings entstandene Graphen nicht zeigen, ob die Bedingung aus Lemma \ref{notwBed} auch hinreichend ist. 
+
+\subsection*{Dank}
+
+An Kolja Knauer, der sich persönlich wie per Mail die Zeit genommen hat um mich zu betreuen, sich immer wieder meine Ideen angehört und dazu wertvolle Ideen entwickelt und mir Hinweise gegeben hat, insbesondere Lemma \ref{notwBed} betreffend - Danke!
+
+%TODO hier weitergehen und genau sagen, wie weit die Größe sich reduziert!!!
+

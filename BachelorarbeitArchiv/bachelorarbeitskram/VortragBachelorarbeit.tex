@@ -1,0 +1,202 @@
+
+
+\documentclass{beamer}
+\graphicspath{{/home/tobias/Dropbox/bachelorarbeitskram/Bilder/}}
+
+\begin{document}
+\title{Domino Tilings auf dem Torus}   
+\author{Tobias Buchwald} 
+\date{\today} 
+
+\frame{\titlepage} 
+
+\frame{\frametitle{Inhaltsverzeichnis}\tableofcontents} 
+
+
+\section{Definitionen}
+\frame{
+\textbf{Definition}\\
+Wir betrachten das zweidimensionale ganzzahlige Gitter, d.h. den (unendlichen) planaren Graphen $\mathcal{G}=(V,E)$ mit den Knoten $V=\mathbb{Z}^2$ und Kanten $E=\{e=\{x,y\}| x,y\in V,\, (|x_1-y_1|=1\land x_2=y_2)\lor (x_1=y_1\land |x_2-y_2|=1)\}$.
+
+Wir nennen den Raum zwischen den vier benachbarten Punkten $(x,y),(x+1,y),(x,y+1),(x+1,y+1) $ mit $x,y\in \mathbb{N}$  eine \textit{Zelle} dieses Gitters, die Verbindungsgerade zwischen zwei ganzzahligen Punkten eine \textit{Seite} der entsprechenden Zelle. Ein \textit{Domino} ist nun die Vereinigung von genau zwei Zellen, die sich eine gemeinsame Seite teilen.\\
+Ein \textit{Domino Tiling} ist nun die \"Uberdeckung einer Menge $\mathcal{Z}$ von Zellen durch Dominos mit disjunktem Inneren, wobei keine Zelle $z\notin \mathcal{Z}$ \"uberdeckt sein darf.
+}
+\subsection{Alternative Darstellungsformen}
+\frame{
+\textbf{Perfekte Matchings in Gittergraphen}\\
+Es gibt von den Domino Tilings eine \"Aquivalenz zu perfekten Matchings von Gittergraphen:
+
+Sei ein Domino Tiling $T$ gegeben. Konstruiert man einen Graphen, dessen Knoten jeweils in der Mitte der Zellen der Dominos aus $T$ liegen, und verbindet diese Knoten jeweils mit den direkten horizontalen und vertikalen Nachbarn, so erh\"alt man einen Gittergraphen $G$.
+
+Die Kanten von $G$, die komplett innerhalb eines Dominos liegen, sind die Kanten eines perfekten Matchings. Ist andererseits ein Gittergraph $G$ gegeben mit einem perfekten Matching $M$, l\"asst sich daraus ein eindeutiges Domino Tiling konstruieren.
+}
+
+\frame{
+\textbf{$\alpha$-Orientierungen des Gittergraphen}\\
+Eine \textit{$\alpha$-Orientierung} ist eine Orientierung der Kanten eines Graphen, so dass zu einer Abbildung $\alpha : V\to \mathbb{N} $ der Ausgrad $out(v)=\alpha(v) \forall v\in V$ ist, $\alpha$ gibt also die Anzahl der ausgehenden Kanten an. 
+
+Sei $k$ die Anzahl der benachbarten Zellen, die nicht in der zu überdeckenden Region liegen. Dann k\"onnen wir unser $\alpha$ definieren als:
+$$\alpha(v)=
+\begin{cases}
+1 & v_1+v_2 \text{ ungerade, wir sagen v ist ungerader Knoten}\\
+3-k & v_1+v_2 \text{ gerade, wir sagen v ist gerader Knoten}
+\end{cases}
+$$
+
+F\"ur jeden Knoten gibt es nun eine eindeutig Kante, die der Matchingkante im perfekten Matching entspricht.
+Im folgenden wird eine solche $\alpha$-Orientierung als $(3,1)$-Orientierung bezeichnet.
+}
+
+\section{Motivation - der planare Fall}
+\frame{
+\textbf{Motivation}\\
+
+\begin{itemize}
+\item Face-Flips: lokale Transformationen (Drehen eines Face-Kreises der $\alpha$-Orientierung)
+\item induzieren in einfach zsh. planaren Domino-Tilings/Matchings/$\alpha$-Orientierungen einen distributiven Verband
+\item Frage: wie sieht es damit auf nichtplanaren Oberfl\"achen aus? Zum Beispiel auf dem Torus? Ist hier \"uberhaupt noch Flipzusammenhang gegeben?
+\item Ergebnis von Kolja Knauer: Man benötigt als flipbare Kreise eine Basis des Kreisraumes um den Flipzusammenhang zu erhalten. Auf torischen $(2,2)$-Orientierungen des Gittergraphen ist dies auch ausreichend.
+\item L\"asst sich das auf torische Domino Tilings verallgemeinern?
+\end{itemize}
+}
+
+\frame{
+Die Beweise des planaren Falls (Thurstons H\"ohenfunktion sowie $\alpha$-Orientierungen) lassen sich nicht auf den Torus \"ubertragen, denn
+\begin{itemize}
+\item Auf dem Torus ist die Wohldefiniertheit nicht mehr gegeben, falls eine Seitenl\"ange ungerade ist
+\item Facekreise reichen f\"ur den Flipzusammenhang nicht mehr aus
+\item Um eine azyklische Relation zu erreichen muss ein Face fixiert werden (im planaren das \"au\ss ere), hier ist aber nicht klar welches und ob das reicht
+\end{itemize}
+Es stellt sich die Frage mit welchen Kreisen wir den Flipzusammenhang wieder herstellen k\"onnen!
+}
+
+\section{Einige Beispiele}
+\frame{
+\begin{figure}[h!]
+  \centering
+  {\input{Bilder/ex0.pstex_t}}
+\caption{Ein Domino Tiling des Torus (gegenüberliegende Seiten identifiziert) , bei dem kein Face-Flip möglich ist}
+\end{figure}
+}
+\frame{
+ \begin{figure}[h!]
+\label{ggbsp1}  
+  \centering
+  \scalebox{0.9}{\input{Bilder/ggbsp1.pstex_t}}
+  \caption{Die Ausgangskonfiguration und die Endkonfiguration sind bis auf eine Verschiebung gleich.}
+\end{figure}
+}
+\frame{
+\begin{figure}[h!]
+\label{ex1}
+  \centering
+  \scalebox{1}{\input{Bilder/ex1.pstex_t}}
+\caption{Beispiel, in dem Faces (gelb markiert) drehbar sind. Lassen sich hieraus mit den obigen Kreisen alle Orientierungen erzeugen?}
+\end{figure}
+}
+\frame{
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/ex2.pstex_t}}
+  \caption{Beipiel 2 }
+\end{figure}
+}
+\frame{
+\begin{figure}[h!]
+  \centering
+  \scalebox{0.7}{\input{Bilder/ex2orientierung.pstex_t}}
+  \caption{nochmal Beispiel 2 mit dem zugehörigen gerichteten Graph}
+\end{figure}
+}
+
+\section{Eine Bedingung f\"ur Flip-Nichtzusammenhang}
+
+\frame{
+Wie k\"onnen wir also beweisen, dass bestimmte Kreisklassen oder Kreise NICHT jede Orientierung erzeugen?
+\begin{itemize}
+\item Idee: wir betrachten eine Orientierung, in der die Kreisklassen die uns interessieren bis auf einige Faces nicht gerichtet sind
+\item Es gibt eine Orientierung in der Kreise dieser Kreisklassen gerichtet sind
+\item Falls wir mittels Face-Flips keinen Kreis unserer Kreisklassen gerichtet machen k\"onnen, haben wir gezeigt dass diese Klassen nicht reichen, um den Flipzusammenhang wieder herzustellen
+
+\end{itemize}
+}
+
+\frame{
+\textbf{Definition}
+Sei ein Kreis $C$ und ein Knoten $v$ auf diesem Kreis gegeben. Sind die beiden in $C$ zu $v$ inzidenten Kanten in Durchlaufrichtung des Kreises entgegengesetzt gerichtet, so nennen wir diesen Knoten eine Konfliktstelle von $C$.
+}
+\frame{
+
+\textbf{Lemma}
+
+Sei ein Kreis $C$ in einer torischen $(deg-1,1)$-Orientierung gegeben. 
+Sei $M_{ein}$ die Anzahl der (in Durchlaufrichtung) auf der rechten Seite in $C$ eingehenden Matchingkanten des Graphen und $M_{aus}$ die Anzahl der auf dieser Seite aus $C$ ausgehenden Matchingkanten an Konfliktstellen. \\
+Dann ist f\"ur jede Folge von Face-Flips im Graphen die Differenz $M_{ein}-M_{aus}$ f\"ur $C$ konstant.\\
+
+\vspace*{10pt}
+
+\textbf{Korollar}\\
+Wenn zu einer Seite des Kreises, oBdA in Durchlaufrichtung rechts, die Anzahl der in diese Richtung an den Konfliktstellen ausgehenden Matchingkanten ungleich der aus dieser Richtung an Konfliktstellen eingehenden Matchingkanten ist, so kann man den Kreis nicht durch flippen einer Folge von Face-Kreisen in einen gerichteten \"uberf\"uhren.\\
+
+[Beweis...]
+}
+
+\frame{
+\textbf{Was bringt das?}\\
+Sei ein torisches Domino Tiling $T$ gegeben, so dass $k$ Kreise die Bedingung aus dem Lemma nicht erf\"ullen,  um durch Face-Flips in gerichtete Kreise \"uberf \"uhrt zu werden, die also an Konfliktstellen ungleich viele eingehende und ausgehende Kanten haben. Dann hat das "verdoppelte" Domino Tiling $T^2$ mindestens genauso viele Kreise mit dieser Eigenschaft. Hierdurch erhalten wir beliebig gro\ss e Beispiele in denen bestimmte Kreisklassen nicht flipbar sind.\vspace*{10pt}
+
+Die Anzahl der Kreisklassen, für die man zeigen kann, dass sie gemeinsam mit Face-Flips nicht gen\"ugen um alle Orientierungen zu erzeugen, ist unbeschr\"ankt, d.h. sie w\"achst mit der Gr\"o\ss e des Gitters.
+}
+
+\section{Zusammensetzen mehrerer Kreise}
+\frame{
+Wie kann man nun die ben\"otigten Kreisklassen einschr\"anken? Welche Kreise lassen sich aus anderen zusammensetzen?
+}
+
+\frame{
+Wir betrachten als Grundmenge alle Face-Kreise des Graphen und nehmen an, dass es dazu einen Grundkreis gibt den wir flippen dürfen und einen Kreis, der gerichtet (also flipbar) ist, den wir aber nicht direkt flippen wollen. Was kann passieren?
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/beule1.pstex_t}}
+\end{figure}
+
+Wir sehen hier, dass man "Beulen" der Breite 1 aus dem Grundkreis und Face-Kreisen zusammensetzen kann.
+}
+\frame{
+\begin{figure}[h!]
+
+  \centering
+  \scalebox{1}{\input{Bilder/beule2.pstex_t}}
+\caption{Unterschiedliche Reihenfolge des der Flips, abh\"angig von der Richtung der (roten) Zwischenkante}
+\label{beule2}
+\end{figure}
+}
+\frame{
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/2erbeule.pstex_t}}
+\caption{Bei dieser $2\times 1$ Beule ist es nicht mehr direkt m\"oglich, entlang des schwarz eingezeichneten Kreises einen Flip aus dem geraden Kreis und einem nullhomologen Kreis zusammenzusetzen. Im Domino Tiling (rechte Darstellung) erkennt man, dass es nicht mal klar ist ob \"uberhaupt Face-Flips m\"oglich sind.}
+\label{2erbeule}
+\end{figure}
+}
+
+\frame{
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/beule3.pstex_t}}
+\caption{Eine der beiden gr \"unen Kanten muss eine eingehende Kante in den gemeinsamen Knoten sein. Alle nichtgr\"unen Kanten folgen zwangsweise aus der Form des Pfades. Je nachdem wie man die Kantenrichtung wählt, erh\"alt man entweder eine Abk\"urzung des gro\ss en Kreises, oder man erh\"alt einen kleinen nullhomologen Kreis aus zwei Faces den man flippen kann. In beiden F\"allen reduziert sich die Gr\"o\ss e des ben\"otigten Kreises.}
+\label{abkuerzung}
+\end{figure}
+}
+\frame{
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/beule4.pstex_t}}
+\caption{Beispiel einer Beule, in der man keinen Face-Flip mehr anwenden kann um die Größe zu reduzieren}
+\label{problembeule}
+\end{figure}
+
+}
+
+\end{document}

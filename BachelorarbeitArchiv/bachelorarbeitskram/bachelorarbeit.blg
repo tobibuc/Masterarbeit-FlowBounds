@@ -1,0 +1,65 @@
+This is BibTeX, Version 0.99c (TeX Live 2009/Debian)
+The top-level auxiliary file: bachelorarbeit.aux
+A level-1 auxiliary file: Erklaerung.aux
+The style file: amsplain.bst
+Database file #1: literatur.bib
+You're missing a field name---line 58 of file literatur.bib
+ : 
+ : %note = "<ce:title>Discrete Applied Problems - Florilegium for E. Goles</ce:title>",
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+I was expecting a `,' or a `}'---line 121 of file literatur.bib
+ : 
+ : %language={English}
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+You're missing a field name---line 145 of file literatur.bib
+ : 
+ : %    language = {Anglais},
+(Error may have been on previous line)
+I'm skipping whatever remains of this entry
+Warning--missing booktitle in fernique
+Warning--missing year in fernique
+Warning--missing pages in ProppLattice
+You've used 11 entries,
+            2213 wiz_defined-function locations,
+            580 strings with 5595 characters,
+and the built_in function-call counts, 3195 in all, are:
+= -- 279
+> -- 112
+< -- 0
++ -- 48
+- -- 34
+* -- 278
+:= -- 515
+add.period$ -- 11
+call.type$ -- 11
+change.case$ -- 50
+chr.to.int$ -- 0
+cite$ -- 14
+duplicate$ -- 124
+empty$ -- 301
+format.name$ -- 34
+if$ -- 662
+int.to.chr$ -- 0
+int.to.str$ -- 11
+missing$ -- 21
+newline$ -- 43
+num.names$ -- 22
+pop$ -- 68
+preamble$ -- 1
+purify$ -- 39
+quote$ -- 0
+skip$ -- 62
+stack$ -- 0
+substring$ -- 251
+swap$ -- 14
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 44
+warning$ -- 3
+while$ -- 31
+width$ -- 13
+write$ -- 99
+(There were 3 error messages)

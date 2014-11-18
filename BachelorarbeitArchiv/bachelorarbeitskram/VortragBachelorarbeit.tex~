@@ -1,0 +1,24 @@
+
+
+\documentclass{beamer}
+\graphicspath{{/home/tobias/Dropbox/bachelorarbeitskram/Bilder/}}
+
+\begin{document}
+\title{Domino Tilings auf dem Torus}   
+\author{Tobias Buchwald} 
+\date{\today} 
+
+\frame{\titlepage} 
+
+\frame{\frametitle{Inhaltsverzeichnis}\tableofcontents} 
+
+
+\section{Definitionen}
+Wirüüü betrachten das zweidimensionale ganzzahlige Gitter, d.h. den (unendlichen) planaren Graphen $\mathcal{G}=(V,E)$ mit den Knoten $V=\mathbb{Z}^2$ und Kanten $E=\{e=\{x,y\}| x,y\in V,\, (|x_1-y_1|=1\land x_2=y_2)\lor (x_1=y_1\land |x_2-y_2|=1)\}$.
+
+Wir nennen den Raum zwischen den vier benachbarten Punkten $(x,y),(x+1,y),(x,y+1),(x+1,y+1) $ mit $x,y\in \mathbb{N}$  eine \textit{Zelle} dieses Gitters, die Verbindungsgerade zwischen zwei ganzzahligen Punkten eine \textit{Seite} der entsprechenden Zelle. Ein \textit{Domino} ist nun die Vereinigung von genau zwei Zellen, die sich eine gemeinsame Seite teilen. Mit anderen Worten ist ein Domino ein achsenparalleles Rechteck mit ganzzahligen Ecken und Seitenlängen $1$ und $2$. \\
+Ein \textit{Domino Tiling} ist nun die Überdeckung einer Menge $\mathcal{Z}$ von Zellen durch Dominos mit disjunktem Inneren, wobei keine Zelle $z\notin \mathcal{Z}$ überdeckt sein darf. 
+
+
+
+\end{document}

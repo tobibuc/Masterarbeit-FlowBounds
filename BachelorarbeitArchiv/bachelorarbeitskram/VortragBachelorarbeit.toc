@@ -1,0 +1,7 @@
+\beamer@endinputifotherversion {3.10pt}
+\beamer@sectionintoc {1}{Definitionen}{3}{0}{1}
+\beamer@subsectionintoc {1}{1}{Alternative Darstellungsformen}{4}{0}{1}
+\beamer@sectionintoc {2}{Motivation - der planare Fall}{6}{0}{2}
+\beamer@sectionintoc {3}{Einige Beispiele}{8}{0}{3}
+\beamer@sectionintoc {4}{Eine Bedingung f\"ur Flip-Nichtzusammenhang}{13}{0}{4}
+\beamer@sectionintoc {5}{Zusammensetzen mehrerer Kreise}{17}{0}{5}

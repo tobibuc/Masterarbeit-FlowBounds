@@ -1,0 +1,59 @@
+\providecommand{\bysame}{\leavevmode\hbox to3em{\hrulefill}\thinspace}
+\providecommand{\MR}{\relax\ifhmode\unskip\space\fi MR }
+% \MRhref is called by the amsart/book/proc definition of \MR.
+\providecommand{\MRhref}[2]{%
+  \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
+}
+\providecommand{\href}[2]{#2}
+\begin{thebibliography}{10}
+
+\bibitem{ConwayLagar}
+J.H Conway and J.C Lagarias, \emph{Tiling with polyominoes and combinatorial
+  group theory}, Journal of Combinatorial Theory, Series A \textbf{53} (1990),
+  no.~2, 183 -- 208.
+
+\bibitem{Felsner04latticestructures}
+Stefan Felsner, \emph{Lattice structures from planar graphs}, Elec. J. Comb
+  \textbf{15} (2004), 15.
+
+\bibitem{FelsnerKnauerULDlattices}
+Stefan Felsner and Kolja~B. Knauer, \emph{{ULD-Lattices and Delta-Bonds}},
+  Combinatorics, Probability \& Computing \textbf{18} (2009), 707--724.
+
+\bibitem{fernique}
+Thomas Fernique, Eric R{\'e}mila, and Olivier Bodini, \emph{{Characterizations
+  of Flip-Accessibility for Domino Tilings of the Whole Plane}}.
+
+\bibitem{Kasteleyn19611209}
+P.W. Kasteleyn, \emph{The statistics of dimers on a lattice: I. the number of
+  dimer arrangements on a quadratic lattice}, Physica \textbf{27} (1961),
+  no.~12, 1209 -- 1225.
+
+\bibitem{Knauer07partialorders}
+Kolja Knauer, \emph{Partial orders on orientations via cycle flips},
+  Diplomarbeit, \url{http://page.math.tu-berlin.de/~knauer/diplom.pdf}, 2007.
+
+\bibitem{LamZhang}
+PeterCheBor Lam and Heping Zhang, \emph{A distributive lattice on the set of
+  perfect matchings of a plane bipartite graph}, Order \textbf{20} (2003),
+  13--29.
+
+\bibitem{ProppLattice}
+J.~{Propp}, \emph{{Lattice structure for orientations of graphs}}, ArXiv
+  Mathematics e-prints (2002).
+
+\bibitem{Remila2004409}
+Eric R\'emila, \emph{The lattice structure of the set of domino tilings of a
+  polygon}, Theoretical Computer Science \textbf{322} (2004), no.~2, 409 --
+  422.
+
+\bibitem{TempFish}
+H.~N.~V. Temperley and Michael~E. Fisher, \emph{Dimer problem in statistical
+  mechanics-an exact result}, Philosophical Magazine \textbf{6} (1961), no.~68,
+  1061--1063.
+
+\bibitem{Thurston1990}
+William~P. Thurston, \emph{Conway's tiling groups}, The American Mathematical
+  Monthly \textbf{97} (1990), no.~8, pp. 757--773.
+
+\end{thebibliography}

@@ -1,0 +1,77 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[latin1]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{times, graphicx, currvita, hyperref, longtable, float, caption, subcaption}
+\usepackage{amsmath,amsfonts,amssymb, amsthm}%, dsfont, bbm, mathtools, stmaryrd}
+%\usepackage{fancyhdr}
+%\usepackage{color}
+%\usepackage[english]{babel}
+\usepackage{paralist}
+%\usepackage{algorithmic}
+\usepackage{wasysym}	% verschiedene Symbole, siehe http://rpi.edu/dept/arc/training/latex/LaTeX_symbols.pdf
+\graphicspath{{Bilder/}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem*{Def1}{Definition}
+\newtheorem*{ex}{Example}
+
+\newtheoremstyle{Tobi}{10pt}{}{}{}{\bf}{ }{\newline}{}
+% die parameter sind: {name}{platz drueber}{platz drunter}{schriftart text}{einrueckung}{schriftart kopf}{Punktierung des Kopfes}{Platz zwischen kopf und text}
+
+\theoremstyle{Tobi}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem*{Pro}{Proposition}
+\newtheorem{theorem}[definition]{Satz}
+%\newtheorem*{le}{Lemma}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{cor}[definition]{Korollar}
+\newtheorem*{conj}{Conjecture}
+
+\theoremstyle{remark}
+\newtheorem*{que}{Questions}
+\newtheorem*{claim}{Claim}
+\newtheorem*{obs}{Beobachtung:}
+\newtheorem*{note}{Note:}
+\newtheorem*{remark}{Remark}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathbb{F}}
+\newcommand{\1}{\mathbbm{1}}
+\newcommand{\Rn}{\mathbb{R}^n}
+\newcommand{\La}{\mathcal{L}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\Om}{\Omega}
+\newcommand{\pa}{\partial}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\ph}{\varphi}
+\newcommand{\sub}{\subseteq}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\title{Domino Tilings auf dem Torus}
+\author{Tobias Buchwald}
+\maketitle
+
+%\newpage
+
+%\tableofcontents
+
+\section{Einleitung} \input{1.Kapitel}
+\section{Einf\"uhrende Definitionen}\input{2.Kapitel}
+\section{Situation auf dem Torus}\input{3.Kapitel}
+\section{Einschr\"ankung der benoetigten Kreisklassen} \input{4.Kapitel}
+
+
+%\addcontentsline{toc}{section}{Literaturverzeichnis}
+%\bibliographystyle{plain}
+%\bibliography{literatur}
+%\nocite{*}
+
+\end{document}

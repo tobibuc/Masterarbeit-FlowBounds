@@ -1,0 +1,482 @@
+Wir betrachten das zweidimensionale ganzzahlige Gitter, d.h. den (unendlichen) planaren Graphen $\mathcal{G}=(V,E)$ mit den Knoten $V=\mathbb{Z}^2$ und Kanten $E=\{e=\{x,y\}| x,y\in V,\, (|x_1-y_1|=1\land x_2=y_2)\lor (x_1=y_1\land |x_2-y_2|=1)\}$.
+
+Wir nennen den Raum zwischen den vier benachbarten Punkten $(x,y),(x+1,y),(x,y+1),(x+1,y+1) $ mit $x,y\in \N$  eine \textit{Zelle} dieses Gitters, die Verbindungsgerade zwischen zwei ganzzahligen Punkten eine \textit{Seite} der entsprechenden Zelle. Ein \textit{Domino} ist nun die Vereinigung von genau zwei Zellen, die sich eine gemeinsame Seite teilen. Mit anderen Worten ist ein Domino ein achsenparalleles Rechteck mit ganzzahligen Ecken und Seitenlängen $1$ und $2$. \\
+Ein \textit{Domino Tiling} ist nun die Überdeckung einer Menge $\mathcal{Z}$ von Zellen durch Dominos mit disjunktem Inneren, wobei keine Zelle $z\notin \mathcal{Z}$ überdeckt sein darf. Wir werden im Folgenden immer davon ausgehen, dass die Menge $\mathcal{Z}$ die einem Tiling zugrundeliegt endlich ist.
+
+%äquivalenz mit matchings
+Es gibt von diesen Domino Tilings eine Äquivalenz zu perfekten Matchings von Gittergraphen:
+
+Sei ein Domino Tiling $T$ gegeben. Konstruiert man einen Graphen, dessen Knoten jeweils in der Mitte der Zellen der Dominos aus $T$ liegen, und verbindet diese Knoten jeweils mit den direkten horizontalen und vertikalen Nachbarn, so erhält man einen Gittergraphen $G$.
+\begin{obs}
+Die Kanten von $G$, die komplett innerhalb eines Dominos liegen, sind die Kanten eines perfekten Matchings. Ist andererseits ein Gittergraph $G$ gegeben mit einem perfekten Matching $M$, lässt sich daraus ein eindeutiges Domino Tiling konstruieren.
+\end{obs}
+
+\begin{proof}
+Jeder Knoten von $G$ gehört per Definition zu einem Domino, also hat jeder Knoten mindestens eine Kante aus $G$, die eine Matchingkante ist. Andererseits ist laut der Definition der Domino Tilings das Innere der Dominos disjunkt, also kann jeder Knoten nur zu einem Domino aus $T$ gehören. Somit gehört zu jedem Knoten genau ein Matchingkante.
+Ist ein Gittergraph mit einem perfekten Matching gegeben, dann können wir andererseits die Zellen so pflastern, dass ein Domino immer eine Matchingkante überdeckt. Dabei sind die Dominos disjunkt, da jeder Knoten nur eine Matchingkante hat, und sie decken alles ab, da in einem perfekten Matching jeder Knoten ein Matchingkante hat. 
+\end{proof}
+
+\begin{obs}
+\label{notwendigeBedFTiling}
+(Notwedige Bedingung) Wenn $|\mathcal{Z}|$ ungerade ist, dann kann es kein Domino Tiling für $\mathcal{Z}$ geben.
+\end{obs}
+\begin{proof}
+Da ein Matching immer genau eine Kante zu genau zwei Knoten zuordnet, muss ein perfektes Matching eine gerade Anzahl Knoten haben. Dementsprechend muss auch die Anzahl der Zellen, auf denen der Gittergraph $G$ definiert ist gerade sein.
+\end{proof}
+
+Dementsprechend gilt für Domino Tilings, dass z.B. bei einer rechteckigen Region nicht beide Seitenlängen ungerade sein dürfen, damit ein Tiling der Region existiert. %TODO hinreichende Bedingung??? (satz von hall, thurstons höhenfunktion...)
+Eine weitere Äquivalenz kann man zu den $\alpha$-Orientierungen des gleichen, nun aber gerichteten, Gittergraphen $\overrightarrow{G}$ finden. \\
+
+%alpha-or
+Eine \textit{$\alpha$-Orientierung} ist eine Orientierung der Kanten eines Graphen, so dass zu einer Abbildung $\alpha : V\to \N $ der Ausgrad $out(v)=\alpha(v) \forall v\in V$ ist, $\alpha$ gibt also die Anzahl der ausgehenden Kanten an. 
+Die Frage ob es für einen gegebenen Graphen eine $\alpha$-Orientierung gibt, lässt sich in polynomieller Zeit beantworten indem man auf einem leicht modifiziertem Graphen einen maximalen Fluss berechnet, siehe dazu  \cite{Felsner04latticestructures}.
+%TODO ALGO???
+
+%Betrachten wir unseren Graphen $\overrightarrow{G}$ als Gitter von ganzzahligen Punkten $v=(v_1,v_2)$, indem wir der Einfachheit halber die Koordinaten aus der obigen Definition abrunden.
+Wir haben oben $G$ bzw. $\overrightarrow{G}$ so definiert, dass die Knoten in der Mitte der Zellen $z\in \mathcal{Z}$ liegen. Daher haben alle Knoten von $G$ den Wert $n+\frac{1}{2}$ für ein $n\in \mathbb{Z}$. Die Summe zweier Koordinaten ist daher immer ganzzahlig.
+
+Sei $k$ die Anzahl der benachbarten Zellen, die nicht in der zu überdeckenden Region liegen. Dann können wir unser $\alpha$ definieren als:
+$$\alpha(v)=
+\begin{cases}
+1 & v_1+v_2 \text{ ungerade, wir sagen v ist ungerader Knoten}\\
+3-k & v_1+v_2 \text{ gerade, wir sagen v ist gerader Knoten}
+\end{cases}
+$$
+Jeder Knoten (im Inneren) des Graphen hat nun entweder eine eingehende und $3$ ausgehende oder eine ausgehende und $3$ eingehende Kanten, am Rand entsprechend weniger. Insbesondere gibt es für jeden Knoten eine eindeutige Kante, die einzige eingehende oder einzige ausgehende Kante des Knotens. 
+Im folgenden wird eine solche $\alpha$-Orientierung als $(3,1)$-Orientierung bezeichnet.
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/einlbijektion.pstex_t}}
+  \caption{Ein Domino Tiling, das zugehörige Matching und die $(3,1)$-Orientierung}
+\end{figure}
+%
+%\begin{obs}
+%Sei ein Gittergraph $\overrightarrow{G}$ mit $\alpha$ wie oben gegeben. Dann gibt es eine Bijektion zwischen den perfekten Matchings von $G$ und den $(3,1)$-Orientierungen auf $\overrightarrow{G}$. 
+%\end{obs}
+%
+%\begin{proof}
+%Betrachte eine $(3,1)$-Orientierung auf $\overrightarrow{G}$. Durch die Definition von $\alpha$ ist für jeden Knoten $v$ genau eine eindeutige Kante gegeben. Wenn $v_1+v_2$ gerade ist, ist es die einzige ausgehende Kante, ansonsten ist es die einzige eingehende Kante in $v$. Da die geraden und ungeraden Knoten alternieren, hat jeder gerade Knoten nur ungerade Nachbarn und umgekehrt. Daher ist eine Kante, die für einen der inzidenten Knoten die eindeutige ist, immer auch für beide die eindeutige Kante. Dadurch können wir diese Kanten als Matchingkanten wählen und wählen tatsächlich genau eine Matchingkante für jeden Knoten aus, wir erhalten also tatsächlich ein perfektes Matching für $G$.\\
+%
+%Betrachte andererseits ein perfektes Matching $M$ auf $G$. $G$ ist ein bipartiter Graph mit den Bipartitionsklassen $A:=$"'gerade Knoten"' und $B:=$"'ungerade Knoten"'. Orientiere die Kanten folgendermaßen:\\
+%Falls $e\in M$, dann orientiere $e$ von $A$ nach $B$, falls $e\notin M$ orientiere $e$ von $B$ nach $A$. Da jeder Knoten zu genau einer Matchingkante gehörte, hat nun jeder gerade Knoten genau eine ausgehende Kante und jeder ungerade Knoten hat genau eine eingehende Kante, wir haben also eine $(3,1)$-Orientierung auf $G$ definiert. 
+%\end{proof}
+%
+%Man kann unter bestimmten Voraussetzungen dieses Ergebnis auch verallgemeinern:
+
+\begin{lemma}
+Sei $G=(A\cup B,E), \, A\cap B =\emptyset$ ein bipartiter Graph mit festgelegten Bipartitionsklassen $A,B$. Dann gibt es eine Bijektion zwischen den perfekten Matchings von $G$ und den $\alpha$-Orientierungen mit 
+$$\alpha(v)=
+\begin{cases}
+1 & \text{ wenn }v\in A \\
+deg(v)-1 & \text{ wenn }v\in B
+\end{cases}
+$$
+\end{lemma}
+
+\begin{proof}
+Betrachte eine entsprechende $\alpha$-Orientierung auf $\overrightarrow{G}$. Durch die Definition von $\alpha$ ist für jeden Knoten $v$ genau eine eindeutige Kante gegeben. Wenn $v\in A$, ist es die einzige ausgehende Kante (ansonsten ist es die einzige eingehende Kante in $v$). Diese Kante wählen wir als Matchingkante $m_v$ von $v$. Nimm an, $v$ ist in $A$. Dann sind alle Nachbarn von $v$ in $B$.  Daher ist die Kante $m_v$ die eindeutige eingehende Kante für einen Knoten in $B$. Dadurch können wir diese Kanten als Matchingkanten wählen und wählen tatsächlich auch höchstens eine Matchingkante für jeden Knoten aus, kein Nachbar kann eine weitere zu $v$ inzidente Kante als Matchingkante wählen. Das gleiche Argument mit umgekehrter Kantenrichtung gilt falls $v\in B$.
+
+Betrachte andererseits ein perfektes Matching $M$ auf $G$. $G$ ist ein bipartiter Graph mit den Bipartitionsklassen $A$ und $B$. Orientiere die Kanten folgendermaßen:\\
+Falls $e\in M$, dann orientiere $e$ von $A$ nach $B$, falls $e\notin M$ orientiere $e$ von $B$ nach $A$. Da jeder Knoten zu genau einer Matchingkante gehörte, hat nun jeder Knoten $v\in A$ genau eine ausgehende Kante und jeder Knoten $v\in B$ hat genau eine eingehende Kante, wir haben also eine $(deg(v)-1,1)$-Orientierung auf $G$ konstruiert, in der jeder Knoten aus $A$ genau eine ausgehende und jeder in $B$ genau eine eingehende Kante hat. 
+\end{proof}
+
+\begin{cor}
+Zwischen den Domino Tilings einer Region und den $(3,1)$-Orientierungen des zugehörigen Graphen $\overrightarrow{G}$ existiert eine Bijektion.
+\end{cor}
+\begin{proof}
+Wir wissen bereits, dass Domino Tilings in Bijektion zu den perfekten Matchings auf dem zugehörigen Gittergraph $G$ stehen. Zeige also noch, dass $G$ die Voraussetzungen für das obige Lemma erfüllt.\\
+Wähle als Bipartitionsklassen $A:=$"'gerade Knoten"' und $B:=$"' ungerade Knoten"' und $$\alpha(v)=
+\begin{cases}
+1 & v_1+v_2 \text{ gerade, wir sagen v ist gerader Knoten}\\
+3-k & v_1+v_2 \text{ ungerade, wir sagen v ist ungerader Knoten}
+\end{cases}
+$$
+Dies erfüllt die Bedingungen des Lemmas, wir bekommen daher eine Bijektion zwischen den Domino Tilings, perfekten Matchings und $(3,1)$-Orientierungen.
+\end{proof}
+
+$\alpha$-Orientierungen sind insofern also eine Verallgemeinerung von Matchings.
+Nun lassen sich verschiedene Fragen zu diesen Tilings/Matchings/$\alpha$-Orientierungen stellen. 
+Die Existenz kann man, wie bereits erwähnt, einfach (polynomiell) überprüfen, auch schon für allgemeine $\alpha$-Orientierungen auf beliebigen Graphen. Betrachtet man rechteckige Gittergraphen, so muss man aber noch nicht mal diesen Algorithmus ausführen, um herauszufinden ob eine $(3,1)$-Orientierung existiert - sofern die notwendige Bedingung erfüllt ist, dass höchstens eine der beiden Seitenlängen ungerade ist (siehe Beob. \ref{notwendigeBedFTiling}), existiert auch ein entsprechendes Domino Tiling:
+Und zwar kann man an einer Ecke anfangen die Fläche zu pflastern, so dass die längere Seite der Dominos jeweils zu der geraden Seite zeigt. Da jede Schicht so lückenlos ausgefüllt werden kann, erhalten wir immer ein zulässiges Domino Tiling. 
+
+In dieser Arbeit soll es insbesondere auch um Domino Tilings auf dem Torus gehen. Ein Torus entsteht, wenn man die gegenüberliegenden Seiten eines Rechtecks jeweils miteinander identifiziert. Dementsprechend wollen wir ein torisches Domino Tiling bzw. einen torischen Gittergraphen definieren.
+Betrachte in dem zu Beginn definierten Gittergraphen $\mathcal{G}$ der ganzzahligen Punkte in der Ebene eine rechteckige Region von $n\times m$ Zellen, formaler:\\
+
+Die Knotenmenge sei gegeben als $$V=\{(x_1+i,x_2+j)\in V(\mathcal{G}) | i=\{1\dots n\}, j=\{1\dots m\}\}$$ für ein festes $x=(x_1,x_2)\in \N$, definiere $\mathcal{R}$ als den von $V$ in $\mathcal{G}$ induzierten Graph. Identifiziere die Punkte folgendermaßen: $ (x_1,x_2)=(x_1+n,x_2)$ falls $(x_1,x_2)\in \mathcal{R}$ und $ (x_1+n,x_2)\in \mathcal{R} $, genauso $(x_1,x_2)=(x_1,x_2+m)$ falls $(x_1,x_2)\in \mathcal{R}$ und $(x_1,x_2+m)\in \mathcal{R}$, nenne den entstandenen torischen Gittergraphen $\mathcal{R}^T$.
+
+Auch hier besteht ein Domino wieder aus der Vereinigung zweier Zellen, die eine gemeinsame Kante teilen, ein \textit{torisches Domino Tiling } ist eine vollständige Überdeckung von $\mathcal{R}^T$ durch Dominos mit disjunktem Innern. 
+
+Der Gittergraph $G$ des zugehörigen perfekten Matchings bzw $\overrightarrow{G}$ der zugehörigen $(3,1)$-Orientierung wird hier ebenfalls konstruiert, indem in die Mitte der Zellen von $\mathcal{R}^T$ Knoten gesetzt werden und die Knoten benachbarter Zellen verbunden (hier ergibt dies tatsächlich den Dualgraph). Eine $(3,1)$-Orientierung so dass jede Bipartitionsklasse Ausgrad 1 oder 3 hat, ist hier allerdings nur möglich, wenn sowohl $m$ als auch $n$ gerade ist. 
+Aus der Existenz von Domino Tilings einer rechteckigen Region folgt mit dieser Definition auch unmittelbar die Existenz von torischen Domino Tilings, da das Tiling einer rechteckigen Region $\mathcal{R}$ direkt zu einem Tiling von $\mathcal{R}^T$ wird. 
+
+Eine natürliche Frage in diesem Zusammenhang ist die der Anzahl möglicher Tilings. 
+Für Domino Tilings quadratischer Regionen sowie aus solchen entstandene torische Domino Tilings wurde diese Frage bereits 1961 durch Pieter Kasteleyn beantwortet (siehe \cite{Kasteleyn19611209}). %TODO Formel angeben?
+
+Worum es hier aber im Kern gehen soll, ist die Transformierbarkeit von Tilings mittels Flips, insbesondere Face-Flips. 
+
+\begin{definition}
+Eine \textit{(kreuzungsfreie) Einbettung} des Graphen $G$ auf eine orientierbare Fläche $S$ ist eine Abbildung $\phi: G\to S$ so dass für Knoten $v\neq v'\Rightarrow \phi(v)\neq \phi(v')$ gilt, und Kanten $e=\{v,w\}$ auf einfache Kurven $\gamma_e :[0,1] \to S$ mit $\gamma_e(0)=\phi(v),\, \gamma_e(1)=\phi(w),\, \gamma_e(x)\cap \gamma_f=\emptyset \, \forall f\in E, x\in (0,1)$ abgebildet werden.
+
+
+Dabei betrachten wir 2-Zell-Einbettungen, d.h. solche Einbettungen, in denen $S \setminus \phi(G)$ zu der Vereinigung einer Menge offener Kreisscheiben homöomorph ist. Der Rand des Bildes einer solchen Kreisscheibe ist insbesondere ein einfacher Kreis in $\phi(G)$. Wir nennen diesen Kreis (bzw. sein Urbild) einen Face-Kreis, sein Inneres ein Face von $G$.
+
+Ein \textit{Flip} ist nun die Operation, die einen gerichteten Kreis in einer $\alpha$-Orientierung in $\overrightarrow{G}$ umdreht, d.h. jede Kante des Kreises wird umgedreht. Ein \textit{Face-Flip} ist der Flip eines Face-Kreises. In der Ebene kann man das $G$ umgebende Äußere als unbeschränktes Face definieren, dieses erlauben wir aber ausdrücklich nicht zu flippen.
+
+\end{definition}
+%
+%Ein \textit{Face} in einem planaren bzw. auf einer Fläche kreuzugsfrei eingebetteten Graphen ist der Raum, der zwischen mehreren Kanten eingeschlossen liegt. Auch das (in der Ebene unbeschränkte) Äußere um einen planaren Graphen wird als Face bezeichnet, genauer als das unbeschränkte Face. Wir erlauben hier allerdings nicht dieses zu flippen. Ein \textit{Face-Flip} ist also das drehen eines gerichteten Kreises, der im Inneren keine Kanten hat.
+
+Es ist von der konkreten festen Einbettung abhängig, was die Faces eines Graphen sind! Flips sind mit der $\alpha$-Orientierung des Graphen verträglich, das $\alpha$ bleibt bei einem Flip in jedem Knoten gleich. Genauer:
+
+\begin{lemma}
+\label{allgFlipZshg}
+Zwei Orientierungen eines Graphen $G$ gehören genau dann zum gleichen $\alpha$, d.h. sie haben in jedem Knoten den gleichen Ausgrad, wenn sie durch Flips einfacher Kreise ineinander zu überführen sind. 
+\end{lemma}
+\begin{proof}
+Betrachte zwei $\alpha$-Orientierungen $X_1,X_2$ in $G$ zum gleichen $\alpha$ und den Differenzgraph der beiden Orientierungen: das ist der Graph, in dem nur Kanten enthalten sind, die in $X_1$ und $X_2$ unterschiedlich gerichtet sind, wir geben den Kanten dabei die Orientierung von $X_1$. Dieser Graph hat in jedem Knoten gleich viele eingehende wie ausgehende Kanten, denn für jede Kante die in $X_2$ ausgehand statt eingehend zu einem Knoten $v$ gerichtet ist, muss eine andere eingehend statt ausgehend gerichtet sein um den selben Wert $\alpha(v)$ zu erreichen. Der Differenzgraph von $X_1$ und $X_2$ ist somit eulersch. Eulersche Graphen lassen sich in kantendisjunkte einfache Kreise zerlegen: \\
+($\rightarrow$ Algorithmus: Laufe auf vorwärts gerichteten Kanten durch den Graph bis ein Knoten zum zweiten Mal besucht wurde. Der Weg vom ersten zum zweiten Besuch des Knotens ergibt einen Kreis $C$. Es gibt keine Sackgassen außer schon besuchten Knoten, denn wenn wir zum ersten mal einen Knoten besuchen, hat der ja immer noch eine unbenutzte ausgehende Kante. Da es aber nur endlich viele Knoten und Kanten gibt, kommen wir immer zu einem schon besuchten Knoten. Lösche die Kanten des Kreises $C$, dann ist der Restgraph wieder eulersch, da wir einen endlichen Graph haben können wir rekursiv fortfahren bis der Graph leer ist. Die jeweils in einem Schritt gelöschten Kreise ergeben eine kantendisjunkte Zerlegung des Graphen in einfache Kreise. )\\
+Für jeden Kreis aus dieser Kreiszerlegung können wir nun die Richtung jeder Kante umdrehen, damit wird das $\alpha$ nicht verändert da für jeden Knoten eine ausgehende und eine eingehende Kante geflippt wird. Nachdem wir alle diese Kreise geflippt haben, haben wir $X_1$ in $X_2$ überführt.\\
+
+
+%Wähle eine Kante $e=(u,v)$ die oBdA in $X_1$ von $u$ nach $v$ und in $X_2$ von $v$ nach $u$ gerichtet ist. Durch das Umdrehen von $e$ in $X_1$ gibt es im Knoten $v$ eine ausgehende Kante zuviel $\Rightarrow$ drehe also eine andere ausgehende Kante $e'=(v,w)$ um, die in beiden Orientierungen unterschiedlich gerichtet ist. Diese Kante existiert, da beide zum gleichen $\alpha$ definiert wurden. Dies führt in $w$ zu der gleichen Situation, drehe also iterativ Kanten um, die in $X_1$ und $X_2$ unterschiedlich gerichtet sind. Dies kann nur terminieren, wenn wir bei $u$ ankommen, da während des Algorithmus $u$ der einzige Knoten ist, der eine ausgehende Kante zu wenig hat. Da es insgesamt nur endlich viele Kanten gibt, muss der Algorithmus aber auch in endlicher Zeit terminieren. Er kommt daher zwangsläufig wieder beim Ausgangsknoten $u$ an, nachdem er einen gerichteten Kreis geflippt hat. Wiederhole dies solange, bis die beiden Orientierungen gleich sind, das tritt in endlicher Zeit ein, da nur endlich viele Kanten vorhanden sind. Der Differenzgraph von $X_1$ und $X_2$ ist eulersch, da in jedem Knoten gleich viele eingehende wie ausgehende Kanten unterschiedlich gerichtet sind. Daher lässt er sich auch in einfache kantendisjunkte Kreise zerlegen. Wir können also mit einer Folge von Flips einfacher Kreise $X_1$ in $X_2$ überführen.\\
+
+Für die Rückrichtung sind wieder $X_1$ und $X_2$ gegeben, dazu eine Menge von einfachen Kreisen, deren Flips $X_1$ in $X_2$ überführen. 
+
+Behauptung: Das flippen eines einfachen Kreises ändert in keinem Knoten den Ausgrad. Grund: In einem einfachen gerichteten Kreis hat jeder Knoten eine eingehende und eine ausgehende Kante. Wenn alle Kanten des Kreises umgedreht werden, dann tauschen die beiden nur ihre Rolle, der Ausgrad des Knotens bleibt aber unverändert. \\
+Wenn wir aber bei keinem Flip das $\alpha$ verändern, dann sind $X_1$ und $X_2$ Orientierungen zum gleichen $\alpha$.
+\end{proof}
+
+Wir können Flips auch direkt für Tilings oder Matchings definieren. Ein Face-Flip ist dabei die Operation, die zwei benachbarte, sich die lange Seite teilende Dominos um 90 Grad dreht, bzw die Matchingkanten in einem Facekreis mit den Nichtmatchingkanten austauscht. In der zugehörigen $(3,1)$-Orientierung entspricht dies gerade dem umdrehen eines gerichteten Face-Kreises.
+
+Für planare Graphen ist es möglich, alle Tilings einer Fläche mittels solchen Face-Flips zu erreichen. Mehr noch, man kann den Tilings einer planaren Fläche eine Ordnungsrelation geben, die einen distributiven Verband bildet.
+
+%Definition eines distributiven Verbandes
+\begin{definition}
+\label{defDistribVerband}
+Sei $P=(X,\le )$ ein Poset/Halbordnung. $P$ ist ein distributiver Verband, wenn $\forall x,y\in X \exists x\lor y, x\land y \in X$ so dass gilt
+\begin{itemize}
+\item $x\lor y \ge x \ge x\land y$ und $x\lor y \ge y \ge x\land y$
+\item $\forall z\in X: z\ge x,y\Rightarrow x\lor y\le z$
+\item $\forall z\in X: z\le x,y \Rightarrow x\land y\ge z$
+\item $\forall x,y,z \in X: x\land(y\lor z)=(x\land y)\lor (x\land z)$ (Distributivität)
+\end{itemize}
+\end{definition}
+ 
+
+%%beweis planarer fall
+%\begin{theorem}
+%Auf der Menge der $\alpha$-Orientierungen eines planaren Graphen wird durch Kreisflips ein distributiver Verband induziert. Insbesondere genügen in einem stark zusamenhängenden Graphen Face-Flips.
+%\end{theorem}
+%TODO wird rausgenomen
+%Da es in dieser Arbeit vor allem um den Flip-Zusammenhang geht (auf dem Torus ist dieser nicht durch Face-Flips zu gewährleisten), will ich hier auch nur den Flip-Zusammenhang im planaren Fall beweisen. Der Beweis, dass man sogar einen distributiven Verband erhält, ist in [] nachzulesen.
+
+%
+%\begin{cor}
+%Je zwei $\alpha$-Orientierungen eines Graphen (zu gleichem $\alpha$) lassen sich mit einer Folge von Flips essentieller Kreise ineinander überführen. \\
+%Ein Kreis $C$ heißt essentiell, wenn er folgende Eigenschaften hat:
+%\\Er ist 
+%\begin{itemize}
+%\item ein einfacher Kreis
+%\item hat keine Sehne/keinen gerichteten Pfad im Inneren
+%\item die Kanten, die vom Rand ins Innere des Kreises gehen sind in allen $\alpha$-Orientierungen gleich gerichtet, also nie in einem gerichteten Kreis enthalten
+%\item Es gibt eine $\alpha$-Orientierung, in der $C$ gerichtet ist
+%\end{itemize}
+%Bemerkung: In stark zusammenhängenden Graphen sind die essentiellen gerade die Face-Kreise.
+%\end{cor}
+
+%TODO den allgemeineren Satz hier davorstellen???
+\begin{theorem}
+Auf der Menge der Domino Tilings einer einfach zusammenhängenden Region in der Ebene wird durch die Operation des Drehens benachbarter Dominos, also durch Face-Flips, ein distributiver Verband induziert. 
+\end{theorem}
+
+Es gibt verschiedene Beweise für diesen Satz von unterschiedlicher Allgemeinheit, die sich jeweils auf eine bestimmte Verallgemeinerung beziehen. Beispielsweise haben wir gesehen, dass perfekte Matchings und auch $\alpha$-Orientierungen als Verallgemeinerung von Domino Tilings verstanden werden können. Für perfekte Matchings planarer Graphen wurde die Struktur des distributiven Verbandes direkt in \cite{LamZhang} bewiesen, für allgemeinere $k$-Faktoren in \cite{ProppLattice}. Den Beweis für $\alpha$-Orientierungen aus \cite{Felsner04latticestructures} werde ich später direkt angeben. Auch für noch allgemeinere Strukturen als $\alpha$-Orientierungen lässt sich noch dieser distributive Verband definieren, in \cite{FelsnerKnauerULDlattices} wird dies durch $\Delta$-Bonds bewerkstelligt.
+
+Ich zeige hier zunächst einen direkt auf Domino Tilings zugeschnittenen Beweis. 
+
+\section{Thurston's Höhenfunktion für Domino Tilings}
+Der hier angegebene Beweis ist aus \cite{Remila2004409} übernommen. Die dort benutzte Höhenfunktion stammt von William Thurston in \cite{Thurston1990}, wo allerdings nicht der Zusammenhang mit distributiven Verbänden betrachtet wird, sondern nur die Existenz von Tilings einer Region.
+
+Erinnerung: Wir haben Domino Tilings über das Gitter der ganzzahligen Punkte in der Ebene definiert. Wenn man ein Tiling gegeben hat, kann man so die Ränder der Dominos als Kanten interpretieren und die Ecken als Knoten. Auch in der Mitte der langen Seiten eines Dominos liegt jeweils ein Knoten des Graphen, und eine Kante zwischen diesen beiden Knoten für jedes Domino. 
+
+Man erhält so einen Gittergraphen in der Größe der überdeckten Fläche. Wir orientieren die Kanten so, dass die an einer Gitterzelle anliegenden Kanten immer einen gerichteten Kreis bilden, abwechselnd im Uhrzeigersinn und gegen den Uhrzeigersinn und  wir nennen diesen gerichteten Graphen $D=(V,A)$. Stellt man sich das Gitter als Schachbrett vor, dann kann man sagen links von einer Kante liegt ein schwarzes Feld und recht ein weißes.
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/thurston1.pstex_t}}
+  \caption{Beispiel eines Graphen aus einem planaren Domino Tiling}
+\end{figure}
+
+Bis hierhin ist die Konstruktion noch unabhängig vom konkreten Domino Tiling. Definiere daher eine Höhenfunktion $ h_T: V\to \mathbb{Z}$ auf den Knoten dieses Graphen $D$:%, welche ein Domino Tiling $T$ kodiert: 
+\begin{itemize}
+\item Wähle einen beliebigen Knoten $v_0$ und setze $h_T(v_0)=0$.
+\item Falls Kante $(v,v')$ ein Domino schneidet, also zwischen zwei Zellen des gleichen Dominos liegt, setze $h_T(v')=h_T(v)-3$. 
+\item Sonst setze für die Kante $(v,v')$ iterativ den Wert $h_T(v')=h_T(v)+1$.
+\end{itemize}
+Bemerkung: Die Wahl von $v_0=0$ ist beliebig, da nur die relativen Höhendifferenzen eine Bedeutung haben. Im Zusammenhang mit Flips ist es aber sinnvoll, einen Knoten $v_0$ auf dem Rand von $D$ zu wählen, da er dort nicht durch Flips verändert werden kann.\\
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/thurston2.pstex_t}}
+  \caption{Ein Domino Tiling mit der oben definierten Höhenfunktion}
+\end{figure}
+
+Nun muss natürlich noch überprüft werden, ob diese Definition auch immer konsistent ist, und dass sie ein Domino Tiling eindeutig kodiert. Wir brauchen noch eine kleine Definition:
+\begin{definition}
+Ein Weg in $D$ ist ein \textit{legaler Weg} bezüglich eines Domino Tilings $T$, wenn er keine Kanten benutzt, die ein Domino in $T$ schneiden.
+Seien $v,v'\in V$ beliebige Knoten in $D$. Die \textit{Höhendifferenz} von $v$ zu $v'$ ist definiert als  \it Anzahl vorwärts gerichteter Kanten auf einem legalem Weg von $v$ zu $v'$ - Anzahl rückwärts gerichteter Kanten auf einem legalen Weg von $v$ zu $v'$ \rm.
+\end{definition}
+
+\begin{lemma}
+\label{EindeutigkeitHöhenfkt}
+Die Höhenfunktion $h_T$ zu einem zusammenhängenden Domino Tiling $T$ ist (bei gleicher Wahl von $v_0$) unabhängig davon, in welcher Reihenfolge die Höhe der Knoten berechnet wird. 
+\end{lemma}
+\begin{proof}
+Betrachte den Graphen $D'$, der entsteht wenn wir aus $D$ alle Kanten löschen, die Dominos schneiden. Da das Domino Tiling zusammenhängend ist, ist $D'$ ebenfalls zusammenhängend. Um für jeden Knoten des Graphen einen Wert der Funktion $h_T$ zu berechnen genügt also die Bedingung, dass für jede gerichtete Kante $(v,v')\in V$ gilt $h_T(v')=h_T(v)+1$. Weiterhin sieht man leicht, dass die zweite Bedingung (falls Kante $(v,v')$ ein Domino schneidet, setze $h_T(v')=h_T(v)-3$) hieraus bereits folgt: Da jede Zelle von einem gerichteten Kreis umschlossen wird und zu genau einem Domino gehört, hat jede Zelle auch genau eine Kante die ihr Domino schneidet. Die anderen 3 Kanten haben zusammen eine Höhendifferenz von 3 (in Kreisrichtung), so dass die Differenz für die das Domino schneidende Kante automatisch -3 ist. $\Rightarrow$ Es genügt also zu zeigen, dass die Konstruktion über Randkanten der Dominos konsistent ist. Als Höhe eines Knotens $v$ definieren wir dann genau die Höhendifferenz von $v_0$ zu $v$, dies erfüllt die lokalen Bedingungen für eine Höhenfunktion. Wir müssen nun noch zeigen, dass dieser Wert unabhängig davon ist, welcher legale Weg zur Berechnung gebraucht wurde. \\
+
+\it Behauptung: \rm Ein Kreis in $D$ ohne die Kanten, welche ein Domino schneiden, hat Höhendifferenz 0. \\
+\it Beweis der Behauptung: \rm Induktion - man sieht leicht an einem einzelnen Domino dass die Höhendifferenz 0 ist, da je $3$ Kanten vorwärts und $3$ Kanten rückwärts gerichtet sind. Hat man einen größeren Kreis, findet man darin einen Weg, an dem man den Kreis in zwei kleinere aufteilen kann. Die Summe der Höhendifferenzen der beiden kleinen Kreise ergibt die Höhendifferenz des großen Kreises - da die kleineren nach Induktionsvoraussetzung Höhendifferenz 0 haben, gilt dies auch für den großen Kreis.\\
+
+Betrachte zwei legale Wege $p_1$ und $p_2$ von $v_0$ zu $v$. Dann ist $p_1$ mit $\overleftarrow{p_2}$ ($p_2$ rückwärts) ein legaler Kreis. Die Höhendifferenz des Kreises ist die Differenz beider Höhendifferenzen der beiden Pfade. Da die Höhendifferenz in Kreisen immer 0 beträgt, muss sie also bei beiden Pfaden gleich groß sein.
+\end{proof}
+
+Da sich die Höhenfunktion über relative Höhendifferenzen im Graphen berechnet, der Startknoten und im Prinzip auch der Startwert aber beliebig sind, kann es zu einem Domino Tiling $T$ mehrere Höhenfunktionen geben. Diese unterscheiden sich aber nur um eine additive Konstante, d.h. für alle Höhenfunktionen $h_T, {h'}_T$ gibt es eine Zahl $c\in \R$ so dass gilt $h_T(v)+c={h'}_T(v) \, \forall v\in V$.\\
+
+Wir können ebenfalls zeigen, dass zu jeder konsistenten Höhenfunktion des Graphen ein Domino Tiling gehört:
+\begin{lemma}\label{3bedinglemma}
+Sei eine Funktion $h: V \to \mathbb{Z}$ gegeben, so dass
+\begin{itemize}
+\item Es gibt einen Knoten $v_0\in V$, so dass $v_0$ auf dem Rand von $D$ liegt, d.h. das unbeschränkte Face berührt, und den Wert $h(v_0)=0$ besitzt. 
+\item Für jede gerichtete Kante $(v,v')$ gilt entweder $h(v')=h(v)+1$ oder $h(v')=h(v)-3$
+\item Für jede Kante auf dem Rand von $D$ gilt die Beziehung $h(v')=h(v)+1$.
+\end{itemize}
+Dann ist $h$ tatsächlich die Höhenfunktion $h_T$ für ein Domino Tiling $T$.
+\end{lemma}
+\begin{proof}
+Da in $D$ jede Zelle von einem gerichteten Kreis (der Länge 4) umgeben ist, gibt es in jeder Zelle genau eine Kante $e=(v,v')$ mit $h(v')=h(v)-3$. Wegen der dritten Bedingung kann diese nicht auf dem Rand des Graphen liegen. Auf der anderen Seite dieser Kante liegt deshalb eine weitere Zelle, für die ebenfalls $e$ die eindeutige Kante mit  $h(v')=h(v)-3$ ist. Beide zusammen bilden ein Domino. Dieses Argument kann man nun für jede einzelne Zelle anwenden, und erhält daraus ein eindeutiges Domino Tiling $T$.
+\end{proof}
+
+\begin{cor}
+\label{bijektDomTil_Höhenfkt}
+Zwischen der Menge der Höhenfunktionen zu einem festen $v_0\in V$, das auf dem Rand von $D$ liegt, und den Domino Tilings von $D$ gibt es eine Bijektion.
+\end{cor}
+\begin{proof}
+Aus Lemma \ref{EindeutigkeitHöhenfkt} wissen wir, dass man zu einem Domino Tiling $T$ mit festem $v_0$ eine eindeutige Höhenfunktion konstruieren kann. In Lemma \ref{3bedinglemma} haben wir hingegen bewiesen, dass mit einer solchen Höhenfunktion ein eindeutiges Domino Tiling gegeben ist. 
+\end{proof}
+
+Man kann beobachten, dass die Werte eines Knotens in Höhenfunktionen zu verschiedenen Tilings sich nur um Vielfache von 4 unterscheiden:
+
+\begin{lemma}
+Seien $T,T'$ Domino Tilings, und die Höhenfunktionen bezüglich des gleichen Wertes für $v_0$ definiert. Dann ist für jeden Knoten $v$ die Differenz $h_T(v)-h_{T'}(v)$ ein Vielfaches von $4$.
+\end{lemma}
+\begin{proof}
+Für jede Kante $(v,v')$ gilt $h_T(v')=h_T(v)+1$ oder $h_T(v')=h_T(v)-3$. Wenn also der Unterschied für $v$ ein vielfaches von $4$ ist, dann muss das auch für seinen Nachbarn $v'$ gelten. Laut Voraussetzung ist aber $h_T(v_0)=h_{T'}(v_0)$, was ein Vielfaches von 4 ist. Induktiv muss diese Aussage also auch für alle andern Knoten gelten.
+\end{proof}
+
+Die Höhenfunktion für Domino Tilings ist also wohldefiniert und legt intuitiv nahe, folgende Ordnung auf Domino Tilings zu definieren: $$T\le T' \iff h_T(v)\le h_{T'}(v)\, \forall v\in V$$
+Wir wollen zeigen, dass das tatsächlich ein distributiver Verband ist. 
+
+\begin{theorem}
+\label{minmaxHoehenfkt}
+Seien $T,T'$ Domino Tilings und die Höhenfunktion so dass $v_0$ auf dem Rand liegt und $h_T(v_0)=h_{T'}(v_0)$. Dann sind die Funktionen $\min (h_T,h_{T'})$ und $\max (h_T,h_{T'})$ ebenfalls Höhenfunktionen von Domino Tilings.
+\end{theorem}
+\begin{proof}
+Wir werden hier nur die Aussage für $\min (h_T,h_{T'})$ zeigen, der Beweis für $\max (h_T,h_{T'})$ funktioniert analog. Zu zeigen ist, dass $\min (h_T,h_{T'})$ und $\max (h_T,h_{T'})$ eine Höhenfunktion wie in Lemma \ref{3bedinglemma} ergeben, dann ist dies auch sofort die Höhenfunktion eines Domino Tiling.\\
+Betrachte ein Paar $v,v'$ von benachbarten Knoten mit der gerichteten Kante $(v,v')$. Wenn nun gilt $$h_T(v)<h_{T'}(v)$$ dann folgt sofort $h_T(v)\le h_{T'}(v)-4$. Andererseits muss im jeweiligen Tiling die Höhenfunktion konsistent sein, d.h. es gilt insbesondere $h_T(v')\le h_T(v)+1$ und $h_{T'}(v')\ge h_{T'}(v)-3$.
+Zusammen erhalten wir:
+$$h_T(v')\le h_T(v)+1\le h_{T'}(v)-4+1\le h_{T'}(v')+3-4+1=h_{T'}(v')$$
+Das bedeutet $h_T(v)<h_{T'}(v)\Rightarrow \min(h_T(v'),h_{T'}(v'))=h_T(v')$, die Höhenfunktion setzt sich also auf de Nachbarn von $v$ fort, wenn die Werte in $v$ ungleich sind (der Fall $h_T(v)>h_{T'}(v)$ ist analog), dies sichert die Konsistenz der zweiten Bedingung aus Lemma \ref{3bedinglemma}. Wo die beiden Höhenfunktionen die gleichen Werte annehmen, ist die Konsistenz sowieso klar, da $h_T, h_{T'}$ Höhenfunktionen sind.
+\end{proof}
+
+\begin{lemma}
+\label{distribDominanzordnung}
+Sei eine Menge von Vektoren $W \subset \R^n$ gegeben, so dass $W$ unter komponentenweiser Minimums- bzw. Maximumsbildung abgeschlossen ist. Mit der Dominanzordnung $$x\le y\iff x_i\le y_i \,\forall i\in \{1\dots n\}$$ ist dann $(W,\le)$ ein distributiver Verband mit $x\lor y=\max(x,y),\, x\land y=\min(x,y)$ (komponentenweise).
+\end{lemma}
+\begin{proof}
+Wir müssen die Eigenschaften aus Definition \ref{defDistribVerband} nachweisen. Seien also $x,y\in W$ beliebig. Es gilt
+\begin{itemize}
+\item $\max(x,y)\ge x\ge \min(x,y)$ und $\max(x,y)\ge y\ge \min(x,y)$ gilt nach Definition des komponentenweisen Maximums und Minimums. Das Maximum und Minimum von Vektoren aus $W$ sind laut Voraussetzung ebenfalls in $W$ enthalten, existieren also.
+\item Sei $z\in W$ gegeben so dass $z\ge x,y$. Dann gilt komponentenweise $z_i\ge x_i$ und $z_i\ge y_i$, also auch $z_i\ge \max(x_i,y_i)\Rightarrow$ $z\ge \max(x,y)$
+\item Sei $z\in W$ gegeben so dass $z\le x,y$. Dann gilt komponentenweise $z_i\le x_i$ und $z_i\le y_i$, also auch $z_i\le \min(x_i,y_i)\Rightarrow$ $z\ge \min(x,y)$
+\item Distributivität: Komponentenweise gilt für $x,y,z\in W$ :
+$$ \max(x_i, \min(y_i,z_i))=\min(\max(x_i,y_i),\max(x_i,z_i)), $$ dies lässt sich mit einer einfachen Fallunterscheidung über die Größe von $x,y,z$ überprüfen. 
+\end{itemize}
+\end{proof}
+
+\begin{cor}
+Die oben definierte Ordnung auf planaren Domino Tilings $$T\le T' \iff h_T(v)\le h_{T'}(v)\, \forall v\in V$$ induziert einen distributiven Verband. 
+\end{cor}
+\begin{proof}
+Fasse die Höhenfunktion eines Domino Tilings als Vektor $w$ über $\N^{|V|}$ auf. Aus Satz \ref{minmaxHoehenfkt} folgt, dass die Menge dieser Vektoren bezüglich Minimums-/Maximumsbildung abgeschlossen ist. Die hier definierte Ordnung $T\le T' \iff h_T(v)\le h_{T'}(v)\, \forall v\in V$ entspricht genau der in Lemma \ref{distribDominanzordnung} benutzten Ordnung, da die einzelnen Knoten $v\in V$ genau den Komponenten des Vektors $w$ entsprechen. Da wir von den Höhenfunktionen eine Bijektion zu den Domino Tilings hergestellt haben (Korollar \ref{bijektDomTil_Höhenfkt}), bilden die Domino Tilings also ebenfalls einen entsprechenden distributiven Verband.
+\end{proof}
+
+% beziehung zu flips 
+Nun kann man sich die Frage stellen, wie denn der Übergang zu einem jeweils nächstgrößeren/kleineren Element in diesem Verband aussieht. Die Antwort lautet: Die Übergänge sind die Face-Flips, wie wir sie auch in dem Beweis für allgemeine $\alpha$-Orientierungen verwenden werden. 
+%Ein Flip (Face-Flip) ist dabei das ersetzen von zwei nebeneinanderliegenden horizontalen durch zwei  nebeneinanderliegende vertikale Dominos oder anders herum. 
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/thurston3.pstex_t}}
+  \caption{Darstellung der Flips von benachbarten Dominos, links ist der jeweils kleinere}
+\end{figure}
+
+Bei einem solchen Face-Flip wird genau der Wert des Knotens in der Mitte der beiden geflippten Dominos um $\pm 4$ verändert, auf allen anderen Knoten bleibt die Höhenfunktion dabei konstant - die Höhenfunktion ist ja für jeden Knoten $v$ durch die Höhendiffernez auf einem legalen Weg von $v_0$ zu $v$ definiert, der bis auf den Knoten in der Mitte der beiden Dominos ja unberührt bleibt. Im Bild ist angenommen, dass die schraffierten Zellen von den Kanten des Graphen gegen den Uhrzeigersinn und die weißen im Uhrzeigersinn umlaufen werden. Macht man sich klar, wie dann die Höhendifferenz auf dem letzten Stück zum Mittelknoten sich ändert, sieht man dass die dargestellten Flips in Pfeilrichtung "'aufwärts"' gehen.\\
+
+Da sich diese Arbeit mit "'Domino Tilings auf dem Torus"' beschäftigen will, muss man hier natürlich fragen ob dieser Ansatz sich auf torische Domino Tilings ebenfalls anwenden lässt. Wo wurde die Planarität explizit ausgenutzt? Wo ergeben sich Probleme, wenn man die Höhenfunktion auf den Torus übertragen will? \\
+\begin{itemize}
+\item Zum einen ist nicht klar, ob die Höhenfunktion noch wohldefiniert ist. Bei ungerader Breite/Höhe, gemessen in Anzahl der Zellen, ist die Höhendifferenz eines legalen Weges nicht mehr unabhängig vom Weg! Die Definition müsste also angepasst werden.
+\item Die Azyklizität der Ordnungsrelation ist auf dem Torus nicht mehr gegeben, siehe Abbildung. In planaren Graphen wurde die Azyklizität dadurch erreicht, dass es verboten ist, das äußere Face zu drehen. Man könnte dies also beheben, indem man auch hier ein bestimmtes Face wählt, welches nicht geflippt werden darf, und den Knoten in dessen Mitte als $v_0$ wählen.
+\item Der Flipzusammenhang ist allein mit Facekreisen nicht mehr gegeben, siehe dazu das Kapitel 5. Wir werden sehen, dass man Beispiele konstruieren kann, in denen kein einziger Face-Kreis flipbar ist. 
+\end{itemize}
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{0.7}
+  {\input{Bilder/thurston4.pstex_t}}
+  \caption{Eine Folge von Flips auf einem torischen Domino Tiling, die wieder zum ursprünglichen Tiling bei echt größerer Höhenfunktion führt}
+\end{figure}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Verallgemeinerung: $\alpha$-Orientierungen}
+
+Wir haben bereits $\alpha$-Orientierungen von Graphen definiert und gesehen, dass diese ebenso wie Höhenfunktionen Domino Tilings kodieren können. Darüber hinaus ist das Konzept der $\alpha$-Orientierungen ohne Probleme auf den Torus zu übertragen, $(3,1)$-Orientierungen zumindest für torische Gitter gerader Breite und Höhe. Deshalb scheint es sinnvoll, auch den Beweis für allgemeine Domino Tilings zu betrachten. Der hier angegebene Beweis folgt dem von Stefan Felsner in \cite{Felsner04latticestructures} angegebenen. \\
+
+Wir beweisen in diesem Abschnitt, dass allgemeine $\alpha$-Orientierungen von planaren Graphen mit einer festen planaren Einbettung einen distributiven Verband bilden. Wir betrachten daher für dieses Kapitel auch nur planare Graphen $\overrightarrow{G}=(V,A)$ zusammen mit einer festen kreuzungsfreien Einbettung in die Ebene.
+
+
+\begin{definition}
+Ein Kreis $C\subseteq A$ heißt essentiell, wenn er folgende Eigenschaften hat:\\
+Er ist 
+\begin{itemize}
+\item ein einfacher Kreis
+\item hat keine Sehne/keinen gerichteten Pfad im Inneren
+\item die Kanten, die vom Rand ins Innere des Kreises gehen sind in allen $\alpha$-Orientierungen gleich gerichtet, also nie in einem gerichteten Kreis enthalten
+\item Es gibt eine $\alpha$-Orientierung auf $\overrightarrow{G}$, in der $C$ gerichtet ist
+\end{itemize}
+Bemerkung: In stark zusammenhängenden Graphen $\overrightarrow{G}$ sind die essentiellen Kreise gerade die Face-Kreise. 
+\end{definition}
+
+Zunächst ein kleines Lemma, das wir auch später noch benötigen werden.
+
+\begin{lemma}
+
+Jeder einfache gerichtete Kreis $C$ in $\overrightarrow{G}$ kann umgedreht werden, indem eine Folge von Drehungen/Flips essentieller Kreise im Inneren von $C$ ausgeführt wird. Erfolgt die Drehung von "'gegen den Uhrzeigersinn"' (ccw, counterclockwise) zu "'im Uhrzeigersinn"' (cw, clockwise), dann sind auch auch Drehungen der essentiellen Kreise von "'gegen den Uhrzeigersinn"' zu "'im Uhrzeigersinn"' . 
+\end{lemma}
+
+\begin{proof}
+Wir nutzen Induktion über die Anzahl der im Inneren enthaltenen essentiellen Kreise: \\
+Falls $C$ ein essentieller Kreis ist, sind wir fertig, da $C$ nach Voraussetzung gerichtet ist und somit selbst gedreht werden kann. \\
+Falls $C$ kein essentieller Kreis ist, dann muss es einen gerichteten Pfad im Inneren geben (möglicherweise der Länge 1), d.h. ein Pfad $P$ von $u$ nach $v$, so dass $u,v$ auf $C$ liegen und der Rest von $P$ im Inneren von $C$:\\
+Angenommen, es gibt in einer $\alpha$-Orientierung keinen gerichteten Pfad im Inneren von $C$. Dann betrachte die Menge der Kanten, die von Knoten auf $C$ ins Innere gehen. Da es keinen Pfad zurück oder aus $C$ hinaus gibt, muss diese Menge ein gerichteter Schnitt sein. Für die Menge der Kanten die aus dem Inneren zu einem Knoten auf $C$ gehen gilt das gleiche. Es muss Kanten zum Inneren oder aus dem Inneren geben, da der Kreis nicht essentiell ist, somit ist mindestens einer dieser Schnitte nichtleer. Wenn diese Kanten aber in jeder $\alpha$-Orientierung gleich gerichtet sind, dann ist der Kreis essentiell.\lightning Wenn ein Kreis also nicht essentiell ist, dann gibt es einen gerichteten Pfad im Inneren.\\
+An diesem gerichteten Pfad $p$ im Inneren von $u$ nach $v$, $u,v\in C$ können wir nun unseren Kreis aufspalten. Sei $p_1\subset C$ der Pfad in $C$ von $v$ zu $u$ und $p_2\subset C$ der Pfad in $C$ von $u$ nach $v$. 
+Zerlege $C$ an diesem Pfad in $C_1=p+ p_1$ und $C_2=\overleftarrow{p}+ p_2$. Das Drehen von $C_1$ und anschließend $C_2$ ergibt dann den gleichen Graphen wie das Drehen von $C$, da alle Kanten von $C$ genau einmal umgedreht werden, und alle Kanten auf $p$ genau zweimal. Nach Induktionsvoraussetzung können wir die kleineren Kreise durch in ihrem Inneren enthaltene essentielle Kreise drehen. Wenn die Drehung von $C$ von ccw zu cw geht, dann ist offenbar auch $C_1$ und $C_2$ zu dem Zeitpunkt, wo sie gedreht werden jeweils ccw, und das gleiche gilt nach Induktionsvaraussetzung auch für die kleineren Kreise bis zu den essentiellen. Wie man erkennen kann, wird jeder essentielle Kreis im Inneren dabei übrigens genau einmal gedreht.
+
+\end{proof}
+
+Man kann sich also tatsächlich darauf zurückziehen, nur essentielle Kreise zu betrachten, dies ist nach obigem Lemma keine Einschränkung. Wir werden im folgenden ein $\alpha$-Potential definieren, dessen Werte von der Länge einer Flipsequenz bis zum Minimum (Orientierung ohne gegen den Uhrzeigersinn gerichtete Kreise) abhängen. Dafür brauchen wir die Eindeutigkeit einer solchen Sequenz. \\
+
+Wir nennen eine Folge von essentiellen Kreisen $C_i$ eine \textit{zulässige Flipsequenz} für eine $\alpha$-Orientierung $X$, wenn $C_1$ in $X$ ccw gerichtet ist, und $C_i$ in $X^{C_1\dots C_{i-1}}$ jeweils ccw gerichtet ist, wobei $X^{C_1\dots C_{i-1}}$ der Graph ist, der durch die sukzessiven Flips von $C_1,\dots C_i$ aus X entsteht. 
+
+
+\begin{lemma}
+Eine Kante kann zu höchstens zwei verschiedenen essentiellen Kreisen gehören, eine Kante am Rand des Graphen kann zu höchstens einem gehören.
+\end{lemma}
+\begin{proof}
+Angenommen eine Kante $e\in A$ gehört zu zwei essentiellen Kreisen, die beide auf der gleichen Seite, zum Beispiel links von $e$ liegen. Dann würden sich diese beiden Kreise mindestens die Kante $e=(u,v)$ teilen. Da sie auch beide auf der gleichen Seite liegen, muss das Innere eines der beiden zumindest teilweise im Inneren des andere enthalten sein. Somit gibt es aber einen gerichteten Pfad (von $v$ nach $u$) im Inneren und des anderen, dieser kann somit nicht essentiell sein.
+\end{proof}
+
+\begin{lemma}
+\label{alternierungslemma}
+Sei eine zulässige Flipsequenz $(C_1\dots C_k)$ für eine $\alpha$-Orientierung $X$ gegeben. Nenne für eine Kante $e$ in $X$ den essentiellen Kreis links von $e$ $C^{l(e)}$ und den rechts von $e$ $C^{r(e)}$. Dann kommen $C^{r(e)}$ und $C^{l(e)}$ in der Flipsequenz nur alternierend vor. Formaler: wenn $C_{i_1}=C_{i_2}=\C^{l(e)}$, $i_1<i_2$ dann existiert $i_3$ mit $i_1<i_3<i_2$ und $C_{i_3}=C^{r(e)}$, analog wenn rechts und links vertauscht sind.
+\end{lemma}
+\begin{proof}
+Wenn der Kreis $C^{l(e)}$ geflippt wird, ändert sich seine Drehrichtung von ccw zu cw. Damit ein zweiter Flip ausgeführt werden kann, müssen also erst wieder alle Kanten von $C^{l(e)}$ umgedreht werden, insbesondere die Kante $e$. Nach dem vorherigen Lemma kann $e$ aber nur umgedreht werden, indem $C^{r(e)}$ geflippt wird.
+\end{proof}
+
+\begin{lemma}
+Für jede Kante $e\in \overrightarrow{G}$ existiert eine natürliche Zahl $t_e$, so dass in einer zulässigen  Flipsequenz $e$ höchstens $t_e$ mal umgedreht wird. Jeder essentielle Kreis $C$ wird in einer zulässigen  Flipsequenz maximal $\frac{\min_{e\in C}{t_e}}{2}+1$ mal geflippt. Andererseits kann, wenn ein essentieller Kreis in einer Flipsequenz $s$ mal geflippt wird, jede Kante in diesem Kreis höchstens $2s+1$ mal umgedreht werden.\\
+
+Folglich gilt für jeden essentiellen Kreis, dass der Wert $t_e$ seiner Kanten um maximal 2 auseinanderliegen kann.
+\end{lemma}
+
+\begin{proof}
+Kanten, die in keinem essentiellen Kreis enthalten sind, lassen sich nicht drehen, haben also den Wert $t_e=0$. Dass jeder essentielle Kreis in einer zulässigen Flipsequenz maximal $\frac{\min_{e\in C}{t_e}}{2}+1$ oft geflippt wird, folgt aus Lemma \ref{alternierungslemma} : Für jede Kante im Kreis müssen die beiden essentiellen Kreise in denen sie maximal enthalten ist alternierend geflippt werden. Für jeden Flip, bis auf den letzten möglicherweise, muss also die Kante ein weiteres mal umgedreht werden, und der Kreis kann nicht häufiger geflippt werden als jede seiner Kanten. Da dies auch für die Nachbarkreise gilt, kann jede Kante nur höchstens $2s+1$ mal gedreht werden, was das Maximum der Summe seiner beiden benachbarten Kreise ist (nur einer der beiden kann der letzte in der Flipsequenz sein). \\
+Nun können wir vom Rand des Graphen her eine Obergrenze für den Wert $t_e$ jeder Kante $e$ konstruieren. Kanten, die auf dem Rand des Graphen liegen, können höchstens einmal gedreht werden. Kanten, die nicht auf dem Rand liegen, aber in einem essentiellen Kreis wo mindestens für eine Kante $t_e$ festgelegt ist, können höchstens den Wert $t_e+2$ bekommen. Da es nur endlich viele essentielle Kreise gibt und da der Dualgraph zusammenhängend ist, so dass man jedes Face betrachtt, bekommt jede Kante einen endlichen Wert zugeordnet.
+\end{proof}
+
+Da die Anzahl der essentiellen Kreise sowie die Anzahl der Flips selbiger also begrenzt sind, folgt direkt dass auch die Länge jeder zulässigen Flipsequenz begrenzt ist. Dies sichert die Azyklizität, welche aber später auf dem Torus nicht mehr so einfach gegeben ist, wie wir bereits in dem Beipiel am Ende des letzten Kapitels gesehen haben. 
+
+\begin{lemma}
+Es gibt eine eindeutige $\alpha$-Orientierung in $\overrightarrow{G}$, so dass alle Kreise cw, also "'im Uhrzeigersinn"' gerichtet sind.
+\end{lemma}
+
+\begin{proof}
+Solange es noch einen Kreis gibt, der ccw gerichtet ist, können wir diesen mittels essentieller Kreise flippen. Da wir aber gezeigt haben, dass die Länge einer solchen zulässigen Flipsequenz begrenzt ist, muss es mindestens eine Orientierung geben, so dass kein Kreis mehr ccw gerichtet ist. 
+Angenommen es gäbe zwei unterschiedliche Orientierungen, so dass darin alle Kreise cw gerichtet sind. Die in beiden unterschiedlich gerichteten Kanten müssen dann in jeder Orientierung eine Menge von gerichteten Kreisen bilden, da in jedem Knoten das $\alpha$ gleich ist ($\Rightarrow$ für jede eingehende Kante die gedreht wird muss auch eine ausgehende gedreht werden und andersherum - dies setzt sich auf den Nachbarknoten fort bis man einen Kreis schließt). Da es nur zwei Möglichkeiten gibt, wie Kreise gerichtet sein können, müsste in einem Graph der Differenzkreis ccw gerichtet sein \lightning .\\
+Also kann es nur eine Orientierung geben, in der alle Kreise cw gerichtet sind.
+\end{proof}
+
+\begin{lemma}
+Seien zwei $\alpha$-Orientierungen $X,Y$ gegeben, so dass es eine zulässige  Flipsequenz gibt, die $X$ in $Y$ überführt. Dann wird jeder essentielle Kreis $C$ in allen zulässigen Flipsequenzen gleich oft geflippt.
+
+\end{lemma}
+
+\begin{proof}
+Wir zeigen, dass die Orientierung einer Kante in $X$ und in $Y$ bereits festlegt, wie oft die beiden benachbarten essentiellen Kreise geflippt werden müssen.\\
+
+\begin{itemize}
+\item Falls die Kante $e$ in beiden Orientierungen gleich gerichtet ist, muss sie gerade viele Male umgedreht werden. Aus Lemma \ref{alternierungslemma} folgt, dass die Anzahl der Drehungen der beiden benachbarten Kreise sich um höchstens 1 unterscheiden kann $\Rightarrow$ also müssen beide Kreise gleich oft gedreht werden. 
+\item Falls $e$ in beiden unterschiedlich gerichtet ist: $C^{l(e)}$ ist der Kreis, der in $X$ links von $e$ liegt. Das heißt insbesondere, dass $C^{l(e)}$ ccw gerichtet ist und deshalb zuerst gedreht werden muss. Folglich ist es auch $C^{l(e)}$, der einmal häufiger als $C^{r(e)}$ geflippt wird. 
+\end{itemize}
+Das äußere Face kann nie geflippt werden, und bekommt daher den Wert $0$ zugewiesen, von diesem Startpunkt aus können wir nun jedem essentiellen Kreis iterativ den Wert zuweisen, wie oft er in der Flipsequenz vorkommen muss - je nach Orientierung der Kanten können wir die Werte aller Nachbarkreise berechnen. Da der Dualgraph immer zusammenhängend ist, wird dabei auch kein Kreis ausgelassen.
+\end{proof}
+Nun können wir das $\alpha$-Potential definieren.
+
+\begin{definition}
+Sei $\mathcal{E}$ die Menge der essentiellen Kreise in einer $\alpha$-Orientierung $X$. Eine Abbildung $\mathcal{P}:\mathcal{E}\to \mathbb{N} $, die jedem essentiellen Kreis eine natürlich Zahl zuweist, ist ein $\alpha$-Potential, wenn
+\begin{itemize}
+\item $\mathcal{P}(C)\le 1$ wenn es eine Kante gibt, für die $C$ der einzige essentielle Kreis ist
+\item $|\mathcal{P}(C)-\mathcal{P}(C')|\le 1$ falls $C$ und $C'$ eine gemeinsame Kante haben
+\item Seien $C^{l(e)}$ bzw. $C^{r(e)}$ der in der minimalen Orientierung (in der alle Kreise cw gerichtet sind) links bzw rechts von $e$ liegende essentielle Kreis. Dann gilt  $\mathcal{P}(C^{l(e)})\le \mathcal{P}(C^{r(e)})$
+\end{itemize}
+Wir definieren $z_X:\mathcal{E}\to \mathbb{N},\, z_X(C)=$ Anzahl der Flips von $C$ in einer zulässigen  Flipsequenz die von $X$ zu der Orientierung ohne ccw gerichtete Kreise führt. Das vorherige Lemma sichert die Konsistenz dieser Definition.
+\end{definition}
+
+Wir sehen sofort, dass die ersten beiden Bedingungen  von $z_X$ wegen der Alternierung  (Lemma \ref{alternierungslemma}) erfüllt werden. Auch die dritte Bedingung gilt: \\
+Da in $X_{min} C^{l(e)}$ links von $e$ liegt, muss der letzte Flip, von dem $e$ betroffen war der von $C^{r(e)}$ gewesen sein. Also gilt $z_X(C^{l(e)})\le z_X(C^{r(e)})$.
+Für die Bijektion benötigen wir noch die andere Richtung:
+
+\begin{lemma}
+Für jedes $\alpha$-Potential $\mathcal{P}$ gibt es eine $\alpha$-Orientierung $X$ mit $z_X=\mathcal{P}$.
+\end{lemma}
+
+\begin{proof}
+Wir definieren eine Orientierung $X_\mathcal{P}$ der Kanten von $\overrightarrow{G}$ ausgehend von unserem $\alpha$-Potential $\mathcal{P}$.
+\begin{itemize}
+\item Kanten, die in keinem essentiellen Kreis enthalten sind, müssen in allen Orientierungen gleich gerichtet sein, diese bekommen also die gleiche Orientierung wie in der eindeutigen minimalen Orientierung $X_{min}$.
+\item Falls eine Kante $e$ in genau einem essentiellen Kreis $C$ enthalten ist, und dieser Kreis das Potential $\mathcal{P}(C)=0$ hat, orientiere $e$ genau wie in $X_{min}$, ansonsten (im Fall $\mathcal{P}(C)=1$, da auf jeden Fall $\mathcal{P}(C)\le 1$) orientiere $e$ genau andersherum.
+\item Falls Kante $e$ in zwei essentiellen Kreisen $C^{l(e)}$ und $C^{r(e)}$ , links und rechts bezüglich $X_{min}$, ist, dann wird $e$ wie in $X_{min}$ gerichtet, falls $\mathcal{P}(C^{l(e)})=\mathcal{P}(C^{r(e)})$, andernfalls genau andersherum.
+\end{itemize}
+Es ist nun zu zeigen, dass dies tatsächlich eine $\alpha$-Orientierung ist:\\
+Betrachte einen Knoten $v$ und das Potential $\mathcal{P}$. Wenn wir in einer beliebigen inzidenten Kante starten und im Uhrzeigersinn um $v$ herumlaufen, sehen wir jede zu $v$ inzidente Kante und alle ihre benachbarten essentiellen Kreise. Aufgrund der Bedingungen $\mathcal{P}(C^{l(e)})\le \mathcal{P}(C^{r(e)})$ und $|\mathcal{P}(C)-\mathcal{P}(C')|\le 1$ für benachbarte Kreise gilt: wenn wir im Uhrzeigersinn eine in $X_{min}$ von $v$ ausgehende Kante überqueren, kann das Potential des Kreises in dem wir uns dann befinden nur gleich oder um eins höher sein als im vorherigen, wenn wir eine in $X_{min}$ eingehende Kante überqueren kann das Potential gleich oder um eins kleiner sein. Da wir wieder am Ausgangspunkt ankommen (also beim gleichen Potential), muss es in $\mathcal{P}$ gleich viele Kanten geben, an denen sich das Potential für uns erhöht oder senkt. Daraus folgt, dass es genauso viele eingehende Kanten gibt, an denen das Potential der beiden benachbarten Kreise unterschiedlich ist, wie es ausgehende Kanten mit unterschiedlichem Potential auf beiden Seiten gibt. Genau diese Kanten werden nach unserer Konstruktion aber umgedreht $\Rightarrow$ also werden gleich viele eingehende wie ausgehende Kanten im Vergleich zu $X_{min}$ umgedreht. Da $X_{min}$ eine zulässige $\alpha$-Orientierung ist, muss $X_\mathcal{P}$ ebenfalls eine solche sein.
+%TODO Bild malen zum beweis?
+\end{proof}
+
+\begin{theorem}
+Sei ein planarer Graph $\overrightarrow{G}$ mit einer festen, kreuzungsfreien Einbettung in die Ebene gegeben. Auf der Menge der $\alpha$-Orientierungen von $\overrightarrow{G}$ definieren die Flips von essentiellen Kreisen einen distributiven Verband.
+\end{theorem}
+
+
+\begin{proof}
+Wir haben gesehen, dass es eine Bijektion zwischen den $\alpha$-Orientierungen und den $\alpha$-Potentialen gibt. Es reicht also zu zeigen, dass die $\alpha$-Potentiale einen distributiven Verband bilden. $\alpha$-Potentiale lassen sich als Vektoren darstellen, definiere $\mathcal{P}_1\lor \mathcal{P}_2=\max\{\mathcal{P}_1,\mathcal{P}_2\}$ und $\mathcal{P}_1\land \mathcal{P}_2=\min\{\mathcal{P}_1,\mathcal{P}_2\}$ , Maximum und Minimum sind dabei jeweils komponentenweise definiert. Die Distributivität des komponentenweisen Maximums und Minimums folgt aus \ref{distribDominanzordnung}, wir müssen also nur zeigen, dass das komponentenweise Maximum und Minimum wieder ein $\alpha$-Potential ist. \\
+Betrachte eine Kante $e$ und dazu $C^{l(e)}$ und $C^{r(e)}$. Da in $\mathcal{P}_1$ sowie $\mathcal{P}_2$ jeweils $C^{l(e)}\le C^{r(e)}$ gilt, gilt das gleiche auch für $\mathcal{P}_1\lor \mathcal{P}_2$. \\
+Sei nun oBdA $\mathcal{P}_1(C^{r(e)})=\max\{\mathcal{P}_1(C^{r(e)})\lor \mathcal{P}_2(C^{r(e)}) \}$, dann ist $(\mathcal{P}_1\lor \mathcal{P}_2)(C^{l(e)})\ge \mathcal{P}_1(C^{l(e)})\ge \mathcal{P}_1(C^{r(e)})-1$. Demnach gilt die Bedingung  $|\mathcal{P}(C)-\mathcal{P}(C')|\le 1$ für benachbarte Kreise. Die Bedingung "'$\mathcal{P}(C)\le 1$ wenn es eine Kante gibt, für die $C$ der einzige essentielle Kreis ist"' folgt sofort aus der Definition. Der Beweis für das Minimum ist analog.
+\end{proof}
+
+Die planaren $\alpha$-Orientierungen bilden also einen distributiven Verband. Wie verhält dieser sich zu dem aus dem ersten Beweis speziell für Domino Tilings? Es ist genau der selbe, wenn wir die $(3,1)$-Orientierung des selben Graphen betrachten! Wenn wir beim ersten Beweis annehmen, dass die in den Bildern schraffierten Flächen diejenigen sind, dessen Knoten in der zugehörigen $\alpha$-Orientierung genau eine ausgehende Kante haben, dann sind die dort definierten "'aufwärts gerichteten"' Flips genau die hier von ccw zu cw gerichteten, andernfalls sind es genau die von cw zu ccw gehenden. In jedem Fall ergibt sich bis auf Umkehrung der Relation der genau gleiche distributive Verband.\\
+
+Auch hier müssen wir uns fragen, wie sich der Beweis auf den Torus verallgemeinern lässt oder warum nicht. Die Antworten sind wiederum ähnlich: genau wie im ersten Beweis benötigt die Azyklizität der Relation einen Rand des Graphen, der (als äußeres Face möglicherweise durchaus gerichtet) nicht geflippt werden darf. Dieser Rand ist auf dem Torus nicht natürlich vorhanden, man müsste das entsprechende Face also willkürlich festhalten.\\
+Auf dem Torus gibt es aber insbesondere auch Orientierungen, die keine gerichteten Facekreise besitzen, der Flipzusammenhang fehlt also. Mit eben diesem beschäftigt sich das nächste Kapitel.

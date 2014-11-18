@@ -1,0 +1,127 @@
+Wie wir gesehen haben, ist es auf planaren $\alpha$-Orientierungen, also auch auf planaren Domino-Tilings möglich, nur mittels drehen von essentiellen Kreisen (in Domino-Tilings tatsächlich Face-Kreise) jede mögliche Konfiguration zu erreichen.
+
+Dabei stellt sich die Frage, ob und wie man dieses Resultat verallgemeinern kann. So hat Kolja Knauer hat in [%verweis 
+] gezeigt, dass für einen torischen Gittergraphen mit $\alpha(v)=2 \forall v \in V$ ausreicht, wenn man zusätzlich zu Faces zwei nicht nullhomologe Kreise erlaubt, um den Zusammenhang und die Poset-Struktur zu haben.
+
+Kann man also ähnliches auch für den Fall der Domino Tilings, also der $3-1$-Orientierungen sagen? Kann man eine Menge von Kreisen auswählen, mit denen man tatsächlich jede Orientierung auf dem Graphen mittels Kreisflips erzeugen kann? 
+
+Betrachten wir also eine $3-1-\alpha$-Orientierung auf dem Torus. Lässt man tatsächlich das drehen aller denkbaren Kreise zu, so ist es sofort möglich alle Orientierungen von einer beliebigen zu erzeugen: Man wähle eine kantendisjunkte Kreiszerlegung des Differenzgraphen beider gegebener Orientierungen und drehe die Richtung dieser Kreise um. Die Reihenfolge ist dabei beliebig da die Kreise kantendisjunkt sind. Der große Nachteil dieses Verfahrens wäre allerdings, dass man dafür zunächst alle Kreise zulassen muss - nullhomologe Kreise lassen sich allerdings wieder durch eine Reihe von Face-Flips ersetzen.%BEWEISEN, als lemma formulieren???
+Auch bestimmte andere Kreise lassen sich aus anderen zusammensetzen (mehr dazu später), was zu der Frage führt: Wie viele und welche Kreise benötigen wir?
+
+
+\subsection{Gegenbeispiele}
+Hier soll es darum gehen, welche Klassen von Kreisen sich nicht eignen bzw nicht ausreichen und wie man das jeweils beweisen kann.
+
+ Als einfaches Beispiel dafür, dass allein Face-Kreise nicht ausreichen kann das Muster einer Ziegelmauer dienen. Dabei sind die Matchingkanten im Graphen horizontal angeordnet, aber wie bei einer Mauer um jeweils eins versetzt. 
+\begin{figure}[h!]
+  \centering
+  {\input{Bilder/ex0.pstex_t}}
+\caption{Ein Domino Tiling des Torus (gegenüberliegende Seiten identifiziert) , bei dem kein Face-Flip möglich ist}
+\end{figure}
+Bei dieser Anordnung gibt es allerdings keinen einzigen gerichteten Face-Kreis, bzw. für Tilings keine zwei nebeneinanderliegenden Dominos, die man drehen könnte. Allein mit Face-Flips kommt man hier also nicht weiter.\\
+
+Welche natürlichen Kreise bieten sich noch an? Reicht es beispielsweise aus, wenn man treppenförmige Kreise wählt? Auch hier ist die Antwort nein. Nehmen wir ein quadratisches Gitter, horizontale und vertikale gerade Kreise und dazu die folgenden beiden Kreistypen:\\
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/treppen1.pstex_t}}
+\end{figure}
+
+ Im Gegensatz zu dem obigen Beispiel kann man hier aufgrund der Form der Kreise nicht mehr erwarten, eine Orientierung zu finden in der alle in Frage kommenden Kreise (insbes. Faces) nicht gerichtet sind. Betrachte beispielsweise folgendes Beispiel in Abb[]:Hier sind zwar einzelne Faces Flipbar, allerdings ist nicht klar ob man hiermit alle anderen Orientierungen erreichen kann.\\
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/ex1.pstex_t}}
+\caption{Beispiel, in dem Faces (gelb markiert) drehbar sind. Lassen sich hieraus mit den obigen Kreisen alle Orientierungen erzeugen?}
+\end{figure}
+ 
+ Ein anderes Beispiel, diesmal rechteckig, zeigt dass auch mit Face-Filps mitunter nur sehr wenige Orientierungen ereichebar sind (Abb[])
+ 
+ \begin{figure}[h!]
+  \centering
+  \scalebox{0.9}{\input{Bilder/ggbsp1.pstex_t}}
+  \caption{Die Ausgangskonfiguration und die Endkonfiguration sind bis auf eine Verschiebung gleich}
+\end{figure}
+
+Daher benötigt man eine aussagekräftige Bedingung, mit der man (mit geringem Aufwand) prüfen kann, ob man wirklich nicht alle anderen Orientierungen mit den gegebenen Kreisen erzeugen kann.\\
+
+Notation: In der zu einem DominoTiling geh\"orenden $\alpha$-Orientierung hat jeder Knoten eine eindeutige Kante - die einzige eingehende oder einzige ausgehende. Diese nennen wir hier die Matchingkante des Knotens. 
+Sind auf einem Kreis die beiden zu einem Knoten geh\"orenden Kanten in Durchlaufrichtung des Kreises entgegengesetzt gerichtet, so nennen wir diesen Knoten Konfliktstelle.
+
+\begin{lemma}
+Sei ein Kreis $C$ in einer torischen $3-1-\alpha$-Orientierung gegeben. 
+Sei $M_{ein}$ die Anzahl der (in Durchlaufrichtung) auf der rechten Seite in $C$ eingehenden Matchingkanten des Graphen und $M_{aus}$ die Anzahl der auf dieser Seite aus $C$ ausgehenden Matchingkanten an Konfliktstellen. \\
+Dann ist für jede Sequenz von Flips nullhomologer Kreise/Facekreise des Graphen die Differenz $M_{ein}-M_{aus}$ für $C$ konstant.
+\end{lemma}
+Da in einem gerichteten Kreis die Differenz $M_{ein}-M_{aus}=0 $ ist, führt uns dies direkt zu folgendem, äußerst nützlichen Korollar:
+
+\begin{cor}
+Wenn zu einer Seite des Kreises, z.B. in Durchlaufrichtung rechts, die Anzahl der in diese Richtung an den Konfliktstellen ausgehenden Matchingkanten ungleich der aus dieser Richtung an Konfliktstellen eingehenden Matchingkanten ist, so kann man den Kreis nicht durch flippen einer Folge von Face-Kreisen in einen gerichteten \"uberf\"uhren.
+\end{cor}
+
+\begin{proof}
+Betrachte den Flip eines nullhomologen Kreises. Falls er keinen Knoten mit $C$ gemeinsam hat, so ist die Bahauptung klar. In dem Fall, wo er gemeinsame Knoten mit $C$ hat (mindestens 2), betrachten wir den Teil des zu flippenden Kreises, der zur rechten Seite von $C$ liegt. Dies ist ein oder mehrere Pfade, die zur rechten Seite von $C$ ein- und ausgehen und auf denen allen die Richtung der Kanten geflippt wird. Da er gerichtet ist, wechseln sich auf ihm Matchingkanten mit Nichtmatchingkanten ab.
+\begin{enumerate}
+\item Fall 1: Der Pfad hat gerade Anzahl an Kanten:\\
+Dann ist entweder die erste oder die letzte Kante eine Matchingkante - egal wierum der Pfad gerichtet ist. Ist vor dem flippen des Kreises die erste Kante des Pfades eine Matchingkante, so ist es danach die (nun erste) Kante, die vorher letzte des Pfades war. Das flippen ändert also nichts an den Werten $M_{ein}$ und $M_{aus}$. 
+\item Fall 2: Der Pfad hat ungerade Anzahl Kanten: \\
+Dann sind beide oder keine der zu $C$ inzidenten Kanten im Matching. Wenn es beide sind, dann sind sie auf dem Pfad gleich gerichtet, und deshalb ist eine von $C$ aus gesehen eine eingehende und die andere eine ausgehende Kante. Die Differenz $M_{ein}-M_{aus}$ bleibt also wieder unverändert.
+\item es bleibt noch zu zeigen, warum wir nur Matchingkanten an Konfliktstellen betrachten:\\
+Ist in einem Knoten eine Kante im Matching, dann sind die restlichen Kanten entweder alle im Bezug zum Knoten ausgehend oder alle eingehend. Dadurch sind sie aber entgegengesetzt gerichtet, wenn also von einem Knoten auf $C$  die Matchingkante nicht zu $C$ gehört, dann ist dieser Knoten immer ein Konfliktstelle.
+\end{enumerate}
+
+\end{proof}
+
+
+Was hilft uns nun dieses Lemma? Wir haben nun ein leicht zu überprüfendes Kriterium an der Hand, um zu entscheiden ob eine gegebene Menge von Kreisen NICHT ausreicht um alle Domino-Tilings mittels Flips zu erzeugen. Dazu reicht es, ein Beispiel anzugeben, in dem sämtliche gegebenen Kreise nicht gerichtet sind, und nachzuweisen dass außerdem für jeden dieser Kreise $M_{ein}-M_{aus} \neq 0$ ist. 
+%ist nicht Hinreichend!? Beispiel dass es nicht Hinreichend ist!!!
+Nun stellt sich natürlich die Frage nach konkreten Beipielen, die diese Bedingung erfüllen. Wir haben bereits kleine Beipiele gesehen, aber zum Teil noch nicht bewiesen warum sie Gegenbeispiele sind.
+Der nächste Abschnitt wird sich daher genauer damit beschäftigen.
+
+\subsection*{Konkrete Gegenbeispiele}
+Um konkrete Beispiele zu finden gibt es verschiedene Möglichkeiten. Man kann zum Beispiel ein beliebiges Domino Tiling hernehmen und alle möglichen Kreise überprüfen ob sie die Bedingungen des Lemmas erfüllen. Die Wahrscheinlichkeit ist hoch, dabei einige Kreisklassen oder Kreise zu entdecken.
+Man kann sich andererseits auch eine Menge von Kreisen/Kreisklassen definieren, die man ausschließen will. Anschließend konstruiert man ein entsprechendes Domino Tiling per Hand (falls das möglich ist) und überprüft es dann mit Hilfe des Lemmas. Auf diese Weise bin ich bei den folgenden Beispielen vorgegangen:
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/ex1.pstex_t}}
+  \caption{Beipiel 1 }
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/ex2.pstex_t}}
+  \caption{Beipiel 2 }
+\end{figure}
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/ex2orientierung.pstex_t}}
+  \caption{nochmal Beispiel 2 mit dem zugehörigen gerichteten Graph}
+\end{figure}
+
+Folgende Klassen von Kreisen sind in diesem Domino-Tiling nicht flipbar: 
+
+%
+%	BILD EINFÜGEN (muss noch gemalt werden)
+%
+
+Zur Überprüfung habe ich ein kleines Java-Programm genutzt. %Das Programm ranhängen???
+\\
+
+Sind diese Beispiele aber auch aussagekräftig für allgemeinere Fälle, oder können es möglicherweise nur Ausnahmen sein, die auf besonders kleinen Instanzen auftreten? Auch hier für hilft uns unser Lemma weiter.
+
+\begin{obs}
+Wenn man ein torisches Domino-Tiling verdoppelt und beide Kopien zu einem neuen zusammenfügt, dann gilt für die Kreise: 
+\begin{enumerate}
+\item nicht-nullhomologe Kreise setzen sich wieder zu ebensolchen zusammen
+\item Die Anzahl der ausgehenden und eingehenden Matchingkanten auf einer Seite des Kreises vervielfacht sich jeweils um den gleichen Faktor ( $\ne 0$ ).
+\end{enumerate}
+\end{obs}
+
+\begin{cor}
+Gibt es für ein torisches Domino Tiling der Größe $n\times m$ $k$ Kreise, die nicht flipbar zu machen sind, so gibt es mindestens so viele für Vielfache von $m$ und $n$. 
+\end{cor}
+
+Haben wir also mit Hilfe des Lemmas ein Beispiel gefunden bei dem wir mindestens $k$ verschiedene Kreise benötigt werden, so finden wir auch beliebig große Beispiele die mindestens $k$ verschiedene Kreise benötigen. In der Tat scheint es plausibel, dass die Anzahl der benötigten Kreisklassen mit der Größe der Fläche monoton wachsend ist. %BEWEIS DAZU?
+Mit Kreisklassen sind dabei Mengen von Kreisen gemeint, die die gleiche Form haben, aber einen anderen Startpunkt.     Es ist, zumindest wenn man das Wachstum der benötigten Kreise betrachtet, durchaus sinnvoll sich ganze Kreisklassen anzuschauen, da wir nach obiger Beobachtung auf jeden Fall immer größere Beispiele mit im Prinzip den gleichen Kreisklassen bauen können. Die Anzahl der Kreise in einer Kreisklasse ist aber offensichtlich monoton wachsend, da bei einer größeren Fläche natürlich auch mehr Startpositionen zur Verfügung stehen an denen gleichgeformte Kreise beginnen können. % def von Kreisklassen müsste eher kommen

@@ -1,0 +1,49 @@
+Wie wir nun wissen, kann man nicht unbedingt erwarten mit wenigen Kreisklassen den Flipzusammenhang wieder herzustellen. %Es waere gut nen Beweis zu haben dass es nicht mit konstant vielen Kreisklassen geht...
+Allerdings ist es auch klar, dass sich bestimmte Kreisflips durch mehrere andere simulieren lassen. Beispielsweise haben wir bereits gesehen, dass sich alle nicht-nullhomologen Kreisflips durch Folgen von Face-Flips erzeugen lassen. \"Ahnliches wollen wir auch f\"ur andere Kreise finden. Dabei ist das, was in diesem Kapitel zu finden ist, nur ein Anfang, in dem per Hand einige Kreise aus anderen konstruiert werden. W\"unschenswert w\"are nat\"urlich eher ein Ergebnis, dass allgemein angibt wie viele Kreise man sparen kann wenn man eine bestimmte Menge von Kreisen zu flippen erlaubt - leider ist mir so etwas nicht gelungen.\\
+
+Face-Flips sind sehr nat\"urlich und erm\"oglichen uns bereits eine sehr gro\ss e Anzahl von Kreisklassen - alle nullhomologen - zu flippen. Deshalb werden wir immer Face-Flips zulassen. Da diese wie gezeigt nicht ausreichen, brauchen wir mindestens eine weitere Klasse von Kreisen deren Flips wir erlauben. Das einfachste Beispiel hierfür sind die Kreise, die ohne einen Knick immer geradeaus gehen, aus Symmetriegr\"unden nehmen wir gleich sowohl die horizontalen als auch die vertikalen Kreise.
+
+\begin{definition}
+Die Menge der Knoten $(x,y)$, die im torischen Gittergraphen der $3-1-$-Orientierung die jeweils gleiche Koordinate $x$ oder die gleiche Koordinate $y$ haben, nennen wir horizontale oder vertikale Achse des Graphen. Ein Kreis in diesem Graphen heißt gerade, wenn alle seine Knoten auf der gleichen Achse liegen.\\
+
+Als Ausstülpung oder Beule (bezüglich einer Achse) bezeichnen wir einen Pfad $P$, so dass $P$ nur Start- und Endknoten auf der Achse hat und mit Kanten des geraden Kreises dieser Achse zu einem einfachen nullhomologen Kreis erweitert werden kann. Die Länge der Ausstülpung ist dabei der maximale Abstand eines Punktes auf $P$ zur Achse bezüglich der Seite, zu der $P$ die Achse verlässt und betritt. Die Breite ist die Anzahl der Kanten, die auf dem geraden Achsenkreis benötigt werden, um $P$ zu einem einfachen nullhomologen Kreis zu erweitern.
+\end{definition}
+
+%Bild?
+Was bringt uns das nun? Wir werden sehen, dass sich Kreise mit Ausst\"ulpungen reduzieren lassen. Eine Ausstülpung des Kreises ist dabei ein Tei des Kreises, der von der Hauptrichtung zu einer Seite des Kreises abzweigt und auf der gleichen Seite wieder in den Hauptkreis einm\"undet. 
+%Krass unformal, das MUSS eigentlich überarbeitet werden und ne vernünftige Definition her
+Betrachte nun also einen geraden Kreis mit einer Ausst\"ulpung der Breite 1, der gerichtet ist, also theoretisch im ganzen flipbar w\"are. Im folgenden Bild sieht man sehr gut, wie leicht sich diese aus Facekreisen und dem geraden Kreis zusammensetzen lässt. 
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/beule1.pstex_t}}
+\caption{Beispiel wie eine Ausstülpung durch eine Kombination mit nullhomologen Kreisen geflippt wird}
+\end{figure}
+
+Gleiches funktioniert nicht nur in diesem Beispiel, sondern für Ausstülpungen der Breite 1 bei beliebiger Länge: die Ausstülpung an sich ist ja ein nullhomologer Kreis, der bis auf die mit dem geraden Kreis geteilte Kante gerichtet sein muss. Diese Kante kann wenn sie entgegen den anderen gerichtet ist durch das flippen des geraden Kreises umgedreht werden, andernfalls ist sie für den geraden Kreis ungerichtet und wird durch den Flip des nullhomologen Kreises gedreht. Dabei muss man natürlich die Reihenfolge beachten, das ganze ist in Abb[] schematisch dargestellt.\\
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/beule2.pstex_t}}
+\caption{Unterschiedliche Reihenfolge des der Flips, abhängig von der Richtung der (roten) Zwischenkante}
+\end{figure}
+
+Dieses Vorgehen wird schwieriger, wenn die Breite der Ausstülpungen zunimmt. Die hier rot gemalte Zwischenkante wird zu einem Pfad von mehreren Zwischenkanten, die möglicherweise nicht gerichtet sind. Folgende Abbildung verdeutlicht das Problem.
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/2erbeule.pstex_t}}
+\caption{Bei dieser $2\times 1$ Beule ist es nicht mehr direkt möglich, entlang des schwarz eingezeichneten Kreises einen Flip aus dem geraden Kreis und einem nullhomologen Kreis zusammenzusetzen. Im Domino Tiling (rechte Darstellung) erkennt man, dass es nicht mal klar ist ob überhaupt Face-flips möglich sind.}
+\end{figure}
+
+Wie es scheint können wir bei dieser Form von Beulen zumindest mit der obigen Methode nichts erreichen. Die Gute Nachricht ist aber: Wir sind nicht bei allen größeren Ausstülpungen verloren. Häufig ist es möglich, zumindest einen Teil des Kreises über Faceflips zu drehen.% und das was übrigbleibt ist dann eben eine solche $2\times 1$ Beule.?
+Betrachte die Situation in einer Ecke:
+
+\begin{figure}[h!]
+  \centering
+  \scalebox{1}{\input{Bilder/beule3.pstex_t}}
+\caption{Eine der beiden grünen Kanten muss eine eingehende Kante in den gemeinsamen Knoten sein. Alle nichtgrünen Kanten folgen zwangsweise aus der Form des Pfades. Je nachdem wie man die Kantenrichtung wählt, erhält man entweder eine Abkürzung des großen Kreises, oder man erhält einen kleinen nullhomologen Kreis aus zwei Faces den man flippen kann. In beiden Fällen reduziert sich die Größe des benötigten großen Kreises.}
+\end{figure}
+
+Analog dazu ist das Bild, wenn der Eckknoten 3 eingehende und eine ausgehende Kante hat, nur dass die Wege dann jeweils in die andere Richtung laufen. Wenn wir nun in einem Kreis eine große rechteckige Ausstülpung haben, dann ist offensichtlich, dass wir das selbe Argument wiederholen können und die Größe damit weiter reduzieren, denn .
+%TODO hier weitergehen und genau sagen, wie weit die Größe sich reduziert!!!
+
