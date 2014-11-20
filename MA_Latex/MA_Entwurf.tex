@@ -1,0 +1,96 @@
+\documentclass[a4paper]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{times, graphicx, currvita, hyperref, longtable, float, caption, subcaption}
+\usepackage{amsmath,amsfonts,amssymb, amsthm}%, dsfont, bbm, mathtools, stmaryrd}
+%\usepackage{fancyhdr}
+%\usepackage{color}
+%\usepackage[english]{babel}
+\usepackage{paralist}
+%\usepackage{algorithmic}
+\usepackage{wasysym}	% verschiedene Symbole, siehe http://rpi.edu/dept/arc/training/latex/LaTeX_symbols.pdf
+\graphicspath{{Bilder/}}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[section]
+\newtheorem*{Def1}{Definition}
+\newtheorem*{ex}{Example}
+
+\newtheoremstyle{Tobi}{10pt}{}{}{}{\bf}{ }{\newline}{}
+% die parameter sind: {name}{platz drueber}{platz drunter}{schriftart text}{einrueckung}{schriftart kopf}{Punktierung des Kopfes}{Platz zwischen kopf und text}
+
+\theoremstyle{Tobi}
+\newtheorem{prop}[definition]{Proposition}
+\newtheorem*{Pro}{Proposition}
+\newtheorem{theorem}[definition]{Satz}
+%\newtheorem*{le}{Lemma}
+\newtheorem{lemma}[definition]{Lemma}
+\newtheorem{cor}[definition]{Korollar}
+\newtheorem*{conj}{Conjecture}
+\newtheorem{obs}[definition]{Beobachtung}
+
+% \theoremstyle{remark}
+% \newtheorem*{que}{Questions}
+% \newtheorem*{claim}{Claim}
+% \newtheorem*{note}{Note:}
+% \newtheorem*{remark}{Remark}
+
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+% \newcommand{\F}{\mathbb{F}}
+% \newcommand{\1}{\mathbbm{1}}
+\newcommand{\Rn}{\mathbb{R}^n}
+% \newcommand{\La}{\mathcal{L}}
+% \newcommand{\D}{\mathcal{D}}
+\newcommand{\Om}{\Omega}
+\newcommand{\pa}{\partial}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\ph}{\varphi}
+
+\setlength{\parindent}{0pt}
+
+\begin{document}
+
+\title{Entwurf MA - Flussschranken in Netzen ohne Kreisfluss}
+
+\author{Tobias Buchwald}
+%\maketitle
+
+%\large{Bachelorarbeit bei Prof. Dr. Stefan Felsner}
+
+
+% \begin{center} 
+%TODO auf Masterarbeit anpassen
+% \Huge{Domino Tilings auf dem Torus}\\ \vspace{12 cm}
+% \Large{Bachelorarbeit\\ bei Prof. Dr. Stefan Felsner}\\ \vspace{1cm}
+% \large{Vorgelegt von Tobias Buchwald}\\
+% \large{am Fachbereich Mathematik der \\Technischen Universität Berlin}\\
+% \vspace{2cm}
+% \large{Berlin,  \today}
+% 
+% \end{center} 
+% 
+% 
+% \include{Erklaerung}
+% \newpage
+
+\tableofcontents
+\newpage
+\section{Einleitung} \input{Einleitung.tex}
+\section{Einf\"uhrende Definitionen}\input{Definitionen}
+% \newpage
+% \section{Situation auf dem Torus}\input{3.Kapitel}
+% \newpage
+% \subsection{Einschr\"ankung der ben\"otigten Kreisklassen} \input{4.Kapitel}
+
+% \newpage
+% \newpage
+% \addcontentsline{toc}{section}{Literaturverzeichnis}
+% \bibliographystyle{amsplain}
+% \bibliography{literatur}
+%\nocite{*}
+
+\end{document}
