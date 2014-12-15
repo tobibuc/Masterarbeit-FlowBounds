@@ -1,0 +1,18 @@
+
+
+
+log for ./gnu-make/bin/xporta traf ../3-cycle.poi 
+
+invalid format of command line
+
+
+
+log for ./gnu-make/bin/xporta ../3-cycle.poi traf 
+
+invalid format of command line
+
+
+
+log for ./gnu-make/bin/xporta traf ../3-cycle.poi 
+
+invalid format of command line

@@ -1,0 +1,80 @@
+
+
+
+log for ./xporta -T ../../../3-cycle.poi 
+
+
+
+
+log for ./xporta -D ../../../3-cycle.poi 
+
+
+
+
+log for ./xporta -D ../../examples/example.poi 
+
+
+
+
+log for ./xporta -T ../../examples/example.poi 
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T ../../../3-cycle.poi 
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 3-cycle.poi 
+
+3-cycle.poi, line 11: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 3-cycle.poi 
+
+input file 3-cycle.poi o.k.
+dimension              :    3 
+number of cone-points  :    0 
+number of conv-points  :    5 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     4 |          4 |        1 |    1 |   n |   0.50 |      41 |      0.00 |      0.00 |
+|     3 |          3 |        2 |    2 |   n |   0.64 |      41 |      0.00 |      0.00 |
+|     2 |          2 |        3 |    2 |   n |   0.88 |      41 |      0.00 |      0.00 |
+|     1 |          1 |        4 |    2 |   n |   0.75 |      41 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     1 |          5 |        5 |    2 |   n |   0.28 |     841 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :      5
+maximal number of inequalities          :      5
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :    5 
+
+output written to file 3-cycle.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T examples/3-cycle.poi 
+
+
+
+
+log for ./valid -V testf2.ieq 
+
+testf2.ieq, line 3 : invalid format
