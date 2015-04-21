@@ -1,7 +1,7 @@
 So as we have seen, the computational results of the MIP formulation with separation of the Acyclicity Constraints 
 are needing a lot of computing time and memory, which makes them too bad for using in practice. The solved problem is a 
 relaxation anyway, so we can as well think about different relaxations and heuristic approaches. They might not yield 
-optimal results, but as long as the bounds are valid and the computations take much less time they might be the better 
+optimal results, but as long as the bounds are valid and the computations take much less time, they might be the better 
 way in practice.
 
 \caption{Flow Algorithms based on Path Augmentations}
@@ -13,6 +13,13 @@ EdmondsKarp and?].
 Now you can come up with the following idea: If you always augment (simple) paths going over the arc $e$ we want to 
 maximize, the algorithm can't send arbitrary amounts of flow in a cycle. Obviously one single path can't produce a 
 cycle, but a combination of paths still can do, as example [TODO] illustrates. \\
+
+But we get an important property even from this: the flow that we compute with this path flow algorithm cannot be 
+greater than the amount of flow that was fed into the network, since the flow on one arc is always the addition of 
+flow on simple paths between sources and sinks.
+
+
+
 
 %TODO das ist falsch,  man erhält keine 2-Approx. Kann man eventuell beweisen dass es keine gibt?
 
