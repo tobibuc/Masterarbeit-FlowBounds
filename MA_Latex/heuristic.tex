@@ -1,7 +1,7 @@
 So as we have seen, the computational results of the MIP formulation with separation of the Acyclicity Constraints 
 are needing a lot of computing time and memory, which makes them too bad for using in practice. The solved problem is a 
 relaxation anyway, so we can as well think about different relaxations and heuristic approaches. They might not yield 
-optimal results, but as long as the bounds are valid and the computations take much less time they might be the better 
+optimal results, but as long as the bounds are valid and the computations take much less time, they might be the better 
 way in practice.
 
 \caption{Flow Algorithms based on Path Augmentations}
@@ -14,28 +14,37 @@ Now you can come up with the following idea: If you always augment (simple) path
 maximize, the algorithm can't send arbitrary amounts of flow in a cycle. Obviously one single path can't produce a 
 cycle, but a combination of paths still can do, as example [TODO] illustrates. \\
 
-But in the case that the nomination can be fulfilled by \textbf{only} augmenting paths including the arc $e$, we even 
-can prove that this gives a $2$-Approximation of the maximal acyclic flow on $e$:
+But we get an important property even from this: the flow that we compute with this path flow algorithm cannot be 
+greater than the amount of flow that was fed into the network, since the flow on one arc is always the addition of 
+flow on simple paths between sources and sinks.
 
-\begin{prop}
- Let $f: A\to \R$ be a flow, that comes from augmenting only simple paths going over an arc $e\in A$, and $f':A\to \R$ 
-an acyclic flow with $f'(e)\ge \overline{f(e)}$ for all acyclic flows $\overline{f(e)}:A\to \R$ ie $f'$ is a maximum 
-acyclic flow on $e$. Then $$ f'(e)\le f(e)\le 2f'(e)$$.
-\end{prop}
 
-\begin{proof}
- Since all flow was sent over the arc $e$, the amount of flow is at least as much as the maximum acyclic flow, so it 
-really leads to a valid upper bound.\\
-We have to show, that it is at most twice as much: Consider a cyclic flow that includes the arc $e$ and the paths as 
-they were when flow was augmented along them. A single path can't form a cycle, so there are at least two different 
-paths involved in building any cyclic flow. Take the involved path with the lowest augmented value. Just removing this 
-path would mean, that this cyclic flow disappears. But on the arc $e$ it cost only at most half of the value of the 
-involved arcs. Iterating this we can show that only half of the total flow is lost in this process. Of course, the 
-resulting flow is not maximal anymore, but is acyclic.
-%TODO
-\end{proof}
 
-While a 2-Approximation would be a nice thing, there are still two major issues: 
+
+%TODO das ist falsch,  man erhält keine 2-Approx. Kann man eventuell beweisen dass es keine gibt?
+
+% But in the case that the nomination can be fulfilled by \textbf{only} augmenting paths including the arc $e$, we even 
+% can prove that this gives a $2$-Approximation of the maximal acyclic flow on $e$:
+% 
+% \begin{prop}
+%  Let $f: A\to \R$ be a flow, that comes from augmenting only simple paths going over an arc $e\in A$, and $f':A\to \R$ 
+% an acyclic flow with $f'(e)\ge \overline{f(e)}$ for all acyclic flows $\overline{f(e)}:A\to \R$ ie $f'$ is a maximum 
+% acyclic flow on $e$. Then $$ f'(e)\le f(e)\le 2f'(e)$$.
+% \end{prop}
+% 
+% \begin{proof}
+%  Since all flow was sent over the arc $e$, the amount of flow is at least as much as the maximum acyclic flow, so it 
+% really leads to a valid upper bound.\\
+% We have to show, that it is at most twice as much: Consider a cyclic flow that includes the arc $e$ and the paths as 
+% they were when flow was augmented along them. A single path can't form a cycle, so there are at least two different 
+% paths involved in building any cyclic flow. Take the involved path with the lowest augmented value. Just removing this 
+% path would mean, that this cyclic flow disappears. But on the arc $e$ it cost only at most half of the value of the 
+% involved arcs. Iterating this we can show that only half of the total flow is lost in this process. Of course, the 
+% resulting flow is not maximal anymore, but is acyclic.
+% %TODO
+% \end{proof}
+% 
+% While a 2-Approximation would be a nice thing, there are still two major issues: 
 \begin{itemize}
  \item What can we say in the case where the nomination is not fulfilled and we do not find any source-sink path over 
 $e$?

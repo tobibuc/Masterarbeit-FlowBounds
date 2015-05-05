@@ -2,52 +2,45 @@ This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: MA_Entwurf.aux
 The style file: amsplain.bst
-I couldn't open database file literatur.bib
----line 26 of file MA_Entwurf.aux
- : \bibdata{literatur
- :                   }
-I'm skipping whatever remains of this command
-I found no \citation commands---while reading file MA_Entwurf.aux
-I found no database files---while reading file MA_Entwurf.aux
-You've used 0 entries,
+Database file #1: literatur.bib
+You've used 2 entries,
             2213 wiz_defined-function locations,
-            499 strings with 3920 characters,
-and the built_in function-call counts, 32 in all, are:
-= -- 0
-> -- 0
+            516 strings with 4299 characters,
+and the built_in function-call counts, 630 in all, are:
+= -- 52
+> -- 31
 < -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
++ -- 12
+- -- 10
+* -- 55
+:= -- 108
+add.period$ -- 2
+call.type$ -- 2
+change.case$ -- 12
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 2
+duplicate$ -- 23
+empty$ -- 51
+format.name$ -- 10
+if$ -- 123
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 10
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 2
+missing$ -- 5
+newline$ -- 16
+num.names$ -- 4
+pop$ -- 14
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 9
 quote$ -- 0
-skip$ -- 1
+skip$ -- 13
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
+substring$ -- 29
+swap$ -- 2
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
+type$ -- 6
 warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 9
-(There were 3 error messages)
+while$ -- 6
+width$ -- 3
+write$ -- 27

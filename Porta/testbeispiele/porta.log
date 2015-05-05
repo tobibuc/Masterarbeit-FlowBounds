@@ -1,0 +1,2220 @@
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 3-cycle.poi 
+
+input file 3-cycle.poi o.k.
+dimension              :    3 
+number of cone-points  :    0 
+number of conv-points  :    6 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     4 |          4 |        1 |    1 |   n |   0.50 |      42 |      0.00 |      0.00 |
+|     3 |          3 |        2 |    2 |   n |   0.62 |      42 |      0.00 |      0.00 |
+|     2 |          2 |        3 |    2 |   n |   0.89 |      42 |      0.00 |      0.00 |
+|     1 |          1 |        4 |    2 |   n |   0.75 |      42 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     2 |          5 |        5 |    2 |   n |   0.28 |     841 |      0.00 |      0.00 |
+|     1 |          8 |        8 |    2 |   n |   0.40 |     841 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :     13
+maximal number of inequalities          :      8
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :    8 
+
+output written to file 3-cycle.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle.poi 
+
+4-cycle.poi, line 4 : dimension error
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle.poi 
+
+4-cycle.poi, line 18: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle.poi 
+
+input file 4-cycle.poi o.k.
+dimension              :    4 
+number of cone-points  :    0 
+number of conv-points  :   14 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     5 |          5 |        1 |    1 |   n |   0.49 |      44 |      0.00 |      0.00 |
+|     4 |          4 |        2 |    2 |   n |   0.55 |      44 |      0.00 |      0.00 |
+|     3 |          3 |        3 |    2 |   n |   0.75 |      44 |      0.00 |      0.00 |
+|     2 |          2 |        4 |    2 |   n |   0.72 |      44 |      0.00 |      0.00 |
+|     1 |          1 |        5 |    2 |   n |   0.66 |      44 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          6 |        6 |    2 |   n |   0.22 |     843 |      0.00 |      0.00 |
+|     8 |          9 |        9 |    2 |   n |   0.31 |     843 |      0.00 |      0.00 |
+|     7 |         12 |        8 |    2 |   n |   0.29 |     843 |      0.00 |      0.00 |
+|     6 |         12 |        9 |    2 |   n |   0.35 |     843 |      0.00 |      0.00 |
+|     5 |         13 |       12 |    3 |   n |   0.46 |     843 |      0.00 |      0.00 |
+|     4 |         20 |       11 |    3 |   n |   0.45 |     843 |      0.00 |      0.00 |
+|     3 |         15 |       10 |    3 |   n |   0.43 |     843 |      0.00 |      0.00 |
+|     2 |         14 |       10 |    3 |   n |   0.43 |     843 |      0.00 |      0.00 |
+|     1 |         14 |       10 |    2 |   n |   0.45 |     843 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :     85
+maximal number of inequalities          :     12
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   10 
+
+output written to file 4-cycle.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle_with_diag.poi 
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle.poi 
+
+input file 4-cycle.poi o.k.
+dimension              :    4 
+number of cone-points  :    0 
+number of conv-points  :   14 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     5 |          5 |        1 |    1 |   n |   0.49 |      44 |      0.00 |      0.00 |
+|     4 |          4 |        2 |    2 |   n |   0.55 |      44 |      0.00 |      0.00 |
+|     3 |          3 |        3 |    2 |   n |   0.75 |      44 |      0.00 |      0.00 |
+|     2 |          2 |        4 |    2 |   n |   0.72 |      44 |      0.00 |      0.00 |
+|     1 |          1 |        5 |    2 |   n |   0.66 |      44 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          6 |        6 |    2 |   n |   0.22 |     843 |      0.00 |      0.00 |
+|     8 |          9 |        9 |    2 |   n |   0.31 |     843 |      0.00 |      0.00 |
+|     7 |         12 |        8 |    2 |   n |   0.29 |     843 |      0.00 |      0.00 |
+|     6 |         12 |        9 |    2 |   n |   0.35 |     843 |      0.00 |      0.00 |
+|     5 |         13 |       12 |    3 |   n |   0.46 |     843 |      0.00 |      0.00 |
+|     4 |         20 |       11 |    3 |   n |   0.45 |     843 |      0.00 |      0.00 |
+|     3 |         15 |       10 |    3 |   n |   0.43 |     843 |      0.00 |      0.00 |
+|     2 |         14 |       10 |    3 |   n |   0.43 |     843 |      0.00 |      0.00 |
+|     1 |         14 |       10 |    2 |   n |   0.45 |     843 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :     85
+maximal number of inequalities          :     12
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   10 
+
+4-cycle.poi.ieq moved into 4-cycle.poi.ieq%
+output written to file 4-cycle.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle_with_diag.poi 
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle_with_diag.poi 
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 5_dim_all.poi 
+
+input file 5_dim_all.poi o.k.
+dimension              :    5 
+number of cone-points  :    0 
+number of conv-points  :   32 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     6 |          6 |        1 |    1 |   n |   0.46 |      50 |      0.00 |      0.00 |
+|     5 |          5 |        2 |    1 |   n |   0.47 |      50 |      0.00 |      0.00 |
+|     4 |          4 |        3 |    2 |   n |   0.50 |      50 |      0.00 |      0.00 |
+|     3 |          3 |        4 |    2 |   n |   0.54 |      50 |      0.00 |      0.00 |
+|     2 |          2 |        5 |    3 |   n |   0.57 |      50 |      0.00 |      0.00 |
+|     1 |          1 |        6 |    3 |   n |   0.58 |      50 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    26 |          7 |        7 |    1 |   n |   0.18 |     847 |      0.00 |      0.00 |
+|    25 |          8 |        7 |    1 |   n |   0.20 |     847 |      0.00 |      0.00 |
+|    24 |          9 |        9 |    2 |   n |   0.29 |     847 |      0.00 |      0.00 |
+|    23 |         11 |        8 |    1 |   n |   0.25 |     847 |      0.00 |      0.00 |
+|    22 |          9 |        8 |    1 |   n |   0.27 |     847 |      0.00 |      0.00 |
+|    21 |         10 |        9 |    2 |   n |   0.33 |     847 |      0.00 |      0.00 |
+|    20 |         11 |        8 |    1 |   n |   0.29 |     847 |      0.00 |      0.00 |
+|    19 |         11 |       11 |    2 |   n |   0.40 |     847 |      0.00 |      0.00 |
+|    18 |         14 |       10 |    2 |   n |   0.37 |     847 |      0.00 |      0.00 |
+|    17 |         13 |       10 |    2 |   n |   0.37 |     847 |      0.00 |      0.00 |
+|    16 |         13 |        9 |    1 |   n |   0.33 |     847 |      0.00 |      0.00 |
+|    15 |         10 |        9 |    1 |   n |   0.35 |     847 |      0.00 |      0.00 |
+|    14 |         11 |       10 |    2 |   n |   0.41 |     847 |      0.00 |      0.00 |
+|    13 |         12 |        9 |    1 |   n |   0.37 |     847 |      0.00 |      0.00 |
+|    12 |         12 |       11 |    2 |   n |   0.47 |     847 |      0.00 |      0.00 |
+|    11 |         14 |       10 |    2 |   n |   0.43 |     847 |      0.00 |      0.00 |
+|    10 |         13 |       10 |    2 |   n |   0.43 |     847 |      0.00 |      0.00 |
+|     9 |         13 |        9 |    1 |   n |   0.38 |     847 |      0.00 |      0.00 |
+|     8 |         13 |       13 |    2 |   n |   0.53 |     847 |      0.00 |      0.00 |
+|     7 |         17 |       12 |    2 |   n |   0.50 |     847 |      0.00 |      0.00 |
+|     6 |         16 |       12 |    2 |   n |   0.50 |     847 |      0.00 |      0.00 |
+|     5 |         16 |       11 |    2 |   n |   0.47 |     847 |      0.00 |      0.00 |
+|     4 |         15 |       12 |    2 |   n |   0.50 |     847 |      0.00 |      0.00 |
+|     3 |         16 |       11 |    2 |   n |   0.47 |     847 |      0.00 |      0.00 |
+|     2 |         15 |       11 |    3 |   n |   0.47 |     847 |      0.00 |      0.00 |
+|     1 |         15 |       10 |    1 |   n |   0.43 |     847 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :    256
+maximal number of inequalities          :     13
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   10 
+
+output written to file 5_dim_all.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle_with_diag.poi 
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle_with_diag.poi 
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle-diag.poi 
+
+input file 4-cycle-diag.poi o.k.
+dimension              :    5 
+number of cone-points  :    0 
+number of conv-points  :   18 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     6 |          6 |        1 |    1 |   n |   0.45 |      46 |      0.00 |      0.00 |
+|     5 |          5 |        2 |    1 |   n |   0.46 |      46 |      0.00 |      0.00 |
+|     4 |          4 |        3 |    1 |   n |   0.46 |      46 |      0.00 |      0.00 |
+|     3 |          3 |        4 |    2 |   n |   0.49 |      46 |      0.00 |      0.00 |
+|     2 |          2 |        5 |    1 |   n |   0.51 |      46 |      0.00 |      0.00 |
+|     1 |          1 |        6 |    2 |   n |   0.54 |      46 |      0.00 |      0.00 |
+
+
+
+log for /nfs/homeoptimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle-diag.poi 
+
+input file 4-cycle-diag.poi o.k.
+dimension              :    5 
+number of cone-points  :    0 
+number of conv-points  :   18 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     6 |          6 |        1 |    1 |   n |   0.45 |      46 |      0.00 |      0.00 |
+|     5 |          5 |        2 |    1 |   n |   0.46 |      46 |      0.00 |      0.00 |
+|     4 |          4 |        3 |    1 |   n |   0.46 |      46 |      0.00 |      0.00 |
+|     3 |          3 |        4 |    2 |   n |   0.49 |      46 |      0.00 |      0.00 |
+|     2 |          2 |        5 |    1 |   n |   0.51 |      46 |      0.00 |      0.00 |
+|     1 |          1 |        6 |    2 |   n |   0.54 |      46 |      0.00 |      0.00 |
+
+
+
+log for /nfs/homeoptimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4-cycle-diag.poi 
+
+input file 4-cycle-diag.poi o.k.
+dimension              :    5 
+number of cone-points  :    0 
+number of conv-points  :   18 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     6 |          6 |        1 |    1 |   n |   0.45 |      46 |      0.00 |      0.00 |
+|     5 |          5 |        2 |    1 |   n |   0.46 |      46 |      0.00 |      0.00 |
+|     4 |          4 |        3 |    1 |   n |   0.46 |      46 |      0.00 |      0.00 |
+|     3 |          3 |        4 |    2 |   n |   0.49 |      46 |      0.00 |      0.00 |
+|     2 |          2 |        5 |    1 |   n |   0.51 |      46 |      0.00 |      0.00 |
+|     1 |          1 |        6 |    2 |   n |   0.54 |      46 |      0.00 |      0.00 |
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 4cycdiag.poi 
+
+input file 4cycdiag.poi o.k.
+dimension              :    5 
+number of cone-points  :    0 
+number of conv-points  :   18 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     6 |          6 |        1 |    1 |   n |   0.45 |      46 |      0.00 |      0.00 |
+|     5 |          5 |        2 |    1 |   n |   0.46 |      46 |      0.00 |      0.00 |
+|     4 |          4 |        3 |    1 |   n |   0.46 |      46 |      0.00 |      0.00 |
+|     3 |          3 |        4 |    2 |   n |   0.49 |      46 |      0.00 |      0.00 |
+|     2 |          2 |        5 |    1 |   n |   0.51 |      46 |      0.00 |      0.00 |
+|     1 |          1 |        6 |    2 |   n |   0.54 |      46 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    12 |          7 |        7 |    1 |   n |   0.18 |     844 |      0.00 |      0.00 |
+|    11 |          8 |        7 |    1 |   n |   0.20 |     844 |      0.00 |      0.00 |
+|    10 |          8 |        8 |    1 |   n |   0.25 |     844 |      0.00 |      0.00 |
+|     9 |          9 |        7 |    1 |   n |   0.22 |     844 |      0.00 |      0.00 |
+|     8 |          8 |        8 |    1 |   n |   0.25 |     844 |      0.00 |      0.00 |
+|     7 |         11 |       10 |    1 |   n |   0.34 |     844 |      0.00 |      0.00 |
+|     6 |         14 |       14 |    2 |   n |   0.40 |     844 |      0.00 |      0.00 |
+|     5 |         22 |       12 |    2 |   n |   0.37 |     844 |      0.00 |      0.00 |
+|     4 |         19 |       19 |    2 |   n |   0.51 |     845 |      0.00 |      0.00 |
+|     3 |         33 |       17 |    2 |   n |   0.49 |     845 |      0.00 |      0.00 |
+|     2 |         29 |       15 |    2 |   n |   0.46 |     845 |      0.00 |      0.00 |
+|     1 |         21 |       14 |    1 |   n |   0.43 |     845 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :    138
+maximal number of inequalities          :     19
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   14 
+
+output written to file 4cycdiag.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T fenster.ieq 
+
+input file fenster.ieq o.k.
+dimension              :    8 
+number of equations    :    0 
+number of inequalities :   26 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          9 |        1 |    2 |   n |   0.22 |      55 |      0.00 |      0.00 |
+|     8 |          8 |        2 |    2 |   n |   0.23 |      55 |      0.00 |      0.00 |
+|     7 |          7 |        3 |    2 |   n |   0.24 |      55 |      0.00 |      0.00 |
+|     6 |          6 |        4 |    2 |   n |   0.25 |      55 |      0.00 |      0.00 |
+|     5 |          5 |        5 |    2 |   n |   0.26 |      55 |      0.00 |      0.00 |
+|     4 |          4 |        6 |    2 |   n |   0.27 |      55 |      0.00 |      0.00 |
+|     3 |          3 |        7 |    2 |   n |   0.28 |      55 |      0.00 |      0.00 |
+|     2 |          2 |        8 |    2 |   n |   0.28 |      55 |      0.00 |      0.00 |
+|     1 |          1 |        9 |    2 |   n |   0.35 |      55 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    18 |         10 |       10 |    1 |   n |   0.12 |     850 |      0.00 |      0.00 |
+|    17 |         13 |       13 |    1 |   n |   0.16 |     850 |      0.00 |      0.00 |
+|    16 |         20 |       20 |    1 |   n |   0.22 |     850 |      0.00 |      0.00 |
+|    15 |         35 |       35 |    1 |   n |   0.28 |     851 |      0.00 |      0.00 |
+|    14 |         77 |       33 |    2 |   n |   0.27 |     851 |      0.00 |      0.00 |
+|    13 |         71 |       31 |    2 |   n |   0.28 |     851 |      0.00 |      0.00 |
+|    12 |         51 |       51 |    2 |   n |   0.33 |     851 |      0.00 |      0.00 |
+|    11 |         85 |       85 |    2 |   n |   0.38 |     852 |      0.00 |      0.00 |
+|    10 |        168 |      168 |    2 |   n |   0.43 |     855 |      0.00 |      0.00 |
+|     9 |       2884 |      176 |    2 |   n |   0.44 |     856 |      0.00 |      0.00 |
+|     8 |       2500 |      168 |    1 |   n |   0.43 |     856 |      0.00 |      0.00 |
+|     7 |       2018 |      143 |    2 |   n |   0.43 |     856 |      0.00 |      0.00 |
+|     6 |       1518 |      118 |    2 |   n |   0.43 |     856 |      0.00 |      0.00 |
+|     5 |        728 |      108 |    2 |   n |   0.44 |     856 |      0.00 |      0.01 |
+|     4 |        638 |       98 |    1 |   n |   0.44 |     856 |      0.00 |      0.01 |
+|     3 |        558 |       88 |    1 |   n |   0.45 |     856 |      0.00 |      0.01 |
+|     2 |        468 |       78 |    1 |   n |   0.45 |     856 |      0.00 |      0.01 |
+|     1 |         78 |       78 |    1 |   n |   0.45 |     856 |      0.00 |      0.01 |
+
+sum of inequalities over all iterations :   1501
+maximal number of inequalities          :    176
+
+sorting system 
+transformation to integer values 
+
+number of cone-points  :    0 
+number of conv-points  :   78 
+
+output written to file fenster.ieq.poi
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T fenster.ieq.poi 
+
+input file fenster.ieq.poi o.k.
+dimension              :    8 
+number of cone-points  :    0 
+number of conv-points  :   78 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          9 |        1 |    1 |   n |   0.47 |      77 |      0.00 |      0.00 |
+|     8 |          8 |        2 |    1 |   n |   0.46 |      77 |      0.00 |      0.00 |
+|     7 |          7 |        3 |    2 |   n |   0.48 |      77 |      0.00 |      0.00 |
+|     6 |          6 |        4 |    2 |   n |   0.51 |      77 |      0.00 |      0.00 |
+|     5 |          5 |        5 |    2 |   n |   0.50 |      77 |      0.00 |      0.00 |
+|     4 |          4 |        6 |    2 |   n |   0.48 |      77 |      0.00 |      0.00 |
+|     3 |          3 |        7 |    2 |   n |   0.47 |      77 |      0.00 |      0.00 |
+|     2 |          2 |        8 |    2 |   n |   0.46 |      77 |      0.00 |      0.00 |
+|     1 |          1 |        9 |    2 |   n |   0.57 |      77 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    69 |         10 |       10 |    1 |   n |   0.12 |     865 |      0.00 |      0.00 |
+|    68 |         13 |       13 |    1 |   n |   0.16 |     865 |      0.00 |      0.00 |
+|    67 |         17 |       13 |    1 |   n |   0.18 |     865 |      0.00 |      0.00 |
+|    66 |         16 |       13 |    1 |   n |   0.18 |     865 |      0.00 |      0.00 |
+|    65 |         17 |       14 |    1 |   n |   0.21 |     865 |      0.00 |      0.00 |
+|    64 |         19 |       19 |    1 |   n |   0.29 |     865 |      0.00 |      0.00 |
+|    63 |         34 |       22 |    1 |   n |   0.32 |     865 |      0.00 |      0.00 |
+|    62 |         38 |       21 |    2 |   n |   0.32 |     865 |      0.00 |      0.00 |
+|    61 |         39 |       30 |    2 |   n |   0.40 |     866 |      0.00 |      0.00 |
+|    60 |         62 |       31 |    2 |   n |   0.43 |     866 |      0.00 |      0.00 |
+|    59 |         67 |       30 |    2 |   n |   0.44 |     866 |      0.00 |      0.00 |
+|    58 |         78 |       26 |    2 |   n |   0.39 |     866 |      0.00 |      0.00 |
+|    57 |         36 |       25 |    2 |   n |   0.38 |     866 |      0.00 |      0.00 |
+|    56 |         49 |       43 |    2 |   n |   0.50 |     866 |      0.00 |      0.00 |
+|    55 |         91 |       40 |    2 |   n |   0.48 |     866 |      0.00 |      0.00 |
+|    54 |        144 |       41 |    2 |   n |   0.50 |     866 |      0.00 |      0.00 |
+|    53 |         93 |       39 |    2 |   n |   0.50 |     866 |      0.00 |      0.00 |
+|    52 |         79 |       37 |    2 |   n |   0.48 |     866 |      0.00 |      0.00 |
+|    51 |         89 |       35 |    2 |   n |   0.47 |     866 |      0.00 |      0.00 |
+|    50 |         71 |       33 |    2 |   n |   0.45 |     866 |      0.00 |      0.00 |
+|    49 |         51 |       32 |    2 |   n |   0.43 |     866 |      0.00 |      0.00 |
+|    48 |         64 |       36 |    2 |   n |   0.50 |     866 |      0.00 |      0.00 |
+|    47 |        100 |       36 |    2 |   n |   0.52 |     866 |      0.00 |      0.00 |
+|    46 |         75 |       42 |    2 |   n |   0.56 |     866 |      0.00 |      0.00 |
+|    45 |        122 |       38 |    2 |   n |   0.53 |     866 |      0.00 |      0.00 |
+|    44 |        118 |       51 |    3 |   n |   0.62 |     866 |      0.00 |      0.00 |
+|    43 |        155 |       47 |    3 |   n |   0.61 |     866 |      0.00 |      0.00 |
+|    42 |         66 |       57 |    3 |   n |   0.65 |     866 |      0.00 |      0.00 |
+|    41 |        267 |       52 |    3 |   n |   0.63 |     867 |      0.00 |      0.00 |
+|    40 |        192 |       47 |    2 |   n |   0.60 |     867 |      0.00 |      0.01 |
+|    39 |        164 |       47 |    2 |   n |   0.62 |     867 |      0.00 |      0.01 |
+|    38 |        157 |       42 |    2 |   n |   0.59 |     867 |      0.00 |      0.01 |
+|    37 |         88 |       50 |    2 |   n |   0.61 |     867 |      0.00 |      0.01 |
+|    36 |        150 |       53 |    3 |   n |   0.63 |     867 |      0.00 |      0.01 |
+|    35 |        193 |       48 |    2 |   n |   0.61 |     867 |      0.00 |      0.01 |
+|    34 |        200 |       49 |    3 |   n |   0.62 |     867 |      0.00 |      0.01 |
+|    33 |         82 |       63 |    3 |   n |   0.66 |     867 |      0.00 |      0.01 |
+|    32 |        311 |       55 |    3 |   n |   0.63 |     867 |      0.00 |      0.01 |
+|    31 |        271 |       56 |    3 |   n |   0.63 |     867 |      0.00 |      0.01 |
+|    30 |        200 |       74 |    3 |   n |   0.70 |     867 |      0.00 |      0.01 |
+|    29 |        279 |      107 |    4 |   n |   0.76 |     869 |      0.00 |      0.01 |
+|    28 |        845 |       94 |    4 |   n |   0.75 |     869 |      0.00 |      0.01 |
+|    27 |        814 |       88 |    4 |   n |   0.74 |     869 |      0.00 |      0.01 |
+|    26 |        520 |       76 |    3 |   n |   0.72 |     869 |      0.00 |      0.01 |
+|    25 |        400 |       72 |    3 |   n |   0.71 |     869 |      0.00 |      0.01 |
+|    24 |        232 |       76 |    3 |   n |   0.73 |     869 |      0.00 |      0.01 |
+|    23 |        460 |       60 |    3 |   n |   0.68 |     869 |      0.00 |      0.01 |
+|    22 |        260 |       56 |    3 |   n |   0.67 |     869 |      0.00 |      0.01 |
+|    21 |        186 |       67 |    3 |   n |   0.71 |     869 |      0.00 |      0.01 |
+|    20 |        299 |       70 |    3 |   n |   0.72 |     869 |      0.00 |      0.01 |
+|    19 |        280 |       70 |    3 |   n |   0.72 |     869 |      0.00 |      0.01 |
+|    18 |        430 |       55 |    3 |   n |   0.67 |     869 |      0.00 |      0.01 |
+|    17 |        205 |       65 |    3 |   n |   0.71 |     869 |      0.00 |      0.01 |
+|    16 |        364 |       52 |    3 |   n |   0.67 |     869 |      0.00 |      0.01 |
+|    15 |        223 |       43 |    3 |   n |   0.62 |     869 |      0.00 |      0.01 |
+|    14 |        138 |       46 |    3 |   n |   0.64 |     869 |      0.00 |      0.01 |
+|    13 |        156 |       42 |    3 |   n |   0.61 |     869 |      0.00 |      0.01 |
+|    12 |        105 |       49 |    3 |   n |   0.66 |     869 |      0.00 |      0.01 |
+|    11 |        193 |       43 |    3 |   n |   0.62 |     869 |      0.00 |      0.01 |
+|    10 |        123 |       48 |    3 |   n |   0.65 |     869 |      0.00 |      0.01 |
+|     9 |        168 |       44 |    3 |   n |   0.63 |     869 |      0.00 |      0.01 |
+|     8 |        140 |       41 |    3 |   n |   0.61 |     869 |      0.00 |      0.01 |
+|     7 |         85 |       50 |    3 |   n |   0.67 |     869 |      0.00 |      0.01 |
+|     6 |        203 |       43 |    3 |   n |   0.63 |     869 |      0.01 |      0.01 |
+|     5 |        155 |       43 |    3 |   n |   0.63 |     869 |      0.01 |      0.01 |
+|     4 |        169 |       36 |    3 |   n |   0.58 |     869 |      0.01 |      0.01 |
+|     3 |        100 |       32 |    3 |   n |   0.54 |     869 |      0.01 |      0.01 |
+|     2 |         74 |       29 |    3 |   n |   0.50 |     869 |      0.01 |      0.01 |
+|     1 |         65 |       26 |    2 |   n |   0.45 |     869 |      0.01 |      0.01 |
+
+sum of inequalities over all iterations :   3133
+maximal number of inequalities          :    107
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   26 
+
+output written to file fenster.ieq.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T fenster2.ieq 
+
+input file fenster2.ieq o.k.
+dimension              :    8 
+number of equations    :    0 
+number of inequalities :   26 
+
+input point not valid (inequalnum : 14)
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T fenster2.ieq 
+
+input file fenster2.ieq o.k.
+dimension              :    8 
+number of equations    :    0 
+number of inequalities :   26 
+
+input point not valid (inequalnum : 24)
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T fenster2.ieq 
+
+input file fenster2.ieq o.k.
+dimension              :    8 
+number of equations    :    0 
+number of inequalities :   26 
+
+input point not valid (inequalnum : 23)
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T fenster2.ieq 
+
+input file fenster2.ieq o.k.
+dimension              :    8 
+number of equations    :    0 
+number of inequalities :   26 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          9 |        1 |    2 |   n |   0.22 |      55 |      0.00 |      0.00 |
+|     8 |          8 |        2 |    2 |   n |   0.23 |      55 |      0.00 |      0.00 |
+|     7 |          7 |        3 |    2 |   n |   0.24 |      55 |      0.00 |      0.00 |
+|     6 |          6 |        4 |    2 |   n |   0.24 |      55 |      0.00 |      0.00 |
+|     5 |          5 |        5 |    2 |   n |   0.26 |      55 |      0.00 |      0.00 |
+|     4 |          4 |        6 |    2 |   n |   0.26 |      55 |      0.00 |      0.00 |
+|     3 |          3 |        7 |    2 |   n |   0.26 |      55 |      0.00 |      0.00 |
+|     2 |          2 |        8 |    2 |   n |   0.27 |      55 |      0.00 |      0.00 |
+|     1 |          1 |        9 |    2 |   n |   0.33 |      55 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    18 |         10 |       10 |    1 |   n |   0.12 |     850 |      0.00 |      0.00 |
+|    17 |         13 |       13 |    1 |   n |   0.16 |     850 |      0.00 |      0.00 |
+|    16 |         20 |       20 |    1 |   n |   0.22 |     850 |      0.00 |      0.00 |
+|    15 |         35 |       35 |    1 |   n |   0.28 |     851 |      0.00 |      0.00 |
+|    14 |        128 |      128 |    2 |   n |   0.38 |     854 |      0.00 |      0.00 |
+|    13 |       1648 |      160 |    2 |   n |   0.39 |     855 |      0.00 |      0.00 |
+|    12 |       2688 |      176 |    2 |   n |   0.41 |     856 |      0.00 |      0.00 |
+|    11 |       3828 |      196 |    3 |   n |   0.44 |     857 |      0.00 |      0.00 |
+|    10 |       5524 |      224 |    3 |   n |   0.47 |     858 |      0.00 |      0.00 |
+|     9 |       4544 |      216 |    2 |   n |   0.47 |     858 |      0.00 |      0.00 |
+|     8 |       3072 |      200 |    2 |   n |   0.47 |     858 |      0.00 |      0.00 |
+|     7 |       3498 |      200 |    3 |   n |   0.49 |     858 |      0.00 |      0.00 |
+|     6 |       4080 |      210 |    3 |   n |   0.54 |     858 |      0.00 |      0.00 |
+|     5 |       3720 |      234 |    3 |   n |   0.57 |     858 |      0.00 |      0.00 |
+|     4 |       5194 |      268 |    3 |   n |   0.59 |     859 |      0.00 |      0.00 |
+|     3 |       6817 |      303 |    3 |   n |   0.61 |     860 |      0.00 |      0.00 |
+|     2 |       9303 |      338 |    3 |   n |   0.63 |     862 |      0.00 |      0.00 |
+|     1 |        338 |      338 |    3 |   n |   0.63 |     862 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :   3269
+maximal number of inequalities          :    338
+
+sorting system 
+transformation to integer values 
+
+number of cone-points  :    0 
+number of conv-points  :  338 
+
+output written to file fenster2.ieq.poi
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T fenster2.ieq.poi 
+
+input file fenster2.ieq.poi o.k.
+dimension              :    8 
+number of cone-points  :    0 
+number of conv-points  :  338 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          9 |        1 |    4 |   n |   0.68 |     190 |      0.00 |      0.00 |
+|     8 |          8 |        2 |    5 |   n |   0.69 |     190 |      0.00 |      0.00 |
+|     7 |          7 |        3 |    6 |   n |   0.72 |     190 |      0.00 |      0.00 |
+|     6 |          6 |        4 |    6 |   n |   0.76 |     190 |      0.00 |      0.00 |
+|     5 |          5 |        5 |    6 |   n |   0.68 |     190 |      0.00 |      0.00 |
+|     4 |          4 |        6 |    6 |   n |   0.68 |     190 |      0.00 |      0.00 |
+|     3 |          3 |        7 |    6 |   n |   0.70 |     190 |      0.00 |      0.00 |
+|     2 |          2 |        8 |    6 |   n |   0.69 |     190 |      0.00 |      0.00 |
+|     1 |          1 |        9 |    7 |   n |   0.70 |     190 |      0.00 |      0.00 |
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T fenst2.ieq.poi 
+
+input file fenst2.ieq.poi o.k.
+dimension              :    8 
+number of cone-points  :    0 
+number of conv-points  :  338 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          9 |        1 |    4 |   n |   0.68 |     190 |      0.00 |      0.00 |
+|     8 |          8 |        2 |    5 |   n |   0.69 |     190 |      0.00 |      0.00 |
+|     7 |          7 |        3 |    6 |   n |   0.72 |     190 |      0.00 |      0.00 |
+|     6 |          6 |        4 |    6 |   n |   0.76 |     190 |      0.00 |      0.00 |
+|     5 |          5 |        5 |    6 |   n |   0.68 |     190 |      0.00 |      0.00 |
+|     4 |          4 |        6 |    6 |   n |   0.68 |     190 |      0.00 |      0.00 |
+|     3 |          3 |        7 |    6 |   n |   0.70 |     190 |      0.00 |      0.00 |
+|     2 |          2 |        8 |    6 |   n |   0.69 |     190 |      0.00 |      0.00 |
+|     1 |          1 |        9 |    7 |   n |   0.70 |     190 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|   329 |         11 |       11 |    4 |   n |   0.14 |     941 |      0.00 |      0.00 |
+|   328 |         17 |       15 |    4 |   n |   0.19 |     941 |      0.00 |      0.00 |
+|   327 |         33 |       21 |    6 |   n |   0.24 |     942 |      0.00 |      0.00 |
+|   326 |         56 |       21 |    5 |   n |   0.24 |     942 |      0.00 |      0.00 |
+|   325 |         46 |       26 |    5 |   n |   0.29 |     942 |      0.00 |      0.00 |
+|   324 |        110 |       41 |    7 |   n |   0.37 |     944 |      0.00 |      0.00 |
+|   323 |        293 |       56 |    8 |   n |   0.42 |     945 |      0.00 |      0.00 |
+|   322 |        404 |       61 |    7 |   n |   0.43 |     945 |      0.00 |      0.00 |
+|   321 |        565 |       66 |    7 |   n |   0.46 |     946 |      0.00 |      0.00 |
+|   320 |        872 |       98 |    7 |   n |   0.53 |     949 |      0.00 |      0.00 |
+|   319 |       1693 |      110 |    6 |   n |   0.57 |     950 |      0.00 |      0.01 |
+|   318 |       1385 |      109 |    8 |   n |   0.58 |     950 |      0.00 |      0.01 |
+|   317 |       1069 |       98 |    7 |   n |   0.57 |     950 |      0.00 |      0.01 |
+|   316 |       1142 |      112 |    8 |   n |   0.62 |     950 |      0.00 |      0.01 |
+|   315 |       2582 |      162 |    9 |   n |   0.66 |     954 |      0.00 |      0.01 |
+|   314 |       3392 |      173 |    9 |   n |   0.68 |     955 |      0.00 |      0.01 |
+|   313 |       4845 |      174 |    8 |   n |   0.70 |     958 |      0.00 |      0.01 |
+|   312 |       4582 |      202 |    9 |   n |   0.71 |     958 |      0.00 |      0.01 |
+|   311 |       4490 |      184 |    8 |   n |   0.73 |     958 |      0.00 |      0.01 |
+|   310 |       3659 |      201 |    9 |   n |   0.74 |     958 |      0.00 |      0.01 |
+|   309 |       6537 |      193 |    8 |   n |   0.75 |     959 |      0.00 |      0.01 |
+|   308 |       2875 |      196 |    8 |   n |   0.76 |     959 |      0.00 |      0.01 |
+|   307 |       7071 |      218 |    8 |   n |   0.76 |     960 |      0.00 |      0.01 |
+|   306 |       7342 |      239 |    9 |   n |   0.78 |     961 |      0.00 |      0.01 |
+|   305 |      10543 |      296 |   10 |   n |   0.79 |     966 |      0.00 |      0.01 |
+|   304 |      12338 |      348 |   11 |   n |   0.81 |     969 |      0.00 |      0.01 |
+|   303 |      22536 |      340 |    9 |   n |   0.81 |     974 |      0.00 |      0.02 |
+|   302 |      19660 |      353 |   10 |   n |   0.82 |     974 |      0.00 |      0.02 |
+|   301 |      19625 |      368 |   10 |   n |   0.82 |     974 |      0.01 |      0.02 |
+|   300 |      23761 |      355 |   10 |   n |   0.82 |     976 |      0.01 |      0.02 |
+|   299 |      18712 |      341 |   10 |   n |   0.82 |     976 |      0.01 |      0.02 |
+|   298 |      18953 |      342 |    9 |   n |   0.82 |     976 |      0.01 |      0.02 |
+|   297 |      12656 |      385 |    9 |   n |   0.83 |     976 |      0.02 |      0.03 |
+|   296 |      25317 |      432 |   11 |   n |   0.84 |     978 |      0.02 |      0.03 |
+|   295 |      20592 |      472 |   11 |   n |   0.85 |     978 |      0.02 |      0.03 |
+|   294 |      42899 |      450 |   10 |   n |   0.85 |     987 |      0.02 |      0.04 |
+|   293 |      32580 |      465 |   11 |   n |   0.85 |     987 |      0.03 |      0.04 |
+|   292 |      24818 |      503 |   10 |   n |   0.85 |     987 |      0.03 |      0.04 |
+|   291 |      19808 |      513 |   10 |   n |   0.85 |     987 |      0.03 |      0.04 |
+|   290 |      37507 |      502 |   10 |   n |   0.85 |     987 |      0.04 |      0.05 |
+|   289 |      38797 |      498 |   10 |   n |   0.85 |     987 |      0.04 |      0.05 |
+|   288 |      37434 |      498 |   11 |   n |   0.86 |     987 |      0.05 |      0.06 |
+|   287 |      38354 |      596 |   11 |   n |   0.86 |     990 |      0.05 |      0.06 |
+|   286 |      63911 |      589 |   11 |   n |   0.86 |     997 |      0.06 |      0.07 |
+|   285 |      36553 |      636 |   12 |   n |   0.87 |     997 |      0.06 |      0.07 |
+|   284 |      37620 |      698 |   11 |   n |   0.87 |     997 |      0.07 |      0.08 |
+|   283 |      74512 |      697 |   12 |   n |   0.87 |    1002 |      0.07 |      0.08 |
+|   282 |      77389 |      706 |   11 |   n |   0.87 |    1003 |      0.08 |      0.09 |
+|   281 |      68162 |      727 |   12 |   n |   0.87 |    1003 |      0.09 |      0.10 |
+|   280 |      97327 |      887 |   11 |   n |   0.88 |    1029 |      0.10 |      0.11 |
+|   279 |     119599 |      813 |   10 |   n |   0.88 |    1029 |      0.11 |      0.12 |
+|   278 |     102741 |      854 |   11 |   n |   0.88 |    1029 |      0.12 |      0.14 |
+|   277 |      93464 |      900 |   11 |   n |   0.88 |    1029 |      0.13 |      0.15 |
+|   276 |     139027 |      849 |   11 |   n |   0.88 |    1029 |      0.15 |      0.16 |
+|   275 |      91803 |      798 |   10 |   n |   0.88 |    1029 |      0.16 |      0.17 |
+|   274 |     102234 |      847 |   12 |   n |   0.88 |    1029 |      0.17 |      0.18 |
+|   273 |     113529 |      830 |   11 |   n |   0.88 |    1029 |      0.18 |      0.19 |
+|   272 |     124054 |      811 |   10 |   n |   0.88 |    1029 |      0.19 |      0.21 |
+|   271 |      92507 |      729 |   11 |   n |   0.87 |    1029 |      0.20 |      0.22 |
+|   270 |      20889 |      869 |   10 |   n |   0.88 |    1029 |      0.21 |      0.22 |
+|   269 |     106745 |      997 |   11 |   n |   0.88 |    1029 |      0.22 |      0.23 |
+|   268 |      69847 |     1053 |   11 |   n |   0.88 |    1029 |      0.23 |      0.24 |
+|   267 |     238201 |     1098 |   11 |   n |   0.88 |    1048 |      0.25 |      0.27 |
+|   266 |     160500 |     1086 |   11 |   n |   0.88 |    1048 |      0.27 |      0.29 |
+|   265 |     174350 |     1167 |   10 |   n |   0.89 |    1048 |      0.29 |      0.30 |
+|   264 |     213407 |     1154 |   11 |   n |   0.89 |    1048 |      0.31 |      0.33 |
+|   263 |     113133 |     1189 |   11 |   n |   0.89 |    1048 |      0.33 |      0.34 |
+|   262 |     141673 |     1220 |   11 |   n |   0.89 |    1048 |      0.34 |      0.36 |
+|   261 |     155112 |     1190 |   11 |   n |   0.89 |    1048 |      0.36 |      0.38 |
+|   260 |     171206 |     1224 |   10 |   n |   0.89 |    1048 |      0.38 |      0.39 |
+|   259 |     207892 |     1194 |   11 |   n |   0.89 |    1048 |      0.40 |      0.42 |
+|   258 |     184998 |     1114 |   10 |   n |   0.89 |    1048 |      0.43 |      0.44 |
+|   257 |     108125 |     1129 |   10 |   n |   0.89 |    1048 |      0.44 |      0.45 |
+|   256 |     121285 |     1227 |   11 |   n |   0.89 |    1048 |      0.45 |      0.47 |
+|   255 |     171459 |     1225 |   10 |   n |   0.89 |    1048 |      0.48 |      0.49 |
+|   254 |     227269 |     1335 |   12 |   n |   0.89 |    1054 |      0.50 |      0.52 |
+|   253 |     316375 |     1660 |   12 |   n |   0.89 |    1085 |      0.55 |      0.56 |
+|   252 |     203050 |     1747 |   13 |   n |   0.89 |    1085 |      0.57 |      0.59 |
+|   251 |     617396 |     1880 |   12 |   n |   0.89 |    1130 |      0.65 |      0.66 |
+|   250 |     299730 |     1924 |   12 |   n |   0.89 |    1130 |      0.68 |      0.70 |
+|   249 |     493649 |     2100 |   12 |   n |   0.89 |    1130 |      0.74 |      0.75 |
+|   248 |     320346 |     2134 |   12 |   n |   0.89 |    1130 |      0.78 |      0.79 |
+|   247 |     207619 |     2175 |   12 |   n |   0.89 |    1130 |      0.80 |      0.82 |
+|   246 |     433809 |     2173 |   12 |   n |   0.89 |    1130 |      0.85 |      0.87 |
+|   245 |     106523 |     2148 |   12 |   n |   0.89 |    1130 |      0.87 |      0.88 |
+|   244 |     889656 |     2213 |   12 |   n |   0.89 |    1159 |      0.98 |      0.99 |
+|   243 |     781943 |     2376 |   12 |   n |   0.89 |    1159 |      1.07 |      1.09 |
+|   242 |     663804 |     2556 |   11 |   n |   0.90 |    1159 |      1.15 |      1.17 |
+|   241 |     437588 |     2686 |   11 |   n |   0.90 |    1159 |      1.21 |      1.22 |
+|   240 |    1062942 |     2542 |   11 |   n |   0.89 |    1162 |      1.34 |      1.35 |
+|   239 |     666062 |     2464 |   11 |   n |   0.89 |    1162 |      1.42 |      1.44 |
+|   238 |     825514 |     2480 |   12 |   n |   0.89 |    1162 |      1.52 |      1.54 |
+|   237 |    1183702 |     2534 |   12 |   n |   0.89 |    1193 |      1.67 |      1.69 |
+|   236 |    1193082 |     2668 |   13 |   n |   0.90 |    1193 |      1.83 |      1.84 |
+|   235 |     720394 |     2697 |   12 |   n |   0.90 |    1193 |      1.92 |      1.93 |
+|   234 |     594263 |     2804 |   13 |   n |   0.90 |    1193 |      1.99 |      2.01 |
+|   233 |    1309892 |     2881 |   12 |   n |   0.90 |    1193 |      2.16 |      2.18 |
+|   232 |     726141 |     2917 |   13 |   n |   0.90 |    1193 |      2.25 |      2.27 |
+|   231 |     331432 |     2877 |   12 |   n |   0.90 |    1193 |      2.29 |      2.31 |
+|   230 |     794237 |     3008 |   13 |   n |   0.90 |    1193 |      2.40 |      2.42 |
+|   229 |    1722515 |     2821 |   12 |   n |   0.90 |    1209 |      2.63 |      2.65 |
+|   228 |     941881 |     2961 |   12 |   n |   0.90 |    1209 |      2.76 |      2.78 |
+|   227 |    1598317 |     2891 |   12 |   n |   0.90 |    1214 |      2.97 |      2.99 |
+|   226 |    1010491 |     2967 |   13 |   n |   0.90 |    1214 |      3.10 |      3.12 |
+|   225 |     542069 |     2985 |   12 |   n |   0.90 |    1214 |      3.18 |      3.20 |
+|   224 |     225363 |     2961 |   12 |   n |   0.90 |    1214 |      3.21 |      3.23 |
+|   223 |     681301 |     3075 |   12 |   n |   0.90 |    1214 |      3.31 |      3.33 |
+|   222 |     949905 |     3118 |   12 |   n |   0.90 |    1214 |      3.44 |      3.46 |
+|   221 |    1449121 |     2978 |   13 |   n |   0.90 |    1214 |      3.64 |      3.66 |
+|   220 |     320056 |     3013 |   12 |   n |   0.90 |    1214 |      3.69 |      3.71 |
+|   219 |    1006873 |     3055 |   12 |   n |   0.90 |    1214 |      3.83 |      3.85 |
+|   218 |    1078441 |     3000 |   13 |   n |   0.90 |    1214 |      3.98 |      4.00 |
+|   217 |    1298806 |     3151 |   12 |   n |   0.90 |    1214 |      4.17 |      4.19 |
+|   216 |    1679833 |     3056 |   12 |   n |   0.90 |    1224 |      4.41 |      4.43 |
+|   215 |     527404 |     3158 |   12 |   n |   0.90 |    1224 |      4.49 |      4.51 |
+|   214 |    1521574 |     2974 |   12 |   n |   0.90 |    1224 |      4.71 |      4.73 |
+|   213 |     793192 |     3171 |   12 |   n |   0.90 |    1224 |      4.83 |      4.85 |
+|   212 |    1389171 |     3030 |   12 |   n |   0.90 |    1224 |      5.02 |      5.05 |
+|   211 |     534010 |     3123 |   13 |   n |   0.90 |    1224 |      5.11 |      5.13 |
+|   210 |    1710055 |     3059 |   12 |   n |   0.90 |    1224 |      5.34 |      5.37 |
+|   209 |     785905 |     3043 |   13 |   n |   0.90 |    1224 |      5.47 |      5.49 |
+|   208 |    1581733 |     3210 |   13 |   n |   0.90 |    1229 |      5.70 |      5.73 |
+|   207 |    1275102 |     3266 |   13 |   n |   0.90 |    1229 |      5.89 |      5.91 |
+|   206 |    1958596 |     3151 |   14 |   n |   0.90 |    1250 |      6.18 |      6.21 |
+|   205 |    1292122 |     2989 |   12 |   n |   0.90 |    1250 |      6.37 |      6.39 |
+|   204 |    1050273 |     2978 |   12 |   n |   0.90 |    1250 |      6.53 |      6.55 |
+|   203 |    1442637 |     2980 |   13 |   n |   0.90 |    1250 |      6.75 |      6.77 |
+|   202 |    1798766 |     2863 |   13 |   n |   0.90 |    1250 |      7.04 |      7.06 |
+|   201 |    1594081 |     2805 |   12 |   n |   0.90 |    1250 |      7.29 |      7.32 |
+|   200 |     828535 |     3012 |   12 |   n |   0.90 |    1250 |      7.42 |      7.45 |
+|   199 |     839449 |     2932 |   12 |   n |   0.90 |    1250 |      7.55 |      7.58 |
+|   198 |    1102723 |     2816 |   12 |   n |   0.90 |    1250 |      7.73 |      7.75 |
+|   197 |     742940 |     2925 |   11 |   n |   0.90 |    1250 |      7.85 |      7.87 |
+|   196 |    1054932 |     3076 |   12 |   n |   0.90 |    1250 |      8.02 |      8.04 |
+|   195 |    1669620 |     3249 |   13 |   n |   0.90 |    1250 |      8.29 |      8.32 |
+|   194 |    1750729 |     3395 |   13 |   n |   0.90 |    1250 |      8.57 |      8.60 |
+|   193 |    1420265 |     3570 |   13 |   n |   0.90 |    1250 |      8.80 |      8.83 |
+|   192 |     347778 |     3573 |   12 |   n |   0.90 |    1250 |      8.86 |      8.89 |
+|   191 |     414591 |     3667 |   13 |   n |   0.90 |    1250 |      8.94 |      8.96 |
+|   190 |     829351 |     3696 |   12 |   n |   0.90 |    1250 |      9.08 |      9.11 |
+|   189 |    2491211 |     3697 |   13 |   n |   0.90 |    1278 |      9.49 |      9.52 |
+|   188 |    2552167 |     3907 |   13 |   n |   0.90 |    1291 |      9.92 |      9.95 |
+|   187 |    1816504 |     3805 |   13 |   n |   0.90 |    1291 |     10.22 |     10.24 |
+|   186 |    2632217 |     3653 |   13 |   n |   0.90 |    1291 |     10.65 |     10.68 |
+|   185 |     467243 |     3776 |   13 |   n |   0.90 |    1291 |     10.73 |     10.76 |
+|   184 |    1445066 |     3877 |   13 |   n |   0.90 |    1291 |     10.97 |     11.00 |
+|   183 |    1361317 |     4043 |   13 |   n |   0.90 |    1291 |     11.21 |     11.24 |
+|   182 |    2530165 |     3956 |   13 |   n |   0.90 |    1291 |     11.63 |     11.66 |
+|   181 |    2070796 |     4137 |   12 |   n |   0.90 |    1291 |     11.97 |     12.00 |
+|   180 |    2452921 |     4077 |   13 |   n |   0.90 |    1291 |     12.38 |     12.41 |
+|   179 |     862497 |     4188 |   13 |   n |   0.90 |    1291 |     12.53 |     12.56 |
+|   178 |    2219664 |     4026 |   13 |   n |   0.90 |    1291 |     12.88 |     12.91 |
+|   177 |    2377970 |     3860 |   13 |   n |   0.90 |    1291 |     13.33 |     13.36 |
+|   176 |    1885823 |     3977 |   12 |   n |   0.90 |    1291 |     13.65 |     13.68 |
+|   175 |    2780839 |     3777 |   12 |   n |   0.90 |    1292 |     14.12 |     14.15 |
+|   174 |    1832219 |     3522 |   11 |   n |   0.90 |    1292 |     14.43 |     14.45 |
+|   173 |    1122126 |     3375 |   12 |   n |   0.90 |    1292 |     14.61 |     14.64 |
+|   172 |    2065359 |     3368 |   12 |   n |   0.90 |    1292 |     14.97 |     15.00 |
+|   171 |     828750 |     3399 |   12 |   n |   0.90 |    1292 |     15.12 |     15.15 |
+|   170 |     277575 |     3534 |   11 |   n |   0.90 |    1292 |     15.17 |     15.20 |
+|   169 |     950179 |     3726 |   13 |   n |   0.90 |    1292 |     15.34 |     15.37 |
+|   168 |    1304991 |     3847 |   12 |   n |   0.90 |    1292 |     15.57 |     15.60 |
+|   167 |    1029388 |     3944 |   12 |   n |   0.90 |    1292 |     15.75 |     15.78 |
+|   166 |    2040272 |     3849 |   12 |   n |   0.90 |    1292 |     16.11 |     16.13 |
+|   165 |    1289066 |     3769 |   12 |   n |   0.90 |    1292 |     16.33 |     16.36 |
+|   164 |     484774 |     3826 |   12 |   n |   0.90 |    1292 |     16.42 |     16.45 |
+|   163 |    1161481 |     3761 |   12 |   n |   0.90 |    1292 |     16.62 |     16.65 |
+|   162 |    1323098 |     3783 |   12 |   n |   0.90 |    1292 |     16.86 |     16.88 |
+|   161 |    1032614 |     3663 |   12 |   n |   0.90 |    1292 |     17.04 |     17.07 |
+|   160 |    2356299 |     3834 |   13 |   n |   0.90 |    1292 |     17.50 |     17.53 |
+|   159 |     443274 |     3840 |   12 |   n |   0.90 |    1292 |     17.59 |     17.61 |
+|   158 |    1994972 |     3981 |   12 |   n |   0.90 |    1292 |     17.96 |     17.99 |
+|   157 |    2313002 |     4087 |   13 |   n |   0.90 |    1292 |     18.39 |     18.42 |
+|   156 |     390501 |     4102 |   12 |   n |   0.90 |    1292 |     18.47 |     18.50 |
+|   155 |    1498790 |     4167 |   12 |   n |   0.90 |    1292 |     18.75 |     18.77 |
+|   154 |    1799555 |     4020 |   12 |   n |   0.90 |    1292 |     19.08 |     19.11 |
+|   153 |    1790385 |     4141 |   13 |   n |   0.90 |    1292 |     19.41 |     19.44 |
+|   152 |    3008516 |     4384 |   14 |   n |   0.90 |    3011 |     20.00 |     20.03 |
+|   151 |    1785502 |     4420 |   13 |   n |   0.90 |    3011 |     20.33 |     20.37 |
+|   150 |    2322466 |     4569 |   13 |   n |   0.90 |    3011 |     20.77 |     20.81 |
+|   149 |    2908041 |     4426 |   13 |   n |   0.90 |    3011 |     21.32 |     21.36 |
+|   148 |    2762675 |     4239 |   14 |   n |   0.90 |    3011 |     21.86 |     21.89 |
+|   147 |    3485829 |     4210 |   14 |   n |   0.90 |    3024 |     22.54 |     22.58 |
+|   146 |    1778090 |     4493 |   14 |   n |   0.90 |    3024 |     22.86 |     22.90 |
+|   145 |     387645 |     4528 |   13 |   n |   0.90 |    3024 |     22.94 |     22.98 |
+|   144 |    1368358 |     4502 |   13 |   n |   0.90 |    3024 |     23.20 |     23.24 |
+|   143 |    2279946 |     4415 |   12 |   n |   0.90 |    3024 |     23.63 |     23.67 |
+|   142 |    1895525 |     4305 |   12 |   n |   0.90 |    3024 |     23.99 |     24.03 |
+|   141 |    1662013 |     4317 |   13 |   n |   0.90 |    3024 |     24.30 |     24.34 |
+|   140 |    1033169 |     4331 |   13 |   n |   0.90 |    3024 |     24.51 |     24.54 |
+|   139 |    1335091 |     4413 |   13 |   n |   0.90 |    3024 |     24.76 |     24.80 |
+|   138 |    3647973 |     4358 |   13 |   n |   0.90 |    3028 |     25.49 |     25.53 |
+|   137 |    1485281 |     4262 |   11 |   n |   0.90 |    3028 |     25.78 |     25.81 |
+|   136 |    1108742 |     4309 |   13 |   n |   0.90 |    3028 |     26.00 |     26.04 |
+|   135 |     952085 |     4342 |   13 |   n |   0.90 |    3028 |     26.19 |     26.23 |
+|   134 |    1263719 |     4291 |   12 |   n |   0.90 |    3028 |     26.45 |     26.48 |
+|   133 |     370107 |     4248 |   12 |   n |   0.90 |    3028 |     26.53 |     26.57 |
+|   132 |    3112123 |     4081 |   12 |   n |   0.90 |    3028 |     27.16 |     27.19 |
+|   131 |    2210854 |     4282 |   13 |   n |   0.90 |    3028 |     27.59 |     27.63 |
+|   130 |    3165765 |     3802 |   14 |   n |   0.90 |    3028 |     28.26 |     28.29 |
+|   129 |    1677562 |     3928 |   13 |   n |   0.90 |    3028 |     28.60 |     28.64 |
+|   128 |    2860808 |     3872 |   13 |   n |   0.90 |    3028 |     29.19 |     29.23 |
+|   127 |    2034496 |     3699 |   14 |   n |   0.90 |    3028 |     29.61 |     29.65 |
+|   126 |     823656 |     3642 |   13 |   n |   0.90 |    3028 |     29.78 |     29.82 |
+|   125 |    1170420 |     3791 |   13 |   n |   0.90 |    3028 |     30.01 |     30.05 |
+|   124 |    2181773 |     3578 |   12 |   n |   0.90 |    3028 |     30.47 |     30.51 |
+|   123 |    1412528 |     3373 |   12 |   n |   0.90 |    3028 |     30.76 |     30.80 |
+|   122 |    1787177 |     3233 |   13 |   n |   0.90 |    3028 |     31.13 |     31.17 |
+|   121 |    2016683 |     3056 |   13 |   n |   0.90 |    3028 |     31.57 |     31.61 |
+|   120 |    1539734 |     3202 |   14 |   n |   0.90 |    3028 |     31.90 |     31.93 |
+|   119 |    1142506 |     3188 |   13 |   n |   0.90 |    3028 |     32.13 |     32.17 |
+|   118 |    1256999 |     3164 |   14 |   n |   0.90 |    3028 |     32.40 |     32.44 |
+|   117 |    1064504 |     3432 |   13 |   n |   0.90 |    3028 |     32.63 |     32.67 |
+|   116 |     225671 |     3483 |   13 |   n |   0.90 |    3028 |     32.68 |     32.72 |
+|   115 |    1651239 |     3587 |   13 |   n |   0.90 |    3028 |     33.02 |     33.06 |
+|   114 |    1374387 |     3474 |   12 |   n |   0.90 |    3028 |     33.29 |     33.33 |
+|   113 |    1254867 |     3588 |   14 |   n |   0.90 |    3028 |     33.61 |     33.65 |
+|   112 |    2406303 |     3587 |   13 |   n |   0.90 |    3028 |     34.14 |     34.18 |
+|   111 |     981881 |     3556 |   13 |   n |   0.90 |    3028 |     34.36 |     34.39 |
+|   110 |    2277799 |     3410 |   14 |   n |   0.90 |    3028 |     34.85 |     34.89 |
+|   109 |    1325330 |     3314 |   12 |   n |   0.90 |    3028 |     35.13 |     35.17 |
+|   108 |     790569 |     3315 |   14 |   n |   0.90 |    3028 |     35.30 |     35.34 |
+|   107 |    1390155 |     3195 |   12 |   n |   0.90 |    3028 |     35.60 |     35.64 |
+|   106 |     876475 |     3137 |   14 |   n |   0.90 |    3028 |     35.79 |     35.83 |
+|   105 |    1693847 |     3136 |   13 |   n |   0.90 |    3028 |     36.16 |     36.20 |
+|   104 |    1037321 |     3137 |   13 |   n |   0.90 |    3028 |     36.39 |     36.43 |
+|   103 |     287757 |     3109 |   13 |   n |   0.90 |    3028 |     36.45 |     36.49 |
+|   102 |     563891 |     3126 |   13 |   n |   0.90 |    3028 |     36.59 |     36.63 |
+|   101 |    1232190 |     3103 |   13 |   n |   0.90 |    3028 |     36.86 |     36.90 |
+|   100 |     712017 |     3239 |   13 |   n |   0.90 |    3028 |     37.02 |     37.06 |
+|    99 |    1867789 |     3146 |   13 |   n |   0.90 |    3028 |     37.44 |     37.48 |
+|    98 |    1258673 |     3039 |   13 |   n |   0.90 |    3028 |     37.72 |     37.76 |
+|    97 |    1577820 |     2873 |   13 |   n |   0.90 |    3028 |     38.08 |     38.12 |
+|    96 |    1655524 |     2615 |   13 |   n |   0.90 |    3028 |     38.46 |     38.50 |
+|    95 |     889399 |     2606 |   13 |   n |   0.90 |    3028 |     38.67 |     38.71 |
+|    94 |     888814 |     2570 |   14 |   n |   0.90 |    3028 |     38.87 |     38.91 |
+|    93 |     705065 |     2603 |   12 |   n |   0.90 |    3028 |     39.03 |     39.07 |
+|    92 |     785251 |     2689 |   14 |   n |   0.90 |    3028 |     39.21 |     39.25 |
+|    91 |    1323103 |     2805 |   14 |   n |   0.90 |    3028 |     39.52 |     39.56 |
+|    90 |    1451851 |     2709 |   13 |   n |   0.90 |    3028 |     39.85 |     39.89 |
+|    89 |     253883 |     2730 |   12 |   n |   0.90 |    3028 |     39.91 |     39.95 |
+|    88 |     986670 |     2731 |   13 |   n |   0.90 |    3028 |     40.14 |     40.18 |
+|    87 |     965645 |     2754 |   13 |   n |   0.90 |    3028 |     40.35 |     40.39 |
+|    86 |     945351 |     2669 |   13 |   n |   0.90 |    3028 |     40.56 |     40.60 |
+|    85 |    1301120 |     2413 |   13 |   n |   0.90 |    3028 |     40.87 |     40.91 |
+|    84 |    1069520 |     2312 |   12 |   n |   0.90 |    3028 |     41.12 |     41.16 |
+|    83 |     744886 |     2204 |   12 |   n |   0.90 |    3028 |     41.29 |     41.34 |
+|    82 |     159029 |     2235 |   12 |   n |   0.90 |    3028 |     41.33 |     41.38 |
+|    81 |     533606 |     2335 |   14 |   n |   0.90 |    3028 |     41.47 |     41.51 |
+|    80 |     810034 |     2322 |   12 |   n |   0.90 |    3028 |     41.66 |     41.70 |
+|    79 |     539676 |     2221 |   12 |   n |   0.90 |    3028 |     41.78 |     41.82 |
+|    78 |     771276 |     2002 |   12 |   n |   0.90 |    3028 |     41.96 |     42.00 |
+|    77 |     409752 |     1951 |   12 |   n |   0.90 |    3028 |     42.06 |     42.10 |
+|    76 |     593871 |     1913 |   12 |   n |   0.90 |    3028 |     42.20 |     42.24 |
+|    75 |     578937 |     1875 |   12 |   n |   0.90 |    3028 |     42.34 |     42.38 |
+|    74 |     617151 |     1831 |   12 |   n |   0.90 |    3028 |     42.49 |     42.53 |
+|    73 |     406356 |     1788 |   12 |   n |   0.90 |    3028 |     42.59 |     42.63 |
+|    72 |     127263 |     1792 |   12 |   n |   0.90 |    3028 |     42.62 |     42.66 |
+|    71 |      87192 |     1779 |   12 |   n |   0.90 |    3028 |     42.64 |     42.69 |
+|    70 |     331185 |     1731 |   12 |   n |   0.90 |    3028 |     42.73 |     42.77 |
+|    69 |     507019 |     1706 |   12 |   n |   0.90 |    3028 |     42.85 |     42.90 |
+|    68 |     322754 |     1709 |   12 |   n |   0.90 |    3028 |     42.94 |     42.98 |
+|    67 |     352754 |     1738 |   13 |   n |   0.90 |    3028 |     43.03 |     43.07 |
+|    66 |     457270 |     1740 |   12 |   n |   0.90 |    3028 |     43.14 |     43.19 |
+|    65 |      80604 |     1753 |   12 |   n |   0.90 |    3028 |     43.17 |     43.21 |
+|    64 |     395804 |     1695 |   12 |   n |   0.90 |    3028 |     43.27 |     43.31 |
+|    63 |      87078 |     1685 |   12 |   n |   0.90 |    3028 |     43.29 |     43.33 |
+|    62 |     233686 |     1621 |   12 |   n |   0.90 |    3028 |     43.35 |     43.39 |
+|    61 |     123465 |     1575 |   12 |   n |   0.90 |    3028 |     43.38 |     43.43 |
+|    60 |     212663 |     1546 |   13 |   n |   0.89 |    3028 |     43.44 |     43.48 |
+|    59 |     189270 |     1528 |   12 |   n |   0.89 |    3028 |     43.49 |     43.53 |
+|    58 |     326392 |     1581 |   12 |   n |   0.90 |    3028 |     43.57 |     43.62 |
+|    57 |     421349 |     1503 |   12 |   n |   0.89 |    3028 |     43.68 |     43.72 |
+|    56 |     364954 |     1339 |   13 |   n |   0.89 |    3028 |     43.77 |     43.81 |
+|    55 |     180694 |     1282 |   12 |   n |   0.89 |    3028 |     43.82 |     43.86 |
+|    54 |     281632 |     1201 |   13 |   n |   0.89 |    3028 |     43.89 |     43.93 |
+|    53 |     240069 |     1210 |   12 |   n |   0.89 |    3028 |     43.95 |     44.00 |
+|    52 |     208114 |     1182 |   13 |   n |   0.89 |    3028 |     44.01 |     44.05 |
+|    51 |      48568 |     1179 |   12 |   n |   0.89 |    3028 |     44.02 |     44.06 |
+|    50 |     172563 |     1188 |   12 |   n |   0.89 |    3028 |     44.06 |     44.11 |
+|    49 |      44556 |     1214 |   12 |   n |   0.89 |    3028 |     44.08 |     44.12 |
+|    48 |     154334 |     1150 |   12 |   n |   0.89 |    3028 |     44.12 |     44.17 |
+|    47 |     248822 |     1161 |   12 |   n |   0.89 |    3028 |     44.19 |     44.23 |
+|    46 |     185183 |     1249 |   13 |   n |   0.89 |    3028 |     44.24 |     44.28 |
+|    45 |     143044 |     1193 |   11 |   n |   0.89 |    3028 |     44.28 |     44.32 |
+|    44 |     177152 |     1156 |   13 |   n |   0.89 |    3028 |     44.32 |     44.37 |
+|    43 |     115996 |     1075 |   12 |   n |   0.89 |    3028 |     44.35 |     44.40 |
+|    42 |     157855 |     1092 |   12 |   n |   0.89 |    3028 |     44.40 |     44.44 |
+|    41 |     223717 |     1017 |   12 |   n |   0.89 |    3028 |     44.46 |     44.50 |
+|    40 |     149901 |      891 |   12 |   n |   0.89 |    3028 |     44.50 |     44.54 |
+|    39 |     149655 |      796 |   12 |   n |   0.89 |    3028 |     44.54 |     44.58 |
+|    38 |      94918 |      808 |   11 |   n |   0.89 |    3028 |     44.56 |     44.61 |
+|    37 |      28003 |      823 |   12 |   n |   0.89 |    3028 |     44.57 |     44.62 |
+|    36 |      82230 |      856 |   11 |   n |   0.89 |    3028 |     44.60 |     44.64 |
+|    35 |      31081 |      871 |   12 |   n |   0.89 |    3028 |     44.61 |     44.65 |
+|    34 |      74541 |      839 |   11 |   n |   0.89 |    3028 |     44.63 |     44.67 |
+|    33 |      88409 |      774 |   11 |   n |   0.89 |    3028 |     44.65 |     44.70 |
+|    32 |      70495 |      757 |   12 |   n |   0.89 |    3028 |     44.67 |     44.72 |
+|    31 |      71632 |      701 |   11 |   n |   0.89 |    3028 |     44.69 |     44.74 |
+|    30 |      87557 |      642 |   12 |   n |   0.89 |    3028 |     44.72 |     44.76 |
+|    29 |      70130 |      586 |   11 |   n |   0.89 |    3028 |     44.74 |     44.78 |
+|    28 |      53086 |      560 |   11 |   n |   0.89 |    3028 |     44.75 |     44.80 |
+|    27 |      56243 |      478 |   10 |   n |   0.88 |    3028 |     44.77 |     44.81 |
+|    26 |      15742 |      456 |    9 |   n |   0.88 |    3028 |     44.77 |     44.82 |
+|    25 |      28280 |      382 |    9 |   n |   0.88 |    3028 |     44.78 |     44.82 |
+|    24 |      19840 |      349 |   10 |   n |   0.88 |    3028 |     44.79 |     44.83 |
+|    23 |      11542 |      340 |    9 |   n |   0.88 |    3028 |     44.79 |     44.83 |
+|    22 |      14608 |      313 |    9 |   n |   0.88 |    3028 |     44.79 |     44.84 |
+|    21 |      14941 |      279 |   10 |   n |   0.87 |    3028 |     44.80 |     44.84 |
+|    20 |       9057 |      252 |    9 |   n |   0.87 |    3028 |     44.80 |     44.84 |
+|    19 |       1638 |      253 |    9 |   n |   0.87 |    3028 |     44.80 |     44.85 |
+|    18 |       4129 |      235 |    9 |   n |   0.87 |    3028 |     44.80 |     44.85 |
+|    17 |       9550 |      201 |    9 |   n |   0.86 |    3028 |     44.81 |     44.85 |
+|    16 |       5661 |      192 |    9 |   n |   0.86 |    3028 |     44.81 |     44.85 |
+|    15 |       3470 |      180 |    8 |   n |   0.86 |    3028 |     44.81 |     44.85 |
+|    14 |       5059 |      152 |    9 |   n |   0.85 |    3028 |     44.81 |     44.86 |
+|    13 |       1055 |      151 |    8 |   n |   0.85 |    3028 |     44.81 |     44.86 |
+|    12 |       1567 |      140 |    9 |   n |   0.85 |    3028 |     44.81 |     44.86 |
+|    11 |       3416 |      123 |    8 |   n |   0.84 |    3028 |     44.81 |     44.86 |
+|    10 |       2665 |       95 |    8 |   n |   0.82 |    3028 |     44.81 |     44.86 |
+|     9 |        599 |       94 |    9 |   n |   0.82 |    3028 |     44.81 |     44.86 |
+|     8 |        826 |       83 |    9 |   n |   0.81 |    3028 |     44.82 |     44.86 |
+|     7 |       1172 |       57 |    8 |   n |   0.77 |    3028 |     44.82 |     44.86 |
+|     6 |        247 |       56 |    8 |   n |   0.77 |    3028 |     44.82 |     44.86 |
+|     5 |        260 |       50 |    8 |   n |   0.75 |    3028 |     44.82 |     44.86 |
+|     4 |        224 |       44 |    8 |   n |   0.73 |    3028 |     44.82 |     44.86 |
+|     3 |        182 |       38 |    8 |   n |   0.70 |    3028 |     44.82 |     44.86 |
+|     2 |        146 |       32 |    7 |   n |   0.67 |    3028 |     44.82 |     44.86 |
+|     1 |        104 |       26 |    4 |   n |   0.61 |    3028 |     44.82 |     44.86 |
+
+sum of inequalities over all iterations : 694014
+maximal number of inequalities          :   4569
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   26 
+
+output written to file fenst2.ieq.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T testf2.ieq 
+
+input file testf2.ieq o.k.
+dimension              :    8 
+number of equations    :    0 
+number of inequalities :   26 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          9 |        1 |    2 |   n |   0.23 |      55 |      0.00 |      0.00 |
+|     8 |          8 |        2 |    2 |   n |   0.23 |      55 |      0.00 |      0.00 |
+|     7 |          7 |        3 |    2 |   n |   0.24 |      55 |      0.00 |      0.00 |
+|     6 |          6 |        4 |    2 |   n |   0.25 |      55 |      0.00 |      0.00 |
+|     5 |          5 |        5 |    2 |   n |   0.30 |      55 |      0.00 |      0.00 |
+|     4 |          4 |        6 |    2 |   n |   0.30 |      55 |      0.00 |      0.00 |
+|     3 |          3 |        7 |    2 |   n |   0.31 |      55 |      0.00 |      0.00 |
+|     2 |          2 |        8 |    2 |   n |   0.33 |      55 |      0.00 |      0.00 |
+|     1 |          1 |        9 |    2 |   n |   0.49 |      55 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    18 |         10 |       10 |    1 |   n |   0.12 |     850 |      0.00 |      0.00 |
+|    17 |         12 |       12 |    1 |   n |   0.16 |     850 |      0.00 |      0.00 |
+|    16 |         15 |       15 |    1 |   n |   0.21 |     850 |      0.00 |      0.00 |
+|    15 |         24 |       18 |    1 |   n |   0.25 |     850 |      0.00 |      0.00 |
+|    14 |         29 |       29 |    2 |   n |   0.32 |     851 |      0.00 |      0.00 |
+|    13 |         68 |       28 |    2 |   n |   0.32 |     851 |      0.00 |      0.00 |
+|    12 |         56 |       28 |    2 |   n |   0.33 |     851 |      0.00 |      0.00 |
+|    11 |         43 |       28 |    2 |   n |   0.34 |     851 |      0.00 |      0.00 |
+|    10 |         47 |       44 |    3 |   n |   0.39 |     851 |      0.00 |      0.00 |
+|     9 |         76 |       70 |    3 |   n |   0.44 |     852 |      0.00 |      0.00 |
+|     8 |        123 |      111 |    3 |   n |   0.48 |     853 |      0.00 |      0.00 |
+|     7 |        192 |      173 |    3 |   n |   0.51 |     855 |      0.00 |      0.00 |
+|     6 |       2193 |      178 |    3 |   n |   0.51 |     856 |      0.00 |      0.00 |
+|     5 |       2856 |      188 |    3 |   n |   0.51 |     856 |      0.00 |      0.00 |
+|     4 |       3349 |      199 |    3 |   n |   0.51 |     857 |      0.00 |      0.00 |
+|     3 |       3679 |      210 |    3 |   n |   0.52 |     857 |      0.00 |      0.00 |
+|     2 |       3042 |      338 |    4 |   n |   0.60 |     861 |      0.00 |      0.00 |
+|     1 |        338 |      338 |    3 |   n |   0.60 |     861 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :   2017
+maximal number of inequalities          :    338
+
+sorting system 
+transformation to integer values 
+
+number of cone-points  :    0 
+number of conv-points  :  338 
+
+output written to file testf2.ieq.poi
+
+
+
+
+log for ../porta-1.4.1/gnu-make/bin/valid -V testf2.ieq 
+
+testf2.ieq, line 31 : invalid format
+
+
+
+log for ../porta-1.4.1/gnu-make/bin/valid -V testf2.ieq 
+
+testf2.ieq, line 34 : invalid format
+
+
+
+log for ../porta-1.4.1/gnu-make/bin/valid -V testf2.ieq 
+
+input file testf2.ieq o.k.
+dimension              :    8 
+number of equations    :    0 
+number of inequalities :   26 
+
+computing all valid integral points .
+
+number of valid integral points : 50
+
+integral points written to file testf2.poi
+
+
+
+log for ../porta-1.4.1/gnu-make/bin/valid -V testf1.ieq 
+
+input file testf1.ieq o.k.
+dimension              :    8 
+number of equations    :    0 
+number of inequalities :   26 
+
+computing all valid integral points .
+
+number of valid integral points : 78
+
+integral points written to file testf1.poi
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T testf1.poi 
+
+input file testf1.poi o.k.
+dimension              :    8 
+number of cone-points  :    0 
+number of conv-points  :   78 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          9 |        1 |    1 |   n |   0.47 |      77 |      0.00 |      0.00 |
+|     8 |          8 |        2 |    1 |   n |   0.46 |      77 |      0.00 |      0.00 |
+|     7 |          7 |        3 |    2 |   n |   0.48 |      77 |      0.00 |      0.00 |
+|     6 |          6 |        4 |    2 |   n |   0.51 |      77 |      0.00 |      0.00 |
+|     5 |          5 |        5 |    2 |   n |   0.49 |      77 |      0.00 |      0.00 |
+|     4 |          4 |        6 |    2 |   n |   0.48 |      77 |      0.00 |      0.00 |
+|     3 |          3 |        7 |    2 |   n |   0.47 |      77 |      0.00 |      0.00 |
+|     2 |          2 |        8 |    2 |   n |   0.46 |      77 |      0.00 |      0.00 |
+|     1 |          1 |        9 |    2 |   n |   0.53 |      77 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    69 |         10 |       10 |    1 |   n |   0.12 |     865 |      0.00 |      0.00 |
+|    68 |         11 |       10 |    1 |   n |   0.13 |     865 |      0.00 |      0.00 |
+|    67 |         11 |       10 |    1 |   n |   0.14 |     865 |      0.00 |      0.00 |
+|    66 |         13 |       13 |    1 |   n |   0.19 |     865 |      0.00 |      0.00 |
+|    65 |         15 |       15 |    1 |   n |   0.23 |     865 |      0.00 |      0.00 |
+|    64 |         23 |       17 |    1 |   n |   0.25 |     865 |      0.00 |      0.00 |
+|    63 |         23 |       17 |    1 |   n |   0.26 |     865 |      0.00 |      0.00 |
+|    62 |         25 |       17 |    1 |   n |   0.27 |     865 |      0.00 |      0.00 |
+|    61 |         25 |       15 |    1 |   n |   0.25 |     865 |      0.00 |      0.00 |
+|    60 |         16 |       16 |    1 |   n |   0.25 |     865 |      0.00 |      0.00 |
+|    59 |         20 |       16 |    1 |   n |   0.26 |     865 |      0.00 |      0.00 |
+|    58 |         24 |       17 |    2 |   n |   0.28 |     865 |      0.00 |      0.00 |
+|    57 |         24 |       20 |    2 |   n |   0.34 |     865 |      0.00 |      0.00 |
+|    56 |         27 |       27 |    2 |   n |   0.36 |     865 |      0.00 |      0.00 |
+|    55 |         59 |       24 |    2 |   n |   0.35 |     865 |      0.00 |      0.00 |
+|    54 |         36 |       29 |    2 |   n |   0.40 |     865 |      0.00 |      0.00 |
+|    53 |         71 |       23 |    2 |   n |   0.36 |     865 |      0.00 |      0.00 |
+|    52 |         39 |       23 |    2 |   n |   0.37 |     865 |      0.00 |      0.00 |
+|    51 |         37 |       21 |    2 |   n |   0.35 |     865 |      0.00 |      0.00 |
+|    50 |         35 |       19 |    1 |   n |   0.32 |     865 |      0.00 |      0.00 |
+|    49 |         28 |       28 |    2 |   n |   0.45 |     865 |      0.00 |      0.00 |
+|    48 |         46 |       28 |    2 |   n |   0.45 |     865 |      0.00 |      0.00 |
+|    47 |         48 |       28 |    2 |   n |   0.45 |     865 |      0.00 |      0.00 |
+|    46 |         55 |       27 |    2 |   n |   0.44 |     865 |      0.00 |      0.00 |
+|    45 |         63 |       24 |    2 |   n |   0.40 |     865 |      0.00 |      0.00 |
+|    44 |         42 |       22 |    1 |   n |   0.37 |     865 |      0.00 |      0.00 |
+|    43 |         31 |       27 |    2 |   n |   0.45 |     865 |      0.00 |      0.00 |
+|    42 |         45 |       26 |    2 |   n |   0.44 |     865 |      0.00 |      0.00 |
+|    41 |         44 |       25 |    2 |   n |   0.42 |     865 |      0.00 |      0.00 |
+|    40 |         43 |       24 |    2 |   n |   0.41 |     865 |      0.00 |      0.00 |
+|    39 |         51 |       21 |    2 |   n |   0.35 |     865 |      0.00 |      0.00 |
+|    38 |         25 |       23 |    2 |   n |   0.36 |     865 |      0.00 |      0.00 |
+|    37 |         35 |       24 |    2 |   n |   0.39 |     865 |      0.00 |      0.00 |
+|    36 |         40 |       31 |    2 |   n |   0.48 |     865 |      0.00 |      0.00 |
+|    35 |         46 |       38 |    2 |   n |   0.54 |     866 |      0.00 |      0.00 |
+|    34 |         50 |       48 |    2 |   n |   0.57 |     866 |      0.00 |      0.00 |
+|    33 |        168 |       40 |    2 |   n |   0.55 |     866 |      0.00 |      0.00 |
+|    32 |        100 |       36 |    2 |   n |   0.54 |     866 |      0.00 |      0.00 |
+|    31 |         84 |       35 |    2 |   n |   0.53 |     866 |      0.00 |      0.00 |
+|    30 |         95 |       30 |    2 |   n |   0.49 |     866 |      0.00 |      0.00 |
+|    29 |         54 |       28 |    2 |   n |   0.47 |     866 |      0.00 |      0.00 |
+|    28 |         39 |       37 |    2 |   n |   0.56 |     866 |      0.00 |      0.00 |
+|    27 |         85 |       36 |    2 |   n |   0.56 |     866 |      0.00 |      0.00 |
+|    26 |         72 |       42 |    2 |   n |   0.61 |     866 |      0.00 |      0.00 |
+|    25 |        162 |       32 |    2 |   n |   0.53 |     866 |      0.00 |      0.00 |
+|    24 |         71 |       32 |    2 |   n |   0.53 |     866 |      0.00 |      0.00 |
+|    23 |         60 |       31 |    2 |   n |   0.52 |     866 |      0.00 |      0.00 |
+|    22 |         73 |       30 |    2 |   n |   0.51 |     866 |      0.00 |      0.00 |
+|    21 |         41 |       37 |    2 |   n |   0.58 |     866 |      0.00 |      0.00 |
+|    20 |         89 |       33 |    2 |   n |   0.55 |     866 |      0.00 |      0.00 |
+|    19 |         81 |       30 |    2 |   n |   0.51 |     866 |      0.00 |      0.00 |
+|    18 |         63 |       27 |    2 |   n |   0.47 |     866 |      0.00 |      0.00 |
+|    17 |         60 |       24 |    2 |   n |   0.42 |     866 |      0.00 |      0.00 |
+|    16 |         36 |       35 |    2 |   n |   0.56 |     866 |      0.00 |      0.00 |
+|    15 |         71 |       34 |    2 |   n |   0.55 |     866 |      0.00 |      0.00 |
+|    14 |         73 |       35 |    2 |   n |   0.57 |     866 |      0.00 |      0.00 |
+|    13 |         74 |       38 |    2 |   n |   0.59 |     866 |      0.00 |      0.00 |
+|    12 |        134 |       31 |    3 |   n |   0.53 |     866 |      0.00 |      0.00 |
+|    11 |         59 |       30 |    2 |   n |   0.51 |     866 |      0.00 |      0.00 |
+|    10 |         42 |       37 |    2 |   n |   0.59 |     866 |      0.00 |      0.00 |
+|     9 |         89 |       33 |    2 |   n |   0.55 |     866 |      0.00 |      0.00 |
+|     8 |         69 |       32 |    3 |   n |   0.54 |     866 |      0.00 |      0.00 |
+|     7 |         80 |       29 |    3 |   n |   0.50 |     866 |      0.00 |      0.00 |
+|     6 |         65 |       26 |    2 |   n |   0.45 |     866 |      0.00 |      0.00 |
+|     5 |         38 |       34 |    2 |   n |   0.56 |     866 |      0.00 |      0.00 |
+|     4 |         70 |       32 |    3 |   n |   0.54 |     866 |      0.00 |      0.00 |
+|     3 |         68 |       30 |    3 |   n |   0.51 |     866 |      0.00 |      0.00 |
+|     2 |         54 |       29 |    3 |   n |   0.50 |     866 |      0.00 |      0.00 |
+|     1 |         65 |       26 |    2 |   n |   0.45 |     866 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :   1874
+maximal number of inequalities          :     48
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   26 
+
+output written to file testf1.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T testf2.poi 
+
+input file testf2.poi o.k.
+dimension              :    8 
+number of cone-points  :    0 
+number of conv-points  :   50 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          9 |        1 |    1 |   n |   0.43 |      65 |      0.00 |      0.00 |
+|     8 |          8 |        2 |    1 |   n |   0.40 |      65 |      0.00 |      0.00 |
+|     7 |          7 |        3 |    2 |   n |   0.40 |      65 |      0.00 |      0.00 |
+|     6 |          6 |        4 |    2 |   n |   0.40 |      65 |      0.00 |      0.00 |
+|     5 |          5 |        5 |    2 |   n |   0.44 |      65 |      0.00 |      0.00 |
+|     4 |          4 |        6 |    2 |   n |   0.49 |      65 |      0.00 |      0.00 |
+|     3 |          3 |        7 |    2 |   n |   0.49 |      65 |      0.00 |      0.00 |
+|     2 |          2 |        8 |    2 |   n |   0.50 |      65 |      0.00 |      0.00 |
+|     1 |          1 |        9 |    2 |   n |   0.51 |      65 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    41 |         10 |       10 |    1 |   n |   0.12 |     856 |      0.00 |      0.00 |
+|    40 |         11 |       10 |    1 |   n |   0.13 |     856 |      0.00 |      0.00 |
+|    39 |         11 |       10 |    1 |   n |   0.14 |     856 |      0.00 |      0.00 |
+|    38 |         12 |       12 |    1 |   n |   0.17 |     856 |      0.00 |      0.00 |
+|    37 |         14 |       14 |    1 |   n |   0.18 |     856 |      0.00 |      0.00 |
+|    36 |         22 |       17 |    2 |   n |   0.24 |     857 |      0.00 |      0.00 |
+|    35 |         27 |       16 |    2 |   n |   0.23 |     857 |      0.00 |      0.00 |
+|    34 |         22 |       15 |    1 |   n |   0.21 |     857 |      0.00 |      0.00 |
+|    33 |         23 |       23 |    1 |   n |   0.27 |     857 |      0.00 |      0.00 |
+|    32 |         36 |       34 |    2 |   n |   0.31 |     857 |      0.00 |      0.00 |
+|    31 |         86 |       60 |    2 |   n |   0.40 |     858 |      0.00 |      0.00 |
+|    30 |        434 |       64 |    2 |   n |   0.41 |     859 |      0.00 |      0.00 |
+|    29 |        324 |       62 |    2 |   n |   0.41 |     859 |      0.00 |      0.00 |
+|    28 |        217 |       66 |    2 |   n |   0.42 |     859 |      0.00 |      0.00 |
+|    27 |        146 |       74 |    2 |   n |   0.44 |     859 |      0.00 |      0.00 |
+|    26 |        418 |       66 |    2 |   n |   0.42 |     859 |      0.00 |      0.00 |
+|    25 |        107 |       66 |    2 |   n |   0.42 |     859 |      0.00 |      0.00 |
+|    24 |        322 |       66 |    2 |   n |   0.44 |     859 |      0.00 |      0.00 |
+|    23 |        354 |       66 |    2 |   n |   0.46 |     859 |      0.00 |      0.00 |
+|    22 |        156 |       94 |    2 |   n |   0.46 |     859 |      0.00 |      0.00 |
+|    21 |        494 |       86 |    2 |   n |   0.46 |     859 |      0.00 |      0.00 |
+|    20 |        602 |       85 |    2 |   n |   0.47 |     859 |      0.00 |      0.00 |
+|    19 |        273 |       85 |    2 |   n |   0.47 |     859 |      0.00 |      0.00 |
+|    18 |        385 |       95 |    3 |   n |   0.50 |     860 |      0.00 |      0.00 |
+|    17 |        539 |      105 |    3 |   n |   0.52 |     860 |      0.00 |      0.00 |
+|    16 |        755 |       95 |    2 |   n |   0.50 |     860 |      0.00 |      0.00 |
+|    15 |        535 |       91 |    2 |   n |   0.49 |     860 |      0.00 |      0.00 |
+|    14 |        168 |      122 |    2 |   n |   0.55 |     860 |      0.00 |      0.00 |
+|    13 |        438 |      129 |    2 |   n |   0.57 |     861 |      0.00 |      0.00 |
+|    12 |       1185 |      117 |    2 |   n |   0.54 |     861 |      0.00 |      0.00 |
+|    11 |        271 |      119 |    2 |   n |   0.55 |     861 |      0.00 |      0.00 |
+|    10 |        549 |      175 |    3 |   n |   0.64 |     862 |      0.00 |      0.00 |
+|     9 |       2317 |      163 |    3 |   n |   0.62 |     863 |      0.00 |      0.00 |
+|     8 |       2263 |      163 |    2 |   n |   0.63 |     863 |      0.00 |      0.00 |
+|     7 |       1019 |      174 |    3 |   n |   0.64 |     863 |      0.00 |      0.00 |
+|     6 |        888 |      178 |    3 |   n |   0.64 |     863 |      0.00 |      0.00 |
+|     5 |       2201 |      163 |    3 |   n |   0.62 |     863 |      0.00 |      0.00 |
+|     4 |       1035 |      162 |    2 |   n |   0.62 |     863 |      0.00 |      0.00 |
+|     3 |        386 |      176 |    3 |   n |   0.64 |     863 |      0.00 |      0.00 |
+|     2 |       1749 |      166 |    2 |   n |   0.62 |     863 |      0.00 |      0.01 |
+|     1 |        282 |      170 |    2 |   n |   0.63 |     863 |      0.00 |      0.01 |
+
+sum of inequalities over all iterations :   3664
+maximal number of inequalities          :    178
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :  170 
+
+output written to file testf2.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.poi 
+
+test9.poi, line 4 : dimension error
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.poi 
+
+input file test9.poi o.k.
+dimension              :    9 
+number of cone-points  :    0 
+number of conv-points  :   76 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    10 |         10 |        1 |    1 |   n |   0.46 |      80 |      0.00 |      0.00 |
+|     9 |          9 |        2 |    1 |   n |   0.46 |      80 |      0.00 |      0.00 |
+|     8 |          8 |        3 |    1 |   n |   0.43 |      80 |      0.00 |      0.00 |
+|     7 |          7 |        4 |    2 |   n |   0.45 |      80 |      0.00 |      0.00 |
+|     6 |          6 |        5 |    2 |   n |   0.44 |      80 |      0.00 |      0.00 |
+|     5 |          5 |        6 |    2 |   n |   0.42 |      80 |      0.00 |      0.00 |
+|     4 |          4 |        7 |    2 |   n |   0.42 |      80 |      0.00 |      0.00 |
+|     3 |          3 |        8 |    2 |   n |   0.42 |      80 |      0.00 |      0.00 |
+|     2 |          2 |        9 |    2 |   n |   0.47 |      80 |      0.00 |      0.00 |
+|     1 |          1 |       10 |    2 |   n |   0.45 |      80 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    66 |         11 |       11 |    1 |   n |   0.11 |     867 |      0.00 |      0.00 |
+|    65 |         12 |       11 |    1 |   n |   0.12 |     867 |      0.00 |      0.00 |
+|    64 |         14 |       14 |    1 |   n |   0.16 |     867 |      0.00 |      0.00 |
+|    63 |         18 |       14 |    1 |   n |   0.17 |     867 |      0.00 |      0.00 |
+|    62 |         17 |       14 |    1 |   n |   0.18 |     867 |      0.00 |      0.00 |
+|    61 |         18 |       16 |    1 |   n |   0.20 |     867 |      0.00 |      0.00 |
+|    60 |         20 |       14 |    1 |   n |   0.19 |     867 |      0.00 |      0.00 |
+|    59 |         18 |       15 |    1 |   n |   0.22 |     867 |      0.00 |      0.00 |
+|    58 |         18 |       18 |    2 |   n |   0.24 |     867 |      0.00 |      0.00 |
+|    57 |         24 |       16 |    1 |   n |   0.22 |     867 |      0.00 |      0.00 |
+|    56 |         22 |       18 |    2 |   n |   0.25 |     867 |      0.00 |      0.00 |
+|    55 |         24 |       18 |    2 |   n |   0.26 |     867 |      0.00 |      0.00 |
+|    54 |         22 |       19 |    2 |   n |   0.29 |     867 |      0.00 |      0.00 |
+|    53 |         27 |       20 |    2 |   n |   0.31 |     867 |      0.00 |      0.00 |
+|    52 |         32 |       23 |    2 |   n |   0.34 |     867 |      0.00 |      0.00 |
+|    51 |         39 |       21 |    2 |   n |   0.32 |     867 |      0.00 |      0.00 |
+|    50 |         29 |       29 |    2 |   n |   0.41 |     867 |      0.00 |      0.00 |
+|    49 |         61 |       25 |    2 |   n |   0.38 |     867 |      0.00 |      0.00 |
+|    48 |         37 |       29 |    2 |   n |   0.42 |     868 |      0.00 |      0.00 |
+|    47 |         65 |       25 |    2 |   n |   0.37 |     868 |      0.00 |      0.00 |
+|    46 |         36 |       25 |    2 |   n |   0.37 |     868 |      0.00 |      0.00 |
+|    45 |         33 |       31 |    2 |   n |   0.45 |     868 |      0.00 |      0.00 |
+|    44 |         59 |       31 |    2 |   n |   0.44 |     868 |      0.00 |      0.00 |
+|    43 |         67 |       30 |    2 |   n |   0.45 |     868 |      0.00 |      0.00 |
+|    42 |         66 |       26 |    2 |   n |   0.40 |     868 |      0.00 |      0.00 |
+|    41 |         48 |       24 |    2 |   n |   0.37 |     868 |      0.00 |      0.00 |
+|    40 |         48 |       28 |    2 |   n |   0.44 |     868 |      0.00 |      0.00 |
+|    39 |         56 |       24 |    2 |   n |   0.39 |     868 |      0.00 |      0.00 |
+|    38 |         38 |       23 |    2 |   n |   0.37 |     868 |      0.00 |      0.00 |
+|    37 |         39 |       29 |    2 |   n |   0.44 |     868 |      0.00 |      0.00 |
+|    36 |         74 |       27 |    2 |   n |   0.44 |     868 |      0.00 |      0.00 |
+|    35 |         67 |       45 |    2 |   n |   0.47 |     868 |      0.00 |      0.00 |
+|    34 |        117 |       54 |    2 |   n |   0.52 |     869 |      0.00 |      0.00 |
+|    33 |        110 |       73 |    2 |   n |   0.52 |     869 |      0.00 |      0.00 |
+|    32 |        385 |       64 |    2 |   n |   0.50 |     869 |      0.00 |      0.00 |
+|    31 |        253 |       57 |    2 |   n |   0.47 |     869 |      0.00 |      0.00 |
+|    30 |        233 |       76 |    3 |   n |   0.59 |     870 |      0.00 |      0.00 |
+|    29 |        468 |       68 |    3 |   n |   0.57 |     870 |      0.00 |      0.00 |
+|    28 |        343 |       59 |    2 |   n |   0.55 |     870 |      0.00 |      0.00 |
+|    27 |        279 |       53 |    3 |   n |   0.53 |     870 |      0.00 |      0.00 |
+|    26 |        221 |       46 |    2 |   n |   0.49 |     870 |      0.00 |      0.00 |
+|    25 |         66 |       65 |    3 |   n |   0.59 |     870 |      0.00 |      0.00 |
+|    24 |        285 |       65 |    3 |   n |   0.57 |     870 |      0.00 |      0.00 |
+|    23 |        281 |       64 |    2 |   n |   0.57 |     870 |      0.00 |      0.00 |
+|    22 |        214 |       68 |    3 |   n |   0.59 |     870 |      0.00 |      0.00 |
+|    21 |        216 |       72 |    3 |   n |   0.61 |     870 |      0.00 |      0.00 |
+|    20 |        227 |       94 |    3 |   n |   0.68 |     870 |      0.00 |      0.00 |
+|    19 |        694 |       77 |    3 |   n |   0.64 |     870 |      0.00 |      0.00 |
+|    18 |        512 |       66 |    3 |   n |   0.61 |     870 |      0.00 |      0.00 |
+|    17 |        270 |       63 |    3 |   n |   0.60 |     870 |      0.00 |      0.00 |
+|    16 |        297 |       54 |    3 |   n |   0.56 |     870 |      0.00 |      0.00 |
+|    15 |        222 |       47 |    2 |   n |   0.50 |     870 |      0.00 |      0.00 |
+|    14 |        147 |       69 |    3 |   n |   0.62 |     870 |      0.00 |      0.00 |
+|    13 |        265 |       65 |    3 |   n |   0.61 |     870 |      0.00 |      0.00 |
+|    12 |        146 |       66 |    3 |   n |   0.61 |     870 |      0.00 |      0.00 |
+|    11 |        269 |       86 |    3 |   n |   0.68 |     870 |      0.00 |      0.00 |
+|    10 |        449 |       89 |    3 |   n |   0.69 |     870 |      0.00 |      0.00 |
+|     9 |        614 |       76 |    3 |   n |   0.66 |     870 |      0.00 |      0.00 |
+|     8 |        501 |       65 |    3 |   n |   0.62 |     870 |      0.00 |      0.00 |
+|     7 |        373 |       63 |    3 |   n |   0.61 |     870 |      0.00 |      0.00 |
+|     6 |        333 |       54 |    3 |   n |   0.56 |     870 |      0.00 |      0.00 |
+|     5 |         83 |       67 |    3 |   n |   0.63 |     870 |      0.00 |      0.00 |
+|     4 |        207 |       62 |    3 |   n |   0.60 |     870 |      0.00 |      0.00 |
+|     3 |        286 |       57 |    3 |   n |   0.58 |     870 |      0.00 |      0.00 |
+|     2 |        219 |       51 |    3 |   n |   0.54 |     870 |      0.00 |      0.00 |
+|     1 |        132 |       48 |    2 |   n |   0.52 |     870 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :   2916
+maximal number of inequalities          :     94
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   48 
+
+output written to file test9.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+test9.ieq, line 52: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+test9.ieq, line 54: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+test9.ieq, line 54: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+test9.ieq, line 54: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+test9.ieq, line 53: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 3-cycle.poi.ieq 
+
+input file 3-cycle.poi.ieq o.k.
+dimension              :    3 
+number of equations    :    0 
+number of inequalities :    7 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     4 |          4 |        1 |    1 |   n |   0.39 |      42 |      0.00 |      0.00 |
+|     3 |          3 |        2 |    1 |   n |   0.40 |      42 |      0.00 |      0.00 |
+|     2 |          2 |        3 |    2 |   n |   0.44 |      42 |      0.00 |      0.00 |
+|     1 |          1 |        4 |    2 |   n |   0.53 |      42 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     4 |          5 |        5 |    1 |   n |   0.28 |     841 |      0.00 |      0.00 |
+|     3 |          8 |        8 |    1 |   n |   0.40 |     841 |      0.00 |      0.00 |
+|     2 |         11 |        7 |    2 |   n |   0.37 |     841 |      0.00 |      0.00 |
+|     1 |          7 |        7 |    1 |   n |   0.37 |     841 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :     27
+maximal number of inequalities          :      8
+
+sorting system 
+transformation to integer values 
+
+number of cone-points  :    0 
+number of conv-points  :    7 
+
+output written to file 3-cycle.poi.ieq.poi
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T 3-cycle.poi.ieq 
+
+input file 3-cycle.poi.ieq o.k.
+dimension              :    3 
+number of equations    :    0 
+number of inequalities :    7 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     4 |          4 |        1 |    1 |   n |   0.39 |      42 |      0.00 |      0.00 |
+|     3 |          3 |        2 |    1 |   n |   0.40 |      42 |      0.00 |      0.00 |
+|     2 |          2 |        3 |    2 |   n |   0.44 |      42 |      0.00 |      0.00 |
+|     1 |          1 |        4 |    2 |   n |   0.53 |      42 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     4 |          5 |        5 |    1 |   n |   0.28 |     841 |      0.00 |      0.00 |
+|     3 |          8 |        8 |    1 |   n |   0.40 |     841 |      0.00 |      0.00 |
+|     2 |         11 |        7 |    2 |   n |   0.37 |     841 |      0.00 |      0.00 |
+|     1 |          7 |        7 |    1 |   n |   0.37 |     841 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :     27
+maximal number of inequalities          :      8
+
+sorting system 
+transformation to integer values 
+
+number of cone-points  :    0 
+number of conv-points  :    7 
+
+3-cycle.poi.ieq.poi moved into 3-cycle.poi.ieq.poi%
+output written to file 3-cycle.poi.ieq.poi
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+test9.ieq, line 54: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+test9.ieq, line 36: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+test9.ieq, line 30: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+test9.ieq, line 17: invalid format
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+input file test9.ieq o.k.
+dimension              :    8 
+number of equations    :    0 
+number of inequalities :   26 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|     9 |          9 |        1 |    2 |   n |   0.26 |      55 |      0.00 |      0.00 |
+|     8 |          8 |        2 |    2 |   n |   0.26 |      55 |      0.00 |      0.00 |
+|     7 |          7 |        3 |    2 |   n |   0.27 |      55 |      0.00 |      0.00 |
+|     6 |          6 |        4 |    2 |   n |   0.28 |      55 |      0.00 |      0.00 |
+|     5 |          5 |        5 |    2 |   n |   0.29 |      55 |      0.00 |      0.00 |
+|     4 |          4 |        6 |    2 |   n |   0.30 |      55 |      0.00 |      0.00 |
+|     3 |          3 |        7 |    2 |   n |   0.31 |      55 |      0.00 |      0.00 |
+|     2 |          2 |        8 |    2 |   n |   0.32 |      55 |      0.00 |      0.00 |
+|     1 |          1 |        9 |    2 |   n |   0.53 |      55 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    18 |         10 |       10 |    1 |   n |   0.12 |     850 |      0.00 |      0.00 |
+|    17 |         12 |       12 |    1 |   n |   0.16 |     850 |      0.00 |      0.00 |
+|    16 |         15 |       15 |    1 |   n |   0.21 |     850 |      0.00 |      0.00 |
+|    15 |         24 |       18 |    1 |   n |   0.25 |     850 |      0.00 |      0.00 |
+|    14 |         36 |       36 |    2 |   n |   0.33 |     851 |      0.00 |      0.00 |
+|    13 |         90 |       30 |    2 |   n |   0.31 |     851 |      0.00 |      0.00 |
+|    12 |         66 |       27 |    2 |   n |   0.30 |     851 |      0.00 |      0.00 |
+|    11 |         47 |       26 |    1 |   n |   0.30 |     851 |      0.00 |      0.00 |
+|    10 |         41 |       35 |    2 |   n |   0.36 |     851 |      0.00 |      0.00 |
+|     9 |         56 |       52 |    2 |   n |   0.43 |     851 |      0.00 |      0.00 |
+|     8 |         85 |       83 |    2 |   n |   0.49 |     852 |      0.00 |      0.00 |
+|     7 |        134 |      134 |    2 |   n |   0.53 |     854 |      0.00 |      0.00 |
+|     6 |       1044 |      120 |    2 |   n |   0.52 |     854 |      0.00 |      0.00 |
+|     5 |        890 |      106 |    2 |   n |   0.51 |     854 |      0.00 |      0.00 |
+|     4 |        717 |       93 |    2 |   n |   0.50 |     854 |      0.00 |      0.00 |
+|     3 |        587 |       80 |    2 |   n |   0.48 |     854 |      0.00 |      0.00 |
+|     2 |        194 |       78 |    2 |   n |   0.47 |     854 |      0.00 |      0.00 |
+|     1 |         78 |       78 |    2 |   n |   0.47 |     854 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :   1033
+maximal number of inequalities          :    134
+
+sorting system 
+transformation to integer values 
+
+number of cone-points  :    0 
+number of conv-points  :   78 
+
+output written to file test9.ieq.poi
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+input file test9.ieq o.k.
+dimension              :    9 
+number of equations    :    0 
+number of inequalities :   46 
+
+input point not valid (inequalnum : 28)
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+input file test9.ieq o.k.
+dimension              :    9 
+number of equations    :    0 
+number of inequalities :   46 
+
+input point not valid (inequalnum : 28)
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+input file test9.ieq o.k.
+dimension              :    9 
+number of equations    :    0 
+number of inequalities :   44 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    10 |         10 |        1 |    2 |   n |   0.28 |      66 |      0.00 |      0.00 |
+|     9 |          9 |        2 |    2 |   n |   0.28 |      66 |      0.00 |      0.00 |
+|     8 |          8 |        3 |    2 |   n |   0.28 |      66 |      0.00 |      0.00 |
+|     7 |          7 |        4 |    2 |   n |   0.29 |      66 |      0.00 |      0.00 |
+|     6 |          6 |        5 |    2 |   n |   0.29 |      66 |      0.00 |      0.00 |
+|     5 |          5 |        6 |    2 |   n |   0.30 |      66 |      0.00 |      0.00 |
+|     4 |          4 |        7 |    2 |   n |   0.31 |      66 |      0.00 |      0.00 |
+|     3 |          3 |        8 |    2 |   n |   0.31 |      66 |      0.00 |      0.00 |
+|     2 |          2 |        9 |    2 |   n |   0.32 |      66 |      0.00 |      0.00 |
+|     1 |          1 |       10 |    2 |   n |   0.36 |      66 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    35 |         11 |       11 |    1 |   n |   0.11 |     858 |      0.00 |      0.00 |
+|    34 |         13 |       13 |    1 |   n |   0.14 |     858 |      0.00 |      0.00 |
+|    33 |         16 |       16 |    1 |   n |   0.18 |     858 |      0.00 |      0.00 |
+|    32 |         25 |       19 |    1 |   n |   0.22 |     858 |      0.00 |      0.00 |
+|    31 |         26 |       26 |    1 |   n |   0.29 |     858 |      0.00 |      0.00 |
+|    30 |         47 |       29 |    1 |   n |   0.31 |     858 |      0.00 |      0.00 |
+|    29 |         51 |       33 |    1 |   n |   0.33 |     858 |      0.00 |      0.00 |
+|    28 |         48 |       36 |    1 |   n |   0.33 |     858 |      0.00 |      0.00 |
+|    27 |         59 |       59 |    1 |   n |   0.38 |     859 |      0.00 |      0.00 |
+|    26 |         98 |       98 |    1 |   n |   0.42 |     860 |      0.00 |      0.00 |
+|    25 |        165 |      165 |    1 |   n |   0.46 |     863 |      0.00 |      0.00 |
+|    24 |        272 |      272 |    1 |   n |   0.49 |     867 |      0.00 |      0.00 |
+|    23 |       4052 |      244 |    1 |   n |   0.49 |     867 |      0.00 |      0.00 |
+|    22 |       3464 |      216 |    1 |   n |   0.48 |     867 |      0.00 |      0.00 |
+|    21 |       2790 |      190 |    1 |   n |   0.47 |     867 |      0.00 |      0.00 |
+|    20 |       2296 |      164 |    1 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    19 |       1622 |      146 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    18 |       1280 |      128 |    1 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    17 |       1136 |      162 |    2 |   n |   0.54 |     867 |      0.00 |      0.00 |
+|    16 |       1714 |      196 |    2 |   n |   0.59 |     867 |      0.00 |      0.00 |
+|    15 |        972 |      228 |    2 |   n |   0.61 |     867 |      0.00 |      0.00 |
+|    14 |       1260 |      260 |    2 |   n |   0.62 |     867 |      0.00 |      0.00 |
+|    13 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.00 |
+|    12 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.00 |
+|    11 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.00 |
+|    10 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.00 |
+|     9 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.00 |
+|     8 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.01 |
+|     7 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.01 |
+|     6 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.01 |
+|     5 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.01 |
+|     4 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.01 |
+|     3 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.01 |
+|     2 |        260 |      260 |    3 |   n |   0.62 |     867 |      0.00 |      0.01 |
+|     1 |        260 |      260 |    2 |   n |   0.62 |     867 |      0.00 |      0.01 |
+
+sum of inequalities over all iterations :   6091
+maximal number of inequalities          :    272
+
+sorting system 
+transformation to integer values 
+
+number of cone-points  :    0 
+number of conv-points  :  260 
+
+test9.ieq.poi moved into test9.ieq.poi%
+output written to file test9.ieq.poi
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq.poi 
+
+input file test9.ieq.poi o.k.
+dimension              :    9 
+number of cone-points  :    0 
+number of conv-points  :  260 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    10 |         10 |        1 |    2 |   n |   0.64 |     169 |      0.00 |      0.00 |
+|     9 |          9 |        2 |    3 |   n |   0.66 |     169 |      0.00 |      0.00 |
+|     8 |          8 |        3 |    3 |   n |   0.64 |     169 |      0.00 |      0.00 |
+|     7 |          7 |        4 |    3 |   n |   0.65 |     169 |      0.00 |      0.00 |
+|     6 |          6 |        5 |    3 |   n |   0.67 |     169 |      0.00 |      0.00 |
+|     5 |          5 |        6 |    3 |   n |   0.63 |     169 |      0.00 |      0.00 |
+|     4 |          4 |        7 |    3 |   n |   0.63 |     169 |      0.00 |      0.00 |
+|     3 |          3 |        8 |    3 |   n |   0.65 |     169 |      0.00 |      0.00 |
+|     2 |          2 |        9 |    3 |   n |   0.64 |     169 |      0.00 |      0.00 |
+|     1 |          1 |       10 |    3 |   n |   0.59 |     169 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|   250 |         11 |       11 |    1 |   n |   0.11 |     927 |      0.00 |      0.00 |
+|   249 |         15 |       14 |    3 |   n |   0.15 |     927 |      0.00 |      0.00 |
+|   248 |         18 |       13 |    3 |   n |   0.15 |     927 |      0.00 |      0.00 |
+|   247 |         15 |       13 |    3 |   n |   0.15 |     927 |      0.00 |      0.00 |
+|   246 |         15 |       14 |    3 |   n |   0.18 |     927 |      0.00 |      0.00 |
+|   245 |         23 |       22 |    4 |   n |   0.28 |     928 |      0.00 |      0.00 |
+|   244 |         50 |       29 |    4 |   n |   0.33 |     928 |      0.00 |      0.00 |
+|   243 |         62 |       29 |    4 |   n |   0.33 |     928 |      0.00 |      0.00 |
+|   242 |         71 |       31 |    5 |   n |   0.36 |     928 |      0.00 |      0.00 |
+|   241 |         70 |       28 |    4 |   n |   0.33 |     928 |      0.00 |      0.00 |
+|   240 |         48 |       32 |    5 |   n |   0.35 |     928 |      0.00 |      0.00 |
+|   239 |         80 |       30 |    5 |   n |   0.35 |     928 |      0.00 |      0.00 |
+|   238 |         72 |       37 |    4 |   n |   0.43 |     928 |      0.00 |      0.00 |
+|   237 |        151 |       46 |    5 |   n |   0.46 |     929 |      0.00 |      0.00 |
+|   236 |        214 |       38 |    5 |   n |   0.42 |     929 |      0.00 |      0.00 |
+|   235 |        122 |       36 |    4 |   n |   0.43 |     929 |      0.00 |      0.00 |
+|   234 |         84 |       39 |    4 |   n |   0.46 |     929 |      0.00 |      0.00 |
+|   233 |        144 |       68 |    5 |   n |   0.56 |     931 |      0.00 |      0.00 |
+|   232 |        418 |       60 |    5 |   n |   0.54 |     931 |      0.00 |      0.00 |
+|   231 |        385 |       60 |    5 |   n |   0.53 |     931 |      0.00 |      0.00 |
+|   230 |        268 |       88 |    5 |   n |   0.59 |     932 |      0.00 |      0.00 |
+|   229 |        608 |       83 |    6 |   n |   0.58 |     932 |      0.00 |      0.00 |
+|   228 |        750 |       79 |    6 |   n |   0.57 |     932 |      0.00 |      0.00 |
+|   227 |        493 |       74 |    4 |   n |   0.55 |     932 |      0.00 |      0.00 |
+|   226 |        533 |       60 |    5 |   n |   0.51 |     932 |      0.00 |      0.00 |
+|   225 |        260 |       62 |    4 |   n |   0.54 |     932 |      0.00 |      0.00 |
+|   224 |        248 |       69 |    5 |   n |   0.56 |     932 |      0.00 |      0.00 |
+|   223 |        315 |       65 |    5 |   n |   0.56 |     932 |      0.00 |      0.00 |
+|   222 |        209 |       65 |    5 |   n |   0.56 |     932 |      0.00 |      0.00 |
+|   221 |        445 |      101 |    6 |   n |   0.61 |     933 |      0.00 |      0.00 |
+|   220 |        893 |      116 |    6 |   n |   0.64 |     934 |      0.00 |      0.00 |
+|   219 |       1450 |      120 |    5 |   n |   0.65 |     935 |      0.00 |      0.00 |
+|   218 |       1752 |       99 |    6 |   n |   0.62 |     935 |      0.00 |      0.00 |
+|   217 |        909 |      112 |    6 |   n |   0.64 |     935 |      0.00 |      0.00 |
+|   216 |        658 |      120 |    6 |   n |   0.65 |     935 |      0.00 |      0.01 |
+|   215 |       1506 |      100 |    6 |   n |   0.64 |     935 |      0.00 |      0.01 |
+|   214 |        808 |       91 |    5 |   n |   0.62 |     935 |      0.00 |      0.01 |
+|   213 |        556 |      100 |    5 |   n |   0.65 |     935 |      0.00 |      0.01 |
+|   212 |        660 |      107 |    5 |   n |   0.67 |     935 |      0.00 |      0.01 |
+|   211 |        739 |      111 |    6 |   n |   0.68 |     935 |      0.00 |      0.01 |
+|   210 |        914 |      156 |    6 |   n |   0.74 |     937 |      0.00 |      0.01 |
+|   209 |       2822 |      185 |    7 |   n |   0.78 |     941 |      0.00 |      0.01 |
+|   208 |       3301 |      229 |    7 |   n |   0.80 |     945 |      0.00 |      0.01 |
+|   207 |       1274 |      505 |    7 |   n |   0.83 |     959 |      0.00 |      0.01 |
+|   206 |      15877 |      547 |    6 |   n |   0.83 |     964 |      0.00 |      0.01 |
+|   205 |      28186 |      518 |    6 |   n |   0.83 |     964 |      0.01 |      0.01 |
+|   204 |      18113 |      522 |    7 |   n |   0.83 |     964 |      0.01 |      0.02 |
+|   203 |      10818 |      547 |    6 |   n |   0.83 |     964 |      0.01 |      0.02 |
+|   202 |      28519 |      489 |    6 |   n |   0.82 |     964 |      0.01 |      0.02 |
+|   201 |      13129 |      487 |    7 |   n |   0.82 |     964 |      0.02 |      0.02 |
+|   200 |      30003 |      602 |    7 |   n |   0.83 |     970 |      0.02 |      0.03 |
+|   199 |      39587 |      649 |    6 |   n |   0.84 |     975 |      0.02 |      0.03 |
+|   198 |      62359 |      591 |    6 |   n |   0.83 |     975 |      0.03 |      0.04 |
+|   197 |      17611 |      772 |    6 |   n |   0.85 |     978 |      0.03 |      0.04 |
+|   196 |      51636 |      772 |    6 |   n |   0.85 |     981 |      0.04 |      0.04 |
+|   195 |      70272 |      836 |    6 |   n |   0.86 |     988 |      0.05 |      0.05 |
+|   194 |      66659 |      959 |    6 |   n |   0.86 |     994 |      0.05 |      0.06 |
+|   193 |      66617 |      970 |    7 |   n |   0.86 |     994 |      0.06 |      0.07 |
+|   192 |      93706 |     1023 |    7 |   n |   0.87 |    1002 |      0.07 |      0.08 |
+|   191 |      61431 |     1014 |    7 |   n |   0.87 |    1002 |      0.07 |      0.08 |
+|   190 |      46150 |     1001 |    7 |   n |   0.87 |    1002 |      0.08 |      0.09 |
+|   189 |      73547 |     1057 |    7 |   n |   0.87 |    1002 |      0.09 |      0.10 |
+|   188 |     129573 |     1035 |    7 |   n |   0.87 |    1004 |      0.10 |      0.11 |
+|   187 |     123129 |     1146 |    7 |   n |   0.87 |    1011 |      0.12 |      0.13 |
+|   186 |     147495 |     1111 |    7 |   n |   0.87 |    1011 |      0.13 |      0.14 |
+|   185 |     145228 |      960 |    7 |   n |   0.87 |    1011 |      0.15 |      0.16 |
+|   184 |      84858 |      915 |    7 |   n |   0.87 |    1011 |      0.16 |      0.17 |
+|   183 |      39420 |     1052 |    7 |   n |   0.87 |    1011 |      0.16 |      0.17 |
+|   182 |      95678 |      978 |    7 |   n |   0.87 |    1011 |      0.17 |      0.18 |
+|   181 |     131745 |      905 |    7 |   n |   0.87 |    1011 |      0.19 |      0.20 |
+|   180 |      80897 |      879 |    7 |   n |   0.87 |    1011 |      0.20 |      0.21 |
+|   179 |      55587 |      955 |    7 |   n |   0.87 |    1011 |      0.20 |      0.21 |
+|   178 |      82729 |     1143 |    7 |   n |   0.88 |    1011 |      0.21 |      0.22 |
+|   177 |     179951 |     1486 |    8 |   n |   0.89 |    1037 |      0.23 |      0.25 |
+|   176 |     266350 |     1359 |    7 |   n |   0.88 |    1037 |      0.26 |      0.28 |
+|   175 |     235251 |     1218 |    7 |   n |   0.88 |    1037 |      0.29 |      0.30 |
+|   174 |     121522 |     1189 |    7 |   n |   0.88 |    1037 |      0.31 |      0.32 |
+|   173 |     162389 |     1142 |    8 |   n |   0.88 |    1037 |      0.32 |      0.34 |
+|   172 |     160818 |     1208 |    8 |   n |   0.88 |    1037 |      0.34 |      0.36 |
+|   171 |     159032 |     1048 |    7 |   n |   0.88 |    1037 |      0.36 |      0.37 |
+|   170 |     143624 |      893 |    7 |   n |   0.87 |    1037 |      0.38 |      0.39 |
+|   169 |     112781 |      994 |    8 |   n |   0.88 |    1037 |      0.39 |      0.41 |
+|   168 |      88961 |     1103 |    7 |   n |   0.88 |    1037 |      0.40 |      0.42 |
+|   167 |      67204 |     1260 |    7 |   n |   0.88 |    1037 |      0.41 |      0.43 |
+|   166 |     118971 |     1246 |    7 |   n |   0.88 |    1037 |      0.43 |      0.44 |
+|   165 |     153607 |     1078 |    7 |   n |   0.88 |    1037 |      0.45 |      0.46 |
+|   164 |      98486 |     1127 |    7 |   n |   0.88 |    1037 |      0.46 |      0.47 |
+|   163 |     142849 |     1048 |    7 |   n |   0.88 |    1037 |      0.48 |      0.49 |
+|   162 |     119706 |     1166 |    7 |   n |   0.88 |    1037 |      0.50 |      0.51 |
+|   161 |     167566 |     1175 |    8 |   n |   0.89 |    1037 |      0.52 |      0.53 |
+|   160 |      79567 |     1189 |    8 |   n |   0.89 |    1037 |      0.53 |      0.54 |
+|   159 |     124048 |     1110 |    7 |   n |   0.88 |    1037 |      0.55 |      0.56 |
+|   158 |     136580 |      979 |    7 |   n |   0.88 |    1037 |      0.57 |      0.58 |
+|   157 |      49711 |     1086 |    8 |   n |   0.88 |    1037 |      0.57 |      0.59 |
+|   156 |      43360 |     1155 |    7 |   n |   0.88 |    1037 |      0.58 |      0.59 |
+|   155 |      88940 |     1135 |    7 |   n |   0.88 |    1037 |      0.59 |      0.61 |
+|   154 |     124225 |     1033 |    7 |   n |   0.88 |    1037 |      0.61 |      0.62 |
+|   153 |     133429 |      966 |    7 |   n |   0.88 |    1037 |      0.63 |      0.64 |
+|   152 |      56478 |      995 |    8 |   n |   0.88 |    1037 |      0.64 |      0.65 |
+|   151 |      41045 |     1203 |    8 |   n |   0.89 |    1037 |      0.65 |      0.66 |
+|   150 |      87873 |     1125 |    7 |   n |   0.89 |    1037 |      0.66 |      0.67 |
+|   149 |     153740 |      941 |    7 |   n |   0.88 |    1037 |      0.68 |      0.69 |
+|   148 |      95705 |      917 |    7 |   n |   0.89 |    1037 |      0.69 |      0.71 |
+|   147 |      22868 |     1043 |    8 |   n |   0.89 |    1037 |      0.70 |      0.71 |
+|   146 |      95471 |     1012 |    8 |   n |   0.89 |    1037 |      0.71 |      0.73 |
+|   145 |     140543 |     1083 |    7 |   n |   0.89 |    1037 |      0.74 |      0.75 |
+|   144 |     150241 |     1219 |    8 |   n |   0.89 |    1037 |      0.76 |      0.77 |
+|   143 |     202805 |     1242 |    8 |   n |   0.89 |    1037 |      0.79 |      0.81 |
+|   142 |      82030 |     1321 |    8 |   n |   0.89 |    1037 |      0.80 |      0.82 |
+|   141 |     139251 |     1370 |    8 |   n |   0.89 |    1037 |      0.83 |      0.84 |
+|   140 |     171113 |     1386 |    7 |   n |   0.89 |    1037 |      0.85 |      0.86 |
+|   139 |     181674 |     1454 |    8 |   n |   0.90 |    1037 |      0.88 |      0.89 |
+|   138 |      67858 |     1424 |    8 |   n |   0.89 |    1037 |      0.89 |      0.90 |
+|   137 |      93080 |     1531 |    8 |   n |   0.90 |    1037 |      0.90 |      0.92 |
+|   136 |     192477 |     1441 |    8 |   n |   0.90 |    1037 |      0.93 |      0.95 |
+|   135 |     315720 |     1795 |    8 |   n |   0.90 |    1061 |      0.98 |      1.00 |
+|   134 |     418939 |     1675 |    8 |   n |   0.90 |    1061 |      1.04 |      1.06 |
+|   133 |     290955 |     1955 |    8 |   n |   0.90 |    1065 |      1.09 |      1.10 |
+|   132 |     286547 |     2061 |    8 |   n |   0.90 |    1069 |      1.13 |      1.15 |
+|   131 |     425907 |     1951 |    8 |   n |   0.90 |    1069 |      1.19 |      1.21 |
+|   130 |     127663 |     1992 |    8 |   n |   0.90 |    1069 |      1.21 |      1.23 |
+|   129 |     112829 |     2068 |    8 |   n |   0.90 |    1069 |      1.23 |      1.25 |
+|   128 |     323065 |     2034 |    8 |   n |   0.90 |    1069 |      1.28 |      1.30 |
+|   127 |     242554 |     1952 |    8 |   n |   0.90 |    1069 |      1.32 |      1.33 |
+|   126 |     138780 |     2120 |    8 |   n |   0.90 |    1069 |      1.34 |      1.35 |
+|   125 |     433040 |     2278 |    8 |   n |   0.90 |    1090 |      1.41 |      1.42 |
+|   124 |     650926 |     2313 |    8 |   n |   0.90 |    1104 |      1.51 |      1.52 |
+|   123 |     484048 |     2337 |    8 |   n |   0.90 |    1104 |      1.58 |      1.60 |
+|   122 |     660905 |     2351 |    8 |   n |   0.90 |    1104 |      1.68 |      1.70 |
+|   121 |     445340 |     2247 |    8 |   n |   0.90 |    1104 |      1.75 |      1.76 |
+|   120 |     470399 |     2027 |    9 |   n |   0.90 |    1104 |      1.82 |      1.84 |
+|   119 |     563827 |     1812 |    8 |   n |   0.90 |    1104 |      1.91 |      1.93 |
+|   118 |     287610 |     2115 |    8 |   n |   0.90 |    1104 |      1.96 |      1.98 |
+|   117 |     357186 |     1953 |    8 |   n |   0.90 |    1104 |      2.02 |      2.03 |
+|   116 |     427410 |     1957 |    9 |   n |   0.90 |    1104 |      2.08 |      2.10 |
+|   115 |     335021 |     1932 |    8 |   n |   0.90 |    1104 |      2.14 |      2.15 |
+|   114 |     500886 |     1900 |    8 |   n |   0.90 |    1104 |      2.22 |      2.23 |
+|   113 |     266764 |     1860 |    8 |   n |   0.90 |    1104 |      2.26 |      2.27 |
+|   112 |     374532 |     1665 |    8 |   n |   0.90 |    1104 |      2.32 |      2.33 |
+|   111 |     259107 |     1517 |    8 |   n |   0.90 |    1104 |      2.36 |      2.37 |
+|   110 |     340872 |     1646 |    7 |   n |   0.90 |    1104 |      2.42 |      2.44 |
+|   109 |     264356 |     1718 |    8 |   n |   0.90 |    1104 |      2.47 |      2.48 |
+|   108 |     184706 |     1676 |    8 |   n |   0.90 |    1104 |      2.50 |      2.51 |
+|   107 |     303914 |     1570 |    8 |   n |   0.90 |    1104 |      2.55 |      2.56 |
+|   106 |     158378 |     1578 |    8 |   n |   0.90 |    1104 |      2.57 |      2.59 |
+|   105 |     312948 |     1584 |    8 |   n |   0.90 |    1104 |      2.63 |      2.64 |
+|   104 |     277174 |     1474 |    7 |   n |   0.90 |    1104 |      2.67 |      2.69 |
+|   103 |     237934 |     1620 |    8 |   n |   0.90 |    1104 |      2.72 |      2.73 |
+|   102 |      25896 |     1705 |    8 |   n |   0.90 |    1104 |      2.72 |      2.74 |
+|   101 |     212069 |     1592 |    8 |   n |   0.90 |    1104 |      2.76 |      2.77 |
+|   100 |     160695 |     1788 |    8 |   n |   0.90 |    1104 |      2.79 |      2.80 |
+|    99 |     314772 |     1780 |    8 |   n |   0.90 |    1104 |      2.85 |      2.86 |
+|    98 |     224820 |     1731 |    8 |   n |   0.90 |    1104 |      2.89 |      2.90 |
+|    97 |     268161 |     1646 |    8 |   n |   0.90 |    1104 |      2.94 |      2.95 |
+|    96 |     147500 |     1772 |    9 |   n |   0.90 |    1104 |      2.96 |      2.98 |
+|    95 |     322522 |     1846 |    9 |   n |   0.90 |    1104 |      3.02 |      3.03 |
+|    94 |     253654 |     1771 |    9 |   n |   0.90 |    1104 |      3.06 |      3.08 |
+|    93 |     307893 |     1600 |    8 |   n |   0.90 |    1104 |      3.11 |      3.13 |
+|    92 |     254320 |     1542 |    8 |   n |   0.90 |    1104 |      3.16 |      3.17 |
+|    91 |     307452 |     1405 |    8 |   n |   0.90 |    1104 |      3.21 |      3.22 |
+|    90 |     262645 |     1421 |    7 |   n |   0.90 |    1104 |      3.26 |      3.27 |
+|    89 |      83994 |     1469 |    8 |   n |   0.90 |    1104 |      3.27 |      3.29 |
+|    88 |     172220 |     1486 |    8 |   n |   0.90 |    1104 |      3.30 |      3.32 |
+|    87 |     142471 |     1514 |    8 |   n |   0.90 |    1104 |      3.33 |      3.34 |
+|    86 |     151313 |     1629 |    8 |   n |   0.90 |    1104 |      3.36 |      3.37 |
+|    85 |     239791 |     1479 |    8 |   n |   0.90 |    1104 |      3.40 |      3.41 |
+|    84 |     117357 |     1525 |    7 |   n |   0.90 |    1104 |      3.42 |      3.44 |
+|    83 |     288007 |     1544 |    7 |   n |   0.90 |    1104 |      3.48 |      3.49 |
+|    82 |     251017 |     1534 |    7 |   n |   0.90 |    1104 |      3.52 |      3.54 |
+|    81 |     311710 |     1626 |    7 |   n |   0.90 |    1104 |      3.58 |      3.60 |
+|    80 |     141015 |     1626 |    8 |   n |   0.90 |    1104 |      3.61 |      3.62 |
+|    79 |     161958 |     1602 |    8 |   n |   0.90 |    1104 |      3.64 |      3.66 |
+|    78 |     342702 |     1656 |    8 |   n |   0.90 |    1104 |      3.71 |      3.72 |
+|    77 |     124592 |     1681 |    8 |   n |   0.90 |    1104 |      3.73 |      3.75 |
+|    76 |     281191 |     1865 |    9 |   n |   0.90 |    1104 |      3.78 |      3.80 |
+|    75 |     457397 |     1878 |    9 |   n |   0.90 |    1104 |      3.87 |      3.89 |
+|    74 |     111309 |     1937 |    9 |   n |   0.90 |    1104 |      3.89 |      3.91 |
+|    73 |     228163 |     1927 |    9 |   n |   0.90 |    1104 |      3.94 |      3.95 |
+|    72 |     432647 |     1806 |    8 |   n |   0.90 |    1104 |      4.02 |      4.04 |
+|    71 |     338886 |     2000 |    8 |   n |   0.90 |    1104 |      4.09 |      4.11 |
+|    70 |     407145 |     1860 |    8 |   n |   0.90 |    1104 |      4.16 |      4.18 |
+|    69 |     258756 |     1809 |    8 |   n |   0.90 |    1104 |      4.21 |      4.23 |
+|    68 |     372879 |     1689 |    8 |   n |   0.90 |    1104 |      4.28 |      4.30 |
+|    67 |     238497 |     1663 |    8 |   n |   0.90 |    1104 |      4.33 |      4.34 |
+|    66 |     359420 |     1737 |    9 |   n |   0.90 |    1104 |      4.40 |      4.41 |
+|    65 |     432321 |     1595 |    8 |   n |   0.90 |    1104 |      4.48 |      4.49 |
+|    64 |     307537 |     1466 |    8 |   n |   0.90 |    1104 |      4.54 |      4.55 |
+|    63 |     253682 |     1450 |    8 |   n |   0.90 |    1104 |      4.58 |      4.60 |
+|    62 |     262790 |     1381 |    8 |   n |   0.90 |    1104 |      4.64 |      4.65 |
+|    61 |     155449 |     1282 |    8 |   n |   0.90 |    1104 |      4.67 |      4.68 |
+|    60 |     114557 |     1280 |    9 |   n |   0.90 |    1104 |      4.69 |      4.71 |
+|    59 |     118034 |     1250 |    8 |   n |   0.90 |    1104 |      4.71 |      4.73 |
+|    58 |     102250 |     1215 |    9 |   n |   0.90 |    1104 |      4.73 |      4.75 |
+|    57 |     183615 |     1370 |    9 |   n |   0.90 |    1104 |      4.77 |      4.79 |
+|    56 |     219878 |     1411 |    8 |   n |   0.90 |    1104 |      4.82 |      4.84 |
+|    55 |     274435 |     1193 |    8 |   n |   0.90 |    1104 |      4.87 |      4.89 |
+|    54 |     174913 |     1120 |    8 |   n |   0.90 |    1104 |      4.91 |      4.92 |
+|    53 |     185122 |     1122 |    8 |   n |   0.90 |    1104 |      4.95 |      4.96 |
+|    52 |      79976 |     1087 |    7 |   n |   0.90 |    1104 |      4.96 |      4.98 |
+|    51 |      88534 |     1046 |    8 |   n |   0.90 |    1104 |      4.98 |      5.00 |
+|    50 |      77006 |     1080 |    8 |   n |   0.90 |    1104 |      5.00 |      5.01 |
+|    49 |      71298 |     1003 |    8 |   n |   0.89 |    1104 |      5.01 |      5.03 |
+|    48 |     106935 |      879 |    8 |   n |   0.89 |    1104 |      5.03 |      5.05 |
+|    47 |      52753 |      839 |    8 |   n |   0.89 |    1104 |      5.04 |      5.06 |
+|    46 |      21587 |      819 |    8 |   n |   0.89 |    1104 |      5.05 |      5.06 |
+|    45 |      63235 |     1098 |    7 |   n |   0.90 |    1104 |      5.06 |      5.08 |
+|    44 |     111666 |     1032 |    8 |   n |   0.90 |    1104 |      5.09 |      5.10 |
+|    43 |     154231 |      948 |    8 |   n |   0.90 |    1104 |      5.12 |      5.13 |
+|    42 |      62534 |      877 |    8 |   n |   0.90 |    1104 |      5.13 |      5.15 |
+|    41 |     115701 |      930 |    7 |   n |   0.90 |    1104 |      5.16 |      5.17 |
+|    40 |      44380 |     1081 |    7 |   n |   0.90 |    1104 |      5.17 |      5.19 |
+|    39 |     103805 |      967 |    7 |   n |   0.90 |    1104 |      5.19 |      5.21 |
+|    38 |      64471 |      992 |    8 |   n |   0.90 |    1104 |      5.20 |      5.22 |
+|    37 |      76452 |     1111 |    7 |   n |   0.90 |    1104 |      5.22 |      5.24 |
+|    36 |     176791 |     1014 |    8 |   n |   0.90 |    1104 |      5.26 |      5.27 |
+|    35 |     113896 |      913 |    8 |   n |   0.90 |    1104 |      5.28 |      5.30 |
+|    34 |     132363 |      817 |    8 |   n |   0.90 |    1104 |      5.32 |      5.34 |
+|    33 |      59953 |      745 |    8 |   n |   0.89 |    1104 |      5.33 |      5.35 |
+|    32 |      59995 |      647 |    8 |   n |   0.89 |    1104 |      5.35 |      5.36 |
+|    31 |      35743 |      577 |    8 |   n |   0.89 |    1104 |      5.35 |      5.37 |
+|    30 |      37512 |      596 |    7 |   n |   0.89 |    1104 |      5.36 |      5.38 |
+|    29 |      26468 |      625 |    7 |   n |   0.89 |    1104 |      5.37 |      5.39 |
+|    28 |      26945 |      667 |    7 |   n |   0.89 |    1104 |      5.38 |      5.39 |
+|    27 |      46719 |      730 |    8 |   n |   0.89 |    1104 |      5.39 |      5.40 |
+|    26 |      76002 |      605 |    7 |   n |   0.89 |    1104 |      5.40 |      5.42 |
+|    25 |      38890 |      592 |    6 |   n |   0.89 |    1104 |      5.41 |      5.43 |
+|    24 |      35747 |      641 |    6 |   n |   0.89 |    1104 |      5.42 |      5.44 |
+|    23 |      43768 |      553 |    7 |   n |   0.89 |    1104 |      5.43 |      5.45 |
+|    22 |      43987 |      473 |    7 |   n |   0.89 |    1104 |      5.44 |      5.46 |
+|    21 |      22271 |      517 |    7 |   n |   0.89 |    1104 |      5.45 |      5.46 |
+|    20 |      31047 |      441 |    7 |   n |   0.89 |    1104 |      5.45 |      5.47 |
+|    19 |      19479 |      424 |    7 |   n |   0.88 |    1104 |      5.46 |      5.47 |
+|    18 |      21826 |      373 |    7 |   n |   0.88 |    1104 |      5.46 |      5.48 |
+|    17 |       8803 |      425 |    7 |   n |   0.89 |    1104 |      5.47 |      5.48 |
+|    16 |      18821 |      426 |    8 |   n |   0.89 |    1104 |      5.47 |      5.49 |
+|    15 |      17015 |      396 |    7 |   n |   0.88 |    1104 |      5.47 |      5.49 |
+|    14 |      20286 |      318 |    6 |   n |   0.88 |    1104 |      5.48 |      5.50 |
+|    13 |      11024 |      287 |    6 |   n |   0.87 |    1104 |      5.48 |      5.50 |
+|    12 |       8242 |      260 |    6 |   n |   0.87 |    1104 |      5.48 |      5.50 |
+|    11 |       6006 |      242 |    7 |   n |   0.87 |    1104 |      5.48 |      5.50 |
+|    10 |       4974 |      290 |    7 |   n |   0.87 |    1104 |      5.49 |      5.50 |
+|     9 |       9966 |      232 |    6 |   n |   0.87 |    1104 |      5.49 |      5.51 |
+|     8 |       5064 |      200 |    7 |   n |   0.86 |    1104 |      5.49 |      5.51 |
+|     7 |       4652 |      156 |    6 |   n |   0.84 |    1104 |      5.49 |      5.51 |
+|     6 |       2921 |      121 |    6 |   n |   0.83 |    1104 |      5.49 |      5.51 |
+|     5 |       1731 |       90 |    6 |   n |   0.80 |    1104 |      5.49 |      5.51 |
+|     4 |        907 |       71 |    5 |   n |   0.77 |    1104 |      5.49 |      5.51 |
+|     3 |        519 |       58 |    5 |   n |   0.74 |    1104 |      5.49 |      5.51 |
+|     2 |        314 |       43 |    5 |   n |   0.67 |    1104 |      5.49 |      5.51 |
+|     1 |        208 |       32 |    3 |   n |   0.59 |    1104 |      5.49 |      5.51 |
+
+sum of inequalities over all iterations : 250477
+maximal number of inequalities          :   2351
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   32 
+
+output written to file test9.ieq.poi.ieq
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq 
+
+input file test9.ieq o.k.
+dimension              :    9 
+number of equations    :    0 
+number of inequalities :   44 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    10 |         10 |        1 |    2 |   n |   0.28 |      66 |      0.00 |      0.00 |
+|     9 |          9 |        2 |    2 |   n |   0.28 |      66 |      0.00 |      0.00 |
+|     8 |          8 |        3 |    2 |   n |   0.29 |      66 |      0.00 |      0.00 |
+|     7 |          7 |        4 |    2 |   n |   0.29 |      66 |      0.00 |      0.00 |
+|     6 |          6 |        5 |    2 |   n |   0.29 |      66 |      0.00 |      0.00 |
+|     5 |          5 |        6 |    2 |   n |   0.30 |      66 |      0.00 |      0.00 |
+|     4 |          4 |        7 |    2 |   n |   0.31 |      66 |      0.00 |      0.00 |
+|     3 |          3 |        8 |    2 |   n |   0.31 |      66 |      0.00 |      0.00 |
+|     2 |          2 |        9 |    2 |   n |   0.32 |      66 |      0.00 |      0.00 |
+|     1 |          1 |       10 |    2 |   n |   0.36 |      66 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    35 |         11 |       11 |    1 |   n |   0.11 |     858 |      0.00 |      0.00 |
+|    34 |         13 |       13 |    1 |   n |   0.14 |     858 |      0.00 |      0.00 |
+|    33 |         16 |       16 |    1 |   n |   0.18 |     858 |      0.00 |      0.00 |
+|    32 |         25 |       19 |    1 |   n |   0.22 |     858 |      0.00 |      0.00 |
+|    31 |         26 |       26 |    1 |   n |   0.29 |     858 |      0.00 |      0.00 |
+|    30 |         47 |       29 |    1 |   n |   0.31 |     858 |      0.00 |      0.00 |
+|    29 |         51 |       33 |    1 |   n |   0.33 |     858 |      0.00 |      0.00 |
+|    28 |         48 |       36 |    1 |   n |   0.33 |     858 |      0.00 |      0.00 |
+|    27 |         59 |       59 |    1 |   n |   0.38 |     859 |      0.00 |      0.00 |
+|    26 |         98 |       98 |    1 |   n |   0.42 |     860 |      0.00 |      0.00 |
+|    25 |        165 |      165 |    1 |   n |   0.46 |     863 |      0.00 |      0.00 |
+|    24 |        272 |      272 |    1 |   n |   0.49 |     867 |      0.00 |      0.00 |
+|    23 |       4052 |      244 |    1 |   n |   0.49 |     867 |      0.00 |      0.00 |
+|    22 |       3464 |      216 |    1 |   n |   0.48 |     867 |      0.00 |      0.00 |
+|    21 |       2790 |      190 |    1 |   n |   0.47 |     867 |      0.00 |      0.00 |
+|    20 |       2296 |      164 |    1 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    19 |       1622 |      146 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    18 |       1280 |      128 |    1 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    17 |        884 |      116 |    2 |   n |   0.47 |     867 |      0.00 |      0.00 |
+|    16 |        728 |      104 |    1 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    15 |        308 |      100 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    14 |        288 |       96 |    1 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    13 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    12 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    11 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|    10 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|     9 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|     8 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|     7 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|     6 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|     5 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|     4 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|     3 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|     2 |         96 |       96 |    2 |   n |   0.45 |     867 |      0.00 |      0.00 |
+|     1 |         96 |       96 |    1 |   n |   0.45 |     867 |      0.00 |      0.00 |
+
+sum of inequalities over all iterations :   3529
+maximal number of inequalities          :    272
+
+sorting system 
+transformation to integer values 
+
+number of cone-points  :    0 
+number of conv-points  :   96 
+
+test9.ieq.poi moved into test9.ieq.poi%
+output written to file test9.ieq.poi
+
+
+
+
+log for /home/optimi/bzfbuchw/Dokumente/Masterarbeit/Porta/porta-1.4.1/gnu-make/bin/xporta -T test9.ieq.poi 
+
+input file test9.ieq.poi o.k.
+dimension              :    9 
+number of cone-points  :    0 
+number of conv-points  :   96 
+
+GAUSS - ELIMINATION:
+| iter- |     # equa |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |            |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |            |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    10 |         10 |        1 |    1 |   n |   0.47 |      90 |      0.00 |      0.00 |
+|     9 |          9 |        2 |    1 |   n |   0.45 |      90 |      0.00 |      0.00 |
+|     8 |          8 |        3 |    2 |   n |   0.48 |      90 |      0.00 |      0.00 |
+|     7 |          7 |        4 |    2 |   n |   0.51 |      90 |      0.00 |      0.00 |
+|     6 |          6 |        5 |    2 |   n |   0.50 |      90 |      0.00 |      0.00 |
+|     5 |          5 |        6 |    2 |   n |   0.49 |      90 |      0.00 |      0.00 |
+|     4 |          4 |        7 |    2 |   n |   0.47 |      90 |      0.00 |      0.00 |
+|     3 |          3 |        8 |    2 |   n |   0.47 |      90 |      0.00 |      0.00 |
+|     2 |          2 |        9 |    2 |   n |   0.45 |      90 |      0.00 |      0.00 |
+|     1 |          1 |       10 |    2 |   n |   0.50 |      90 |      0.00 |      0.00 |
+
+FOURIER - MOTZKIN - ELIMINATION:
+| iter- |      upper |  # ineq  |   max| long|   non- |     mem |  cpu-time | real-time |
+| ation |      bound |          |  bit-|arith|  zeros |    used |      used |      used |
+|       |     # ineq |          |length|metic|   in % |   in kB |    in sec |    in sec |
+|-------|------------|----------|------|-----|--------|---------|-----------|-----------|
+|    86 |         11 |       11 |    1 |   n |   0.11 |     873 |      0.00 |      0.00 |
+|    85 |         13 |       13 |    1 |   n |   0.13 |     873 |      0.00 |      0.00 |
+|    84 |         15 |       12 |    1 |   n |   0.12 |     873 |      0.00 |      0.00 |
+|    83 |         14 |       14 |    1 |   n |   0.15 |     874 |      0.00 |      0.00 |
+|    82 |         22 |       22 |    1 |   n |   0.24 |     874 |      0.00 |      0.00 |
+|    81 |         37 |       21 |    2 |   n |   0.24 |     874 |      0.00 |      0.00 |
+|    80 |         33 |       18 |    2 |   n |   0.23 |     874 |      0.00 |      0.00 |
+|    79 |         28 |       22 |    2 |   n |   0.29 |     874 |      0.00 |      0.00 |
+|    78 |         31 |       21 |    2 |   n |   0.28 |     874 |      0.00 |      0.00 |
+|    77 |         33 |       27 |    2 |   n |   0.34 |     874 |      0.00 |      0.00 |
+|    76 |         45 |       30 |    2 |   n |   0.38 |     874 |      0.00 |      0.00 |
+|    75 |         46 |       34 |    2 |   n |   0.42 |     874 |      0.00 |      0.00 |
+|    74 |         76 |       29 |    2 |   n |   0.38 |     874 |      0.00 |      0.00 |
+|    73 |         53 |       30 |    2 |   n |   0.40 |     874 |      0.00 |      0.00 |
+|    72 |         43 |       32 |    2 |   n |   0.43 |     874 |      0.00 |      0.00 |
+|    71 |         72 |       30 |    2 |   n |   0.40 |     874 |      0.00 |      0.00 |
+|    70 |         51 |       34 |    2 |   n |   0.43 |     874 |      0.00 |      0.00 |
+|    69 |         62 |       32 |    2 |   n |   0.41 |     874 |      0.00 |      0.00 |
+|    68 |         72 |       55 |    2 |   n |   0.50 |     876 |      0.00 |      0.00 |
+|    67 |        175 |       40 |    2 |   n |   0.44 |     876 |      0.00 |      0.00 |
+|    66 |         91 |       54 |    3 |   n |   0.54 |     876 |      0.00 |      0.00 |
+|    65 |        238 |       57 |    3 |   n |   0.56 |     876 |      0.00 |      0.00 |
+|    64 |        174 |       70 |    3 |   n |   0.60 |     876 |      0.00 |      0.00 |
+|    63 |        220 |       65 |    3 |   n |   0.59 |     876 |      0.00 |      0.00 |
+|    62 |        201 |       82 |    3 |   n |   0.64 |     877 |      0.00 |      0.00 |
+|    61 |        609 |       67 |    3 |   n |   0.60 |     877 |      0.00 |      0.00 |
+|    60 |        211 |       67 |    3 |   n |   0.60 |     877 |      0.00 |      0.00 |
+|    59 |        424 |       72 |    3 |   n |   0.64 |     877 |      0.00 |      0.00 |
+|    58 |        446 |       61 |    3 |   n |   0.62 |     877 |      0.00 |      0.00 |
+|    57 |        199 |       79 |    3 |   n |   0.65 |     877 |      0.00 |      0.00 |
+|    56 |        367 |       72 |    3 |   n |   0.64 |     877 |      0.00 |      0.00 |
+|    55 |        288 |       68 |    3 |   n |   0.63 |     877 |      0.00 |      0.00 |
+|    54 |        160 |       78 |    3 |   n |   0.66 |     877 |      0.00 |      0.00 |
+|    53 |        384 |       69 |    3 |   n |   0.63 |     877 |      0.00 |      0.00 |
+|    52 |        399 |       59 |    2 |   n |   0.59 |     877 |      0.00 |      0.00 |
+|    51 |        140 |       65 |    3 |   n |   0.63 |     877 |      0.00 |      0.00 |
+|    50 |        250 |       61 |    3 |   n |   0.61 |     877 |      0.00 |      0.00 |
+|    49 |        169 |       59 |    3 |   n |   0.60 |     877 |      0.00 |      0.00 |
+|    48 |        239 |       72 |    3 |   n |   0.64 |     877 |      0.00 |      0.00 |
+|    47 |        332 |       61 |    3 |   n |   0.62 |     877 |      0.00 |      0.00 |
+|    46 |        211 |       58 |    2 |   n |   0.62 |     877 |      0.00 |      0.00 |
+|    45 |        219 |       55 |    3 |   n |   0.61 |     877 |      0.00 |      0.00 |
+|    44 |        105 |       75 |    3 |   n |   0.66 |     877 |      0.00 |      0.00 |
+|    43 |        303 |       72 |    3 |   n |   0.65 |     877 |      0.00 |      0.00 |
+|    42 |        120 |       93 |    3 |   n |   0.70 |     877 |      0.00 |      0.00 |
+|    41 |        739 |      113 |    3 |   n |   0.74 |     878 |      0.00 |      0.00 |
+|    40 |        997 |       97 |    3 |   n |   0.72 |     878 |      0.00 |      0.00 |
+|    39 |        777 |       80 |    3 |   n |   0.69 |     878 |      0.00 |      0.00 |
+|    38 |        470 |       70 |    3 |   n |   0.66 |     878 |      0.00 |      0.00 |
+|    37 |        115 |      102 |    3 |   n |   0.72 |     878 |      0.00 |      0.00 |
+|    36 |        476 |      134 |    3 |   n |   0.77 |     879 |      0.00 |      0.00 |
+|    35 |        734 |      124 |    3 |   n |   0.76 |     879 |      0.00 |      0.00 |
+|    34 |        960 |      119 |    3 |   n |   0.76 |     879 |      0.00 |      0.00 |
+|    33 |        903 |      105 |    3 |   n |   0.74 |     879 |      0.00 |      0.00 |
+|    32 |        825 |      107 |    3 |   n |   0.73 |     879 |      0.00 |      0.00 |
+|    31 |        767 |      102 |    3 |   n |   0.73 |     879 |      0.00 |      0.00 |
+|    30 |        690 |      111 |    3 |   n |   0.75 |     879 |      0.00 |      0.01 |
+|    29 |       1057 |       89 |    3 |   n |   0.71 |     879 |      0.00 |      0.01 |
+|    28 |        570 |      116 |    4 |   n |   0.75 |     879 |      0.00 |      0.01 |
+|    27 |       1341 |       82 |    3 |   n |   0.70 |     879 |      0.00 |      0.01 |
+|    26 |        341 |      101 |    4 |   n |   0.74 |     879 |      0.00 |      0.01 |
+|    25 |        801 |      133 |    4 |   n |   0.78 |     879 |      0.00 |      0.01 |
+|    24 |       1589 |      125 |    4 |   n |   0.78 |     879 |      0.00 |      0.01 |
+|    23 |        575 |      126 |    4 |   n |   0.78 |     879 |      0.00 |      0.01 |
+|    22 |       1152 |      137 |    4 |   n |   0.79 |     880 |      0.00 |      0.01 |
+|    21 |       1558 |      109 |    4 |   n |   0.76 |     880 |      0.00 |      0.01 |
+|    20 |        840 |       95 |    3 |   n |   0.74 |     880 |      0.00 |      0.01 |
+|    19 |        775 |       97 |    4 |   n |   0.74 |     880 |      0.00 |      0.01 |
+|    18 |        457 |      103 |    4 |   n |   0.76 |     880 |      0.00 |      0.01 |
+|    17 |       1015 |       84 |    3 |   n |   0.72 |     880 |      0.00 |      0.01 |
+|    16 |        432 |       84 |    4 |   n |   0.72 |     880 |      0.00 |      0.01 |
+|    15 |        426 |       94 |    3 |   n |   0.74 |     880 |      0.00 |      0.01 |
+|    14 |        268 |      100 |    3 |   n |   0.76 |     880 |      0.00 |      0.01 |
+|    13 |        772 |      105 |    3 |   n |   0.77 |     880 |      0.00 |      0.01 |
+|    12 |        941 |       86 |    3 |   n |   0.73 |     880 |      0.00 |      0.01 |
+|    11 |        664 |       71 |    3 |   n |   0.70 |     880 |      0.00 |      0.01 |
+|    10 |        319 |       63 |    3 |   n |   0.68 |     880 |      0.00 |      0.01 |
+|     9 |        159 |       80 |    3 |   n |   0.73 |     880 |      0.00 |      0.01 |
+|     8 |        485 |       75 |    4 |   n |   0.71 |     880 |      0.00 |      0.01 |
+|     7 |        453 |       61 |    3 |   n |   0.67 |     880 |      0.00 |      0.01 |
+|     6 |        261 |       53 |    3 |   n |   0.63 |     880 |      0.00 |      0.01 |
+|     5 |        186 |       47 |    3 |   n |   0.60 |     880 |      0.00 |      0.01 |
+|     4 |        142 |       43 |    3 |   n |   0.57 |     880 |      0.00 |      0.01 |
+|     3 |        111 |       42 |    3 |   n |   0.56 |     880 |      0.00 |      0.01 |
+|     2 |        144 |       36 |    3 |   n |   0.51 |     880 |      0.00 |      0.01 |
+|     1 |         96 |       32 |    1 |   n |   0.45 |     880 |      0.00 |      0.01 |
+
+sum of inequalities over all iterations :   5951
+maximal number of inequalities          :    137
+
+transformation to integer values 
+sorting system 
+
+number of equations    :    0 
+number of inequalities :   32 
+
+test9.ieq.poi.ieq moved into test9.ieq.poi.ieq%
+output written to file test9.ieq.poi.ieq
+

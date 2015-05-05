@@ -5,6 +5,15 @@
   \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
 }
 \providecommand{\href}[2]{#2}
-\begin{thebibliography}{}
+\begin{thebibliography}{1}
+
+\bibitem{GroetschelJuengerReinelt1985b}
+Martin Gr{\"o}tschel, Michael J{\"u}nger, and Gerhard Reinelt, \emph{On the
+  acyclic subgraph polytope}, Mathematical Programming \textbf{33} (1985),
+  no.~1, 28--42 (English).
+
+\bibitem{KorteVygenCombOpt2007}
+Bernhard Korte and Jens Vygen, \emph{Combinatorial optimization: Theory and
+  algorithms}, 4th ed., Springer Publishing Company, Incorporated, 2007.
 
 \end{thebibliography}
