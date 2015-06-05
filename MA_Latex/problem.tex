@@ -1,0 +1,35 @@
+We already described the gas flow problem, where the motivation for this thesis came from. Here we want to define the 
+problem as a general combinatorial flow problem with specific contraints. We will also give the formulation as a Mixed 
+Integer Program (MIP) and as well some natural relaxations, which might be easier to solve.
+
+We will represent our originally undirected graph by a directed graph where flow is allowed to go over edges backward 
+and forward as well. This allows us to specify directions forward and backward on every edge in a consistant way. 
+
+
+\begin{definition}
+ Let $G=(V,A)$ be a directed Graph and $e \in A$ a specific arc of $G$. For every vertex $v\in V$ let there be a 
+prescribed amount of flow $b(v)\in \R$ entering or leaving the network, where $\sum_{v\in V}b(v)=0$. 
+
+Let there be capacities $c_l(a)\le 0 \le c_u(a) \, \forall a\in A$, a flow  $f: A\to \R $ with $c_l(a)\le f(a)\le 
+c_u(a)\, \forall a\in A$ and $\sum_{a\in \delta^+(v)}f(a)-\sum_{a\in\delta^-(v)}f(a)+b(v) = 0 \, \forall v\in V$.
+We call this flow on such a graph a \textit{feasible network flow on G}.
+\end{definition}
+ %cycle was already defined in the Definitions chapter
+\begin{definition}
+A \textit{cyclic flow} within such a feasible network flow $f$ is a flow $f':C\to \R$, where $C\subseteq A$ is a cycle, 
+$\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$ , for all arcs the flow 
+direction in $f'$ and $f$ are the same, i.e. $f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 0$ and 
+$f'(a) \ne 0 \,\forall a\in C$.
+
+%flow $ f: C\to \R ,\, C\subseteq A \textrm{ a cycle, }\,c_l(a)\le 
+%f(a)\le c_u(a)\, \forall a\in C$ with the property that 
+\end{definition}
+%TODO Kreisflussmenge, Kreisflusskapazität, Augmentierung
+
+
+\begin{definition}
+  The problem of finding a flow $f:A\to \R$ with $f(e)\ge f'(e)\,\forall f:A\to \R \textrm{s.t.} $
+\end{definition}
+
+
+
