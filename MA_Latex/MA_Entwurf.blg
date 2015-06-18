@@ -3,44 +3,44 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: MA_Entwurf.aux
 The style file: amsplain.bst
 Database file #1: literatur.bib
-You've used 2 entries,
+You've used 3 entries,
             2213 wiz_defined-function locations,
-            516 strings with 4299 characters,
-and the built_in function-call counts, 630 in all, are:
-= -- 52
-> -- 31
+            526 strings with 4479 characters,
+and the built_in function-call counts, 957 in all, are:
+= -- 84
+> -- 44
 < -- 0
-+ -- 12
-- -- 10
-* -- 55
-:= -- 108
-add.period$ -- 2
-call.type$ -- 2
-change.case$ -- 12
++ -- 17
+- -- 14
+* -- 86
+:= -- 160
+add.period$ -- 3
+call.type$ -- 3
+change.case$ -- 17
 chr.to.int$ -- 0
-cite$ -- 2
-duplicate$ -- 23
-empty$ -- 51
-format.name$ -- 10
-if$ -- 123
+cite$ -- 3
+duplicate$ -- 34
+empty$ -- 79
+format.name$ -- 14
+if$ -- 190
 int.to.chr$ -- 0
-int.to.str$ -- 2
-missing$ -- 5
-newline$ -- 16
-num.names$ -- 4
-pop$ -- 14
+int.to.str$ -- 3
+missing$ -- 7
+newline$ -- 19
+num.names$ -- 6
+pop$ -- 19
 preamble$ -- 1
-purify$ -- 9
+purify$ -- 13
 quote$ -- 0
-skip$ -- 13
+skip$ -- 19
 stack$ -- 0
-substring$ -- 29
-swap$ -- 2
+substring$ -- 59
+swap$ -- 3
 text.length$ -- 0
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 6
+type$ -- 10
 warning$ -- 0
-while$ -- 6
-width$ -- 3
-write$ -- 27
+while$ -- 10
+width$ -- 4
+write$ -- 36

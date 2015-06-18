@@ -7,6 +7,11 @@
 \providecommand{\href}[2]{#2}
 \begin{thebibliography}{1}
 
+\bibitem{EdmondsKarp1972}
+Jack Edmonds and Richard~M. Karp, \emph{Theoretical improvements in algorithmic
+  efficiency for network flow problems}, J. ACM \textbf{19} (1972), no.~2,
+  248--264.
+
 \bibitem{GroetschelJuengerReinelt1985b}
 Martin Gr{\"o}tschel, Michael J{\"u}nger, and Gerhard Reinelt, \emph{On the
   acyclic subgraph polytope}, Mathematical Programming \textbf{33} (1985),
