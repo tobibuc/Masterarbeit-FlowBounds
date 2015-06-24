@@ -4,8 +4,9 @@
 \BOOKMARK [1][-]{section.3}{The Acyclic Flowbound Problem}{}% 4
 \BOOKMARK [2][-]{subsection.3.1}{Relation To Other Flow Problems}{section.3}% 5
 \BOOKMARK [2][-]{subsection.3.2}{MIP Formulation}{section.3}% 6
-\BOOKMARK [1][-]{section.4}{Complexity}{}% 7
-\BOOKMARK [1][-]{section.5}{Implementation}{}% 8
-\BOOKMARK [1][-]{section.6}{Practical Results}{}% 9
-\BOOKMARK [1][-]{section.7}{Conclusion}{}% 10
-\BOOKMARK [1][-]{section.7}{Literaturverzeichnis}{}% 11
+\BOOKMARK [2][-]{subsection.3.3}{The number of cycles we have to forbid}{section.3}% 7
+\BOOKMARK [1][-]{section.4}{Complexity}{}% 8
+\BOOKMARK [1][-]{section.5}{Implementation}{}% 9
+\BOOKMARK [1][-]{section.6}{Practical Results}{}% 10
+\BOOKMARK [1][-]{section.7}{Conclusion}{}% 11
+\BOOKMARK [1][-]{section.7}{Literaturverzeichnis}{}% 12
