@@ -1,3 +1,17 @@
+<<<<<<< HEAD
+Hier kommen Motivation und Hintergrunderklärungen rein. TODO
+
+
+Today there are various real-world problems that are (tried to be) solved by computational methods. One of them which 
+is currently attacked at the Konrad Zuse Zentrum für Informationstechnik Berlin (ZIB) is the Problem of transporting 
+natural gas through a network of pipelines. Due to the physics of gas flows this turns out to be a nonlinear, nonconvex 
+mixed-integer optimization problem, which is is quite hard to solve. 
+For solving the nonlinear constraints, we compute a [linearization... TODO ]
+On first glance it may seem that a relaxation to a normal Min-Cost-Flow algorithm could yield an appropriate bound 
+on one arc to the problem. If you set the weight on the arc to 1 or -1 and all other weights on zero, you get a 
+valid bound on the maximum or minimum possible flow on the arc. However, this bound is for most of the arcs far from 
+reality. The 
+=======
 
 Today more and more real-world problems in the areas of simulation and optimization are solved by mathematical and 
 computational methods. A growing number of these problems can be solved without problems, i.e. even huge instances give 
@@ -23,3 +37,4 @@ exact algorithm based on a mixed integer program with separation of inequalities
 approach that yields results much faster (but not optimal).%TODO am ende genauer schreiben was wirklich gemacht wurde
 
 \section{The gas flow problem}
+>>>>>>> 46d867bf17e898b083e9dc984cd04d8ff4217fb3

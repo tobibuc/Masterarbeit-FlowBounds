@@ -1,4 +1,22 @@
 
+<<<<<<< HEAD
+
+Today there are various real-world problems that are (tried to be) solved by computational methods. One of them which 
+is currently attacked at the Konrad Zuse Zentrum für Informationstechnik Berlin (ZIB) is the Problem of transporting 
+natural gas through a network of pipelines. Due to the physics of gas flows this turns out to be a nonlinear, nonconvex 
+mixed-integer optimization problem, which is is quite hard to solve. 
+For solving the nonlinear constraints, we compute a [linearization... TODO ]
+On first glance it may seem that a relaxation to a normal Min-Cost-Flow algorithm could yield an appropriate bound 
+on one arc to the problem. If you set the weight on the arc to 1 or -1 and all other weights on zero, you get a 
+valid bound on the maximum or minimum possible flow on the arc. However, this bound is for most of the arcs far from 
+reality. The reason is, that a Min-Cost-Flow could have cycles within it, and the algorithm could maximize the flow by 
+sending it on a cycle. In natural gas networks this cannot happen, since the flow is always induced by pressure 
+differences. So (ignoring that compressor stations could increase pressure) there is no cyclic flow. 
+The intention of this thesis now is to investigate the problem of flow bounds in a network where the flow is assumed 
+to be acyclic. 
+
+[TODO kurzer Abriss pber den Inhalt der Arbeit]
+=======
 Today more and more real-world problems in the areas of simulation and optimization are solved by mathematical and 
 computational methods. A growing number of these problems can be solved without problems, i.e. even huge instances give 
 an optimal or near optimal solution within seconds. Still, there remain problems that even on modern computers are hard 
@@ -25,3 +43,4 @@ approach that yields results much faster (but not optimal).%TODO am ende genauer
 \subsection{The gas flow problem}
 Although it is mainly the motivation, not really the topic of this thesis, we want to briefly introduce the gas 
 transport problem. For more a detailed description we refer to LINK %TODO link auf ein entsprechendes ZIB-paper!!! 
+>>>>>>> 46d867bf17e898b083e9dc984cd04d8ff4217fb3
