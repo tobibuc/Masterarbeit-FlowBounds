@@ -10,17 +10,25 @@ and forward as well. This allows us to specify directions forward and backward o
  Let $G=(V,A)$ be a directed Graph and $e \in A$ a specific arc of $G$. For every vertex $v\in V$ let there be a 
 prescribed amount of flow $b(v)\in \R$ entering or leaving the network, where $\sum_{v\in V}b(v)=0$. 
 
-Let there be capacities $c_l(a)\le 0 \le c_u(a) \, \forall a\in A$, a flow  $f: A\to \R $ with $c_l(a)\le f(a)\le 
+Let there be capacities $c_l(a)\le 0 \le c_u(a) \, \forall a\in A$, and a flow  $f: A\to \R $ with $c_l(a)\le f(a)\le 
 c_u(a)\, \forall a\in A$ and $\sum_{a\in \delta^+(v)}f(a)-\sum_{a\in\delta^-(v)}f(a)+b(v) = 0 \, \forall v\in V$.
-We call this flow on such a graph a \textit{feasible network flow on G}.
+We call this flow a \textit{feasible network flow on G}.
 \end{definition}
+
  %cycle was already defined in the Definitions chapter
 \begin{definition}
 A \textit{cyclic flow} within such a feasible network flow $f$ is a flow $f':C\to \R$, where $C\subseteq A$ is a cycle, 
 $\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$ , for all arcs the flow 
-direction in $f'$ and $f$ are the same, i.e. $f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 0$ and 
-$f'(a) \ne 0 \,\forall a\in C$.
+directions in $f'$ and $f$ are the same, i.e. $f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 0$ and 
+there is really non-zero flow, i.e. $f'(a) \ne 0 \,\forall a\in C$. 
 
+If there is any cyclic flow $f'$ in a network flow $f$ we say that $f$ contains a flow cycle. If there is no cyclic 
+flow, we say $f$ is an \textit{acyclic flow} on $G$.\\
+
+The conditions imply, that a cyclic flow is one that has no sources or sinks and the same value of flow on each arc.
+
+The \textit{size of a cyclic flow} is the absolute amount of of flow contributing to the cycle, that means it is the 
+maximum value $|f'(a)|$ a cyclic flow $f'$ can reach. 
 %flow $ f: C\to \R ,\, C\subseteq A \textrm{ a cycle, }\,c_l(a)\le 
 %f(a)\le c_u(a)\, \forall a\in C$ with the property that 
 \end{definition}
@@ -28,8 +36,117 @@ $f'(a) \ne 0 \,\forall a\in C$.
 
 
 \begin{definition}
-  The problem of finding a flow $f:A\to \R$ with $f(e)\ge f'(e)\,\forall f:A\to \R \textrm{s.t.} $
+  Given a graph $G=(V,A)$ like above, with $e \in A$ a specific arc of $G$. 
+  
+  We call the problem of finding an acyclic flow $f:A\to \R$ with $f(e)\ge f'(e)\,\forall f':A\to \R \textrm{ s.t.} f' 
+\textrm{ is an acyclic flow on }G$ the \textit{ Edge-Maximizing Acyclic Flow Problem}.
 \end{definition}
 
+Now that we defined our problem, we can investigate it deeper. It is obviously closely related to other flow problems, 
+though the special constraints we built make it more complicated. One way to deal with this is to look at related 
+problems, which could give bounds on our problem or even the same solution in special cases.
 
+\subsubsection{Relation To Other Flow Problems}
+
+If we look for related problems, it is natural to just drop the constraints of our problem. In this case we could for 
+example easily forget the contraint that flows have to be acyclic. If we do this, our problem becomes a special 
+instance of a Min-Cost-Flow where we allow edge weights to be negative:
+
+\begin{definition}
+ The \textit{Minimum Cost Flow Problem} is the problem to determine a feasible network flow with the least possible 
+cost $c_f$. The cost function $c:A\to \R$ (or often $c:A\to \R_{\ge 0}$) is defined on every arc, the cost of the flow 
+is $c_f = \sum_{a\in A}|f(a)|\cdot c(a)$. So for a given network and cost function we look for a flow $f$ s.t. $c_f\le 
+c_{f'}\forall f':A\to \R$.
+\end{definition}
+
+This problem is normally defined with nonnegative cost functions, like in \cite{EdmondsKarp1972} where 
+Jack Edmonds and Richard Karp present their well known $O(V\cdot E^2)$ flow algorithm. At least cycles of negative 
+weight should be excluded, since they lead to problems in the algorithm's subroutines like shortest path. Nevertheless 
+there are algorithms that can handle negative cycles without a problem - but they will of course give a solution 
+where as much flow as possible is just flowing around these negative cycles. 
+%, and make the problem hard. We will proof the hardness of this problem later.TODO auch ohne kreisfreiheit?
+
+In our application we want to find upper and lower bounds on the possible flow over each arc. For this we set the 
+weight on the arc $e$ where we want to maximize flow to -1 and compute a Minimum Cost Flow in the graph. If $e$ is 
+contained in a cycle of $G$ whose arcs all have a very high upper capacity bound, $e$ will get a very high bound as 
+well. The reason is that any cyclic flow over $e$ can reduce the cost of the flow. Hence as much cyclic flow as 
+possible will be used to obtain a Minimum Cost Flow. 
+
+So in most cases the bound computed with a Min-Cost Flow algorithm is not sharp. Still it gives an upper bound for the 
+possible flow. Hence one could ask how good this bound will be, and whether we can use it as an approximation. It turns 
+out that the gap between the amount of flow on an arc $e$ in an acyclic flow and in a possibly cyclic flow can be 
+arbitrarily large:
+
+\begin{prop}
+ The gap between the maximum flow values $f(a)$ on an arc $a\in A$ in a normal and in an acyclic flow problem is 
+unbounded. 
+\end{prop}
+\begin{proof}
+ As a proof look at the two examples. 
+ \begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+[scale=2, vertex/.style={circle,fill=black}]
+\node (s) at (0,0)[vertex]{};
+\node (stext) at (-0.1, -0.2){s, $b(s)=1$};
+\node (t) at (2,0)[vertex]{} ;
+\node (ttext) at (2.1, -0.2){t, $(b(t)=-1$};
+\node (3) at (1,1.5)[vertex]{};
+\node(etext) at (1.7,0.9){e};
+
+\draw (s) -- (3);
+\draw (s) -- (t);
+  \begin{scope}[
+    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
+    ]
+    \draw[postaction={decorate}] (3) -- (t);
+  \end{scope}
+\end{tikzpicture}
+ \end{figure}
+In this first picture we see that the flow on the maximized arc $e$ in the acyclic case has to be 1. In the normal case 
+it could be any number we choose as capacities for all arcs in the network. Hence the relative gap
+$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}$ is $\frac{\textrm{min capacity on the cycle}}{1}$ which is unbounded.
+  
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+[scale=2, vertex/.style={circle,fill=black}]
+\node (s) at (0,0)[vertex]{};
+\node (stext) at (-0.1, 0.2){s};
+\node (t) at (0,2)[vertex]{} ;
+\node (ttext) at (-0.1, 1.8){t};
+\node (3) at (1,1)[vertex]{};
+\node (4) at (2,2)[vertex]{};
+\node (5) at (2,0)[vertex]{};
+\node(etext) at (1.4,1.6){e};
+
+\draw (s) -- (3);
+\draw (t) -- (3);
+\draw (4) -- (5);
+\draw (3) -- (5);
+  \begin{scope}[
+    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
+    ]
+    \draw[postaction={decorate}] (3) -- (4);
+  \end{scope}
+\end{tikzpicture}
+ 
+\end{figure}
+
+The second picture shows a graph where the flow on $e$ in the acyclic case is $0$. If we do not forbid cyclic flows, 
+the flow on $e$ will always be $\min_{a\in \textrm{ cycle }C}c_u(a)$. So the gap in relative numbers $ 
+\frac{f_{cyc}(e)}{f_{acyclic}(e)}$ is not even defined!
+\end{proof}
+
+As a different relaxation we could drop the capacity constraints, but still insist on an acyclic flow that is maximum 
+on an arc $e$. In the normal Max-Flow Problem this reduces the problem to finding a shortest path between the source 
+and the sink. 
+
+In our case , if there is only one source and one sink, we have to decide whether there is a simple path from the 
+source to the sink that contains the maximized arc $e$. If there are more sources and sinks, we already have the 
+problem of finding a set of simple paths. %TODO haerte des Problems? Wie loest man es?
+
+%
+Is this problem easy to solve, and how to solve it? TODO
+%
 

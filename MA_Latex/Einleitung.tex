@@ -1,6 +1,4 @@
 
-<<<<<<< HEAD
-
 Today there are various real-world problems that are (tried to be) solved by computational methods. One of them which 
 is currently attacked at the Konrad Zuse Zentrum für Informationstechnik Berlin (ZIB) is the Problem of transporting 
 natural gas through a network of pipelines. Due to the physics of gas flows this turns out to be a nonlinear, nonconvex 
@@ -16,31 +14,29 @@ The intention of this thesis now is to investigate the problem of flow bounds in
 to be acyclic. 
 
 [TODO kurzer Abriss pber den Inhalt der Arbeit]
-=======
-Today more and more real-world problems in the areas of simulation and optimization are solved by mathematical and 
-computational methods. A growing number of these problems can be solved without problems, i.e. even huge instances give 
-an optimal or near optimal solution within seconds. Still, there remain problems that even on modern computers are hard 
-to solve. For these problems it is important to find ways to increase the efficiency of the algorithms. 
-
-The topic of this thesis arises from the computation of flow in natural gas networks, which is currently developed 
-in the FORNE Project in a cooperation of OGE with universities and research insitutes including ZIB.
-%TODO genaueres zu FORNE? genaueres zum aufbau des Gasnetzes?
-The flow of natural gas in a network is described by nonlinear equations and depends on many parameters, which makes 
-the problem hard to solve. If we can find good upper and lower bounds for the flow on an arc during the preprocessing, 
-we can hope to improve the behavior of the nonlinear solver by giving these tigther bounds. 
-
-The flow is induced by pressure differences, so in reality there can't be cyclic flow (if we exclude compressor 
-stations). Without the condition of acyclic flow, it is sufficient to run a standard min-cost-flow algorithm where the 
-maximized arc $e$ gets weight $w_e = -1$ and all others are 0. However, the arising bounds are far from optimal. If arc 
-$e$ is contained in any cycle we could decrease the cost by pushing more and more flow around this cycle until the arcs 
-capacity is at its limits.
-
-This master thesis will deal with the problem of finding a network flow with no directed cycles (acyclic flow), which at 
-the same time maximizes the amount of flow on a specified arc $e$ of the network. We will discuss the complexity, an 
-exact algorithm based on a mixed integer program with separation of inequalities that forbid cycles and also a heuristic 
-approach that yields results much faster (but not optimal).%TODO am ende genauer schreiben was wirklich gemacht wurde
-
-\subsection{The gas flow problem}
-Although it is mainly the motivation, not really the topic of this thesis, we want to briefly introduce the gas 
-transport problem. For more a detailed description we refer to LINK %TODO link auf ein entsprechendes ZIB-paper!!! 
->>>>>>> 46d867bf17e898b083e9dc984cd04d8ff4217fb3
+% Today more and more real-world problems in the areas of simulation and optimization are solved by mathematical and 
+% computational methods. A growing number of these problems can be solved without problems, i.e. even huge instances give 
+% an optimal or near optimal solution within seconds. Still, there remain problems that even on modern computers are hard 
+% to solve. For these problems it is important to find ways to increase the efficiency of the algorithms. 
+% 
+% The topic of this thesis arises from the computation of flow in natural gas networks, which is currently developed 
+% in the FORNE Project in a cooperation of OGE with universities and research insitutes including ZIB.
+% %TODO genaueres zu FORNE? genaueres zum aufbau des Gasnetzes?
+% The flow of natural gas in a network is described by nonlinear equations and depends on many parameters, which makes 
+% the problem hard to solve. If we can find good upper and lower bounds for the flow on an arc during the preprocessing, 
+% we can hope to improve the behavior of the nonlinear solver by giving these tigther bounds. 
+% 
+% The flow is induced by pressure differences, so in reality there can't be cyclic flow (if we exclude compressor 
+% stations). Without the condition of acyclic flow, it is sufficient to run a standard min-cost-flow algorithm where the 
+% maximized arc $e$ gets weight $w_e = -1$ and all others are 0. However, the arising bounds are far from optimal. If arc 
+% $e$ is contained in any cycle we could decrease the cost by pushing more and more flow around this cycle until the arcs 
+% capacity is at its limits.
+% 
+% This master thesis will deal with the problem of finding a network flow with no directed cycles (acyclic flow), which at 
+% the same time maximizes the amount of flow on a specified arc $e$ of the network. We will discuss the complexity, an 
+% exact algorithm based on a mixed integer program with separation of inequalities that forbid cycles and also a heuristic 
+% approach that yields results much faster (but not optimal).%TODO am ende genauer schreiben was wirklich gemacht wurde
+% 
+% \subsection{The gas flow problem}
+% Although it is mainly the motivation, not really the topic of this thesis, we want to briefly introduce the gas 
+% transport problem. For more a detailed description we refer to LINK %TODO link auf ein entsprechendes ZIB-paper!!! 

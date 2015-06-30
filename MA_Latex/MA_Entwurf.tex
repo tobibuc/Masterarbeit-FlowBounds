@@ -2,14 +2,17 @@
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[ngerman]{babel}
+%\usepackage[ngerman]{babel}
 \usepackage{times, graphicx, currvita, hyperref, longtable, float, caption, subcaption}
 \usepackage{amsmath,amsfonts,amssymb, amsthm}%, dsfont, bbm, mathtools, stmaryrd}
-%\usepackage{fancyhdr}
-%\usepackage{color}
-%\usepackage[english]{babel}
+\usepackage{fancyhdr}
+\usepackage{color}
+% \usepackage{pgf}
+\usepackage{tikz}
+\usetikzlibrary{patterns,decorations.markings,arrows,calc}
+\usepackage[english]{babel}
 \usepackage{paralist}
-%\usepackage{algorithmic}
+% \usepackage{algorithmic}
 \usepackage{wasysym}	% verschiedene Symbole, siehe http://rpi.edu/dept/arc/training/latex/LaTeX_symbols.pdf
 \graphicspath{{Bilder/}}
 
@@ -54,10 +57,10 @@
 
 \begin{document}
 
-\title{Entwurf MA - Flussschranken in Netzen ohne Kreisfluss}
+\title{Entwurf MA - Bounds for Acyclic Network Flows}
 
 \author{Tobias Buchwald}
-%\maketitle
+% \maketitle
 
 %\large{Bachelorarbeit bei Prof. Dr. Stefan Felsner}
 
@@ -81,29 +84,41 @@
 \newpage
 \section{Introduction} \input{Einleitung}
 \newpage
-<<<<<<< HEAD
-\section{Definitions and Notation}\input{Definitionen}
+\subsection{Basic Notation and Definitions}\input{Definitionen}
+\subsection{The Acyclic Flowbound Problem}\input{problem}
+\subsubsection{Computational Complexity}\input{complexity}
 \newpage
-\section{Heuristic Approach}\input{heuristic}
-=======
-\section{Basic Notation and Definitions}\input{Definitionen}
+\section{Models and Solving Approaches}\input{models}
 \newpage
-\section{The Acyclic Flowbound Problem}\input{problem}
+\section{Computational Results}
 \newpage
-\section{Complexity}\input{complexity}
-\newpage
-\section{Implementation}
-\newpage
-\section{Practical Results}
-\newpage
-\section{Conclusion}
->>>>>>> 46d867bf17e898b083e9dc984cd04d8ff4217fb3
+\section{Summary}
+
+
+
+
+
+
+
+
+
+% \section{The Acyclic Flowbound Problem}\input{problem}
 % \newpage
+% \section{Complexity}\input{complexity}
+% \newpage
+% \section{Implementation}
+% \newpage
+% \section{Practical Results}
+% \newpage
+% \section{Conclusion}
+% \newpage
+% 
 % \section*{Literature}
+
 
 \newpage
 \newpage
-\addcontentsline{toc}{section}{Literaturverzeichnis}
+\addcontentsline{toc}{section}{Bibliography}
 \bibliographystyle{amsplain}
 \bibliography{literatur}
 \nocite{*}
