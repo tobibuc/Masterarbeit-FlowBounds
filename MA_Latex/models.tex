@@ -12,7 +12,8 @@ would be the typical MIP formulation of a min cost flow:
 
 \begin{align*}
   &\min \sum_{a\in A} w_a\cdot x_a  \\
- s.t. & \sum_{a\in \delta^+(v)}x_a - \sum_{a\in\delta^- (v)}x_a = b_v\ &\forall v\in V \\
+  %TODO an die balance-intervall formulierung anpassen
+ s.t. & \sum_{a\in \delta^+(v)}x_a - \sum_{a\in\delta^- (v)}x_a = d_v\ &\forall v\in V \\
   & c_l(a)\le x_a \le c_u(a) & \forall a\in A
 \end{align*}
 

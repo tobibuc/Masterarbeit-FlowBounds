@@ -8,12 +8,31 @@ and forward as well. This allows us to specify directions forward and backward o
 
 \begin{definition}
  Let $G=(V,A)$ be a directed Graph and $e \in A$ a specific arc of $G$. For every vertex $v\in V$ let there be a 
-prescribed amount of flow $b(v)\in \R$ entering or leaving the network, where $\sum_{v\in V}b(v)=0$. 
+prescribed range for the amount of flow demand $[d_l(v), d_u(v)]\subset \R \setminus \{0\}$. Vertices with demand 
+values greater than 0 are sinks, vertices with negative demand value are sources. The flow demands are assumed to be 
+balanced on their (absolute) higher bound values 
+$$\sum_{v \in V\textrm{ sink}}d_u(v)-\sum_{v \in V\textrm{ source}}d_l(v)=0$$ 
+%TODO am ende kontrollieren, dass demands (was positiv, was negativ) konsistent verwendet wurde!
 
 Let there be capacities $c_l(a)\le 0 \le c_u(a) \, \forall a\in A$, and a flow  $f: A\to \R $ with $c_l(a)\le f(a)\le 
 c_u(a)\, \forall a\in A$ and $\sum_{a\in \delta^+(v)}f(a)-\sum_{a\in\delta^-(v)}f(a)+b(v) = 0 \, \forall v\in V$.
 We call this flow a \textit{feasible network flow on G}.
 \end{definition}
+
+The standard definition of Flow Problems has fixed demand values $d(v)=const$ instead of an interval. These two 
+definitions are equivalent in the way that you can transform them into each other easily in polynomial time. Obviously 
+we can see fixed demands $d(v)$ as intervals with $d_l(v)=d_u(v)=d(v)$ consisting of only one point $[d(v), d(v)]$. The 
+other way around we use a construction that adds only one node and $|\{v\in V| d_u(v)<0\}|+|\{v\in V| d_l(v)>0\}|$ arcs 
+to the network.
+\begin{prop}
+ There is a (linear time) transformation from the flow problem with demand intervals on the vertices to the standard 
+flow problem with fixed demands. 
+\end{prop}
+\begin{proof}
+ 
+\end{proof}
+
+
 
  %cycle was already defined in the Definitions chapter
 \begin{definition}
@@ -46,7 +65,7 @@ Now that we defined our problem, we can investigate it deeper. It is obviously c
 though the special constraints we built make it more complicated. One way to deal with this is to look at related 
 problems, which could give bounds on our problem or even the same solution in special cases.
 
-\subsubsection{Relation To Other Flow Problems}
+\subsubsection{Relation To Other Flow Problems/Relaxations}
 
 If we look for related problems, it is natural to just drop the constraints of our problem. In this case we could for 
 example easily forget the contraint that flows have to be acyclic. If we do this, our problem becomes a special 
@@ -88,9 +107,9 @@ unbounded.
 \begin{tikzpicture}
 [scale=2, vertex/.style={circle,fill=black}]
 \node (s) at (0,0)[vertex]{};
-\node (stext) at (-0.1, -0.2){s, $b(s)=1$};
+\node (stext) at (-0.1, -0.2){s, $d(s)=1$};
 \node (t) at (2,0)[vertex]{} ;
-\node (ttext) at (2.1, -0.2){t, $(b(t)=-1$};
+\node (ttext) at (2.1, -0.2){t, $(d(t)=-1$};
 \node (3) at (1,1.5)[vertex]{};
 \node(etext) at (1.7,0.9){e};
 
