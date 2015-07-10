@@ -14,8 +14,9 @@ balanced on their (absolute) higher bound values
 $$\sum_{v \in V\textrm{ sink}}d_u(v)-\sum_{v \in V\textrm{ source}}d_l(v)=0$$ 
 %TODO am ende kontrollieren, dass demands (was positiv, was negativ) konsistent verwendet wurde!
 
-Let there be capacities $c_l(a)\le 0 \le c_u(a) \, \forall a\in A$, and a flow  $f: A\to \R $ with $c_l(a)\le f(a)\le 
-c_u(a)\, \forall a\in A$ and $\sum_{a\in \delta^+(v)}f(a)-\sum_{a\in\delta^-(v)}f(a)+b(v) = 0 \, \forall v\in V$.
+Let there be a capacity function $c:A\to \mathcal{P}(\R), \, c(a)=[c_l(a), c_u(a)],\, c_l(a)\le 0 \le c_u(a) \, \forall 
+a\in A$, and a flow  $f: A\to \R $ with $c_l(a)\le f(a)\le 
+c_u(a)\, \forall a\in A$ and $\sum_{a\in \delta^+(v)}f(a)-\sum_{a\in\delta^-(v)}f(a)+b(v) = 0 \, \forall v\in V$.\\
 We call this flow a \textit{feasible network flow on G}.
 \end{definition}
 
@@ -29,7 +30,25 @@ to the network.
 flow problem with fixed demands. 
 \end{prop}
 \begin{proof}
- 
+ Given a graph $G=(V,A)$ with demand intervals at the entries and exits, we construct a graph $G'=(V',A')$ as follows:
+ $$V' := V\cup \{z\} \textrm{, and } A' := A\cup \{ (v,z)| d_u(v)<0 \}\cup\{ (z,v)|d_l(v)>0\}$$ On $G'$ we then have 
+to redefine the arc capacity and node demands: 
+$$c':A\to \mathcal{P}(\R)  \,, c'(a)= c'(u,v) = \begin{cases} \{x|x\in [0,d_u(u)-d_l(u)]\} &\textrm{if }v=z\\ 
+\{x|x\in [0,d_u(v)-d_l(v)]\}&\textrm{if }u=z\\ \{x|x\in[c_l(a), c_u(a)]\} &\textrm{else } \end{cases}
+$$ 
+The node demands now are 
+$$ d(v)=\begin{cases} d_l(v) & \textrm{if v is source, i.e. }d_u(v)<0\\
+         d_u(v) &\textrm{if v is sink, i.e. }d_u(v)>0
+        \end{cases}
+$$
+If we compute a solution of the flow problem on $G'$ and restrict the flow to the arcs of $G$, we get the solution of 
+the problem on $G$ with demand intervals:\\ 
+Assume this was not a valid solution to the problem with demand intervals. The flow balance constraints in normal nodes 
+(nodes with demand 0) do not change at all, since the only new node $z$ is not in their neighborhood. All vertices that 
+are sources or sinks (per definition thy cannot be both at the same time) have $z$ as neighbor. The flow balance on a 
+source $u$ before and after restriction to $G$ differs only by the flow on the artificial arc $(u,z)$. This flow 
+$f'((u,z))$ is in the capacity range $[0,d_u(u)-d_l(u)]$. Hence with $d(u)<0$ and $ d(u)=d'(u)+f'((u,z))$ we can 
+conclude $$ $$
 \end{proof}
 
 
