@@ -108,7 +108,8 @@ So the complete Mixed Integer Program is:
 
 \subsubsection{Model 2: Acyclicity Constraints On All Cycles}
 
-Another idea (which was implemented in Lamatto by Robert Schwarz) is the following: Every arc has a direction and the 
+Another idea to solve the Acyclic Flow Bound Problem (which was partially implemented in Lamatto by Robert Schwarz) is 
+the following: Every arc has a direction and the 
 sign of the flow on this arc tells us in which direction flow is send over this arc. Again we introduce variables 
 $\rho_a\in \{0,1\}$ for each arc $a\in A$ that indicate the direction of flow and are coupled with the flow variables:
 \begin{align*}
@@ -116,8 +117,7 @@ $\rho_a\in \{0,1\}$ for each arc $a\in A$ that indicate the direction of flow an
 \rho_a=0 & \Rightarrow x_a\le 0
 \end{align*}
 These indicator constraints can be handled the way they are by standard MIP solvers, but to make them real MIP 
-constraints we have to formulate them as follows (with $M$ a constant big enough, that means bigger than any possible 
-flow $x_a$ , e.g. $M=\sum_{v\in V}|d_v|$) :
+constraints we may formulate them as follows (with $M$ a constant sufficient big, e.g. $M=\sum_{v\in V}|d_v|$) :
 \begin{align*}
  x_a + M\cdot (1-\rho_a) &\ge 0\\
  x_a - M\cdot \rho_a & \le 0
@@ -125,9 +125,11 @@ flow $x_a$ , e.g. $M=\sum_{v\in V}|d_v|$) :
 
 
 
-Now we have decision variables for the flow direction, we add constraints to avoid cycles. There should be at least 
-one arc in each direction, so we get $$ 1\le\sum_{a\in C\textrm{ forward }} \rho_a + \sum_{a\in C\textrm{ backward 
-}}1-\rho_a\le n-1$$
+Now we have decision variables for the flow direction, we have to add constraints to avoid cycles. If the flow is 
+acyclic, each cycle should have at least two arcs with opposite directions. In other words, there has to be one arc
+in forward direction and one in backward direction, so with $n:=|C|$ we get as constraint:
+$$ 1\le\sum_{a\in C\textrm{ forward }} \rho_a + \sum_{a\in C\textrm{ backward }}1-\rho_a\le n-1$$
+
 Let us formulate this in a slightly different way to get only one sum: For each cycle of size $C_n=C_l+C_m$ 
 let $C_m$ be the number of arcs directed forward and $C_l$ the number of backward directed arcs. We define that always 
 $C_l\le C_m$, so forward is defined as the direction where more arcs are pointing towards (left or right would only 
@@ -160,11 +162,140 @@ or if we normalize the MIP to only $\le$ inequalities:
  & x_a \in \R & & &\forall a\in A\\
  & \rho_a \in \{0,1\} & & &\forall a\in A
 \end{align}
-%TODO gibt es noch andere Möglichkeiten als die von Robert? bestimmt!?
-
 
 
 \subsection{The number of cycles we have to forbid}
+The model above has one obvious problem we have to deal with: Since it has a constraint for every cycle of $G$ and the 
+number of cycles in a graph might be exponential, even setting up the model would need exponential running time. 
+
+So do we really need every cycle? Or is it enough to just forbid cyclic flow on a small subset (e.g. a cycle base) of 
+the cycles of $G$? 
+
+The figures \ref{bild:reichtkreisbasis1} and \ref{bild:reichtkreisbasis2} %TODO
+show that a cycle base works on the easiest possible example, but fails if the problem gets just a bit more complicated:
+
+%Bild/bsp: zwei dreiecke mit einer gemeinsamen seite - auf 2 Kreisen Fluss verbieten reicht TODO
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+[scale=2, vertex/.style={circle,fill=black}]
+  \begin{scope}[
+    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
+    ]
+\node (a) at (0,0)[vertex]{};
+% \node (stext) at (-0.1, 0.2){s};
+\node (b) at (1,1)[vertex]{} ;
+\node (c) at (1,-1)[vertex]{};
+\node (d) at (2,0)[vertex]{};
+
+\draw[postaction={decorate}] (a) -- (b);
+\draw[postaction={decorate}] (b) -- (c);
+\draw[postaction={decorate}] (c) -- (a);
+\draw[postaction={decorate}] (c) -- (d);
+\draw[postaction={decorate}] (d) -- (b);
+%beschriftungen
+\node (e1) at (0.4,0.6){$e_1$};
+\node (e2) at (1.6,0.6){$e_2$};
+\node (e3) at (1.6,-0.6){$e_3$};
+\node (e4) at (0.4,-0.6){$e_4$};
+\node (e5) at (1.15, 0){$e_5$};
+% \draw (3) -- (5);
+  \end{scope}
+\end{tikzpicture}
+\caption{Here it suffices to forbid the 2 interior cycles TODO in order to obtain acyclicity}
+ \label{bild:reichtkreisbasis1}
+\end{figure}
+%beweis dass hier wirklich eine Kreisbasis reicht!
+
+Why are the constraints of a cycle base sufficient in this case of figure \ref{bild:reichtkreisbasis1}? 
+
+We see this immediately, when we look at all acyclicity constraints for the 3 cycles contained in the graph:
+\begin{align*}
+ 1 &\le x_1+x_4+x_5\le 2&\\
+ 1&\le x_2+x_3+x_5\le 2& \iff -2\le -x_2-x_3-x_5\le -1\\
+ -1 &\le x_1-x_2-x_3+x_4 \le 1&
+\end{align*}
+The last inequality is exactly the sum of the two inequalities above. Hence if two are fulfilled, the last one is 
+automatically induced by them, it is a redundant constraint.
+
+%BILD : bei einem ``tetraeder''-graphen reicht es nicht, drei der möglichen Kreise zu verbieten!
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+[scale=2, vertex/.style={circle,fill=black}]
+  \begin{scope}[
+    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
+    ]
+\node (a) at (0,-0.1)[vertex]{};%center 
+\node (b) at (-1,-0.8)[vertex]{} ;
+\node (c) at (0,1)[vertex]{};
+\node (d) at (1,-0.8)[vertex]{};
+% \node(etext) at (1.4,1.6){e};
+
+\draw[postaction={decorate}] (a) -- (b);
+\draw[postaction={decorate}] (b) -- (c);
+\draw[postaction={decorate}] (c) -- (a);
+\draw[postaction={decorate}] (a) -- (d);
+\draw[postaction={decorate}] (d) -- (c);
+\draw[postaction={decorate}] (b) -- (d);
+%bescriftungen
+\node (e1) at (-0.6,0.2){$e_1$};
+\node (e2) at (0.6,0.2){$e_2$};
+\node (e3) at (0.5,-0.55){$e_3$};
+\node (e4) at (-0.5, -0.55){$e_4$};
+\node (e5) at (-0.1,0.4){$e_5$};
+\node (e6) at (0,-0.9){$e_6$};
+% \node (e7) at (){e7};
+  \end{scope}
+\end{tikzpicture}
+\caption{In this tetraeder graph \textbf{no} cycle bases' acyclicity constraints can enforce acyclic flow on the whole 
+graph}
+ \label{bild:reichtkreisbasis2}
+\end{figure}
+For figure \ref{bild:reichtkreisbasis2} the situation is more complex, though there is only one more arc in the graph. 
+But the number of cycles grows exponentially, so we get 7 cycles in this case. Their inequalities are:
+\begin{align*}
+ 1 &\le x_1+x_4+x_5\le 2&\\
+ 1&\le x_2+x_3+x_5\le 2& \\%\iff -2\le -x_2-x_3-x_5\le -1\\
+ -1&\le x_3-x_4-x_6\le 0\\
+ -1&\le x_1-x_2-x_6\le 0\\ 
+ -1 &\le x_1-x_2-x_3+x_4 \le 1&\\
+ 0 &\le x_1+x_3+x_5-x_6\le 2\\
+ 1&\le x_2+x_4+x_5+x_6\le 3\\
+\end{align*}
+We could choose the three cycles $(e_1 e_5 e_4)$, $(e_2 e_5 e_3)$, $(e_3 \overline{e_6} \overline{e_4})$ as a cycle 
+base, these cycles induce the first three constraints. By combining the first and second, we directly get the fifth 
+inequality $-1 \le x_1-x_2-x_3+x_4 \le 1$ as above (this one is of course still redundant). But if we add inequality 
+$3$, the result is 
+\begin{align*}
+ &&-1 &\le &x_1&-x_2&-x_3&+x_4 &&\le 1\\
+ &+&-1&\le &&&x_3&-x_4&-x_6&\le 0\\
+ &=&-2&\le&x_1&-x_2&&&-x_6&\le 1
+\end{align*}
+But the acylicity constraint of the cycle $(e_1 \overline{e_2} \,\overline{e_6})$ is $-1\le x_1-x_2-x_6\le 0$ instead. 
+The resulting constraints are not sharp, because the left hand side and the right hand side depend on the length of the 
+cycles, which changes while we combine them.
+
+\begin{prop}
+ Two acyclicity constraints can only be 
+\end{prop}
+The acyclicity constraints $lhs \le \dots\le rhs$ are constructed such that always $rhs-lhs=l-2$, $l$ being the length 
+of the cycle the constraint belongs to. Consider two cycles $C_1$ and $C_2$ and let $J\subset A=\{a\in A|a\in C_1 
+\& a\in C_2 \}$ be the set of arcs that are contained in both cycles, $j:=|J|$. 
+
+
+% This is happening when the two cycles we combine have more than one arc in common, because the left and right hand side 
+% depend on the length of the cycle. The combination of two constraints from cycles with length $l_1, l_2$ and 
+% with exactly one common arc yields as right hand side $l_1-1+l_2-1=l_1+l_2-2$
+
+
+%eventuell gleich den Beweis mit der Tabelle? Oder einen allgemeinen Beweis?
+
+%BILD : Bei einem Gitter mit vielen Quellen/Senken sind wir verloren... !
+
+%Beweisen, dass in einem Gebiet ohne Quellen oder Senken (das planar ist?) einfache kreise reichen
+
+%Beweisen, dass man mindestens eine bestimmte Anzahl an Kreisen benötigt
 
 \newpage
 \subsection{A Path-Based Heuristic Approach}
