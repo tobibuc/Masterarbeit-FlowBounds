@@ -263,7 +263,7 @@ But the number of cycles grows exponentially, so we get 7 cycles in this case. T
  0 &\le x_1+x_3+x_5-x_6\le 2\\
  1&\le x_2+x_4+x_5+x_6\le 3\\
 \end{align*}
-We could choose the three cycles $(e_1 e_5 e_4)$, $(e_2 e_5 e_3)$, $(e_3 \overline{e_6} \overline{e_4})$ as a cycle 
+We could choose the three cycles $(e_1 e_5 e_4)$, $(e_2 e_5 e_3)$, $(e_3 \overline{e_6}\, \overline{e_4})$ as a cycle 
 base, these cycles induce the first three constraints. By combining the first and second, we directly get the fifth 
 inequality $-1 \le x_1-x_2-x_3+x_4 \le 1$ as above (this one is of course still redundant). But if we add inequality 
 $3$, the result is 
@@ -277,25 +277,131 @@ The resulting constraints are not sharp, because the left hand side and the righ
 cycles, which changes while we combine them.
 
 \begin{prop}
- Two acyclicity constraints can only be 
+ Given two acyclicity constraints $cons_1$ and $cons_2$ of cycles $C_1$ and $C_2$ in $G$. The acyclicity constraint of 
+the joint cycle $C=C_1\cup C_2 \setminus \{a\in A| a\in C_1\land a\in C_2 \}$ is the sum of $cons_1$ amd $cons_2$ if 
+and only if $C_1$ and $C_2$ have exactly one arc in common (and this arc is directed differently in both 
+cycles/constraints).%TODO.
 \end{prop}
+This proposition shows that a many of the acyclicity constraints in our model are redundant and can be omitted. But 
+still the remaining constraints are exponentialin the size of $G$.
+
+\begin{proof}
+ Assume we are given two cycles $C_1,\,C_2\in G=(V,A)$ with exactly one arc $g\in A$ 
+contained in both cycles, and the direction of the cycles such that $g$ is forward in one cycle and backward in the 
+other cycle. Without loss of generality we assume it is forward in $C_1$ and backward in $C_2$, i.e. $x_g$ has a 
+positive sign in $cons_1:\,lhs_1\le \dots\le rhs_1$ and a negative sign in $cons_2:\, lhs_2\le \dots\le rhs_2$, which 
+are the acyclicity constraints of $C_1$ and $C_2$. 
+
+$\Rightarrow :$ 
 The acyclicity constraints $lhs \le \dots\le rhs$ are constructed such that always $rhs-lhs=l-2$, $l$ being the length 
 of the cycle the constraint belongs to. Consider two cycles $C_1$ and $C_2$ and let $J\subset A=\{a\in A|a\in C_1 
-\& a\in C_2 \}$ be the set of arcs that are contained in both cycles, $j:=|J|$. 
+\land a\in C_2 \}$ be the set of arcs that are contained in both cycles, $j:=|J|$. 
 
+If we sum up the constraints $cons_1$ and $cons_2$ of the cycles $C_1$ and $C_2$ we obviously get another constraint,
+say $cons_3:\, lhs=lhs_1+lhs_2\le\dots\le rhs_1+rhs_2=rhs$. The length of the joint cycle $C$ is $l=l_1+l_2-2\cdot j$. 
+We have 
+$$rhs-lhs=rhs_1+rhs_2-lhs_1-lhs_2=\underbrace{rhs_1-lhs_1}_{l_1-2}+\underbrace{rhs_2-lhs_2}_{l_2-2}=l_1+l_2-4$$
+It holds
+$$l_1+l_2-4=l_1+l_2-2j-2=l-2 \iff j=1$$ 
+This means that only if $C_1$ and $C_2$ have exactly one arc in common (i.e. $j=1$), the necessary condition 
+$rhs-lhs=l-2$ is fulfilled to get the new acyclicity constraint.
 
-% This is happening when the two cycles we combine have more than one arc in common, because the left and right hand side 
-% depend on the length of the cycle. The combination of two constraints from cycles with length $l_1, l_2$ and 
-% with exactly one common arc yields as right hand side $l_1-1+l_2-1=l_1+l_2-2$
+$\Leftarrow :$ Now we have to show that we get a sharp acyclicity constraint every time we sum up two acyclicity 
+constraints that have exactly one variable in common, and this has different sign in both constraints (so it cancels 
+out). Let $cons_1$ and $cons_2$ be chosen this way and $C_3=C_1\cup C_2\setminus (C_1\cap C_2)$ be the resulting cycle, 
+then we get:
+\begin{align*}
+ &&1&\le &\sum_{a \textrm{ forward in }C_1}x_a + \sum_{a\textrm{ backward in }C_1}{(1-x_a)}&&\le &l_1-1\\
+ &+&1&\le &\sum_{a \textrm{ forward in }C_2}x_a + \sum_{a\textrm{ backward in }C_2}{(1-x_a)}&&\le &l_1-1\\
+ &=&2&\le &\sum_{a \textrm{ forward in }C_3}x_a +\sum_{a\textrm{ backward in }C_3}{(1-x_a)}+
+ &\underbrace{x_a+1-x_a}_{a\in C_1\cap C_2} &\le &l_1+l_2-2\\
+ \iff &&1&\le &\sum_{a \textrm{ forward in }C_3}x_a +\sum_{a\textrm{ backward in }C_3}{(1-x_a)}
+ &&\le &\underbrace{l_1+l_2-2}_{l_3}-1\\
+\end{align*}
+which is exactly the acyclicity constraint of the cycle $C_3$.
+\end{proof}
+%other redundant constraints: if in the middle there is no source or sink
+There are still more redundant acyclicity constraints than these. Under certain conditions the acyclicity of smaller 
+cycles implies the acyclicity of combined cycles even if there is more than one arc contained in both cycles.
 
+\begin{prop}
+ Given two cycles $C_1, C_2$ with a set of shared arcs $J:=\{a\in C_1|a\in C_2\}$ which we assume to have size greater 
+than one ($j:=|J|>1$). If $J$ is a path in the graph with no sink or source vertex in the interior, the acyclicity of 
+$C_1, C_2$ together implies acyclicity of the cycle $C_3:=C_1\cup C_2\setminus C_1\cap C_2$.
+\end{prop}
+\begin{proof}
+ We proove this via contradiction. If the common arcs $J$ are a path like above, they have flow always in the same 
+direction. Suppose $C_1$ and $C_2$ are acyclic, but $C_3$ is not. This means in both $C_1$ and $C_2$ there are arcs 
+with different directions on the cycle, while they are all in the same direction on $C_3$. This means, the arcs with 
+different direction have to be in the path $J$ of shared arcs of $C_1$ and $C_2$. Hence within the path $J$ there must 
+be arcs which are directed different to each other. This can only happen, if one of the vertices in the interior of $J$ 
+is a sink or a source. \Lightning
+\end{proof}
+%verallgemeinerung: teilt ein kreis den graph in zwei teile, dann ist es ausreichend wenn im innern azyklizität gegeben 
+%und keine quelle/senke vorhanden ist? (verallgemeinerung von planarem Fall)
+We can prove something more general by giving conditions that apply in more cases:
+\begin{prop}
+ Given a graph $G=(V,A)$ , without loss of generality assumed to be connected, and a cycle $C\subset G$ with the 
+following properties:
+ \begin{itemize}
+  \item $G\setminus C$ is disconnected
+  \item Let $G'$ be a connected component of $G\setminus C$ 
+  \item $G'$ has no source or sink nodes
+  \item $G'\cup C$ consists of cycles whose direct sum is $C$ %TODO is direct sum what I really mean? Define it?
+ \end{itemize}
+ Then any acyclic orientation of the other cycles than $C$ in $G'\cup C$ implies already the acyclicity of $C$. 
 
-%eventuell gleich den Beweis mit der Tabelle? Oder einen allgemeinen Beweis?
+\end{prop}
+%Beweisen, dass in einem Gebiet ohne Quellen oder Senken (das planar ist?) einfache kreise reichen
+\begin{proof}
+ Consider only the subgraph $G'\cup C$ and assume $C$ had a cyclic orientation. In $C$ there has to be a chordal path 
+through $G'$. Since there are no sources or sinks in $G'$, in fact there must be a \textit{directed} path from one node 
+$v_1 \in C$ to another node $v_k\in C$ going through $G'$: starting from any arc incident to a node on $C$ and one in 
+$G'$, we will always find another arc from the endnode in the same direction unless we run into a cycle or a 
+source/sink node. But since neither exists in $G'$, after a finite number of arcs we come to a node on $C$ again. Thus 
+we can always find a directed path in our setting. 
+
+But there are two smaller cycles $C_1$ and $C_2$ if we divide $C$ along this path. $C$ is a directed cycle and the path 
+is also directed $\Rightarrow$ so one of the two cycles has to be directed, which contradicts our assumption. 
+\Lightning 
+
+Hence we conclude that acyclicity and absence of sources/sinks in the interior of a cycle make its acyclicity 
+constraint redundant.
+\end{proof}
+
+%remark that this more general proposition is important for the planar case
+There are some special cases where the above result can be very helpful and indeed reduce the number of needed 
+acylicity constraints to polynomial size. This is not only relevant in theory, but also in practice: a real world gas 
+network might have (at least partially) a planar graph representation. Planar graphs fulfill the condition to find a 
+cycle the is dividing the graph into different parts easily - each cycle in a planar graph embedding divides the graph 
+into interior and exterior. If we have only one source and one sink and find an embedding where both are on the outer 
+(unbounded) face of the graph, it is sufficient to have the acyclicity constraints only on the face cycles of the 
+graph. The same holds for all areas or subgraphs without sources/sinks that are enclosed by a cycle: we only need small 
+simple cycles and all other acyclicity constraints are redundant.
 
 %BILD : Bei einem Gitter mit vielen Quellen/Senken sind wir verloren... !
+Still we have a problem with the sources and sinks. If there are many of them we still run into exponential numbers of 
+acyclicity constraints.
 
-%Beweisen, dass in einem Gebiet ohne Quellen oder Senken (das planar ist?) einfache kreise reichen
+
 
 %Beweisen, dass man mindestens eine bestimmte Anzahl an Kreisen benötigt
 
 \newpage
 \subsection{A Path-Based Heuristic Approach}
+Since solving big real world instances of Mixed Integer Programs is often slow, we also want to discuss am approach 
+to get weaker results with a heuristic that is running much faster. The goal is still to get upper and lower bounds 
+on the flow over an arc. This is not necessarily an optimal bound but any feasible bound. 
+
+The main idea is to create an algorithm that uses path augmentation to saturate the given flow - but to try to get as 
+much flow value as possible to the arc where flow is maximized. Algorithms that use path augmentation to compute flows 
+are well known and belong to the standard flow algorithms. The idea was first described by ...  TODO%TODO Zitate 
+
+The advantage of this approach is clear: it is very easy to compute a path from one node to another or decide that 
+there is none. It can essentially be done by simple graph search algorithms. If we want to maximize flow over arc 
+$a=(u,v)$ we just look for a path from our source $s$ to node $u$ and one from node $v$ to a sink $t$. Of course: if we 
+combine these two, this could produce cyclic flow. %TODO BILD
+
+But on every path flow is going over arc $a$ only once, while in a MIP formulation as normal Min-Cost Flow Problem it 
+could be as much as the capacity of $a$ allows. And this heuristic is still a valid upper bound on the flow on $a$.
+%TODO prove it
