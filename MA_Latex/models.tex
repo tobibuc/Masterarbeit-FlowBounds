@@ -395,13 +395,21 @@ on the flow over an arc. This is not necessarily an optimal bound but any feasib
 
 The main idea is to create an algorithm that uses path augmentation to saturate the given flow - but to try to get as 
 much flow value as possible to the arc where flow is maximized. Algorithms that use path augmentation to compute flows 
-are well known and belong to the standard flow algorithms. The idea was first described by ...  TODO%TODO Zitate 
+are well known and belong to the standard flow algorithms. The algorithm of Ford and Fulkerson 
+\cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on source-sink-paths in the 
+network as well as the improved algorithms of Edmonds and Karp \cite{EdmondsKarp1972} or Dinic \cite{Dinic1970}. 
 
 The advantage of this approach is clear: it is very easy to compute a path from one node to another or decide that 
-there is none. It can essentially be done by simple graph search algorithms. If we want to maximize flow over arc 
-$a=(u,v)$ we just look for a path from our source $s$ to node $u$ and one from node $v$ to a sink $t$. Of course: if we 
-combine these two, this could produce cyclic flow. %TODO BILD
+there is none. It can essentially be done by simple graph search algorithms. Some Maximum Flow algorithms use shortest 
+path as subroutine in order to prove their optimality. In our case the problem is that we would set negative weigth 
+on the arc to maximize flow. But the shortest path with negative edge weights is equivalent to longest path, which is 
+known to be NP complete by an easy reduction to hamiltonian path. \cite{}%TODO zitiere eine quelle dazu!
 
-But on every path flow is going over arc $a$ only once, while in a MIP formulation as normal Min-Cost Flow Problem it 
-could be as much as the capacity of $a$ allows. And this heuristic is still a valid upper bound on the flow on $a$.
+If we want to maximize flow over arc $a=(u,v)$ we just look for a path from our source $s$ to node $u$ and one from node 
+$v$ to a sink $t$. Of course we have not ensured that the two paths have no arcs or nodes in common, so if we combine 
+them this could produce cyclic flow, see for example figure \ref{bild:cycleFromCombinedPaths}. %TODO BILD
+
+But on every path the flow is going over $a$ only once, while in a MIP formulation as normal Min-Cost Flow Problem it 
+could be as much as the capacity of $a$ allows. This heuristic is still a valid upper bound on the flow on $a$, though 
+it might allow cyclic flow over the maximized arc.
 %TODO prove it
