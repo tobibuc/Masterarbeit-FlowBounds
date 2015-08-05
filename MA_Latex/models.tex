@@ -401,15 +401,104 @@ network as well as the improved algorithms of Edmonds and Karp \cite{EdmondsKarp
 
 The advantage of this approach is clear: it is very easy to compute a path from one node to another or decide that 
 there is none. It can essentially be done by simple graph search algorithms. Some Maximum Flow algorithms use shortest 
-path as subroutine in order to prove their optimality. In our case the problem is that we would set negative weigth 
-on the arc to maximize flow. But the shortest path with negative edge weights is equivalent to longest path, which is 
-known to be NP complete by an easy reduction to hamiltonian path. \cite{}%TODO zitiere eine quelle dazu!
+path as subroutine in order to prove their optimality, which in our case would not work: we would set negative weight 
+on the arc to maximize flow. But the shortest path problem is only easy to solve with nonnegative edge weights. With 
+arbitrary negative edge weights it is equivalent to longest path, which is 
+known to be NP-Complete by an easy reduction to hamiltonian path. \cite{}%TODO zitiere eine quelle dazu!
 
 If we want to maximize flow over arc $a=(u,v)$ we just look for a path from our source $s$ to node $u$ and one from node 
 $v$ to a sink $t$. Of course we have not ensured that the two paths have no arcs or nodes in common, so if we combine 
 them this could produce cyclic flow, see for example figure \ref{bild:cycleFromCombinedPaths}. %TODO BILD
 
+%Bild: combining two paths can produce a cycle TODO noch verbessern... z.b. kreis mit einem loop markieren
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+[scale=2, vertex/.style={circle,fill=black},arrow/.style={-latex, shorten >=0.2ex, shorten <=0.2ex}]
+  \begin{scope}[
+    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
+    ]
+\node (a) at (3,0)[vertex]{};
+% \node (stext) at (-0.1, 0.2){s};
+\node (b) at (2,-0.5)[vertex]{} ;
+\node (c) at (2,1)[vertex]{};
+\node (s) at (3,2)[vertex]{};
+\node (t) at (0,1)[vertex]{};
+
+\draw[postaction={decorate}] (b) -- (a)node [pos=0.5, above, black] {e};
+\draw[arrow, bend right, color=red] (s) to (c);
+\draw[arrow, bend right, color=red] (c) to (b);
+\draw[arrow, bend left, color=blue] (c) to (t);
+\draw[arrow, bend right, color=blue] (a) to (c);
+%beschriftungen
+% \node (e1) at (0.4,0.6){$e_1$};
+% \node (e2) at (1.6,0.6){$e_2$};
+% \node (e3) at (1.6,-0.6){$e_3$};
+% \node (e4) at (0.4,-0.6){$e_4$};
+% \node (e5) at (1.15, 0){$e_5$};
+% \draw (3) -- (5);
+  \end{scope}
+\end{tikzpicture}
+\caption{If we just combine a path from the source to the tail of $e$ and from its head to the sink, we might get a 
+directed cycle, leading to cyclic flow}
+ \label{bild:cycleFromCombinedPaths}
+\end{figure}
+
 But on every path the flow is going over $a$ only once, while in a MIP formulation as normal Min-Cost Flow Problem it 
-could be as much as the capacity of $a$ allows. This heuristic is still a valid upper bound on the flow on $a$, though 
-it might allow cyclic flow over the maximized arc.
+could be as much as the capacity of $a$ allows. The heuristic will always fulfill the natural bound that flow over each 
+arc is at most the sum of all ingoing/outgoing flow in the network. Before we can prove anything, we have to deal with 
+the problem the there might be no path between a chosen source-sink pair over the specified arc $e$. In fact it is even 
+worse: Figure \ref{bild:backaugmentationIsNecessary} %TODO make this picture, where we have to go back to saturate 
+shows that situations can occur, where we have to decrease the amount of flow over $e$ within the heuristic to just 
+make our flow a feasible flow. 
 %TODO prove it
+
+We will specify the heuristic algorithm here in pseudocode and show that it yields a valid bound not higher than the 
+sum of flow from all sources together. Also we will analyze its worst-case running time.
+
+%Pseudocode des Algorithmus
+\begin{algorithm}
+ \caption{path based heuristic flow bound algorithm}
+ %TODO gehe gerade von vorwärts gerichteter e aus, und maximierung
+ \begin{algorithmic}[0]%[0] means no line numbers, 1 means each line number
+  \Function{Heuristic}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R $}%hier übergabeparameter
+    \State define $b':V\to \R,\, b'(v)\gets 0 \forall v\in V$
+    \State define $f: A\to\R,\, f(v)\gets 0 \forall a\in A$
+    \While {$\neg (b+b'\equiv 0) $}
+      \If{ $c(e)>f(e)$}
+	\State $P_1= pathFromSource(u)$
+	\State $P_2= pathToSink(v)$
+	\If{$P_1\ne \emptyset \land P_2\ne \emptyset$}
+	  \State $P=P_1+e+P_2$
+	  \State $maxAugment(P)$
+	  \State continue
+	\EndIf
+      \Else
+	\State choose $v\in V$ with $b(v)+b'(v)<0$
+	\State $c_{alt}(e)\gets c(e)$
+	\State $c_(e)\gets f(e)$
+	\State $P=pathToSink(v)$
+	\State $c(e)\gets c_{alt}(e)$
+	\If{$P\ne \emptyset$}
+	  \State $maxAugment(P)$
+	  \State continue
+	\Else
+	  \State $P=pathToSink(v)$
+	  \If{$P\ne \emptyset$}
+	    \State $maxAugment(P)$
+	    \State continue
+	  \Else
+	    \State return problem infeasible
+	  \EndIf
+	\EndIf
+      \EndIf
+    \EndWhile
+  \EndFunction
+ \end{algorithmic}
+
+\end{algorithm}
+
+
+%Korrektheit
+
+%Laufzeit

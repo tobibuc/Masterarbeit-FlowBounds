@@ -7,6 +7,11 @@
 \providecommand{\href}[2]{#2}
 \begin{thebibliography}{1}
 
+\bibitem{Dinic1970}
+E.~A. Dinic, \emph{{A}lgorithm for {S}olution of a {P}roblem of {M}aximum
+  {F}low in a {N}etwork with {P}ower {E}stimation}, Soviet Math Doklady
+  \textbf{11} (1970), 1277--1280.
+
 \bibitem{EdmondsKarp1972}
 Jack Edmonds and Richard~M. Karp, \emph{Theoretical improvements in algorithmic
   efficiency for network flow problems}, J. ACM \textbf{19} (1972), no.~2,
