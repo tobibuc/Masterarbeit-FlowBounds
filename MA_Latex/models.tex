@@ -459,46 +459,151 @@ sum of flow from all sources together. Also we will analyze its worst-case runni
 %Pseudocode des Algorithmus
 \begin{algorithm}
  \caption{path based heuristic flow bound algorithm}
+\label{algo:pathHeur}
  %TODO gehe gerade von vorwärts gerichteter e aus, und maximierung
- \begin{algorithmic}[0]%[0] means no line numbers, 1 means each line number
+ \begin{algorithmic}[0]%[0] means no line numbers, n means every nth line number is displayed
   \Function{Heuristic}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R $}%hier übergabeparameter
     \State define $b':V\to \R,\, b'(v)\gets 0 \forall v\in V$
     \State define $f: A\to\R,\, f(v)\gets 0 \forall a\in A$
-    \While {$\neg (b+b'\equiv 0) $}
+    \While {$\neg (b+b'\equiv 0) $}\Comment{while there are active source-sink-pairs}
       \If{ $c(e)>f(e)$}
-	\State $P_1= pathFromSource(u)$
-	\State $P_2= pathToSink(v)$
+	\State $P_1\gets $\Call{pathFromSource}{u}
+	\State $P_2\gets $\Call{pathToSink}{v}
 	\If{$P_1\ne \emptyset \land P_2\ne \emptyset$}
-	  \State $P=P_1+e+P_2$
-	  \State $maxAugment(P)$
-	  \State continue
+	  \State $P\gets P_1+e+P_2$\Comment{concatenate the paths found}
+	  \State \Call {maxAugment}{$P$}
+	  \State \textbf{continue}
 	\EndIf
       \Else
-	\State choose $v\in V$ with $b(v)+b'(v)<0$
-	\State $c_{alt}(e)\gets c(e)$
-	\State $c_(e)\gets f(e)$
-	\State $P=pathToSink(v)$
+	\State choose $s\in V$ with $b(s)+b'(s)<0$\Comment{source that is still active}
+	\State $c_{alt}(e)\gets c(e)$\Comment{save old capacity value}
+	\State $c(e)\gets f(e)$\Comment{make $e$ unaugmentable for a short time}
+	\State $P\gets$\Call{pathToSink}{$s$}\Comment{try finding a path that avoids $e$}
 	\State $c(e)\gets c_{alt}(e)$
 	\If{$P\ne \emptyset$}
-	  \State $maxAugment(P)$
-	  \State continue
+	  \State \Call {maxAugment}{$P$}
+	  \State \textbf{continue}
 	\Else
-	  \State $P=pathToSink(v)$
+	  \State $P\gets$ \Call{pathToSink}{$s$}
+		\Comment{try to find any path, at this point of time it will be decreasing the flow on $e$}
 	  \If{$P\ne \emptyset$}
-	    \State $maxAugment(P)$
-	    \State continue
+	    \State \Call {maxAugment}{$P$}
+	    \State \textbf{continue}
 	  \Else
-	    \State return problem infeasible
+	    \State \Return problem infeasible
 	  \EndIf
 	\EndIf
       \EndIf
     \EndWhile
+    \State \Return $f(e)$
   \EndFunction
+  \algstore{heur}
  \end{algorithmic}
 
+\end{algorithm}%TODO die aufgerufenen Methoden ebenfalls als Pseudocode darstellen?
+The algorithm calls easy functions where the name already tells what should be happening there. Though they are simple 
+we also describe them as short pseudocode:
+
+\begin{algorithm}
+%  \caption{find a path from given node to a source}
+ \begin{algorithmic}\algrestore{heur}
+  \Function{pathFromSource}{$u\in V$}
+    \State define label visited on all nodes false
+%     \State $v\gets 0 \,\forall v\in V$
+    \State define map pred: $V\to V$
+    \State $Q\gets $ empty queue data structure
+    \State $Q\gets u$
+    \While{$Q \ne \emptyset$}
+      \State $tmp\gets Q.pop()$
+      \ForAll{neighbors $n$ of $tmp$}
+	\If{cannot send flow from $n$ to $tmp$, i.e. $c((n,tmp))=f((n,tmp))$}
+	  \State \textbf{continue}
+	\ElsIf{$n$ not visited}
+	  \State $n\gets$ visited
+	  \State $pred(n)\gets tmp$
+	  \State $Q\gets n$
+	  \If{ $b(n)+b'(n)<0$}\Comment{active source}
+	    \State\Return path of predecessors from $n$
+	  \EndIf
+	\EndIf
+      \EndFor
+    \EndWhile
+  
+  \EndFunction
+ \end{algorithmic}
+ 
+\end{algorithm}
+\begin{algorithm}
+ \begin{algorithmic}
+  \Function{pathToSink}{$v\in V$}\Comment{like pathFromSource backwards}
+    \State define label visited on all nodes false
+%     \State $v\gets 0 \,\forall v\in V$
+    \State define map pred: $V\to V$
+    \State $Q\gets $ empty queue data structure
+    \State $Q\gets u$
+    \While{$Q \ne \emptyset$}
+      \State $tmp\gets Q.pop()$
+      \ForAll{neighbors $n$ of $tmp$}
+	\If{cannot send flow from $tmp$ to $n$, i.e. $c((tmp,n))=f((tmp,n))$}
+	  \State \textbf{continue}
+	\ElsIf{$n$ not visited}
+	  \State $n\gets$ visited
+	  \State $pred(n)\gets tmp$
+	  \State $Q\gets n$
+	  \If{ $b(n)+b'(n)>0)$}\Comment{active sink}
+	    \State\Return path of predecessors from $n$
+	  \EndIf
+	\EndIf
+      \EndFor
+    \EndWhile
+  
+  \EndFunction
+ \end{algorithmic}
+\end{algorithm}
+\begin{algorithm}
+ \begin{algorithmic}
+  \Function {maxAugment}{$P$}
+    \State $s\gets $ source node of $P$
+    \State $t\gets $ sink node of $P$
+    \State augval $\gets \min(|s|,|t|)$
+    \ForAll{$a\in P$}
+      \State arcMaxAugval $\gets$ max augmentable flow in direction of $P$ on $a$ 
+      \If{$a$ used twice in the same direction in $P$}
+	\State arcMaxAugval$\gets$ arcMaxAugval$/2$
+      \EndIf
+      \State augval $\gets \min($augval, arcMaxAugval)
+    \EndFor
+    \ForAll{$a\in P$}
+      \State increase flow in direction of $P$ by augval
+    \EndFor
+    \State $b'(s)\gets b'(s)+$augval
+    \State $b'(t)\gets b'(t)-$augval%TODO
+  \EndFunction
+ \end{algorithmic}
+ 
 \end{algorithm}
 
 
-%Korrektheit
+\newpage 
+\subsubsection{Correctness of the heuristic}
+Now we want to show, that this algorithm is correct and always yields the result we desire. We have to show that the 
+bounds are valid and include all feasible solutions and that it terminates within (a small) finite running time.
+%correctness proof
+\begin{prop}
+ The output of algorithm \ref{algo:pathHeur} is a valid upper bound on the acyclic flow over the given arc $e$. 
+ 
+ It is at most $\sum_{v\in V|b(v)>0\textrm{ source}}b(v)=-\sum_{v\in V|b(v)<0\textrm{ sink}}b(v)$ on each arc.
+\end{prop}
+\begin{proof}
+  Let $\overline{f(e)}$ be the upper bound on $e$ from the heuristic algorithm. We show that there is no feasible 
+  acyclic flow $f'$ such that $f'(e)>\overline{f(e)}$:
+
+  Let $f:A\to \R$ be the flow computed in the algorithm at the moment when it returned $\overline{f(e)}$. $f$ and $f'$ 
+are two flows on the same network with the same in- and outflow, so the difference between them $f-f'$ is just a cyclic 
+flow without sources or sinks. We can thus transform them into each other by a sequence of cyclic augmentations.
+\end{proof}
 
 %Laufzeit
+\begin{prop}
+ Algorithm \ref{algo:pathHeur} always terminates after at most $\mathcal{O}()$ steps.
+\end{prop}
