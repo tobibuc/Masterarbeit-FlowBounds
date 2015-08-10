@@ -588,6 +588,18 @@ we also describe them as short pseudocode:
 \subsubsection{Correctness of the heuristic}
 Now we want to show, that this algorithm is correct and always yields the result we desire. We have to show that the 
 bounds are valid and include all feasible solutions and that it terminates within (a small) finite running time.
+
+%Lemma: if graph search like in the algorithm does not find a way, there is no way!
+\begin{lemma}\label{lemma:graphSearch}
+ The graph search included in algorithm \ref{algo:pathHeur} finds a path from one node to another with the specified 
+characteristics (to source or to sink, forward or backward) if and only if there exists any such path.
+\end{lemma}
+\begin{proof}
+ TODO
+\end{proof}
+
+
+
 %correctness proof
 \begin{prop}
  The output of algorithm \ref{algo:pathHeur} is a valid upper bound on the acyclic flow over the given arc $e$. 
@@ -612,19 +624,33 @@ bounds are valid and include all feasible solutions and that it terminates withi
       We have to analyze three cases in the algorithm how the augmented path is found and what happens in each case 
       with the flow on arc $e$.
       \begin{enumerate}
-       \item Case: (Forward augmentation on $e$, alg. line \ref{heur:lineCase1}) In the first case we found a path 
+       \item Case: (Forward augmentation on $e$, alg. line \ref{heur:lineAugCase1}) In the first case we found a path 
 	  over $e$ where we can augment an amount of $\alpha_i$. Thus $f_i(e)=f_{i-1}(e)+\alpha_i$. 
 	  Assume we had a flow $f'$ with $f_{b_{i}'}'(e)> f_{i}(e)$. If we subtract (i.e. augment backwards) $\alpha_i$
 	  on the path found in step $i$, we obtain a flow that is feasible for the balances $b_{i-1}'$. On $e$ this 
 	  flow has a flow value of $f_{b_i'}(e)-\alpha_i$. But this gives 
 	  $$f_i(e)-\alpha_i =f_{i-1}(e)\ge f'_{b_{i-1}'}= f_{b_i'}'(e)-\alpha_i > f_{i}(e)-\alpha_i$$
 	  which is clearly a contradiction. \Lightning
-       \item Case: (Cannot increase flow over $e$ but go around, alg. line \ref{heur:lineAugCase2}) 
+       \item Case: (Cannot increase flow over $e$, but can go around, alg. line \ref{heur:lineAugCase2}) 
 	  In this case either the graph search did not find any path going over $e$ or $e$ is at its capacity bound. 
 	  If $e$ is at its capacity bound, it is obvious that there is no feasible flow with more flow on $e$.
+	  
 	  Consider the case the graph search did not find any augmentable path from the head or to the tail of $e$. 
+	  To make it easier we assume we did not find a path from the head $v$ of $e$ to an active sink, it works the 
+	  same way for a backward path to an active source.
+	  Lemma \ref{lemma:graphSearch} tells us that in this case there really is no augmentable path from $v$ to any 
+	  active sink. The only ways from $v$ that are ignored by the graph search are the ones going from $v$ over 
+	  $e$. So if we consider the digraph of augmentable arcs of $G$ there is a directed cut between $v$ and every 
+	  active sink. But this means, that $e$ has reached its absolute maximum flow, since always the minimum size of
+	  a cut is greater or equal the size of a flow through a network. 
+	  %TODO kommt mir schwammig vor, zitiere oder beweisen?
+	  So also every other flow $f'$ cannot have a greater value on $e$. In this case if we have any path that is 
+	  not decreasing the flow value on $e$ it is a good choice to augment it. 
 	  
        \item Case: (Cannot find a path that is not decreasing $f(e)$, alg. line \ref{heur:lineAugCase3} )
+	  in this case 
+	  %TODO can it happen, the we augment too much back? probably yes. Prove or show counterexample...
+	  
       \end{enumerate}
 
   \end{itemize}
