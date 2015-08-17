@@ -484,7 +484,7 @@ sum of flow from all sources together. Also we will analyze its worst-case runni
 	\If{$P\ne \emptyset$}
 	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase2}
 	  \State \textbf{continue}
-% 	\Else
+	\Else
 	  \State $P\gets$ \Call{pathToSink}{$s$}
 		\Comment{try to find any path, at this point of time it will be decreasing the flow on $e$}
 	  \If{$P\ne \emptyset$}
@@ -641,16 +641,22 @@ characteristics (to source or to sink, forward or backward) if and only if there
 	  Lemma \ref{lemma:graphSearch} tells us that in this case there really is no augmentable path from $v$ to any 
 	  active sink. The only ways from $v$ that are ignored by the graph search are the ones going from $v$ over 
 	  $e$. So if we consider the digraph of augmentable arcs of $G$ there is a directed cut between $v$ and every 
-	  active sink. But this means, that $e$ has reached its absolute maximum flow, since always the minimum size of
+	  active sink. But this means that $e$ has reached its absolute maximum flow, since always the minimum size of
 	  a cut is greater or equal the size of a flow through a network. 
 	  %TODO kommt mir schwammig vor, zitiere oder beweisen?
 	  So also every other flow $f'$ cannot have a greater value on $e$. In this case if we have any path that is 
 	  not decreasing the flow value on $e$ it is a good choice to augment it. 
 	  
        \item Case: (Cannot find a path that is not decreasing $f(e)$, alg. line \ref{heur:lineAugCase3} )
-	  in this case 
-	  %TODO can it happen, the we augment too much back? probably yes. Prove or show counterexample...
-	  
+	  In this case we searched for a path from a source to any sink, and the only one we found was going backwards 
+	  over $e$. So if we would delete $e$ there would be a directed cut in the graph of augmentable arcs between 
+	  the source and the part(s) of the graph with all sinks. Thus sending flow back on $e$ is the only possibility 
+	  to increase flow value on this directed cut.
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	  
+% 	  Now we augment the maximum value $\alpha_i$ on this path to get a feasible flow on the balances 
+% 	  $b_i$. If there would be any better flow $f_{b_{i}'}'(e)> f_{i}(e)$ again - like in the cases before - this 
+% 	  would yield also a better flow $f_{b_{i-1}'}'(e)> f_{i-1}(e)$ by augmenting back $\alpha_i$ on the path.  
+% 	  %TODO das argument müsste noch zeigen, dass die rückaugmentierung keine kapazitätsschranken verletzt!
       \end{enumerate}
 
   \end{itemize}
