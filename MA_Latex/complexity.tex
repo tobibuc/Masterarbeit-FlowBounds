@@ -1,7 +1,82 @@
-In order to talk about algorithms it is always good to kno the complexity of the underlying problem. This chapter will 
-deal with this issue. We show, that Cycle-free Min-Cost-Flow with negative weights is NP-complete, and that our problem 
-is just a special case.
+In this chapter we will discuss the computational complexity of the \textit{Acyclic Flow Problem}. We show that 
+Cycle-free Min-Cost-Flow with negative weights is $\mathcal{NP}$-complete, and that our problem is just a special case 
+of this problem. 
 
 %TODO Definition des Cyclefree MinCostFlow mit negativen Gewichten, Beweis über NP-Reduktion auf s-t-Hamilton-Pfad oder 
 %longest path, Erklärung dass es Unterproblem ist, TODO kann man für das Unterproblem selbst auch etwas zeigen? Das 
 %könnte ja durchaus auch Polynomiell sein!
+
+\begin{definition}
+ We call the problem of finding a Minimum Cost Flow as in Definition \ref{def:mincostflow} in a given 
+network $G$ with the additional constraint  that there is no cyclic flow the \textit{acyclic} or \textit{cycle-free 
+Min-Cost-Flow} Problem. 
+
+The corresponding decision problem is to decide the question if there can be any acyclic flow with total cost of at 
+most $x$ in the network.%TODO how to deal with the decision problem? normally NP is only defined for this one!
+\end{definition}
+
+\begin{theorem}
+ The \textit{Acyclic Minimum Cost Flow Problem} is $\mathcal{NP}$ complete.
+\end{theorem}
+\begin{proof}
+ We have to show two things: The problem is in the complexity class $\mathcal{NP}$ , and the problem is indeed 
+$\mathcal{NP}$ hard. We do this via two lemmas:
+\begin{lemma}
+ The Acyclic Minimum Cost Flow Problem is in the complexity class $\mathcal{NP}$
+\end{lemma}
+\begin{proof}
+It is easy to see that the problem is in $\mathcal{NP}$. Given a valid solution to the decision problem we can check if 
+it is a feasible network flow by just checking the flow balances on all nodes, which needs only linear time 
+$\mathcal{O}(|V|+|A|)$. We can also easily check if the total cost is smaller or equal than demanded and that all 
+capacities are respected by running over all arcs and checking them, thus this part is also linear.
+We can also check the acyclicity in polynomial time: On each of the arcs we can start a graph search, considering arcs 
+only in their flow direction. If this graph search comes back to the original arc again, there is a cycle. %TODOprove?
+If graph search does not find a way to the tail of the original arc, there is no cyclic flow on this arc. The graph 
+search is also a linear algorithm. If we do this for each arc, the running ime is still quadratic.
+\end{proof}
+
+\begin{lemma}
+ The Acyclic Minimum Cost Flow Problem is $\mathcal{NP}$-hard.
+\end{lemma}
+\begin{proof}
+
+To show the $\mathcal{NP}$ hardness, we reduce the problem to the \textit{undirected $s-t$-Hamiltonian Path Problem} 
+which is well known as a standard example for $\mathcal{NP}$ hardness, see \ref{} 
+%TODO zitieren wo hampath vorkommt,NP-haertebeweis
+
+Given an instance of the $s-t$-Hamiltonian Path problem, we have to transform it to an instance of our problem and show 
+that the reduced problem is a yes-instance of the Acyclic Min Cost Flow decision problem if and only if the original 
+instance of the Hamiltonian Path problem is a yes-instance. Further the reduction must be computable in polynomial time.
+
+An $s-t$-Hamiltonian Path is a path in a network starting at node $s$ and ending at node $t$ that is visiting every 
+node of $G$ exactly once. This can only work in connected graphs, so we know that if $n$ is the number of nodes in the 
+graph, the Hamiltonian Path has to have size $n-1$. Our reduction is the following:
+
+Transform the $s-t$-Hamiltonian Path instance into an instance of a flow network where for each edge $\{uv\}$ there 
+are two directed arcs $(u,v),(v,u)$,the arcs $a\in A$ all have capacities $c(a)=[0,1]$ and costs of $-1$ 
+with the same underlying graph as before. The nodes $s$ and $t$ become the source and sink of the flow.%TODO picture?
+The decision we ask for is whether there is a flow with total costs of at most $-(n-1)$ or not.
+
+It is obviously a polynomial transformation because only a linear number of flags and arcs is added to the network, 
+while the edges are deleted when they get replaced with the new arcs.
+
+It yields the same decision as well:
+\begin{itemize}
+ \item $\Rightarrow:$ Given an instance of the Acyclic Min Cost Flow which has a acyclic flow from $s$ to $t$ with cost 
+$-n+1$.
+Flow can have a value of at most $1$ on each arc, so each arc the flow is going through can only contribute up to $-1$ 
+costs to the cost function. The flow could be split up into different paths from $s$ to $t$, but we know that there are 
+no cycles. That means on every of these paths every node is visited only once - if we see it twice we have closed a 
+cycle. The cost of the flow is minus the average length of the paths of flow. So we can conclude there is at least one 
+path with length $n-1$ that is seeing no node twice - hence it has to see every node exactly once, so we found (at 
+least) one $s-t$-Hamiltonian Path and know it is a yes-instance of Hamiltonian Path too.
+
+\item $\Leftarrow:$ Given an instance with a $s-t$-Hamiltonian Path. In the transformed instance of Min Cost Flow we 
+get immediately a feasible $s-t$-Flow by setting the flow value on all forward arcs on the way equals $1$. This flow 
+also has total costs of $-(n-1)$.
+\end{itemize}
+\end{proof}
+
+These two lemmas together show, that our problem of finding an acyclic flow with minimum costs and arbitrary weight 
+function is in general $\mathcal{NP}$-complete.
+\end{proof}

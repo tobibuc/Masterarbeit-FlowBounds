@@ -62,10 +62,10 @@ $$d_l(v)\le d_u(v)-\underbrace{f'((z,v))}_{0\le f'((z,v))\le d_u(v)-d_l(v)}=d'(v
 A \textit{cyclic flow} within such a feasible network flow $f$ is a flow $f':C\to \R$, where $C\subseteq A$ is a cycle, 
 $\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$ , for all arcs the flow 
 directions in $f'$ and $f$ are the same, i.e. $f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 0$ and 
-there is really non-zero flow, i.e. $f'(a) \ne 0 \,\forall a\in C$. 
+there is really a flow, i.e. $f'(a) \ne 0 \,\forall a\in C$. 
 
 If there is any cyclic flow $f'$ in a network flow $f$ we say that $f$ contains a flow cycle. If there is no cyclic 
-flow, we say $f$ is an \textit{acyclic flow} on $G$.\\
+flow, we say $f$ is \textit{acyclic} or an \textit{acyclic flow} on $G$.\\
 
 The conditions imply, that a cyclic flow is one that has no sources or sinks and the same value of flow on each arc.
 
@@ -94,7 +94,7 @@ If we look for related problems, it is natural to just drop the constraints of o
 example easily forget the contraint that flows have to be acyclic. If we do this, our problem becomes a special 
 instance of a Min-Cost-Flow where we allow edge weights to be negative:
 
-\begin{definition}
+\begin{definition}\label{def:mincostflow}
  The \textit{Minimum Cost Flow Problem} is the problem to determine a feasible network flow with the least possible 
 cost $c_f$. The cost function $c:A\to \R$ (or often $c:A\to \R_{\ge 0}$) is defined on every arc, the cost of the flow 
 is $c_f = \sum_{a\in A}|f(a)|\cdot c(a)$. So for a given network and cost function we look for a flow $f$ s.t. $c_f\le 
