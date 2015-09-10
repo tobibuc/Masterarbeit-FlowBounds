@@ -248,7 +248,8 @@ automatically induced by them, it is a redundant constraint.
 % \node (e7) at (){e7};
   \end{scope}
 \end{tikzpicture}
-\caption{In this tetraeder graph \textbf{no} cycle bases' acyclicity constraints can enforce acyclic flow on the whole 
+\caption{In this tetrahedron graph \textbf{no} cycle bases' acyclicity constraints can enforce acyclic flow on the 
+whole 
 graph}
  \label{bild:reichtkreisbasis2}
 \end{figure}
@@ -454,7 +455,7 @@ make our flow a feasible flow.
 %TODO prove it
 
 We will specify the heuristic algorithm here in pseudocode and show that it yields a valid bound not higher than the 
-sum of flow from all sources together. Also we will analyze its worst-case running time.
+sum of flow from all sources together. We will also analyze its worst-case running time.
 
 %Pseudocode des Algorithmus
 \begin{algorithm}
@@ -568,16 +569,17 @@ we also describe them as short pseudocode:
     \State augval $\gets \min(|s|,|t|)$
     \ForAll{$a\in P$}
       \State arcMaxAugval $\gets$ max augmentable flow in direction of $P$ on $a$ 
-      \If{$a$ used twice in the same direction in $P$}
-	\State arcMaxAugval$\gets$ arcMaxAugval$/2$
-      \EndIf
       \State augval $\gets \min($augval, arcMaxAugval)
     \EndFor
     \ForAll{$a\in P$}
-      \State increase flow in direction of $P$ by augval
+      \If{$a$ is considered the second time in the same direction in $P$}
+	\State \textbf{continue}\Comment do not increase flow value here, equivalent to increase of capacity bounds on 
+this arc
+      \EndIf
+      \State increase flow on $a$ in direction of $P$ by augval
     \EndFor
-    \State $b'(s)\gets b'(s)+$augval
-    \State $b'(t)\gets b'(t)-$augval
+    \State $b'(s)\gets b'(s) + $augval
+    \State $b'(t)\gets b'(t) - $augval
   \EndFunction
  \end{algorithmic}
  
@@ -586,8 +588,9 @@ we also describe them as short pseudocode:
 
 \newpage 
 \subsubsection{Correctness of the heuristic}
-Now we want to show, that this algorithm is correct and always yields the result we desire. We have to show that the 
-bounds are valid and include all feasible solutions and that it terminates within (a small) finite running time.
+Now we want to show that this algorithm is correct and always yields the result we desire. We have to show that the 
+bounds are valid and include all feasible solutions and that the algorithm terminates within (a small) finite running 
+time.
 
 %Lemma: if graph search like in the algorithm does not find a way, there is no way!
 \begin{lemma}\label{lemma:graphSearch}
@@ -607,65 +610,98 @@ characteristics (to source or to sink, forward or backward) if and only if there
  It is at most $\sum_{v\in V|b(v)>0\textrm{ source}}b(v)=-\sum_{v\in V|b(v)<0\textrm{ sink}}b(v)$ on each arc.
 \end{prop}
 \begin{proof}
-  Let $\overline{f(e)}$ be the upper bound on $e$ returned the heuristic algorithm. We show that there is no feasible 
-  acyclic flow $f'$ such that $f'(e)>\overline{f(e)}$:
-  
-  We will prove this by mathematical induction over the steps of the algorithm. Denote the current balances of step $i$ 
-  by $b_i'$ and the corresponding flow in the heuristics $i$th step by $f_i$.
-  \begin{itemize}
-   \item[Induction Hypothesis:] Given the balances $b_i'$ it always holds: 
-      $$\nexists \textrm{ feasible flow }f_{b_i'}':A\to \R\textrm{ s.t. }f'_{b_i'}(e) > f_i(e)$$
-   \item[Basis:] This is true for $b_0'$: We set $b_0'\equiv 0$ , so there are no sources and sinks. Hence the only 
-      feasible acyclic flow $f'$ is the constant $0$ flow. This is also exactly how the algorithm defined $f_0$ in the 
-      initialization, so $f_0\equiv f_{b_0'}'$.
-   \item[Inductive Step:] Assume $f_{b_{i-1}'}'(e)\le f_{i-1}(e)$ for all feasible $f'_{b_{i-1}'}$. Now in step $i$ the 
-      algorithm computes a path between a source $s_i$ and a sink $t_i$ and updates the balances at these two nodes by 
-      the augmentation value $\alpha_i$.
-      We have to analyze three cases in the algorithm how the augmented path is found and what happens in each case 
-      with the flow on arc $e$.
-      \begin{enumerate}
-       \item Case: (Forward augmentation on $e$, alg. line \ref{heur:lineAugCase1}) In the first case we found a path 
-	  over $e$ where we can augment an amount of $\alpha_i$. Thus $f_i(e)=f_{i-1}(e)+\alpha_i$. 
-	  Assume we had a flow $f'$ with $f_{b_{i}'}'(e)> f_{i}(e)$. If we subtract (i.e. augment backwards) $\alpha_i$
-	  on the path found in step $i$, we obtain a flow that is feasible for the balances $b_{i-1}'$. On $e$ this 
-	  flow has a flow value of $f_{b_i'}(e)-\alpha_i$. But this gives 
-	  $$f_i(e)-\alpha_i =f_{i-1}(e)\ge f'_{b_{i-1}'}= f_{b_i'}'(e)-\alpha_i > f_{i}(e)-\alpha_i$$
-	  which is clearly a contradiction. \Lightning
-       \item Case: (Cannot increase flow over $e$, but can go around, alg. line \ref{heur:lineAugCase2}) 
-	  In this case either the graph search did not find any path going over $e$ or $e$ is at its capacity bound. 
-	  If $e$ is at its capacity bound, it is obvious that there is no feasible flow with more flow on $e$.
-	  
-	  Consider the case the graph search did not find any augmentable path from the head or to the tail of $e$. 
-	  To make it easier we assume we did not find a path from the head $v$ of $e$ to an active sink, it works the 
-	  same way for a backward path to an active source.
-	  Lemma \ref{lemma:graphSearch} tells us that in this case there really is no augmentable path from $v$ to any 
-	  active sink. The only ways from $v$ that are ignored by the graph search are the ones going from $v$ over 
-	  $e$. So if we consider the digraph of augmentable arcs of $G$ there is a directed cut between $v$ and every 
-	  active sink. But this means that $e$ has reached its absolute maximum flow, since always the minimum size of
-	  a cut is greater or equal the size of a flow through a network. 
-	  %TODO kommt mir schwammig vor, zitiere oder beweisen?
-	  So also every other flow $f'$ cannot have a greater value on $e$. In this case if we have any path that is 
-	  not decreasing the flow value on $e$ it is a good choice to augment it. 
-	  
-       \item Case: (Cannot find a path that is not decreasing $f(e)$, alg. line \ref{heur:lineAugCase3} )
-	  In this case we searched for a path from a source to any sink, and the only one we found was going backwards 
-	  over $e$. So if we would delete $e$ there would be a directed cut in the graph of augmentable arcs between 
-	  the source and the part(s) of the graph with all sinks. Thus sending flow back on $e$ is the only possibility 
-	  to increase flow value on this directed cut.
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	  
-% 	  Now we augment the maximum value $\alpha_i$ on this path to get a feasible flow on the balances 
-% 	  $b_i$. If there would be any better flow $f_{b_{i}'}'(e)> f_{i}(e)$ again - like in the cases before - this 
-% 	  would yield also a better flow $f_{b_{i-1}'}'(e)> f_{i-1}(e)$ by augmenting back $\alpha_i$ on the path.  
-% 	  %TODO das argument müsste noch zeigen, dass die rückaugmentierung keine kapazitätsschranken verletzt!
-      \end{enumerate}
+ %start new proof and comment out the old messed up one
+ We show correctness for each stage of the algorithm. This means we show that at each augmentation step the flow value 
+on the maximized arc $e$ is at least as high as the maximum value in any acyclic flow satifying the same supply and 
+demand. There are three stages: at first we try to send all flow over the maximized arc $e$. In the second step this is 
+not possible anymore (as we show) so we try to find paths to augment where $e$ is not affected at all. In the last step 
+we can try to satify all supply/demand in the network, accepting that it might decrease flow value on $e$. We show that 
+this is correct and yields improved bounds. We also have to show that we can not go back to a former stage after 
+completing it.
+\begin{itemize}
+ \item [First Stage:] In step $i$ there is an additional supply and demand of say $\alpha_i$ satisfied. In each of the 
+steps the flow value $f_i(e)$ is also increased by $\alpha_i$, so while the algorithm is in this stage it has all flow 
+going over $e$. In any acyclic flow this can be not more: if it was more in a flow $f'_i(e)$ the flow from one source 
+has to go over $e$ twice. But this would form a cyclic flow somewhere. \Lightning.
 
-  \end{itemize}
+  \item[Second Stage:] 
+\end{itemize}
 
-
-%   Let $f:A\to \R$ be the flow computed in the algorithm at the moment when it returned $\overline{f(e)}$. $f$ and $f'$ 
-% are two flows on the same network with the same in- and outflow, so the difference between them $f-f'$ is just a cyclic 
-% flow without sources or sinks. We can thus transform them into each other by a sequence of cyclic augmentations.
+ 
+ 
+ 
 \end{proof}
+
+
+
+
+
+
+
+
+
+
+% 
+% \begin{proof}%the old proof 
+%   Let $\overline{f(e)}$ be the upper bound on $e$ returned by the heuristic algorithm. We show that there is no 
+%   feasible acyclic flow $f'$ such that $f'(e)>\overline{f(e)}$:
+%   
+%   We will prove this by mathematical induction over the steps of the algorithm. Denote the current balances of step $i$ 
+%   by $b_i'$ and the corresponding flow in the heuristics $i$th step by $f_i$.
+%   \begin{itemize}
+%    \item[Induction Hypothesis:] Given the balances $b_i'$ it always holds: 
+%       $$\nexists \textrm{ feasible flow }f_{b_i'}':A\to \R\textrm{ s.t. }f'_{b_i'}(e) > f_i(e)$$
+%    \item[Basis:] This is true for $b_0'$: We set $b_0'\equiv 0$ , so there are no sources and sinks. Hence the only 
+%       feasible acyclic flow $f'$ is the constant $0$ flow. This is also exactly how the algorithm defined $f_0$ in the 
+%       initialization, so $f_0\equiv f_{b_0'}'$.
+%    \item[Inductive Step:] Assume $f_{b_{i-1}'}'(e)\le f_{i-1}(e)$ for all feasible $f'_{b_{i-1}'}$. Now in step $i$ the 
+%       algorithm computes a path between a source $s_i$ and a sink $t_i$ and updates the balances at these two nodes by 
+%       the augmentation value $\alpha_i$.
+%       We have to analyze three cases in the algorithm how the augmented path is found and what happens in each case 
+%       with the flow on arc $e$.
+%       \begin{enumerate}
+%        \item Case: (Forward augmentation on $e$, alg. line \ref{heur:lineAugCase1}) In the first case we found a path 
+% 	  over $e$ where we can augment an amount of $\alpha_i$. Thus $f_i(e)=f_{i-1}(e)+\alpha_i$. 
+% 	  Assume we had a flow $f'$ with $f_{b_{i}'}'(e)> f_{i}(e)$. If we subtract (i.e. augment backwards) $\alpha_i$
+% 	  on the path found in step $i$, we obtain a flow that is feasible for the balances $b_{i-1}'$. On $e$ this 
+% 	  flow has a flow value of $f_{b_i'}(e)-\alpha_i$. But this gives 
+% 	  $$f_i(e)-\alpha_i =f_{i-1}(e)\ge f'_{b_{i-1}'}= f_{b_i'}'(e)-\alpha_i > f_{i}(e)-\alpha_i$$
+% 	  which is clearly a contradiction. \Lightning
+%        \item Case: (Cannot increase flow over $e$, but can go around, alg. line \ref{heur:lineAugCase2}) 
+% 	  In this case either the graph search did not find any path going over $e$ or $e$ is at its capacity bound. 
+% 	  If $e$ is at its capacity bound, it is obvious that there is no feasible flow with more flow on $e$.
+% 	  
+% 	  Consider the case the graph search did not find any augmentable path from the head or to the tail of $e$. 
+% 	  To make it easier we assume we did not find a path from the head $v$ of $e$ to an active sink, it works the 
+% 	  same way for a backward path to an active source.
+% 	  Lemma \ref{lemma:graphSearch} tells us that in this case there really is no augmentable path from $v$ to any 
+% 	  active sink. The only ways from $v$ that are ignored by the graph search are the ones going from $v$ over 
+% 	  $e$. So if we consider the digraph of augmentable arcs of $G$ there is a directed cut between $v$ and every 
+% 	  active sink. But this means that $e$ has reached its absolute maximum flow, since always the minimum size of
+% 	  a cut is greater or equal the size of a flow through a network. 
+% 	  %TODO kommt mir schwammig vor, zitiere oder beweisen?
+% 	  So also every other flow $f'$ cannot have a greater value on $e$. In this case if we have any path that is 
+% 	  not decreasing the flow value on $e$ it is a good choice to augment it. 
+% 	  
+%        \item Case: (Cannot find a path that is not decreasing $f(e)$, alg. line \ref{heur:lineAugCase3} )
+% 	  In this case we searched for a path from a source to any sink, and the only one we found was going backwards 
+% 	  over $e$. So if we would delete $e$ there would be a directed cut in the graph of augmentable arcs between 
+% 	  the source and the part(s) of the graph with all sinks. Thus sending flow back on $e$ is the only possibility 
+% 	  to increase flow value on this directed cut.
+% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	  
+% % 	  Now we augment the maximum value $\alpha_i$ on this path to get a feasible flow on the balances 
+% % 	  $b_i$. If there would be any better flow $f_{b_{i}'}'(e)> f_{i}(e)$ again - like in the cases before - this 
+% % 	  would yield also a better flow $f_{b_{i-1}'}'(e)> f_{i-1}(e)$ by augmenting back $\alpha_i$ on the path.  
+% % 	  %TODO das argument müsste noch zeigen, dass die rückaugmentierung keine kapazitätsschranken verletzt!
+%       \end{enumerate}
+% 
+%   \end{itemize}
+% 
+% 
+% %   Let $f:A\to \R$ be the flow computed in the algorithm at the moment when it returned $\overline{f(e)}$. $f$ and $f'$ 
+% % are two flows on the same network with the same in- and outflow, so the difference between them $f-f'$ is just a cyclic 
+% % flow without sources or sinks. We can thus transform them into each other by a sequence of cyclic augmentations.
+% \end{proof}
 
 %Laufzeit
 \begin{prop}

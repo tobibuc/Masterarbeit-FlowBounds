@@ -8,15 +8,15 @@ of this problem.
 
 \begin{definition}
  We call the problem of finding a Minimum Cost Flow as in Definition \ref{def:mincostflow} in a given 
-network $G$ with the additional constraint  that there is no cyclic flow the \textit{acyclic} or \textit{cycle-free 
-Min-Cost-Flow} Problem. 
+network $G$ with the additional constraint  that there is no cyclic flow the \textit{Acyclic Minimum Cost Flow} 
+Problem. 
 
 The corresponding decision problem is to decide the question if there can be any acyclic flow with total cost of at 
 most $x$ in the network.%TODO how to deal with the decision problem? normally NP is only defined for this one!
 \end{definition}
 
 \begin{theorem}
- The \textit{Acyclic Minimum Cost Flow Problem} is $\mathcal{NP}$ complete.
+ The \textit{Acyclic Minimum Cost Flow Problem} with arbitrary arc weights is $\mathcal{NP}$ complete.
 \end{theorem}
 \begin{proof}
  We have to show two things: The problem is in the complexity class $\mathcal{NP}$ , and the problem is indeed 
@@ -44,9 +44,10 @@ To show the $\mathcal{NP}$ hardness, we reduce the problem to the \textit{undire
 which is well known as a standard example for $\mathcal{NP}$ hardness, see \ref{} 
 %TODO zitieren wo hampath vorkommt,NP-haertebeweis
 
-Given an instance of the $s-t$-Hamiltonian Path problem, we have to transform it to an instance of our problem and show 
-that the reduced problem is a yes-instance of the Acyclic Min Cost Flow decision problem if and only if the original 
-instance of the Hamiltonian Path problem is a yes-instance. Further the reduction must be computable in polynomial time.
+Given an instance of the $s-t$-Hamiltonian Path problem, we have to transform it into an instance of our problem. Then 
+we show that the reduced problem is a yes-instance of the Acyclic Min Cost Flow decision problem if and only if the 
+original instance of the Hamiltonian Path problem is a yes-instance. Further the reduction must be computable in 
+polynomial time.
 
 An $s-t$-Hamiltonian Path is a path in a network starting at node $s$ and ending at node $t$ that is visiting every 
 node of $G$ exactly once. This can only work in connected graphs, so we know that if $n$ is the number of nodes in the 
@@ -60,7 +61,7 @@ The decision we ask for is whether there is a flow with total costs of at most $
 It is obviously a polynomial transformation because only a linear number of flags and arcs is added to the network, 
 while the edges are deleted when they get replaced with the new arcs.
 
-It yields the same decision as well:
+It yields the same decision as the original Hamiltonian Path instance:
 \begin{itemize}
  \item $\Rightarrow:$ Given an instance of the Acyclic Min Cost Flow which has a acyclic flow from $s$ to $t$ with cost 
 $-n+1$.
@@ -71,12 +72,12 @@ cycle. The cost of the flow is minus the average length of the paths of flow. So
 path with length $n-1$ that is seeing no node twice - hence it has to see every node exactly once, so we found (at 
 least) one $s-t$-Hamiltonian Path and know it is a yes-instance of Hamiltonian Path too.
 
-\item $\Leftarrow:$ Given an instance with a $s-t$-Hamiltonian Path. In the transformed instance of Min Cost Flow we 
-get immediately a feasible $s-t$-Flow by setting the flow value on all forward arcs on the way equals $1$. This flow 
-also has total costs of $-(n-1)$.
+\item $\Leftarrow:$ Given a graph together with an $s-t$-Hamiltonian Path. In the transformed instance of Min Cost Flow 
+we get immediately a feasible $s-t$-Flow by setting the flow value on all forward arcs on the given hamiltonian path 
+equals $1$. This flow also has total costs of $-(n-1)$.
 \end{itemize}
 \end{proof}
 
-These two lemmas together show, that our problem of finding an acyclic flow with minimum costs and arbitrary weight 
+These two lemmas together show that our problem of finding an acyclic flow with minimum costs and arbitrary weight 
 function is in general $\mathcal{NP}$-complete.
 \end{proof}
