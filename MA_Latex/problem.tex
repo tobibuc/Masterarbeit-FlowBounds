@@ -86,11 +86,15 @@ maximum value $|f'(a)|$ a cyclic flow $f'$ can reach.
 
 \begin{prop}
   The maximal flow value on the maximized arc $e$ in the Edge-Maximizing Acyclic Flow Problem is the same as the 
-  maximal flow value when only on $e$ there is no cyclic flow allowed. 
+  maximal flow value if only cycles containing $e$ are forbidden. 
 \end{prop}
 \begin{proof}
-  
- TODO! %TODO
+ Let $f$ be the flow of a solution of an all-acyclic flow problem with maximum flow $f(e)$ and let $f'$ be a flow of 
+the relaxation where we allow cyclic flow that is not going over $e$. 
+
+Since $f'$ is a relaxation of $f$ we always have $f'(e)\ge f(e)$. But we have to show that also $f'(e)\le f(e)$.
+
+
 \end{proof}
 
 
