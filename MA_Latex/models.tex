@@ -390,17 +390,17 @@ acyclicity constraints.
 
 \newpage
 \subsection{A Path-Based Heuristic Approach}
-Since solving big real world instances of Mixed Integer Programs is often slow, we also want to discuss am approach 
+Since solving big real world instances of Mixed Integer Programs is often slow, we also want to discuss an approach 
 to get weaker results with a heuristic that is running much faster. The goal is still to get upper and lower bounds 
 on the flow over an arc. This is not necessarily an optimal bound but any feasible bound. 
 
-The main idea is to create an algorithm that uses path augmentation to saturate the given flow - but to try to get as 
-much flow value as possible to the arc where flow is maximized. Algorithms that use path augmentation to compute flows 
-are well known and belong to the standard flow algorithms. The algorithm of Ford and Fulkerson 
-\cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on source-sink-paths in the 
+The main idea is to design an algorithm that uses path augmentation to saturate the given flow demands. The 
+algorithm trys to push as much flow value as possible over the arc where flow is maximized. Algorithms that use path 
+augmentation to compute flows are well known and some of the standard flow algorithms. The algorithm of Ford and 
+Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on source-sink-paths in the 
 network as well as the improved algorithms of Edmonds and Karp \cite{EdmondsKarp1972} or Dinic \cite{Dinic1970}. 
 
-The advantage of this approach is clear: it is very easy to compute a path from one node to another or decide that 
+The advantage of this approach is that it is very easy to compute a path from one node to another or to decide that 
 there is none. It can essentially be done by simple graph search algorithms. Some Maximum Flow algorithms use shortest 
 path as subroutine in order to prove their optimality, which in our case would not work: we would set negative weight 
 on the arc to maximize flow. But the shortest path problem is only easy to solve with nonnegative edge weights. With 
