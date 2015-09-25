@@ -89,13 +89,45 @@ maximum value $|f'(a)|$ a cyclic flow $f'$ can reach.
   maximal flow value if only cycles containing $e$ are forbidden. 
 \end{prop}
 \begin{proof}
- Let $f$ be the flow of a solution of an all-acyclic flow problem with maximum flow $f(e)$ and let $f'$ be a flow of 
-the relaxation where we allow cyclic flow that is not going over $e$. 
 
-Since $f'$ is a relaxation of $f$ we always have $f'(e)\ge f(e)$. But we have to show that also $f'(e)\le f(e)$.
+ Let $F_{acyc}$ be the set of flows that are really acyclic and $F_{cyc}^e$ the flows that can have cyclic flow on 
+ cycles not containing $e$. Since $F_{acyc}\subseteq F_{cyc}^e $ (i.e. the partially cyclic flow problem is a 
+ relaxation of the acyclic problem) we always have $f_{cyc}(e)\ge f_{acyc}(e)$ for all $f_{cyc}\in F_{cyc}^e, 
+f_{acyc}\in F_{acyc}(e)$ that are maximizing flow on $e$. We have to show that also $f_{cyc}(e)\le f_{acyc}(e))$.
+% Every two flows differ only by a sequence of cyclic flow augmentations in the network. Thus if not $f_{cyc}(e)\le 
+% f_{acyc}(e)$ we can choose a pair $f,f'$ such that $f$ is completely acyclic and $f'$ is not, $f'(e)>f(e)$ and that 
+% $f'$ differs from $f$ by just one cyclic shift of flow (take the first flow of the sequence where $f'(e)>f(e)$).
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%observation: it is always easier to look at a cycle and ask how much flow can you send from one node to another. this 
+%not changing, never, by a cyclic flow. but a cyclic flow could affect other cycles. But since we do not have any 
+% lower bounds higher than 0 we can always shift a cyclic flow until it is acyclic!!!
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% In $f_{cyc}$ there are no cyclic flows on the maximized arc $e$. Take a solution of $f_{cyc}$ with cyclic flow on a 
+% simple cycle $C\in A(G)$. There is no minimum flow higher than 0. Thus it is always possible to shift the cyclic flow 
+% backwards on the cycle by the minimum amount of flow on this cycle. This is a cyclic flow, so on every arc $a\in C$ the 
+% flow value $f(a)$ is decreased by this. However, there is no arc where flow directions are changed. We can do this 
+% operation as long as there is cyclic flow without changing flow value on $e$ or creating new flow cycles. In the 
+% end we get an acyclic flow with the same flow value.
+We show how we can produce a completely acyclic flow $f'\in F_{acyc}$ from any given flow $f_{cyc}\in F_{cyc}^e$. 
 
+This flow will have the same flow value on $e$: $f'(e)=f_{cyc}(e)$ , so for each flow $f\in F_{cyc}^e$ there is an 
+acyclic flow with at least the same flow value on $e$.\\
+Take a given flow $f\in F_{cyc}^e\setminus F_{acyc}$. Consider a cycle $C$ where $f$ has cyclic flow. On $C$ all flow 
+is going in the same direction. Choose the minimum flow value $\alpha(C)=\min(f(a)|a\in C)$ on an edge of $C$ and 
+decrease flow on every edge of $C$ by $\alpha$. On no arc the direction of flow was reversed, so no new cyclic flows
+are created by this. But on one arc at least there is no flow at all, so on $C$ we have no cyclic flow anymore. The 
+resulting flow is still a valid flow: On each node ingoing and outgoing flow is decreased by the same value $\alpha$ so 
+flow balances still hold. The capacity constraints are still fulfilled because we know that no minimum flow bound is 
+higher than 0 in our problem. The flow on the special arc $e$ is unchanged, since $e$ must not be contained in any 
+cyclic flow.
 
+We can continue this until there is no cyclic flow left and we transformed our flow into a flow $f'\in F_{acyc}$ with 
+the same flow value on $e$ as before. The algorithm terminates after less than $|A(G)|$ repetitions because every arc 
+can be set to zero only once.\\
+$\Rightarrow $ We conclude that $\max(f(e)|f\in F_{cyc}^e)\le \max(f'(e)|f'\in F_{acyc})$ and together with 
+$F_{acyc}\subseteq F_{cyc}^e $ this yields
+$$\Rightarrow \max(f(e)|f\in F_{cyc}^e)= \max(f'(e)|f'\in F_{acyc}) $$
 \end{proof}
 
 

@@ -78,7 +78,7 @@ constraints we get
  &\rho_{vw}=0 &\Rightarrow &f((v,w))\le 0\\
  &\rho_{vw} \in \{0,1\}&&
 \end{align*}
-We can express these indicator constraints by
+We can reformulate these indicator constraints as
 \begin{align*}
  &\pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1\\
  &\pi_v-\pi_w&\le &N\rho_{vw}-1 \\
@@ -108,8 +108,9 @@ So the complete Mixed Integer Program is:
 
 \subsubsection{Model 2: Acyclicity Constraints On All Cycles}
 
-Another idea to solve the Acyclic Flow Bound Problem (which was partially implemented in Lamatto by Robert Schwarz) is 
-the following: Every arc has a direction and the 
+Another idea to solve the Acyclic Flow Bound Problem 
+%(which was partially implemented in Lamatto by Robert Schwarz) 
+is the following: Every arc has a direction and the 
 sign of the flow on this arc tells us in which direction flow is send over this arc. Again we introduce variables 
 $\rho_a\in \{0,1\}$ for each arc $a\in A$ that indicate the direction of flow and are coupled with the flow variables:
 \begin{align*}
@@ -123,19 +124,17 @@ constraints we may formulate them as follows (with $M$ a constant sufficient big
  x_a - M\cdot \rho_a & \le 0
 \end{align*}
 
-
-
-Now we have decision variables for the flow direction, we have to add constraints to avoid cycles. If the flow is 
+In addition to decision variables for the flow direction, we have to add constraints to avoid cycles. If the flow is 
 acyclic, each cycle should have at least two arcs with opposite directions. In other words, there has to be one arc
 in forward direction and one in backward direction, so with $n:=|C|$ we get as constraint:
 $$ 1\le\sum_{a\in C\textrm{ forward }} \rho_a + \sum_{a\in C\textrm{ backward }}1-\rho_a\le n-1$$
 
 Let us formulate this in a slightly different way to get only one sum: For each cycle of size $C_n=C_l+C_m$ 
-let $C_m$ be the number of arcs directed forward and $C_l$ the number of backward directed arcs. We define that always 
-$C_l\le C_m$, so forward is defined as the direction where more arcs are pointing towards (left or right would only 
-make 
-sense in a planar embedding). Then we get the constraint $$1-l \le \sum_{a\in C}\rho_a\le n-(l+1)$$ that forbids any
-cyclic flow on $C$. We will show later under which conditions such constraints also forbid cyclic flow on other cycles. 
+let $C_m$ be the number of arcs directed forward and $C_l$ the number of arcs directed backward. We define that always 
+$C_l\le C_m$, so forward is defined as the direction that more arcs are pointing towards (left or right would only 
+make sense in a planar embedding). Then we get the constraint $$1-l \le \sum_{a\in C}\rho_a\le n-(l+1)$$ that forbids 
+any cyclic flow on $C$. We will show later under which conditions such constraints also forbid cyclic flow on other 
+cycles. 
 %TODO was ist wenn gleich viele? Ist das als Definition so ueberhaupt ok?
 
 So our MIP formulation of the model is finally
@@ -284,7 +283,7 @@ and only if $C_1$ and $C_2$ have exactly one arc in common (and this arc is dire
 cycles/constraints).%TODO.
 \end{prop}
 This proposition shows that a many of the acyclicity constraints in our model are redundant and can be omitted. But 
-still the remaining constraints are exponentialin the size of $G$.
+still the remaining constraints are exponential in the size of $G$.
 
 \begin{proof}
  Assume we are given two cycles $C_1,\,C_2\in G=(V,A)$ with exactly one arc $g\in A$ 
@@ -331,7 +330,7 @@ than one ($j:=|J|>1$). If $J$ is a path in the graph with no sink or source vert
 $C_1, C_2$ together implies acyclicity of the cycle $C_3:=C_1\cup C_2\setminus C_1\cap C_2$.
 \end{prop}
 \begin{proof}
- We proove this via contradiction. If the common arcs $J$ are a path like above, they have flow always in the same 
+ We prove this via contradiction. If the common arcs $J$ are a path like above, they have flow always in the same 
 direction. Suppose $C_1$ and $C_2$ are acyclic, but $C_3$ is not. This means in both $C_1$ and $C_2$ there are arcs 
 with different directions on the cycle, while they are all in the same direction on $C_3$. This means, the arcs with 
 different direction have to be in the path $J$ of shared arcs of $C_1$ and $C_2$. Hence within the path $J$ there must 
@@ -390,17 +389,17 @@ acyclicity constraints.
 
 \newpage
 \subsection{A Path-Based Heuristic Approach}
-Since solving big real world instances of Mixed Integer Programs is often slow, we also want to discuss am approach 
+Since solving big real world instances of Mixed Integer Programs is often slow, we also want to discuss an approach 
 to get weaker results with a heuristic that is running much faster. The goal is still to get upper and lower bounds 
 on the flow over an arc. This is not necessarily an optimal bound but any feasible bound. 
 
-The main idea is to create an algorithm that uses path augmentation to saturate the given flow - but to try to get as 
-much flow value as possible to the arc where flow is maximized. Algorithms that use path augmentation to compute flows 
-are well known and belong to the standard flow algorithms. The algorithm of Ford and Fulkerson 
-\cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on source-sink-paths in the 
+The main idea is to design an algorithm that uses path augmentation to saturate the given flow demands. The 
+algorithm trys to push as much flow value as possible over the arc where flow is maximized. Algorithms that use path 
+augmentation to compute flows are well known and some of the standard flow algorithms. The algorithm of Ford and 
+Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on source-sink-paths in the 
 network as well as the improved algorithms of Edmonds and Karp \cite{EdmondsKarp1972} or Dinic \cite{Dinic1970}. 
 
-The advantage of this approach is clear: it is very easy to compute a path from one node to another or decide that 
+The advantage of this approach is that it is very easy to compute a path from one node to another or to decide that 
 there is none. It can essentially be done by simple graph search algorithms. Some Maximum Flow algorithms use shortest 
 path as subroutine in order to prove their optimality, which in our case would not work: we would set negative weight 
 on the arc to maximize flow. But the shortest path problem is only easy to solve with nonnegative edge weights. With 
@@ -440,31 +439,31 @@ them this could produce cyclic flow, see for example figure \ref{bild:cycleFromC
 % \draw (3) -- (5);
   \end{scope}
 \end{tikzpicture}
-\caption{If we just combine a path from the source to the tail of $e$ and from its head to the sink, we might get a 
-directed cycle, leading to cyclic flow}
+\caption{If we just combine a path from the source to the tail of $e$ and from its head to the sink, we might get 
+crossing paths, leading to cyclic flow}
  \label{bild:cycleFromCombinedPaths}
 \end{figure}
 
-But on every path the flow is going over $a$ only once, while in a MIP formulation as normal Min-Cost Flow Problem it 
-could be as much as the capacity of $a$ allows. The heuristic will always fulfill the natural bound that flow over each 
+But on every path the flow is going over $e$ only once, while in a MIP formulation as normal Min-Cost Flow Problem it 
+could be as much as the capacity of $e$ allows. The heuristic will always fulfill the natural bound that flow over each 
 arc is at most the sum of all ingoing/outgoing flow in the network. Before we can prove anything, we have to deal with 
-the problem the there might be no path between a chosen source-sink pair over the specified arc $e$. In fact it is even 
-worse: Figure \ref{bild:backaugmentationIsNecessary} %TODO make this picture, where we have to go back to saturate 
+the problem that there might be no path between a chosen source-sink pair over the specified arc $e$. In fact it is 
+even worse: Figure \ref{bild:backaugmentationIsNecessary} %TODO make this picture, where we have to go back to saturate 
 shows that situations can occur, where we have to decrease the amount of flow over $e$ within the heuristic to just 
 make our flow a feasible flow. 
 %TODO prove it
 
 We will specify the heuristic algorithm here in pseudocode and show that it yields a valid bound not higher than the 
-sum of flow from all sources together. We will also analyze its worst-case running time.
+sum of flow from all sources. We will also analyze its worst-case running time.
 
 %Pseudocode des Algorithmus
 \begin{algorithm}
  \caption{path based heuristic flow bound algorithm}
 \label{algo:pathHeur}
  %TODO gehe gerade von vorwärts gerichteter e aus, und maximierung
- \begin{algorithmic}[0]%[0] means no line numbers, n means every nth line number is displayed
+ \begin{algorithmic}[5]%[0] means no line numbers, n means every nth line number is displayed
   \Function{Heuristic}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R $}%hier übergabeparameter
-    \State define $b':V\to \R,\, b'(v)\gets 0 \forall v\in V$
+    \State define $b':V\to \R,\, b'(v)\gets 0 \forall v\in V$ \Comment{temporary balances}
     \State define $f: A\to\R,\, f(v)\gets 0 \forall a\in A$
     \While {$\neg (b+b'\equiv 0) $}\Comment{while there are active source-sink-pairs}
       \If{ $c(e)>f(e)$}
@@ -502,8 +501,8 @@ sum of flow from all sources together. We will also analyze its worst-case runni
  \end{algorithmic}
 
 \end{algorithm}%TODO die aufgerufenen Methoden ebenfalls als Pseudocode darstellen?
-The algorithm calls easy functions where the name already tells what should be happening there. Though they are simple 
-we also describe them as short pseudocode:
+The algorithm calls some easy functions where the name already tells what should be happening there. Though they are 
+simple we also describe them as short pseudocode:
 
 \begin{algorithm}
 %  \caption{find a path from given node to a source}
@@ -574,7 +573,7 @@ we also describe them as short pseudocode:
     \ForAll{$a\in P$}
       \If{$a$ is considered the second time in the same direction in $P$}
 	\State \textbf{continue}\Comment do not increase flow value here, equivalent to increase of capacity bounds on 
-this arc
+		this arc. Why this is necessary see example \ref{example:mustNotAugmentArcTwice}
       \EndIf
       \State increase flow on $a$ in direction of $P$ by augval
     \EndFor
@@ -619,12 +618,17 @@ we can try to satify all supply/demand in the network, accepting that it might d
 this is correct and yields improved bounds. We also have to show that we can not go back to a former stage after 
 completing it.
 \begin{itemize}
- \item [First Stage:] In step $i$ there is an additional supply and demand of say $\alpha_i$ satisfied. In each of the 
-steps the flow value $f_i(e)$ is also increased by $\alpha_i$, so while the algorithm is in this stage it has all flow 
-going over $e$. In any acyclic flow this can be not more: if it was more in a flow $f'_i(e)$ the flow from one source 
-has to go over $e$ twice. But this would form a cyclic flow somewhere. \Lightning.
+ \item [First Stage (Forward augmentation on $e$, alg. line \ref{heur:lineAugCase1}) :] In step $i$ an additional 
+supply and demand of say $\alpha_i$ gets satisfied. In each of the 
+steps the flow value $f_i(e)$ on the maximized arc $e$ is also increased by $\alpha_i$. So while the algorithm is in 
+this stage it has all flow going over $e$. In any acyclic flow this flow value can not be higher: if in an acyclic flow 
+$f'_i(e)$ the flow value was higher than $f_i(e)$, flow from one source would have to go over $e$ twice. But this 
+would form a cyclic flow somewhere. \Lightning.
 
-  \item[Second Stage:] 
+  \item[Second Stage (Cannot increase flow over $e$, but can go around, alg. line \ref{heur:lineAugCase2}) :]
+  
+  
+  \item[Third Stage (Cannot find a path that is not decreasing $f(e)$, alg. line \ref{heur:lineAugCase3}) :] 
 \end{itemize}
 
  
