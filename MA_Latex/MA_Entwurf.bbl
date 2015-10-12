@@ -21,6 +21,11 @@ Jack Edmonds and Richard~M. Karp, \emph{Theoretical improvements in algorithmic
 L.~R. Ford and D.~R. Fulkerson, \emph{{Maximal Flow through a Network.}},
   Canadian Journal of Mathematics \textbf{8}, 399--404.
 
+\bibitem{minMeanCycleCancelling89}
+Andrew~V. Goldberg and Robert~E. Tarjan, \emph{Finding minimum-cost
+  circulations by canceling negative cycles}, J. ACM \textbf{36} (1989), no.~4,
+  873--886.
+
 \bibitem{GroetschelJuengerReinelt1985b}
 Martin Gr{\"o}tschel, Michael J{\"u}nger, and Gerhard Reinelt, \emph{On the
   acyclic subgraph polytope}, Mathematical Programming \textbf{33} (1985),
@@ -29,5 +34,10 @@ Martin Gr{\"o}tschel, Michael J{\"u}nger, and Gerhard Reinelt, \emph{On the
 \bibitem{KorteVygenCombOpt2007}
 Bernhard Korte and Jens Vygen, \emph{Combinatorial optimization: Theory and
   algorithms}, 4th ed., Springer Publishing Company, Incorporated, 2007.
+
+\bibitem{NetworkSimplexOrlin97}
+JamesB. Orlin, \emph{A polynomial time primal network simplex algorithm for
+  minimum cost flows}, Mathematical Programming \textbf{78} (1997), no.~2,
+  109--129 (English).
 
 \end{thebibliography}

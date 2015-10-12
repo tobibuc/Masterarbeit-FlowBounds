@@ -9,7 +9,8 @@ transformed graph. We show that we get a valid bound for the Acyclic Flowbound P
 
 The main idea of this approach is to avoid that the same flow is cycling over and over again until it reaches the 
 capacity bounds. In order to achieve this we make a copy of the original graph and make the maximized arc the bridge 
-between the two. On one part of the graph we only have sources, on the other part we only have sinks. In order to make 
+between the two. On one part of the graph we only have sources, on the other part we only have sinks. In order 
+to make 
 the problem feasible we introduce artificial arcs between the sinks and their counterparts in the other copy of the 
 graph. These artificial arcs get a detention cost so they are only used when there is no other way. On this modified 
 graph we obtain minimum costs by sending as much flow as possible over the maximized arc. However this flow does not 
@@ -23,12 +24,12 @@ The following algorithm \ref{algo:graphtransform} describes how the graph is tra
 
 %Pseudocode des Algorithmus
 \begin{algorithm}
- \caption{graph transforming heuristic}
+ \caption{graph transformation}
  \label{algo:graphtransform}
  \begin{algorithmic}[5]
   \Function{MakeTransformedGraph}{$G=(V,A), e\in A$}
   \State create empty graph $G':=(V',A'), V'=A'=\emptyset$
-  \State make labels capacity, cost $A'\to \R$% , demand $V'\to\R$
+  \State create labels capacity $A'\to \R$, cost $A'\to \R$% , demand $V'\to\R$
   \State create $s, t\in V$ \Comment{ supersource and supersink}
   \State create $a_0 :=(s,t) \in A'$
   \State capacity$(a_0)\gets\infty$ 
@@ -46,19 +47,85 @@ The following algorithm \ref{algo:graphtransform} describes how the graph is tra
   \EndFor
   \ForAll{$a=(u,v)\in A$}
     \If{$a=e$}\Comment{for the arc to maximize we only make a bridge, no copy}
-      \State create arc $a':=(u_A, v_B)\in A'$
-      \State capacity$(a')\gets$ capacity$(e)$
+      \State create arc $e':=(u_A, v_B)\in A'$
+      \State capacity$(e')\gets$ capacity$(e)$
     \Else
       \State create arcs $a_A:=(u_A, v_A), a_B:=(u_B, v_B)\in A'$
-      \State capacity$(a_A)=$capacity$(a)$, capacity$(a_b)=$capacity$(a)$
-      \State cost$(a_A)=$cost$(a_B)=0$
+      \State capacity$(a_A)\gets$ capacity$(a)$, capacity$(a_b)\gets$ capacity$(a)$
+      \State cost$(a_A)\gets 0$, cost$(a_B)\gets0$
     \EndIf
   \EndFor
+  \Return $G'$
   \EndFunction
  \end{algorithmic}
 
 \end{algorithm}
 
+%TODO Beispiel mit Bild
+TODO BILD-Beispiel 
+
+With this transformation and any algorithm for Min Cost Flow we can set up an algorithm for our problem. 
+For the Maximum Flow and Minimum Cost Flow Problem in graphs there are many standard algorithms we could use. The 
+classical Maximum Flow algorithm of Ford and Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut 
+theorem is based on augmenting flow on source-sink-paths in the network as well as the improved algorithms of Edmonds 
+and Karp \cite{EdmondsKarp1972} or Dinic \cite{Dinic1970}. Algorithms for Maximum Flow can be used to first check if 
+there is any feasible flow in the network. If there is no feasible flow we can give up at this point, while the flow 
+problem on the transformed graph is always feasible by construction.
+
+Deriving from the Max-Flow Algorithms there are many algorithms solving the Min-Cost-Flow Problem. Edmonds and 
+Karp described a Successive Shortest Path Algorithm in \cite{EdmondsKarp1972}. Goldberg and Tarjan proposed the Minimum 
+Mean Cycle Cancelling Algorithm \cite{minMeanCycleCancelling89} with runnning time of $\mathcal{O}(nm(log 
+n)\min\{log(nC), m log n\}) $.
+Another algorithm is the Network Simplex by Orlin \cite{NetworkSimplexOrlin97} (which was used in the computational 
+study) and there are a lot more algorithms available for Minimum Cost Flow.
+
+Our algorithm mainly applies a feasibility test, a transformation of the graph $G$ and a Minimum Cost Flow computation 
+on the transformed graph $G'$, see algorithm \ref{algo:simpleheur}
+
+\begin{algorithm}
+ \caption{simple heuristic}
+ \label{algo:simpleheur}
+ \begin{algorithmic}
+  \Function{FlowBoundHeur}{$G=(V,A), e\in A$}
+  \State mf$\gets$ \Call{MaxFlow}{G}
+  \If{mf < nominated ingoing flow}
+    \State\Return infeasible
+  \EndIf
+  \State $G'=$ \Call{MakeTransformedGraph}{$G,e$}
+  \State $f\gets$ \Call{MinCostFlow}{$G'$}
+  \State ub$\gets f(e')$
+  \State \Return ub
+  \EndFunction
+ \end{algorithmic}
+\end{algorithm}
+
+We have to show the correctness of the algorithm: %TODO and running time? dependent on used mincostflow!
+
+\begin{prop}
+ The heuristic algorithm \ref{algo:simpleheur} returns a valid upper bound for the possible acyclic flow on a given 
+  arc $e$ in the network.
+\end{prop}
+
+\begin{proof}
+ If a flow is acyclic we can decompose it into flow on a set of simple paths. On the other side this means that the 
+Acyclic Flowbound Problem could theoretically be solved by an algorithm augmenting simple shortest paths where we put 
+some extra constraints and objectives on these paths. These constraints have to forbid the closing of any flow cycle by 
+the path as well as forcing the path to use arc $e$ if possible. \\ %TODO koennte das modell einzeln hinschreiben mit 
+%hinweis auf NP schwere von constrained shortest path. anschließend kommt das relaxierungsargument besser !!!
+%Außerdem hätte ich damit shconmal ein gutes modell
+
+Our algorithm is a relaxation of this constrained simple path model. It still forces all paths that possibly can to go 
+over $e$. But it relaxes the capacity constraints and allows weaker kinds of cycling.
+%TODO das genauer ausführen!!!
+Since it is a relaxation of the problem, the objective 
+
+%  First we show that the value $f(e')$ of the Min-Cost-Flow on $e'$ is the maximum flow that can go over this arc if we 
+% are in a setting where flow "particles" cannot pass over $e'$ twice. Second we show that this is an upper bound for the 
+% Acyclic Flowbound Problem on the arc $e'$.\\
+% 
+% For the first part we assume to have an algorithm using simple source-sink-paths and augmenting as much flow as 
+% possible on them. A simple path cannot go over any arc twice, so it is a specialization of 
+\end{proof}
 
 
 
