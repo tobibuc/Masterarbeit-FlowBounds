@@ -334,8 +334,8 @@ $C_1, C_2$ together implies acyclicity of the cycle $C_3:=C_1\cup C_2\setminus C
 direction. Suppose $C_1$ and $C_2$ are acyclic, but $C_3$ is not. This means in both $C_1$ and $C_2$ there are arcs 
 with different directions on the cycle, while they are all in the same direction on $C_3$. This means, the arcs with 
 different direction have to be in the path $J$ of shared arcs of $C_1$ and $C_2$. Hence within the path $J$ there must 
-be arcs which are directed different to each other. This can only happen, if one of the vertices in the interior of $J$ 
-is a sink or a source. \Lightning
+be arcs which are directed oppositely to each other. This can only happen, if one of the vertices in the interior of 
+$J$ is a sink or a source. \Lightning
 \end{proof}
 %verallgemeinerung: teilt ein kreis den graph in zwei teile, dann ist es ausreichend wenn im innern azyklizität gegeben 
 %und keine quelle/senke vorhanden ist? (verallgemeinerung von planarem Fall)
@@ -349,7 +349,8 @@ following properties:
   \item $G'$ has no source or sink nodes
   \item $G'\cup C$ consists of cycles whose direct sum is $C$ %TODO is direct sum what I really mean? Define it?
  \end{itemize}
- Then any acyclic orientation of the other cycles than $C$ in $G'\cup C$ implies already the acyclicity of $C$. 
+ Then any acyclic orientation of the other cycles than $C$ in $G'\cup C$ implies already the acyclicity of $C$. This 
+  means the acyclicity constraint of $C$ is redundant.
 
 \end{prop}
 %Beweisen, dass in einem Gebiet ohne Quellen oder Senken (das planar ist?) einfache kreise reichen
@@ -373,7 +374,8 @@ constraint redundant.
 There are some special cases where the above result can be very helpful and indeed reduce the number of needed 
 acylicity constraints to polynomial size. This is not only relevant in theory, but also in practice: a real world gas 
 network might have (at least partially) a planar graph representation. Planar graphs fulfill the condition to find a 
-cycle the is dividing the graph into different parts easily - each cycle in a planar graph embedding divides the graph 
+cycle which is dividing the graph into different parts easily - each cycle in a planar graph embedding divides the 
+graph 
 into interior and exterior. If we have only one source and one sink and find an embedding where both are on the outer 
 (unbounded) face of the graph, it is sufficient to have the acyclicity constraints only on the face cycles of the 
 graph. The same holds for all areas or subgraphs without sources/sinks that are enclosed by a cycle: we only need small 
@@ -383,7 +385,8 @@ simple cycles and all other acyclicity constraints are redundant.
 Still we have a problem with the sources and sinks. If there are many of them we still run into exponential numbers of 
 acyclicity constraints.
 
-\subsection{The Constrained Path Augmentation Model}%TODO was soll hier rein? Vorarbeit zur Heuristik!
+\subsection{The Constrained Path Augmentation Model}%TODO kann man so ein modell finden, das mithilfe von constrained 
+% shortestpath problemen einen successive shortest path algo zu einem maxflowbound-algo macht? duerfte schwer werden...
 
 The main idea is to design an algorithm that uses path augmentation to saturate the given flow demands. The 
 algorithm tries to push as much flow value as possible over the arc where flow is maximized, while having the 
@@ -415,24 +418,20 @@ $u$ and one from node $v$ to a sink $t$. If we combine them this could produce c
 \draw[postaction={decorate}] (b) -- (a)node [pos=0.5, above, black] {e};
 \draw[arrow, bend right, color=red] (s) to (c);
 \draw[arrow, bend right, color=red] (c) to (b);
-\draw[arrow, bend left, color=blue] (c) to (t);
-\draw[arrow, bend right, color=blue] (a) to (c);
-%beschriftungen
-% \node (e1) at (0.4,0.6){$e_1$};
-% \node (e2) at (1.6,0.6){$e_2$};
-% \node (e3) at (1.6,-0.6){$e_3$};
-% \node (e4) at (0.4,-0.6){$e_4$};
-% \node (e5) at (1.15, 0){$e_5$};
-% \draw (3) -- (5);
+\draw[arrow, bend left, color=orange] (c) to (t);
+\draw[arrow, bend right, color=orange] (a) to (c);
   \end{scope}
 \end{tikzpicture}
 \caption{If we just combine a path from the source to the tail of $e$ and from its head to the sink, we might get 
 crossing paths, leading to cyclic flow}
  \label{bild:cycleFromCombinedPaths}
 \end{figure}
+
 But it is also not sufficient to just use simple paths: it could as well happen that two different paths intersect in 
 such a way that the combination of these paths produces a flow cycle, see figure 
 \ref{bild:cycleFromDifferentCombinedPaths}.
+
+
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
@@ -444,30 +443,28 @@ such a way that the combination of these paths produces a flow cycle, see figure
 % \node (stext) at (-0.1, 0.2){s};
 \node (b) at (2,-0.5)[vertex]{} ;
 \node (c) at (2,1)[vertex]{};
-\node (d) at (0.5, -1)[vertex]{};
+\node (d) at (1.5, -2)[vertex]{};
+\node (e) at (3.5, -1)[vertex]{};
 \node (s) at (3,2)[vertex]{};
 \node (t) at (0,1)[vertex]{};
 
 \draw[postaction={decorate}] (b) -- (a)node [pos=0.5, above, black] {e};
 \draw[arrow, bend right, color=red] (s) to (c);
 \draw[arrow, bend right, color=red] (c) to (b);
-\draw[arrow, bend left, color=blue] (c) to (t);
+\draw[arrow, bend left, color=red] (a) to (e);
+\draw[arrow, bend right, color=blue] (c) to (t);
 \draw[arrow, bend right, color=blue] (a) to (c);
-%beschriftungen
-% \node (e1) at (0.4,0.6){$e_1$};
-% \node (e2) at (1.6,0.6){$e_2$};
-% \node (e3) at (1.6,-0.6){$e_3$};
-% \node (e4) at (0.4,-0.6){$e_4$};
-% \node (e5) at (1.15, 0){$e_5$};
-% \draw (3) -- (5);
+\draw[arrow, bend left, color=blue] (d) to (b);
   \end{scope}
 \end{tikzpicture}
-\caption{If we just combine a path from the source to the tail of $e$ and from its head to the sink, we might get 
-crossing paths, leading to cyclic flow}
+\caption{If we combine two simple paths going over $e$ we might get a crossing, leading to cyclic flow}
  \label{bild:cycleFromDifferentCombinedPaths}
 \end{figure}
 
-
+In order to design an algorithm that uses such path augmentations, it is thus necessary to put acyclicity into the path 
+choosing procedure as a constraint. The condition that flow on an arc $e$ is maximized will still be the objective.
+We have to show that we can model our acyclic path as the ressource constrained shortest path. Still ressource 
+constrained shortest path is \mathcal{NP}-hard, %TODO
 
 
 

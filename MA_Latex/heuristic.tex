@@ -2,7 +2,8 @@
 \subsection{A Simple Heuristic Approach}
 
 So as we have seen, the computations of the MIP formulation with separation of the Acyclicity Constraints could be 
-expensive in running time and ressource consumption. The solved problem is a relaxation anyway, so we can as well think 
+expensive in running time and ressource consumption. The solved problem is a relaxation of the real-world 
+problem anyway, so we can as well think 
 about different relaxations and heuristic approaches. This chapter will introduce a simple and easy to 
 implement heuristic approach. This approach uses a graph transformation and computes a Minmum Cost Flow on the 
 transformed graph. We show that we get a valid bound for the Acyclic Flowbound Problem from this transformed graph.\\
@@ -144,7 +145,7 @@ has costs of 1 per flow unit and the second has costs of 2 per flow unit. To go 
 paths with positive costs are only used if there is a directed minimal cut where no arc has free capacity.
 
 
-$\Rightarrow$ Since the problem is just a relaxation of the original problem/the simple constrained path model, the 
+$\Rightarrow$ Since the problem is just a relaxation of the original problem/the  constrained simple path model, the 
 obtained bound is always weaker (in this case $\ge$) than the optimal bound for maximum acyclic flow. 
 $\Rightarrow$ the heuristic is correct for finding upper bounds for the acyclic flow on some arc.
 
@@ -156,7 +157,6 @@ forward direction neither find any sink in part $A$ of the graph. If there is a 
 the only possible way is that the remaining flow has to go backward over $e$. So we can just reduce the flow on the 
 bridge by this amount of flow directly going from $s$ to $t$ and the bound is still valid.
 \end{proof}
-%TODO in eigentlich algo und beweis schieben`!
 
 % \begin{algorithm}
 %  \caption{path based heuristic flow bound algorithm}
