@@ -379,9 +379,99 @@ into interior and exterior. If we have only one source and one sink and find an 
 graph. The same holds for all areas or subgraphs without sources/sinks that are enclosed by a cycle: we only need small 
 simple cycles and all other acyclicity constraints are redundant.
 
-%BILD : Bei einem Gitter mit vielen Quellen/Senken sind wir verloren... !
+% TODO BILD : Bei einem Gitter mit vielen Quellen/Senken sind wir verloren... !
 Still we have a problem with the sources and sinks. If there are many of them we still run into exponential numbers of 
 acyclicity constraints.
+
+\subsection{The Constrained Path Augmentation Model}%TODO was soll hier rein? Vorarbeit zur Heuristik!
+
+The main idea is to design an algorithm that uses path augmentation to saturate the given flow demands. The 
+algorithm tries to push as much flow value as possible over the arc where flow is maximized, while having the 
+constraint that the resulting flow is acyclic. %TODO geht das ueberhaupt mit succ shortest path?
+Algorithms that use path augmentation to compute flows are well known and some of the standard flow algorithms. The 
+algorithm of Ford and Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on 
+source-sink-paths in the network as well as the improved algorithms of Edmonds and Karp \cite{EdmondsKarp1972} or Dinic 
+\cite{Dinic1970}. 
+
+If we want to maximize flow over arc $a=(u,v)$ it is not sufficient to just look for a path from our source $s$ to node 
+$u$ and one from node $v$ to a sink $t$. If we combine them this could produce cyclic flow, see for example figure 
+\ref{bild:cycleFromCombinedPaths}. %TODO BILD
+
+%Bild: combining two paths can produce a cycle TODO noch verbessern... z.b. kreis mit einem loop markieren
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+[scale=2, vertex/.style={circle,fill=black},arrow/.style={-latex, shorten >=0.2ex, shorten <=0.2ex}]
+  \begin{scope}[
+    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
+    ]
+\node (a) at (3,0)[vertex]{};
+% \node (stext) at (-0.1, 0.2){s};
+\node (b) at (2,-0.5)[vertex]{} ;
+\node (c) at (2,1)[vertex]{};
+\node (s) at (3,2)[vertex]{};
+\node (t) at (0,1)[vertex]{};
+
+\draw[postaction={decorate}] (b) -- (a)node [pos=0.5, above, black] {e};
+\draw[arrow, bend right, color=red] (s) to (c);
+\draw[arrow, bend right, color=red] (c) to (b);
+\draw[arrow, bend left, color=blue] (c) to (t);
+\draw[arrow, bend right, color=blue] (a) to (c);
+%beschriftungen
+% \node (e1) at (0.4,0.6){$e_1$};
+% \node (e2) at (1.6,0.6){$e_2$};
+% \node (e3) at (1.6,-0.6){$e_3$};
+% \node (e4) at (0.4,-0.6){$e_4$};
+% \node (e5) at (1.15, 0){$e_5$};
+% \draw (3) -- (5);
+  \end{scope}
+\end{tikzpicture}
+\caption{If we just combine a path from the source to the tail of $e$ and from its head to the sink, we might get 
+crossing paths, leading to cyclic flow}
+ \label{bild:cycleFromCombinedPaths}
+\end{figure}
+But it is also not sufficient to just use simple paths: it could as well happen that two different paths intersect in 
+such a way that the combination of these paths produces a flow cycle, see figure 
+\ref{bild:cycleFromDifferentCombinedPaths}.
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+[scale=2, vertex/.style={circle,fill=black},arrow/.style={-latex, shorten >=0.2ex, shorten <=0.2ex}]
+  \begin{scope}[
+    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
+    ]
+\node (a) at (3,0)[vertex]{};
+% \node (stext) at (-0.1, 0.2){s};
+\node (b) at (2,-0.5)[vertex]{} ;
+\node (c) at (2,1)[vertex]{};
+\node (d) at (0.5, -1)[vertex]{};
+\node (s) at (3,2)[vertex]{};
+\node (t) at (0,1)[vertex]{};
+
+\draw[postaction={decorate}] (b) -- (a)node [pos=0.5, above, black] {e};
+\draw[arrow, bend right, color=red] (s) to (c);
+\draw[arrow, bend right, color=red] (c) to (b);
+\draw[arrow, bend left, color=blue] (c) to (t);
+\draw[arrow, bend right, color=blue] (a) to (c);
+%beschriftungen
+% \node (e1) at (0.4,0.6){$e_1$};
+% \node (e2) at (1.6,0.6){$e_2$};
+% \node (e3) at (1.6,-0.6){$e_3$};
+% \node (e4) at (0.4,-0.6){$e_4$};
+% \node (e5) at (1.15, 0){$e_5$};
+% \draw (3) -- (5);
+  \end{scope}
+\end{tikzpicture}
+\caption{If we just combine a path from the source to the tail of $e$ and from its head to the sink, we might get 
+crossing paths, leading to cyclic flow}
+ \label{bild:cycleFromDifferentCombinedPaths}
+\end{figure}
+
+
+
+
+
+
 
 
 \input{heuristic}
