@@ -385,6 +385,7 @@ simple cycles and all other acyclicity constraints are redundant.
 Still we have a problem with the sources and sinks. If there are many of them we still run into exponential numbers of 
 acyclicity constraints.
 
+\newpage
 \subsection{The Constrained Path Augmentation Model}%TODO kann man so ein modell finden, das mithilfe von constrained 
 % shortestpath problemen einen successive shortest path algo zu einem maxflowbound-algo macht? duerfte schwer werden...
 
@@ -462,14 +463,25 @@ such a way that the combination of these paths produces a flow cycle, see figure
 \end{figure}
 
 In order to design an algorithm that uses such path augmentations, it is thus necessary to put acyclicity into the path 
-choosing procedure as a constraint. The condition that flow on an arc $e$ is maximized will still be the objective.
-We have to show that we can model our acyclic path as the ressource constrained shortest path. Still ressource 
-constrained shortest path is \mathcal{NP}-hard, %TODO
+choosing procedure as a constraint. The condition that flow on an arc $e$ is maximized still has to be the objective.
+However, if we want to successively search and augment paths in the network it might be necessary to augment flow 
+backwards - i.e. to change previosly chosen paths due to an acyclicity issue of the current path.
+This is a problem for easy path searching methods. If we have to choose a next node for the path locally and do not 
+know if we have to change a previous path we might have to branch on the decisions.  
+
+In this thesis we will not try to deal with this problem. Instead we assume we had a blackbox algorithm giving us 
+a path to augment - if necessary augmenting back and by this changing other paths from former iterations - such that
+the result is an acyclic flow. We show how such an algorithm could be used to compute an upper bound on the flow on an 
+
+%algo um mit dieser blackbox die optimale flussschranke zu berechnen!
 
 
 
 
 
+
+% We have to show that we can model our acyclic path as the ressource constrained shortest path. Still ressource 
+% constrained shortest path is $\mathcal{NP}$-hard, %TODO
 
 \input{heuristic}
 %%TODO der pfadbasierte heuristische algo funtioniert nicht so einfach, Korrektheit beweisen oder weglassen/auf den 
