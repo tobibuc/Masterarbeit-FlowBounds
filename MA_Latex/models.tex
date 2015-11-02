@@ -390,7 +390,7 @@ acyclicity constraints.
 % shortestpath problemen einen successive shortest path algo zu einem maxflowbound-algo macht? duerfte schwer werden...
 
 The main idea is to design an algorithm that uses path augmentation to saturate the given flow demands. The 
-algorithm tries to push as much flow value as possible over the arc where flow is maximized, while having the 
+algorithm should try to push as much flow value as possible over the arc where flow is maximized, while having the 
 constraint that the resulting flow is acyclic. %TODO geht das ueberhaupt mit succ shortest path?
 Algorithms that use path augmentation to compute flows are well known and some of the standard flow algorithms. The 
 algorithm of Ford and Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on 
@@ -470,11 +470,84 @@ This is a problem for easy path searching methods. If we have to choose a next n
 know if we have to change a previous path we might have to branch on the decisions.  
 
 In this thesis we will not try to deal with this problem. Instead we assume we had a blackbox algorithm giving us 
-a path to augment - if necessary augmenting back and by this changing other paths from former iterations - such that
-the result is an acyclic flow. We show how such an algorithm could be used to compute an upper bound on the flow on an 
+a path to augment - if necessary augmenting flow back (and by this changing other paths from former iterations) - such 
+that the result is an acyclic flow and uses a specified arc if required. We show how such an algorithm could be used to 
+compute an upper bound for the flow on the specified arc of a network.\\
 
 %algo um mit dieser blackbox die optimale flussschranke zu berechnen!
 
+We will specify the heuristic algorithm here in pseudocode and show that it yields a valid bound not higher than the 
+sum of flow from all sources. We will also analyze its worst-case running time.
+
+%Pseudocode des Algorithmus
+\begin{algorithm}
+ \caption{path based heuristic flow bound algorithm}
+\label{algo:pathHeur}
+ %TODO gehe gerade von vorwärts gerichteter e aus, und maximierung
+ \begin{algorithmic}[5]%[0] means no line numbers, n means every nth line number is displayed
+  \Function{Heuristic}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R $}%hier übergabeparameter
+    \State define $b':V\to \R,\, b'(v)\gets 0 \forall v\in V$ \Comment{temporary balances}
+    \State define $f: A\to\R,\, f(v)\gets 0 \forall a\in A$
+    \While {$\neg (b+b'\equiv 0) $}\Comment{while there are active source-sink-pairs}
+      \If{ $c(e)>f(e)$}
+      \State choose active source $v\in V$ 
+	\State $P\gets $\Call{acyclicPathOverE}{$v, e$}
+	\If{$P\ne \emptyset $}
+	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase1}
+	  \State \textbf{continue}
+	\EndIf
+      \EndIf
+%       \Else
+	\State choose $s\in V$ with $b(s)+b'(s)<0$\Comment{source that is still active}
+	\State $c_{alt}(e)\gets c(e)$\Comment{save old capacity value}
+	\State $c(e)\gets f(e)$\Comment{make $e$ unaugmentable for a short time}
+	\State $P\gets$\Call{acyclicPath}{$s$}\Comment{try finding a path that avoids $e$}
+	\State $c(e)\gets c_{alt}(e)$
+	\If{$P\ne \emptyset$}
+	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase2}
+	  \State \textbf{continue}
+	\Else
+	  \State $P\gets$ \Call{acyclicPath}{$s$}
+		\Comment{try to find any path, at this point of time it will be decreasing the flow on $e$}
+	  \If{$P\ne \emptyset$}
+	    \State \Call {maxAugment}{$P$}\label{heur:lineAugCase3}
+	    \State \textbf{continue}
+	  \Else
+	    \State \Return problem infeasible
+	  \EndIf
+	\EndIf
+    \EndWhile
+    \State \Return $f(e)$
+  \EndFunction
+%   \algstore{heur}
+ \end{algorithmic}
+
+\end{algorithm}
+
+%algo um maximum zu augmentieren
+% \begin{algorithm}
+%  \begin{algorithmic}
+%   \Function {maxAugment}{$P$}
+%     \State $s\gets $ source node of $P$
+%     \State $t\gets $ sink node of $P$
+%     \State augval $\gets \min(|s|,|t|)$
+%     \ForAll{$a\in P$}
+%       \State arcMaxAugval $\gets$ max augmentable flow in direction of $P$ on $a$ 
+%       \State augval $\gets \min($augval, arcMaxAugval)
+%     \EndFor
+%     \ForAll{$a\in P$}
+%       \If{$a$ is considered the second time in the same direction in $P$}
+% 	\State \textbf{continue}\Comment do not increase flow value here, equivalent to increase of capacity bounds on 
+% 		this arc. Why this is necessary see example \ref{example:mustNotAugmentArcTwice}
+%       \EndIf
+%       \State increase flow on $a$ in direction of $P$ by augval
+%     \EndFor
+%     \State $b'(s)\gets b'(s) + $augval
+%     \State $b'(t)\gets b'(t) - $augval
+%   \EndFunction
+%  \end{algorithmic}
+%  
+% \end{algorithm}
 
 
 
