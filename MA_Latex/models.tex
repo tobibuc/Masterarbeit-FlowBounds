@@ -559,9 +559,29 @@ acyclic flow problem.
  network. Hence there always is a selection of paths to obtain the optimal flow over $e$. 
  We have to show that the selection process of our algorithm is sufficient for maximality. There are three points at 
  the algorithm where the augmentation can be called. Each time we pass on such a point without augmenting this is 
-because we did not find any path fulfilling our condition. We have to show that this is the right thing to do
- We have to show that 
+ because we did not find any path fulfilling our condition.
  
+ If we try to find a path to augment we make some kind of local decision. We have to show that this is globally 
+ optimal. If there is no way to find a path locally (at the current iteration of the algorithm) then there should be 
+ none at all - even in the best case.
+ 
+ How can we prove this? \\
+ 
+ The difference between two different flows in the same network with the same balances is always just a collection of 
+cycles. This means by shifting and rearranging flow we can obtain every possible flow in the network. If we can obtain 
+every possible flow in the network by cyclic shifting we can do this shifting implicit. On every cycle that we would 
+have to shift to get the "optimal" flow, also our path choosing algorithm can decide which way to go around this cycle. 
+So it can always choose the optimal way.
+Can it happen that this requires a path which is not simple and contains an arc twice? 
+
+%es koennte noetig sien dass ich nicht einfache pfade benötige, um kreisfreien fluss zu ermoeglichen (vor allem 
+% augmentierung in der gleichen richtung zwei mal)
+ 
+ 
+%  We have to show that if we did not find an augmentable path increasing flow over $e$ in the network, it is optimal to 
+% choose a path that does not increase flow over $e$ - and if this does not work either a path that may decrease the flow 
+% over $e$. 
+%  
 
  
  TODO!!!

@@ -131,7 +131,7 @@ However, the capacity constraints of the original problem might be violated! We 
 part B both to the value of the original capacities. Thus it might happen that actual flow value in the original graph 
 amounts to a higher value than the capacity allows (up to twice the capacity). 
 
-Another Problem is, that we cannot guarantee the acyclicity anymore. It might occur that we have cyclic flow in our 
+Another Problem is that we cannot guarantee the acyclicity anymore. It might occur that we have cyclic flow in our 
 original graph $G$ even if the flow in the transformed graph $G'$ is acyclic. This happens when paths from 
 the different parts A and B of $G'$ are crossing when they are brought back to the original graph $G$ to 
 build a solution there. For an example see picture TODO
@@ -157,13 +157,3 @@ forward direction neither find any sink in part $A$ of the graph. If there is a 
 the only possible way is that the remaining flow has to go backward over $e$. So we can just reduce the flow on the 
 bridge by this amount of flow directly going from $s$ to $t$ and the bound is still valid.
 \end{proof}
-
-% \begin{algorithm}
-%  \caption{path based heuristic flow bound algorithm}
-% \label{algo:pathHeur}
-%  %TODO gehe gerade von vorwärts gerichteter e aus, und maximierung
-%  \begin{algorithmic}[5]%[0] means no line numbers, n means every nth line number is displayed
-%   \Function{Heuristic}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R $}%hier übergabeparameter
-%     \State define $b':V\to \R,\, b'(v)\gets 0 \forall v\in V$ \Comment{temporary balances}
-%     \State define $f: A\to\R,\, f(v)\gets 0 \forall a\in A$
-%     \While {$\neg (b+b'\equiv 0) $}\Comment{while there are active source-sink-pairs}
