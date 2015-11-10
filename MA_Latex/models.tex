@@ -389,8 +389,8 @@ acyclicity constraints.
 \subsection{The Constrained Path Augmentation Model}%TODO kann man so ein modell finden, das mithilfe von constrained 
 % shortestpath problemen einen successive shortest path algo zu einem maxflowbound-algo macht? duerfte schwer werden...
 
-The main idea is to design an algorithm that uses path augmentation to saturate the given flow demands. The 
-algorithm should try to push as much flow value as possible over the arc where flow is maximized, while having the 
+The main idea in this chapter is to design an algorithm that uses path augmentation to saturate the given flow demands. 
+The algorithm should try to push as much flow value as possible over the arc where flow is maximized, while having the 
 constraint that the resulting flow is acyclic. %TODO geht das ueberhaupt mit succ shortest path?
 Algorithms that use path augmentation to compute flows are well known and some of the standard flow algorithms. The 
 algorithm of Ford and Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on 
@@ -428,7 +428,7 @@ crossing paths, leading to cyclic flow}
  \label{bild:cycleFromCombinedPaths}
 \end{figure}
 
-But it is also not sufficient to just use simple paths: it could as well happen that two different paths intersect in 
+But it is also not sufficient to just use simple paths: it might happen that two different paths intersect in 
 such a way that the combination of these paths produces a flow cycle, see figure 
 \ref{bild:cycleFromDifferentCombinedPaths}.
 
@@ -492,6 +492,7 @@ sum of flow from all sources. %We will also analyze its worst-case running time.
       \If{ $c(e)>f(e)$}
       \State choose active source $v\in V$ 
 	\State $P\gets $\Call{acyclicPathOverE}{$v, e$}
+	  %\Comment{find augmentable path over $e$ such that we still have acyclic flow after augmentation}
 	\If{$P\ne \emptyset $}
 	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase1}
 	  \State \textbf{continue}
@@ -500,7 +501,7 @@ sum of flow from all sources. %We will also analyze its worst-case running time.
 %       \Else
 	\State choose $s\in V$ with $b(s)+b'(s)<0$\Comment{source that is still active}
 	\State $c_{alt}(e)\gets c(e)$\Comment{save old capacity value}
-	\State $c(e)\gets f(e)$\Comment{make $e$ unaugmentable for a short time}
+	\State $c(e)\gets f(e)$\Comment{make $e$ blocked for a short time}
 	\State $P\gets$\Call{acyclicPath}{$s$}\Comment{try finding a path that avoids $e$}
 	\State $c(e)\gets c_{alt}(e)$
 	\If{$P\ne \emptyset$}
@@ -508,7 +509,7 @@ sum of flow from all sources. %We will also analyze its worst-case running time.
 	  \State \textbf{continue}
 	\Else
 	  \State $P\gets$ \Call{acyclicPath}{$s$}
-		\Comment{try to find any path, at this point of time it will be decreasing the flow on $e$}
+		\Comment{try to find any augmentable path, at this point of time it will be decreasing the flow on $e$}
 	  \If{$P\ne \emptyset$}
 	    \State \Call {maxAugment}{$P$}\label{heur:lineAugCase3}
 	    \State \textbf{continue}
@@ -525,30 +526,66 @@ sum of flow from all sources. %We will also analyze its worst-case running time.
 \end{algorithm}
 
 %algo um maximum zu augmentieren
-% \begin{algorithm}
-%  \begin{algorithmic}
-%   \Function {maxAugment}{$P$}
-%     \State $s\gets $ source node of $P$
-%     \State $t\gets $ sink node of $P$
-%     \State augval $\gets \min(|s|,|t|)$
-%     \ForAll{$a\in P$}
-%       \State arcMaxAugval $\gets$ max augmentable flow in direction of $P$ on $a$ 
-%       \State augval $\gets \min($augval, arcMaxAugval)
-%     \EndFor
-%     \ForAll{$a\in P$}
+\begin{algorithm}
+ \begin{algorithmic}
+  \Function {maxAugment}{$P$}
+    \State $s \gets $ source node of $P$
+    \State $t \gets $ sink node of $P$
+    \State augval $\gets \min(|s|,|t|)$
+    \ForAll{$a\in P$}
+      \State arcMaxAugval $\gets$ max augmentable flow in direction of $P$ on $a$ 
+      \State augval $\gets \min($augval, arcMaxAugval)
+    \EndFor
+    \ForAll{$a\in P$}
 %       \If{$a$ is considered the second time in the same direction in $P$}
 % 	\State \textbf{continue}\Comment do not increase flow value here, equivalent to increase of capacity bounds on 
 % 		this arc. Why this is necessary see example \ref{example:mustNotAugmentArcTwice}
 %       \EndIf
-%       \State increase flow on $a$ in direction of $P$ by augval
-%     \EndFor
-%     \State $b'(s)\gets b'(s) + $augval
-%     \State $b'(t)\gets b'(t) - $augval
-%   \EndFunction
-%  \end{algorithmic}
-%  
-% \end{algorithm}
+      \State increase flow on $a$ in direction of $P$ by augval
+    \EndFor
+    \State $b'(s) \gets b'(s) + $augval
+    \State $b'(t) \gets b'(t) - $augval
+  \EndFunction
+ \end{algorithmic}
+ 
+\end{algorithm}
 
+\begin{prop}
+ The described path-augmentation based algorithm computes the maximum flow value $f(e)$ on the specified arc $e$ in an 
+acyclic flow problem.
+\end{prop}
+\begin{proof}
+ Given any acyclic flow $f$ in a network $G=(V,A)$ we can decompose $f$ into a set of flows over simple paths in the 
+ network. Hence there always is a selection of paths to obtain the optimal flow over $e$. 
+ We have to show that the selection process of our algorithm is sufficient for maximality. There are three points at 
+ the algorithm where the augmentation can be called. Each time we pass on such a point without augmenting this is 
+ because we did not find any path fulfilling our condition.
+ 
+ If we try to find a path to augment we make some kind of local decision. We have to show that this is globally 
+ optimal. If there is no way to find a path locally (at the current iteration of the algorithm) then there should be 
+ none at all - even in the best case.
+ 
+ How can we prove this? \\
+ 
+ The difference between two different flows in the same network with the same balances is always just a collection of 
+cycles. This means by shifting and rearranging flow we can obtain every possible flow in the network. If we can obtain 
+every possible flow in the network by cyclic shifting we can do this shifting implicit. On every cycle that we would 
+have to shift to get the "optimal" flow, also our path choosing algorithm can decide which way to go around this cycle. 
+So it can always choose the optimal way.
+Can it happen that this requires a path which is not simple and contains an arc twice? 
+
+%es koennte noetig sien dass ich nicht einfache pfade benötige, um kreisfreien fluss zu ermoeglichen (vor allem 
+% augmentierung in der gleichen richtung zwei mal)
+ 
+ 
+%  We have to show that if we did not find an augmentable path increasing flow over $e$ in the network, it is optimal to 
+% choose a path that does not increase flow over $e$ - and if this does not work either a path that may decrease the flow 
+% over $e$. 
+%  
+
+ 
+ TODO!!!
+\end{proof}
 
 
 
