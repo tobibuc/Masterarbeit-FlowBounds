@@ -14,9 +14,10 @@ balanced on their (absolute) higher bound values
 $$\sum_{v \in V\textrm{ sink}}d_u(v)-\sum_{v \in V\textrm{ source}}d_l(v)=0$$ 
 %TODO am ende kontrollieren, dass demands (was positiv, was negativ) konsistent verwendet wurde!
 
-Let there be a capacity function $c:A\to \mathcal{P}(\R), \, c(a)=[c_l(a), c_u(a)],\, c_l(a)\le 0 \le c_u(a) \, \forall 
-a\in A$, and a flow  $f: A\to \R $ with $c_l(a)\le f(a)\le 
-c_u(a)\, \forall a\in A$ and $\sum_{a\in \delta^+(v)}f(a)-\sum_{a\in\delta^-(v)}f(a)+d(v) = 0 \, \forall v\in V$.\\
+Let there be a capacity function 
+$$c:A\to \mathcal{P}(\R), \, c(a)=[c_l(a), c_u(a)],\, c_l(a)\le 0 \le c_u(a) \, \forall a\in A$$
+and a flow  $f: A\to \R $ with $$c_l(a)\le f(a)\le 
+c_u(a)\, \forall a\in A$$ and $$\sum_{a\in \delta^+(v)}f(a)-\sum_{a\in\delta^-(v)}f(a)+d(v) = 0 \, \forall v\in V$$\\
 We call this flow a \textit{feasible network flow on G}.
 \end{definition}
 
@@ -59,17 +60,17 @@ $$d_l(v)\le d_u(v)-\underbrace{f'((z,v))}_{0\le f'((z,v))\le d_u(v)-d_l(v)}=d'(v
 
  %cycle was already defined in the Definitions chapter
 \begin{definition}
-A \textit{cyclic flow} within such a feasible network flow $f$ is a flow $f':C\to \R$, where $C\subseteq A$ is a cycle, 
-$\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$ , for all arcs the flow 
+A \textit{cyclic flow} within such a feasible network flow $f$ is a flow $f':C\to \R$ where $C\subseteq A$ is a cycle, 
+$$\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$$ for all arcs the flow 
 directions in $f'$ and $f$ are the same, i.e. $f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 0$ and 
-there is really a flow, i.e. $f'(a) \ne 0 \,\forall a\in C$. 
+there is really a nonzero flow, i.e. $f'(a) \ne 0 \,\forall a\in C$. 
 
 If there is any cyclic flow $f'$ in a network flow $f$ we say that $f$ contains a flow cycle. If there is no cyclic 
 flow, we say $f$ is \textit{acyclic} or an \textit{acyclic flow} on $G$.\\
 
 The conditions imply, that a cyclic flow is one that has no sources or sinks and the same value of flow on each arc.
 
-The \textit{size of a cyclic flow} is the absolute amount of of flow contributing to the cycle, that means it is the 
+The \textit{size of a cyclic flow} is the absolute amount of of flow contributing to the cycle. This means it is the 
 maximum value $|f'(a)|$ a cyclic flow $f'$ can reach. 
 %flow $ f: C\to \R ,\, C\subseteq A \textrm{ a cycle, }\,c_l(a)\le 
 %f(a)\le c_u(a)\, \forall a\in C$ with the property that 
@@ -131,7 +132,8 @@ $$\Rightarrow \max(f(e)|f\in F_{cyc}^e)= \max(f'(e)|f'\in F_{acyc}) $$
 \end{proof}
 
 
-Now that we defined our problem, we can investigate it deeper. It is obviously closely related to other flow problems, 
+Now that we defined our problem, we can investigate it deeper. The acyclic Flowbound Problem is obviously closely 
+related to other flow problems, 
 though the special constraints we built make it more complicated. One way to deal with this is to look at related 
 problems, which could give bounds on our problem or even the same solution in special cases.
 
