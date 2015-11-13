@@ -1,0 +1,24 @@
+\subsection{Motivation}
+Natural gas is one of the most common ressources of energy in germany and makes up more than 20 percent of energy 
+consumption. Most of this gas is produced in ressource-rich countries like Russia or Norway and transported to Germany 
+through special pipelines. 
+%TODO wie sollte ich das projekt am besten referenzieren?
+This thesis evolved from a joint research project of the Konrad Zuse Zentrum fuer Informationstechnik Berlin(ZIB) with 
+Open Grid Europe (OGE) who operate the largest network of gas pipelines in germany. 
+A general overview over the work on the gas network planning problem is given in 
+\cite{FuegenschuhGeisslerGollmeretal.2013}. The problem of finding settings for all active components of the network 
+such that given demands and supplies can be sent through the network with respect to all constraints is the nomination 
+validation problem. A description of the model used and work done for the nomination validation problem can be 
+found in \cite{PfetschFuegenschuhGeissleretal.2012}. 
+
+The flow of gas through a pipeline network is determined by physical conditions such as pressure and temperature. 
+Pressure can be increased in compressor stations and controlled by elements like valves. Pressure loss along a pipe is 
+described by ordinary differential equations. 
+
+The computation of the flow is difficult due to numerical and algorithmical reasons. Good preprocessing 
+routines can help a lot by reducing the domains and model sizes before the main computation is started.
+Since the flow of gas in the network is always determined by pressure differences and flow is always going from higher 
+pressure to lower pressure we know that we can exclude any cyclic flow in the network. We can compute a flow with 
+maximum value on a specified arc in the network with a standard Minimum Cost Flow algorithm. 
+However a Minimum Cost Flow Algorithm usually is allowed to have cyclic flows and thus will maximize flow by shifting 
+it around a cycle containing the maximized arc as long 
