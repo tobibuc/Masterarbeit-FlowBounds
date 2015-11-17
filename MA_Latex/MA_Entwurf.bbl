@@ -21,6 +21,16 @@ Jack Edmonds and Richard~M. Karp, \emph{Theoretical improvements in algorithmic
 L.~R. Ford and D.~R. Fulkerson, \emph{{Maximal Flow through a Network.}},
   Canadian Journal of Mathematics \textbf{8}, 399--404.
 
+\bibitem{FuegenschuhGeisslerGollmeretal.2013}
+Armin F{\"u}genschuh, Bj{\"o}rn Gei{\ss}ler, Ralf Gollmer, Christine Hayn, Rene
+  Henrion, Benjamin Hiller, Jesco Humpola, Thorsten Koch, Thomas Lehmann,
+  Alexander Martin, Radoslava Mirkov, Antonio Morsi, Werner R{\"o}misch,
+  Jessica R{\"o}vekamp, Lars Schewe, Martin Schmidt, R{\"u}diger Schultz,
+  Robert Schwarz, Jonas Schweiger, Claudia Stangl, Marc~C. Steinbach, and
+  Bernhard~M. Willert, \emph{Mathematical optimization for challenging network
+  planning problems in unbundled liberalized gas markets}, Energy Systems
+  \textbf{5} (2013), no.~3, 449 -- 473.
+
 \bibitem{minMeanCycleCancelling89}
 Andrew~V. Goldberg and Robert~E. Tarjan, \emph{Finding minimum-cost
   circulations by canceling negative cycles}, J. ACM \textbf{36} (1989), no.~4,
@@ -39,5 +49,14 @@ Bernhard Korte and Jens Vygen, \emph{Combinatorial optimization: Theory and
 JamesB. Orlin, \emph{A polynomial time primal network simplex algorithm for
   minimum cost flows}, Mathematical Programming \textbf{78} (1997), no.~2,
   109--129 (English).
+
+\bibitem{PfetschFuegenschuhGeissleretal.2012}
+Marc~E. Pfetsch, Armin F{\"u}genschuh, Bj{\"o}rn Gei{\"s}ler, Nina Gei{\"s}ler,
+  Ralf Gollmer, Benjamin Hiller, Jesco Humpola, Thorsten Koch, Thomas Lehmann,
+  Alexander Martin, Antonio Morsi, Jessica R{\"o}vekamp, Lars Schewe, Martin
+  Schmidt, R{\"u}diger Schultz, Robert Schwarz, Jonas Schweiger, Claudia
+  Stangl, Marc~C. Steinbach, Stefan Vigerske, and Bernhard~M. Willert,
+  \emph{Validation of nominations in gas network optimization: Models, methods,
+  and solutions}, Tech. Report 12-41, ZIB, Takustr.7, 14195 Berlin, 2012.
 
 \end{thebibliography}
