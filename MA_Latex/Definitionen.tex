@@ -167,11 +167,26 @@ and the function $f$ is defined by formulas.
 \begin{definition}
  Given some finite set $E$ , a set $\mathcal{I}\subset \mathcal{P}(E)$ of feasible solutions and a function 
  $c:E\to \R$. Define for a set $S \in \mathcal{P}(E)$ the total costs $c':\mathcal{P}(E)\to \R$, 
- $c'(S)=\sum_{s\in S}c(s)$. The problem of finding an element $i_m\in\mathcal{I}$ with $c'(i_m)\ge c'(i)\forall 
-i\in\mathcal{I} $ (or $c'(i_m)\le c'(i)\forall i\in\mathcal{I} $) we call a combinatorial maximization (minimization) 
-problem with linear objective function.
+ $c'(S)=\sum_{s\in S}c(s)$. 
+ 
+ The problem of finding an element $i_m\in\mathcal{I}$ with $c'(i_m)\ge c'(i)\forall 
+ i\in\mathcal{I} $ (or $c'(i_m)\le c'(i)\forall i\in\mathcal{I} $) we call a combinatorial maximization (minimization) 
+ problem with linear objective function.
 \end{definition}
 
-Often we can model such combinatorial optimization problems as linear, mixed-integer, quadratic or constrained program 
+Often we can model such combinatorial optimization problems as linear, mixed-integer, quadratic or constraint program 
 depending on the definition of the feasible set $\mathcal{I}$. 
+
+As we will make use of such programs we want to define the basics here. We use the framework SCIP ("Solving Constraint 
+Integer Programs") for solving our problem. For details of the solvers setup setup we refer to the PhD Thesis of Tobias 
+Achterberg \cite{Achterberg2007} where he describes the main design of his Constraint Integer Programming solver SCIP. 
+The following definitions also follow this work.
+
+\begin{definition}
+ A \textit{constraint program} is a triple $(\mathcal{C},\mathcal{D},f)$ and consists of solving
+ $$f^*=\min{f(x)|x\in \mathcal{D}, \mathcal{C}(x)}$$ 
+ where $\mathcal{D}=\mathcal{D}_1\dots \mathcal{D}_n$ is the domain set, $f:\mathcal{D}\to\R$ the objective function and
+ $\mathcal{C}$ the constraint set.
+\end{definition}
+
 

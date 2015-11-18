@@ -5,7 +5,10 @@
   \href{http://www.ams.org/mathscinet-getitem?mr=#1}{#2}
 }
 \providecommand{\href}[2]{#2}
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
+
+\bibitem{Achterberg2007}
+Tobias Achterberg, \emph{Constraint integer programming}, Ph.D. thesis, 2007.
 
 \bibitem{Dinic1970}
 E.~A. Dinic, \emph{{A}lgorithm for {S}olution of a {P}roblem of {M}aximum
