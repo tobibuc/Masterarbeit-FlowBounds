@@ -194,9 +194,10 @@ unbounded.
   \end{scope}
 \end{tikzpicture}
  \end{figure}
-In this first picture we see that the flow on the maximized arc $e$ in the acyclic case has to be 1. In the normal case 
-it could be any number we choose as capacities for all arcs in the network. Hence the relative gap
-$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}$ is $\frac{\textrm{min capacity on the cycle}}{1}$ which is unbounded.
+In this first picture we see that the flow on the maximized arc $e$ in the acyclic case has to be 1. If we allow cyclic 
+flow it could be any number - it is the minimum we choose as capacity for an arc in the network. Hence the 
+relative gap is
+$$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}=\frac{\textrm{min capacity on the cycle}}{1}$$ which is unbounded.
   
 \begin{figure}[h!]
 \centering
@@ -225,8 +226,8 @@ $ \frac{f_{cyc}(e)}{f_{acyclic}(e)}$ is $\frac{\textrm{min capacity on the cycle
 \end{figure}
 
 The second picture shows a graph where the flow on $e$ in the acyclic case is $0$. If we do not forbid cyclic flows, 
-the flow on $e$ will always be $\min_{a\in \textrm{ cycle }C}c_u(a)$. So the gap in relative numbers $ 
-\frac{f_{cyc}(e)}{f_{acyclic}(e)}$ is not even defined!
+the flow on $e$ will always be $\min_{a\in \textrm{ cycle }C}c_u(a)$ like in the first picture. So the gap in relative 
+numbers $$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}=\frac{\min_{a\in \textrm{ cycle }C}(c_u(a))}{0}$$ is not even defined!
 \end{proof}
 
 As a different relaxation we could weaken the capacity constraints, but still insist on an acyclic flow that is maximum 

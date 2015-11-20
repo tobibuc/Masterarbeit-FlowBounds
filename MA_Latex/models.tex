@@ -1,11 +1,23 @@
 %main section about the different models 
+In this section we describe different mathematical models that can be used to obtain bounds on the acyclic flow going 
+over a specified arc of the given flow network (assumed there is any feasible network flow). We present two different 
+MIP models of the acyclic flowbound problem. The first model uses node potentials and constraints to force flow to 
+go in direction from higher to lower potentials. The second model uses decision variables for the direction of the 
+flow and special acyclicity constraints on them for each cycle. They are different in size as the second MIP model 
+explicitly uses constraints on the cycles to exclude cyclic flow from the solution. We show that it is not sufficient 
+to have these constraints just on a cycle base (which would be a linearly small number). But we can prove 
+conditions under which the acyclicity constraint of a cycle becomes redundant. Still there can be exponential many 
+cycles in a network and the condition could be fulfilled on \textit{cycle} of the network. 
+
+Furthermore we discuss a solving approach not using mixed integer programming but a direct flow algorithm based on 
+augmenting paths in the network.%TODO funktioniert das, oder gleich sagen nur als heuristik?
 
 
 
 \subsection{MIP Formulations}
 For many combinatorial Problems it is the best practical solution to formulate them as a Mixed Integer Problem and just 
 solve this problem with modern MIP Solvers such as CPlex, Gurobi, SCIP etc. Often there are different possible 
-formulations as 
+formulations of the problem as 
 MIP, which might yield very different running times due to numerical or algorithmical reasons. In our problem, it is 
 easy to model the flow conservation and the ingoing and outgoing flow on vertices. Like described before, we can assign 
 a negative weight to an arc variable and this way maximize flow over this arc by minimizing the overall cost. This 
