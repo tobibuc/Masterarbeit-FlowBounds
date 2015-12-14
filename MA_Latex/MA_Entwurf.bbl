@@ -44,6 +44,11 @@ Martin Gr{\"o}tschel, Michael J{\"u}nger, and Gerhard Reinelt, \emph{On the
   acyclic subgraph polytope}, Mathematical Programming \textbf{33} (1985),
   no.~1, 28--42 (English).
 
+\bibitem{HumpolaJoormannOucherifPfetschScheweSchmidtSchwarz:2015}
+Jesco Humpola, Imke Joormann, Djamal Oucherif, Marc~E. Pfetsch, Lars Schewe,
+  Martin Schmidt, and Robert Schwarz, \emph{{G}as{L}ib -- {A} {L}ibrary of
+  {G}as {N}etwork {I}nstances}, Tech. report, November 2015.
+
 \bibitem{Karmarkar:1984:NPA:800057.808695}
 N.~Karmarkar, \emph{A new polynomial-time algorithm for linear programming},
   Proceedings of the Sixteenth Annual ACM Symposium on Theory of Computing (New

@@ -8,3 +8,53 @@ approach is suited best to actually compute acyclic flow bounds in a network.
 At last we compare the impact of bounds and the number of fixed variables fed into the solver on the model sizes of the 
 discretization. \\
 
+\subsection{Implemented and Tested Algorithms}
+
+We described the theoretical backgrounds of different algorithms to obtain flow bounds for our problem. The 
+computational results of different implementations of them may vary widely, and the performance is influenced by lots 
+of details regarding the machines, programming languages, data structures or just code quality. Nevertheless we want 
+to give an overview what worked well in the implementation and what did not.\\
+
+All algorithms where tested on a PC with instances of the \textit{"gaslib"} gasnet test library. The library can be 
+downloaded on \url{http://gaslib.zib.de/}. A detailed description of this problem library can be found in 
+\cite{HumpolaJoormannOucherifPfetschScheweSchmidtSchwarz:2015}.
+
+\subsubsection{MIP with Node Potentials and Binary Direction Variables}
+The MIP model described in \ref{model:nodePotential} was implemented in Lamatto, using Gurobi as solver for this 
+model. However,the two layers of indicator constraints seem to be a heavy problem of the model in 
+practice. The folowing model was implemented:
+\begin{align*}
+  &\min \sum_{a\in A} w_a\cdot q_a & \\
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V \\
+ & q_a &\le& c_u(a) & \forall a\in A\\
+ & q_a &\ge& c_l(a) & \forall a\in A\\
+ & \rho_{vw}=1 &\Rightarrow &\pi_v\ge\pi_w +1 & \forall (v,w)\in A\\
+ & \rho_{vw}=0 &\Rightarrow &\pi_w\ge\pi_v +1& \forall (v,w)\in A\\
+ & \rho_{vw}=1 &\Rightarrow &q((v,w))\ge 0& \forall (v,w)\in A\\
+ & \rho_{vw}=0 &\Rightarrow &q((v,w))\le 0& \forall (v,w)\in A\\
+ & q_a \in \R & & &\forall a\in A\\
+ & \pi_v \in \R & & & \forall v\in V\\
+ & d_a \in \{0,1\} & & &\forall a\in A\\
+ & \rho_{vw} \in \{0,1\}&&& \forall a=(v,w)\in A\\
+\end{align*}
+Integer node potentials imply the direction of the arc between the incident nodes. These binary direction 
+variables again imply the sign of the actual flow on an arc. Indicator constraints are usually implemented via 
+Big-M-constraints of the form 
+\begin{align*}
+ &\pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1\\
+ &\pi_v-\pi_w&\le &N\rho_{vw}-1 \\
+ &q((v,w))&\ge& M(\rho_{vw}-1)\\
+ &q((v,w))&\le & M\rho_{vw}\\
+ &\rho_{vw} \in \{0,1\}&&\\
+\end{align*}
+with sufficient big values for $M$ and $N$. This model heavily relies on the Big-M-constraints.
+For any MIP solver these indicator or big-M constraints are difficult to handle, because the optimal vertex of the LP 
+polyhedron can be quite far from the optimal mixed integer solution.\\
+
+The model was tested on the smallest network named "gaslib-40" of the gaslib package. After running for 
+%TODO testergebnisse (vermutlich fail nach etlichen tagen)
+
+\subsubsection{MIP with Binary Direction Variables and separated Acyclicity Constraints}
+In section \ref{model:AcyclicityConstraints} we described a model using acyclicity constraints on the binary directions 
+for cycle that was found during the solving process.
+

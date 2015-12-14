@@ -24,22 +24,23 @@ a negative weight to an arc variable and this way maximize flow over this arc by
 would be the typical MIP formulation of a min cost flow:
 
 \begin{align*}
-  &\min \sum_{a\in A} w_a\cdot x_a  \\
+  &\min \sum_{a\in A} w_a\cdot q_a  \\
   %TODO an die balance-intervall formulierung anpassen
- s.t. & \sum_{a\in \delta^+(v)}x_a - \sum_{a\in\delta^- (v)}x_a = d_v\ &\forall v\in V \\
-  & c_l(a)\le x_a \le c_u(a) & \forall a\in A
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a = d_v\ &\forall v\in V \\
+  & c_l(a)\le q_a \le c_u(a) & \forall a\in A
 \end{align*}
 
 This model still allows cyclic flow, so we have to find constraints to avoid cyclicity. 
 \subsubsection{Model 1: Node Potentials}
+\label{model:nodePotential}
 %TODO welche formulierungen koennte es noch geben fuer dieses problem?
 %TODO PORTA results and polytope of the problem?
 
 One idea (that is unfortunately not a linear problem formulation anymore) would be to set potentials on the nodes and 
 allow only flow from higher to lower potential. This is quite close to the application of our problem in gas flow 
 computation, where gas will only flow from places with high pressure to places with lower pressure in the network. So 
-each vertex $v$ would get a variable $\pi_v$ for its potential, each arc $a$ as before a variable $x_a$ for the amount 
-of flow. Then we add the constraint $$x_a\cdot (\pi_v -\pi_w)\ge 0\,\forall a=(v,w)\in A $$
+each vertex $v$ would get a variable $\pi_v$ for its potential, each arc $a$ as before a variable $q_a$ for the amount 
+of flow. Then we add the constraint $$q_a\cdot (\pi_v -\pi_w)\ge 0\,\forall a=(v,w)\in A $$
 We have to ensure that the values of the potentials are all 
 different, or that there is no flow between nodes of the same potential. Otherwise any solution where all potentials 
 are set to the same value would fulfill this constraint, regardless if it is acyclic or not. So in practice we could 
@@ -47,14 +48,14 @@ set a constant $\varepsilon > 0$ to describe the minimum distance between the po
 solution now has to fulfill the constraint above on every arc. If we set up the constraint as above, we get the Mixed 
 Integer Nonlinear Program
 
-\begin{align*}
-  &\min \sum_{a\in A} w_a\cdot x_a & \\
- s.t. & \sum_{a\in \delta^+(v)}x_a - \sum_{a\in\delta^- (v)}x_a &=& d_v\ &\forall v\in V \\
- & x_a &\le& c_u(a) & \forall a\in A\\
- & -x_a &\le& c_l(a) & \forall a\in A\\
- & -x_a\cdot (\pi_v -\pi_w)&\le& 0 &\forall a=(v,w)\in A\\
+\begin{align*}\label{model:nodePotentialQuadratic}
+  &\min \sum_{a\in A} w_a\cdot q_a & \\
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V \\
+ & q_a &\le& c_u(a) & \forall a\in A\\
+ & -q_a &\le& c_l(a) & \forall a\in A\\
+ & -q_a\cdot (\pi_v -\pi_w)&\le& 0 &\forall a=(v,w)\in A\\
  & (\pi_v - \pi_w)^2 &\ge& \varepsilon &\forall v,w \in V\\
- & x_a \in \R & & &\forall a\in A\\
+ & q_a \in \R & & &\forall a\in A\\
  & \pi_v \in \R & & & \forall v\in V\\
  & d_a \in \{0,1\} & & &\forall a\in A\\
 \end{align*}
@@ -67,51 +68,56 @@ We show that this flow indeed is an acyclic one:
 \begin{proof}
  Assume a flow fulfilling the above constraints would have cyclic flow on a cycle $C$. Without loss of generality 
 we label the vertices on the cycle from $1$ to $n$ and assume all arcs are directed forward on this cycle. This means 
-there are arcs $a_1=(v_1,v_2),a_2=(v_2,v_3), \dots a_n=(v_n, v_1)\in C$ such that $x_{a_i} > 0 \,\forall i={1,\dots , 
-n}$. Also we know from the constraints  $x_a\cdot (\pi_v -\pi_w)\ge 0$ and $\pi_v - \pi_w \neq 0$ (Hence $\Rightarrow 
-\pi_v\neq\pi_w)\, \forall v,w\in V$. So we conclude an ordering of the vertices potentials: $x_{a_1}\cdot (\pi_{v_1} 
+there are arcs $a_1=(v_1,v_2),a_2=(v_2,v_3), \dots a_n=(v_n, v_1)\in C$ such that $q_{a_i} > 0 \,\forall i={1,\dots , 
+n}$. Also we know from the constraints  $q_a\cdot (\pi_v -\pi_w)\ge 0$ and $\pi_v - \pi_w \neq 0$ (Hence $\Rightarrow 
+\pi_v\neq\pi_w)\, \forall v,w\in V$. So we conclude an ordering of the vertices potentials: $q_{a_1}\cdot (\pi_{v_1} 
 -\pi_{v_2})\ge 0 \Rightarrow \pi_{v_1}>\pi_{v_2}$ and so on. This yields a sequence $\pi_{v_1}>\pi_{v_2}>\dots 
 >\pi_{v_n}>\pi_{v_1}$, which is a contradiction. \Lightning
 \end{proof}
 
 However, solving nonlinear mixed integer programs comes with many difficulties, so we will use indicator constraints 
 or an equivalent Big-M constraint to get a mixed integer formulation avoiding these difficulties. For this we  replace 
-$$x_a\cdot (\pi_w -\pi_v)\le 0 \,\forall a=(v,w)\in A $$ and $$(\pi_v - \pi_w)^2 \ge \varepsilon \,\forall v,w \in V$$
+$$q_a\cdot (\pi_w -\pi_v)\le 0 \,\forall a=(v,w)\in A $$ and $$(\pi_v - \pi_w)^2 \ge \varepsilon \,\forall v,w \in V$$
 
 %introduce rho (=richtung) variables
-Instead we introduce a new binary variable $\rho_{vw}$ to indicate flow direction on $a=(v,w)$, and say this variable 
-has to be 1 if flow is from $v$ to $w$ and 0 if it is from $w$ to $v$. Also if $\rho_{vw}$ is $1$ the potential 
-$\pi_v$ of $v$ has to be greater than the potential $\pi_w$ of $w$ and the other way around. So with indicator 
-constraints we get
+Instead we introduce a new binary variable $\rho_{vw}$ to indicate the flow direction on $a=(v,w)$, and say this 
+variable has to be 1 if flow is from $v$ to $w$ and 0 if it is from $w$ to $v$. Also if $\rho_{vw}$ is $1$ the 
+potential $\pi_v$ of $v$ has to be greater than the potential $\pi_w$ of $w$ and the other way around. So with 
+indicatorconstraints we get 
+
+% \label{model:nodePotentialIndicator}
 \begin{align*}
  &\rho_{vw}=1 &\Rightarrow &\pi_v\ge\pi_w +1\\
  &\rho_{vw}=0 &\Rightarrow &\pi_w\ge\pi_v +1\\
- &\rho_{vw}=1 &\Rightarrow &f((v,w))\ge 0\\
- &\rho_{vw}=0 &\Rightarrow &f((v,w))\le 0\\
+ &\rho_{vw}=1 &\Rightarrow &q((v,w))\ge 0\\
+ &\rho_{vw}=0 &\Rightarrow &q((v,w))\le 0\\
  &\rho_{vw} \in \{0,1\}&&
 \end{align*}
 We can reformulate these indicator constraints as
+
+%  \label{model:nodePotentialBigM}
 \begin{align*}
  &\pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1\\
  &\pi_v-\pi_w&\le &N\rho_{vw}-1 \\
- &f((v,w))&\ge& M(\rho_{vw}-1)\\
- &f((v,w))&\le & M\rho_{vw}\\
+ &q((v,w))&\ge& M(\rho_{vw}-1)\\
+ &q((v,w))&\le & M\rho_{vw}\\
  &\rho_{vw} \in \{0,1\}&&\\
 \end{align*}
 where $N\in \R$ and $M\in \R$ are sufficient big constants. Sufficient big in this case could mean we choose 
 $N=|V|\, ,M=\sum_{v\in V}|d(v)|$. \\
 So the complete Mixed Integer Program is:
 
+% \label{model:nodePotentialWithBigM}
 \begin{align*}
-  &\min \sum_{a\in A} w_a\cdot x_a & \\
- s.t. & \sum_{a\in \delta^+(v)}x_a - \sum_{a\in\delta^- (v)}x_a &=& d_v\ &\forall v\in V \\
- & x_a &\le& c_u(a) & \forall a\in A\\
- & x_a &\ge& c_l(a) & \forall a\in A\\
+  &\min \sum_{a\in A} w_a\cdot q_a & \\
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V \\
+ & q_a &\le& c_u(a) & \forall a\in A\\
+ & q_a &\ge& c_l(a) & \forall a\in A\\
  & \pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1& \forall a=(v,w)\in A\\
  & \pi_v-\pi_w&\le &N\rho_{vw}-1& \forall a=(v,w)\in A\\
- & x_a&\ge& M(\rho_{vw}-1)& \forall a=(v,w)\in A\\
- & x_a&\le & M\rho_{vw}& \forall a=(v,w)\in A\\
- & x_a \in \R & & &\forall a\in A\\
+ & q_a&\ge& M(\rho_{vw}-1)& \forall a=(v,w)\in A\\
+ & q_a&\le & M\rho_{vw}& \forall a=(v,w)\in A\\
+ & q_a \in \R & & &\forall a\in A\\
  & \pi_v \in \R & & & \forall v\in V\\
  & d_a \in \{0,1\} & & &\forall a\in A\\
  & \rho_{vw} \in \{0,1\}&&& \forall a=(v,w)\in A\\
@@ -119,21 +125,21 @@ So the complete Mixed Integer Program is:
 %TODO show that these constraints are equivalent to the nonlinear ones? or make a comment at least?
 
 \subsubsection{Model 2: Acyclicity Constraints On All Cycles}
-
+\label{model:AcyclicityConstraints}
 Another idea to solve the Acyclic Flow Bound Problem 
 %(which was partially implemented in Lamatto by Robert Schwarz) 
 is the following: Every arc has a direction and the 
 sign of the flow on this arc tells us in which direction flow is send over this arc. Again we introduce variables 
 $\rho_a\in \{0,1\}$ for each arc $a\in A$ that indicate the direction of flow and are coupled with the flow variables:
 \begin{align*}
-\rho_a=1 & \Rightarrow x_a\ge 0 \\
-\rho_a=0 & \Rightarrow x_a\le 0
+\rho_a=1 & \Rightarrow q_a\ge 0 \\
+\rho_a=0 & \Rightarrow q_a\le 0
 \end{align*}
 These indicator constraints can be handled the way they are by standard MIP solvers, but to make them real MIP 
 constraints we may formulate them as follows (with $M$ a constant sufficient big, e.g. $M=\sum_{v\in V}|d_v|$) :
 \begin{align*}
- x_a + M\cdot (1-\rho_a) &\ge 0\\
- x_a - M\cdot \rho_a & \le 0
+ q_a + M\cdot (1-\rho_a) &\ge 0\\
+ q_a - M\cdot \rho_a & \le 0
 \end{align*}
 
 In addition to decision variables for the flow direction, we have to add constraints to avoid cycles. If the flow is 
@@ -151,26 +157,26 @@ cycles.
 
 So our MIP formulation of the model is finally
 \begin{align*}
- &\min \sum_{a\in A} w_a\cdot x_a & \\
- s.t. & \sum_{a\in \delta^+(v)}x_a - \sum_{a\in\delta^- (v)}x_a = d_v\ &\forall v\in V \\
-  & c_l(a)\le x_a \le c_u(a) & \forall a\in A\\
- &x_a + M\cdot (1-\rho_a) \ge 0 & \forall a\in A\\
- &x_a - M\cdot \rho_a \le 0 & \forall a\in A\\
+ &\min \sum_{a\in A} w_a\cdot q_a & \\
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a = d_v\ &\forall v\in V \\
+  & c_l(a)\le q_a \le c_u(a) & \forall a\in A\\
+ &q_a + M\cdot (1-\rho_a) \ge 0 & \forall a\in A\\
+ &q_a - M\cdot \rho_a \le 0 & \forall a\in A\\
  &1-l \le \sum_{a\in C}\rho_a \le n-(l+1) & \forall \textrm{ cycle }C\in G\\
- & x_a \in \R &\forall a\in A\\
+ & q_a \in \R &\forall a\in A\\
  & \rho_a \in \{0,1\} &\forall a\in A
 \end{align*}
 or if we normalize the MIP to only $\le$ inequalities:
 \begin{align}
- &\min \sum_{a\in A} w_a\cdot x_a & \\
- s.t. & \sum_{a\in \delta^+(v)}x_a - \sum_{a\in\delta^- (v)}x_a &=& b_v\ &\forall v\in V \\
- & x_a &\le& c_u(a) & \forall a\in A\\
- & -x_a &\le& c_l(a) & \forall a\in A\\
- &-x_a - M\cdot (1-\rho_a) &\le& 0 & \forall a\in A\\
- &x_a - M\cdot \rho_a &\le& 0 & \forall a\in A\\
+ &\min \sum_{a\in A} w_a\cdot q_a & \\
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& b_v\ &\forall v\in V \\
+ & q_a &\le& c_u(a) & \forall a\in A\\
+ & -q_a &\le& c_l(a) & \forall a\in A\\
+ &-q_a - M\cdot (1-\rho_a) &\le& 0 & \forall a\in A\\
+ &q_a - M\cdot \rho_a &\le& 0 & \forall a\in A\\
  &1-l - \sum_{a\in C}\rho_a &\le& 0 & \forall \textrm{ cycle }C\in G\\
  & \sum_{a\in C}\rho_a +(l+1)-n &\le& 0 & \forall \textrm{ cycle }C\in G\\
- & x_a \in \R & & &\forall a\in A\\
+ & q_a \in \R & & &\forall a\in A\\
  & \rho_a \in \{0,1\} & & &\forall a\in A
 \end{align}
 
@@ -323,11 +329,11 @@ constraints that have exactly one variable in common, and this has different sig
 out). Let $cons_1$ and $cons_2$ be chosen this way and $C_3=C_1\cup C_2\setminus (C_1\cap C_2)$ be the resulting cycle, 
 then we get:
 \begin{align*}
- &&1&\le &\sum_{a \textrm{ forward in }C_1}x_a + \sum_{a\textrm{ backward in }C_1}{(1-x_a)}&&\le &l_1-1\\
- &+&1&\le &\sum_{a \textrm{ forward in }C_2}x_a + \sum_{a\textrm{ backward in }C_2}{(1-x_a)}&&\le &l_1-1\\
- &=&2&\le &\sum_{a \textrm{ forward in }C_3}x_a +\sum_{a\textrm{ backward in }C_3}{(1-x_a)}+
- &\underbrace{x_a+1-x_a}_{a\in C_1\cap C_2} &\le &l_1+l_2-2\\
- \iff &&1&\le &\sum_{a \textrm{ forward in }C_3}x_a +\sum_{a\textrm{ backward in }C_3}{(1-x_a)}
+ &&1&\le &\sum_{a \textrm{ forward in }C_1}q_a + \sum_{a\textrm{ backward in }C_1}{(1-q_a)}&&\le &l_1-1\\
+ &+&1&\le &\sum_{a \textrm{ forward in }C_2}q_a + \sum_{a\textrm{ backward in }C_2}{(1-q_a)}&&\le &l_1-1\\
+ &=&2&\le &\sum_{a \textrm{ forward in }C_3}q_a +\sum_{a\textrm{ backward in }C_3}{(1-q_a)}+
+ &\underbrace{q_a+1-q_a}_{a\in C_1\cap C_2} &\le &l_1+l_2-2\\
+ \iff &&1&\le &\sum_{a \textrm{ forward in }C_3}q_a +\sum_{a\textrm{ backward in }C_3}{(1-q_a)}
  &&\le &\underbrace{l_1+l_2-2}_{l_3}-1\\
 \end{align*}
 which is exactly the acyclicity constraint of the cycle $C_3$.
