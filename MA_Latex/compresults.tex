@@ -1,14 +1,15 @@
 % The models we described have also been implemented and tested on networks of different size.
-In this section we will discuss practical implementation and results of the computation. For relevant real-world 
+In this section we will discuss the practical implementations and results of the computation. For relevant real-world 
 problem sizes the exact algorithm (even with separation of the acyclicity constraints) is too slow. Hence we also 
 describe how to relax the problem in order to get useable (though in general not optimal) results for the flow bounds. 
-We compare the bounds found by different approaches/settings in different networks and nominations to see which 
-approach is suited best to actually compute acyclic flow bounds in a network. 
+We compare the bounds found by different approaches and with different settings (different networks and nominations) 
+to see which approach is suited best to actually compute acyclic flow bounds in a network. We also describe in short 
+how the standard bounds we used to compare the results to are computed. 
 
 At last we compare the impact of bounds and the number of fixed variables fed into the solver on the model sizes of the 
 discretization. \\
 
-\subsection{Implemented and Tested Algorithms}
+\subsection{Implemented Algorithms}
 
 We described the theoretical backgrounds of different algorithms to obtain flow bounds for our problem. The 
 computational results of different implementations of them may vary widely, and the performance is influenced by lots 
@@ -18,11 +19,12 @@ to give an overview what worked well in the implementation and what did not.\\
 All algorithms where tested on a PC with instances of the \textit{"gaslib"} gasnet test library. The library can be 
 downloaded on \url{http://gaslib.zib.de/}. A detailed description of this problem library can be found in 
 \cite{HumpolaJoormannOucherifPfetschScheweSchmidtSchwarz:2015}.
+%TODO muss ich den PC mit Anzahl kernen etc spezifizieren?!?
 
 \subsubsection{MIP with Node Potentials and Binary Direction Variables}
 The MIP model described in \ref{model:nodePotential} was implemented in Lamatto, using Gurobi as solver for this 
 model. However,the two layers of indicator constraints seem to be a heavy problem of the model in 
-practice. The folowing model was implemented:
+practice. The following model was implemented:
 \begin{align*}
   &\min \sum_{a\in A} w_a\cdot q_a & \\
  s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V \\
@@ -47,14 +49,80 @@ Big-M-constraints of the form
  &q((v,w))&\le & M\rho_{vw}\\
  &\rho_{vw} \in \{0,1\}&&\\
 \end{align*}
-with sufficient big values for $M$ and $N$. This model heavily relies on the Big-M-constraints.
-For any MIP solver these indicator or big-M constraints are difficult to handle, because the optimal vertex of the LP 
+with sufficient big values for $M$ and $N$. This model heavily relies on the Big-M constraints.
+For any MIP solver these indicator or Big-M constraints are difficult to handle, because the optimal vertex of the LP 
 polyhedron can be quite far from the optimal mixed integer solution.\\
 
-The model was tested on the smallest network named "gaslib-40" of the gaslib package. After running for 
+The model was tested on the smallest network named "gaslib-40" of the gaslib package. After running the algorithm for 5 
+seconds the optimal bounds for all arcs of the network were computed. The results were the same as with the Acyclicity 
+Constraint (separation) Model, apart from numerical rounding differences. \\
+
+On the medium size network "gaslib-135" of the gaslib package TODO
+
 %TODO testergebnisse (vermutlich fail nach etlichen tagen)
 
 \subsubsection{MIP with Binary Direction Variables and separated Acyclicity Constraints}
 In section \ref{model:AcyclicityConstraints} we described a model using acyclicity constraints on the binary directions 
-for cycle that was found during the solving process.
+for each cycle that was found during the solving process.
+This model itself is independent of the implementation of the acyclicity constraints. But since a graph can have an 
+exponential number of cycles, writing down all constraints of the model alone could take exponential time. The 
+model redundancies we described in \ref{prop:redundantAcyclicityCons} are not enough to sufficiently reduce the model 
+size - in fact it could happen that the conditions for \ref{prop:redundantAcyclicityCons} do not apply at all in 
+certain networks (though we also did not proof that a clever generalization of the proposition couldn't do better).\\
+
+So the implementation does not add all the acyclicity constraints explicitely. Instead, the MIP Solver gets a 
+general constraint that demands that there is no cyclic flow in the network. When this constraint is checked and there 
+is cyclic flow somewhere in the network, a new linear acyclicity constraint on the cycle with the detected cyclic flow 
+is added. An Acyclicity Constraint Handler was implemented for this thesis in Lamatto with SCIP as MIP solver. \\
+
+Like the other exact model with node potentials this model takes lots of time to compute the optimal solution. In 
+a network there are huge numbers of arcs to be computed that yield similar subproblems, some of them being 
+difficult and running very long. Like in the Node Potential Model we could only produce an exact solution for the 
+"gaslib-40" network while the algorithm was running too long on the other gaslib test instances.
+
+\subsubsection{Relaxations of the Exact Separation Model}
+If we want to have fast answers or compute bigger networks the exact model with separation of acyclicity 
+constraints does not work in practice. Nevertheless this model gives us an interesting relaxation of the acyclic 
+flowbound problem for free: 
+
+We can limit the time or the number of nodes in the branch and bound tree for each arc in the network. If an optimal 
+solution can be found with low effort, we get the optimum bound. If the situation is difficult and we run into the limit 
+we just take the dual bound of the mixed integer program. This number is always an upper bound because it is always 
+greater or equal to the optimum (which is the maximum flow). \\
+
+With this algorithm we will always get some solution. This solution might be $\infty$. To get rid of the infinite 
+values, we can combine it with a simple bound estimate. For example we can take the sum of all ingoing flow as upper 
+bound for all arcs with a dual bound that is greater than this. Depending on the preset limit this dual solution could
+closer to or further from the optimum. 
+
+This relaxation was implemented with a limit on the nodes and is compared to 
+others in the tables below. The tables refer to this relaxation as "sepa\_X" for the exact MIP with separation of 
+acyclicity constraints and a node limit of \textit{X} in the branch and bound process of the MIP.
+
+\subsubsection{Acyclicity Constraints on a Cycle Base}% this is roberts code, props to him!
+This idea was the starting point of this thesis and implemented by Robert Schwarz some time before. It is like the 
+former an incomplete application of the acyclicity constraints. It adds all its acyclicity constraints in the 
+beginning. The advantages are easier implementation and hope for a faster running time since the solver does not need 
+to add new constraints all the time.
+
+We have seen in \ref{bild:reichtkreisbasis2} that the acyclicity constraints of a small subset of the cycles (like a 
+cycle base) do not suffice to forbid cyclic flow  in the network. Still we can try to use them as a relaxation to the 
+exact problem. This will already avoid cyclic flow on single cycles that are not touching each other. The tables show 
+how the idea works out in practice.
+
+\subsubsection{The Standard Bound Computation}%describe the exactfb algo implemented before
+
+
+
+\begin{center}
+
+\begin{tabular}{ l | c | c | c | c }
+\textbf{<gasnetz/scn>} & Time  & Nr of fixed Flows & Nr of Bounds tightened from \ref{} \\
+ raw& x s & 1 & 2 & 3 \\
+%   4 & 5 & 6 \\
+%   7 & 8 & 9 \\
+\end{tabular}
+ 
+\end{center}
+
 

@@ -295,13 +295,14 @@ The resulting constraints are not sharp, because the left hand side and the righ
 cycles, which changes while we combine them.
 
 \begin{prop}
+\label{prop:redundantAcyclicityCons}
  Given two acyclicity constraints $cons_1$ and $cons_2$ of cycles $C_1$ and $C_2$ in $G$. The acyclicity constraint of 
 the joint cycle $C=C_1\cup C_2 \setminus \{a\in A| a\in C_1\land a\in C_2 \}$ is the sum of $cons_1$ amd $cons_2$ if 
 and only if $C_1$ and $C_2$ have exactly one arc in common (and this arc is directed differently in both 
 cycles/constraints).%TODO.
 \end{prop}
-This proposition shows that a many of the acyclicity constraints in our model are redundant and can be omitted. But 
-still the remaining constraints are exponential in the size of $G$.
+This proposition shows that many of the acyclicity constraints in our model may be redundant and could be omitted. 
+But still the remaining constraints are exponential in the size of $G$.
 
 \begin{proof}
  Assume we are given two cycles $C_1,\,C_2\in G=(V,A)$ with exactly one arc $g\in A$ 
