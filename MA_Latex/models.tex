@@ -484,7 +484,7 @@ such a way that the combination of these paths produces a flow cycle, see figure
 In order to design an algorithm that uses such path augmentations, it is thus necessary to put acyclicity into the path 
 choosing procedure as a constraint. The condition that flow on an arc $e$ is maximized still has to be the objective.
 However, if we want to successively search and augment paths in the network it might be necessary to augment flow 
-backwards - i.e. to change previosly chosen paths due to an acyclicity issue of the current path.
+backwards - i.e. to change previously chosen paths due to an acyclicity issue of the current path.
 This is a problem for easy path searching methods. If we have to choose a next node for the path locally and do not 
 know if we have to change a previous path we might have to branch on the decisions.  
 
@@ -568,21 +568,45 @@ sum of flow from all sources. %We will also analyze its worst-case running time.
  \end{algorithmic}
  
 \end{algorithm}
+% 
+% \begin{prop}
+%  Given a network $G=(V,A)$ and an acyclic flow $f:A\to \R$ with $f(e)$ maximum and flow balances $b:V\to \R | 
+% \sum_{v\in V}b(v)=0$ . For $x\in \R$ define flow balances $b':V\to \R$ as $b'(s)=b(s)-x, s\in V$, $ b'(t)=b(t)+x, t\in 
+% V, t\neq s$, $ b'(v)=v\forall v\in V$.\\
+% 
+% There is an acyclic flow $f':A\to\R$ for the balances $b'$ with $f'(e)=f(e)+x$ if and only if there is an augmentable 
+% path from $s$ to $t$ using $e$ whose augmentation does not cause cyclic flow.
+% \end{prop}
+% In other words this proposition says that the described path-augmentation based algorithm works right as long as the 
+% flow on $e$ can  be increased. If this is not the case the algorithm tries to find any acyclic path. 
+
 
 \begin{prop}
- The described path-augmentation based algorithm computes the maximum flow value $f(e)$ on the specified arc $e$ in an 
-acyclic flow problem.
+ The described path augmenting algorithm finds the right solution for the acyclic flowbound problem. 
 \end{prop}
 \begin{proof}
+  We show the equivalence of having an acyclic flow in a network and the ability to find a 
+  
+  
+  
  Given any acyclic flow $f$ in a network $G=(V,A)$ we can decompose $f$ into a set of flows over simple paths in the 
  network. Hence there always is a selection of paths to obtain the optimal flow over $e$. 
- We have to show that the selection process of our algorithm is sufficient for maximality. There are three points at 
+ We have to show that the selection process of our algorithm is sufficient for maximality. There are three points in 
  the algorithm where the augmentation can be called. Each time we pass on such a point without augmenting this is 
  because we did not find any path fulfilling our condition.
  
- If we try to find a path to augment we make some kind of local decision. We have to show that this is globally 
- optimal. If there is no way to find a path locally (at the current iteration of the algorithm) then there should be 
- none at all - even in the best case.
+ If we try to find a path to augment we make some kind of local decision. We have to prove that this is globally 
+ optimal. This means we have to show that if we do not find any acyclic path at a point in the algorithm then there is 
+no acyclic flow $f$ with higher flow value $f(e)$ on $e$ at all. 
+ 
+ Assume in the current 
+ 
+ 
+ 
+ 
+ 
+ If in a flow $f$ there is no way to find a path locally (at the current iteration of the algorithm) then we 
+prove that  there is no acyclic flow $f'$ with a higher flow value on $e$ (with $f(e)< f'(e)$
  
  How can we prove this? \\
  

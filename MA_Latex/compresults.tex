@@ -1,7 +1,8 @@
 % The models we described have also been implemented and tested on networks of different size.
 In this section we will discuss the practical implementations and results of the computation. For relevant real-world 
-problem sizes the exact algorithm (even with separation of the acyclicity constraints) is too slow. Hence we also 
-describe how to relax the problem in order to get useable (though in general not optimal) results for the flow bounds. 
+problem sizes the exact algorithm is too slow, even with separation of the acyclicity constraints. For this reason we 
+also describe how to relax the problem in order to get useable (though in general not optimal) results for the flow 
+bounds. 
 We compare the bounds found by different approaches and with different settings (different networks and nominations) 
 to see which approach is suited best to actually compute acyclic flow bounds in a network. We also describe in short 
 how the standard bounds we used to compare the results to are computed. 
@@ -68,7 +69,10 @@ This model itself is independent of the implementation of the acyclicity constra
 exponential number of cycles, writing down all constraints of the model alone could take exponential time. The 
 model redundancies we described in \ref{prop:redundantAcyclicityCons} are not enough to sufficiently reduce the model 
 size - in fact it could happen that the conditions for \ref{prop:redundantAcyclicityCons} do not apply at all in 
-certain networks (though we also did not proof that a clever generalization of the proposition couldn't do better).\\
+certain networks (though we also did not proof that a clever generalization of the proposition couldn't do better). 
+For example the condition of the proposition states that there have to be two cycles with exactly one arc in common. 
+But there are of course example networks not containing any two cycles like this. (You could just subdivide every arc 
+in a network. Then every two cycles have at least two arcs in common.)\\
 
 So the implementation does not add all the acyclicity constraints explicitely. Instead, the MIP Solver gets a 
 general constraint that demands that there is no cyclic flow in the network. When this constraint is checked and there 
@@ -110,15 +114,32 @@ cycle base) do not suffice to forbid cyclic flow  in the network. Still we can t
 exact problem. This will already avoid cyclic flow on single cycles that are not touching each other. The tables show 
 how the idea works out in practice.
 
-\subsubsection{The Standard Bound Computation}%describe the exactfb algo implemented before
+\subsubsection{Cyclic Flow Bounds}%describe the exactfb algo implemented before
+\label{model:cyclicFlow}
+To start a comparison we need a bound value to which we can compare. This value should be one that is fast and 
+easy to compute, in some way sensible and not too far away from a realistic solution, and of course a valid upper 
+bound. 
+One of the first algorithmic problems that one might think of after seeing the flowbound problem is the normal minimum 
+cost flow problem \ref{def:mincostflow}. Setting a negative weight on only one arc in the network will 
+maximize flow on this specific arc. We described the connections with this problem in section \ref{sect:mincostflow}. 
+We set the maximal flow capacity on an arc to the natural upper bound "sum of all ingoing flow" if no tighter 
+capacity bounds are given. This is an extremely easy condition derived from the acyclicity and can always be applied.
+
+This model is also implemented in Lamatto. It is modeled as a mixed integer programm with only flow balance and 
+capacity constraints. Binary directions are not contained in this model. The model also served as basis for the more 
+specific models - thus it is a relaxation of all the others.
+
+We will refer to this model as "cyclic bounds" in the tables below. We compare the bounds from the different algorithms 
+to the bounds found with this approach. 
 
 
-
+\subsubsection{Tables}
 \begin{center}
 
 \begin{tabular}{ l | c | c | c | c }
-\textbf{<gasnetz/scn>} & Time  & Nr of fixed Flows & Nr of Bounds tightened from \ref{} \\
- raw& x s & 1 & 2 & 3 \\
+\textbf{gaslib-40} & Time  & Fixed Flows & Tighter Bounds than \ref{model:cyclicFlow} & \\
+\hline
+ cyclic Flow& x s & 1 & 2 & 3 \\
 %   4 & 5 & 6 \\
 %   7 & 8 & 9 \\
 \end{tabular}
