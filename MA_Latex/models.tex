@@ -408,16 +408,25 @@ acyclicity constraints.
 \subsection{The Constrained Path Augmentation Model}%TODO kann man so ein modell finden, das mithilfe von constrained 
 % shortestpath problemen einen successive shortest path algo zu einem maxflowbound-algo macht? duerfte schwer werden...
 
-The main idea in this chapter is to design an algorithm that uses path augmentation to saturate the given flow demands. 
+The main idea in this chapter was to design an algorithm that uses path augmentation to saturate the given flow 
+demands. 
 The algorithm should try to push as much flow value as possible over the arc where flow is maximized, while having the 
 constraint that the resulting flow is acyclic. %TODO geht das ueberhaupt mit succ shortest path?
-Algorithms that use path augmentation to compute flows are well known and some of the standard flow algorithms. The 
+Algorithms that use path augmentation to compute flows are well known and among the standard flow algorithms. The 
 algorithm of Ford and Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on 
 source-sink-paths in the network as well as the improved algorithms of Edmonds and Karp \cite{EdmondsKarp1972} or Dinic 
 \cite{Dinic1970}. 
 
-If we want to maximize flow over arc $a=(u,v)$ it is not sufficient to just look for a path from our source $s$ to node 
-$u$ and one from node $v$ to a sink $t$. If we combine them this could produce cyclic flow, see for example figure 
+This idea of path augmentation is conveniant and nice looking in the beginning. It is the base for a direct heuristic 
+approach to the problem that can produce valid bounds very fast. We also show the difficulties of choosing a path and 
+illustrate with examples that only a relaxed version or either an algorithm with edge progressions instead of simple 
+paths can work for the acyclic flowbound problem.\\
+
+If we want to maximize flow over arc $e=(u,v)$ the first idea might be to just search a path from $v$ to the sink $t$ 
+and another path from the sink $s$ to $u$. To find such a path can be done by graph search in the graph of augmentable 
+arcs in linear time. Also the combined path of the two would always use the arc $e$.
+But it is not sufficient to just combine a path from source $s$ to node 
+$u$ and one from node $v$ to a sink $t$. Such a combination could produce cyclic flow, see for example figure 
 \ref{bild:cycleFromCombinedPaths}. %TODO BILD
 
 %Bild: combining two paths can produce a cycle TODO noch verbessern... z.b. kreis mit einem loop markieren
@@ -447,9 +456,11 @@ crossing paths, leading to cyclic flow}
  \label{bild:cycleFromCombinedPaths}
 \end{figure}
 
+The next straightforward idea is to use simple paths. This means we would just forbid that the two paths we found have 
+vertices in common. 
 But it is also not sufficient to just use simple paths: it might happen that two different paths intersect in 
-such a way that the combination of these paths produces a flow cycle, see figure 
-\ref{bild:cycleFromDifferentCombinedPaths}.
+such a way that the combination of these paths produces a flow cycle (see figure 
+\ref{bild:cycleFromDifferentCombinedPaths}).
 
 
 \begin{figure}[h!]
@@ -486,17 +497,33 @@ choosing procedure as a constraint. The condition that flow on an arc $e$ is max
 However, if we want to successively search and augment paths in the network it might be necessary to augment flow 
 backwards - i.e. to change previously chosen paths due to an acyclicity issue of the current path.
 This is a problem for easy path searching methods. If we have to choose a next node for the path locally and do not 
-know if we have to change a previous path we might have to branch on the decisions.  
+know if we have to change a previous path we might have to branch on the decisions. It is even worse: 
 
-In this thesis we will not try to deal with this problem. Instead we assume we had a blackbox algorithm giving us 
-a path to augment - if necessary augmenting flow back (and by this changing other paths from former iterations) - such 
-that the result is an acyclic flow and uses a specified arc if required. We show how such an algorithm could be used to 
-compute an upper bound for the flow on the specified arc of a network.\\
+If the algorithm chooses to augment the wrong path it can happen that \textit{no} simple $s-t$-path can be augmented -
+although there exists an acyclic flow with a higher flow value $f(e)$. Figure \ref{} shows such a situation where path 
+augmentation is useless because in the first step a wrong path was chosen. TODO BILD
+%TODO BILD
 
-%algo um mit dieser blackbox die optimale flussschranke zu berechnen!
+To fix this we must give up the idea of simple paths and relax them to edge progressions. An edge progression can 
+contain arcs and vertices more than once. Thus it can do some kind of cyclic shifting on the flow. Since two flows with 
+the same balances in the same network only differ by cyclic flow we can change everything in the flow network. 
+Whenever needed the optimal edge progression can do a cyclic shift and afterwards augment the actual path. 
 
-We will specify the heuristic algorithm here in pseudocode and show that it yields a valid bound not higher than the 
-sum of flow from all sources. %We will also analyze its worst-case running time.TODO?
+Here we will not try to deal with the problem of finding such an edge progression. It is likely to be as 
+difficult as the acyclic flowbound problem itself. Nevertheless to show how such an algorithm would look like if we 
+could find such paths or edge progressione and as base for a heuristic approach we describe the algorithm 
+in pseudocode (\ref{algo:pathHeur}).
+
+% 
+% Instead we assume we had a blackbox algorithm giving us 
+% a path to augment - if necessary augmenting flow back (and by this changing other paths from former iterations) - such 
+% that the result is an acyclic flow and uses a specified arc if required. We show how such an algorithm could be used to 
+% compute an upper bound for the flow on the specified arc of a network.\\
+% 
+% %algo um mit dieser blackbox die optimale flussschranke zu berechnen!
+% 
+% We will specify the heuristic algorithm here in pseudocode and show that it yields a valid bound not higher than the 
+% sum of flow from all sources. %We will also analyze its worst-case running time.TODO?
 
 %Pseudocode des Algorithmus
 \begin{algorithm}
@@ -510,7 +537,7 @@ sum of flow from all sources. %We will also analyze its worst-case running time.
     \While {$\neg (b+b'\equiv 0) $}\Comment{while there are active source-sink-pairs}
       \If{ $c(e)>f(e)$}
       \State choose active source $v\in V$ 
-	\State $P\gets $\Call{acyclicPathOverE}{$v, e$}
+	\State $P\gets $\Call{acyclicEdgeProgOverE}{$v, e$}
 	  %\Comment{find augmentable path over $e$ such that we still have acyclic flow after augmentation}
 	\If{$P\ne \emptyset $}
 	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase1}
@@ -521,13 +548,13 @@ sum of flow from all sources. %We will also analyze its worst-case running time.
 	\State choose $s\in V$ with $b(s)+b'(s)<0$\Comment{source that is still active}
 	\State $c_{alt}(e)\gets c(e)$\Comment{save old capacity value}
 	\State $c(e)\gets f(e)$\Comment{make $e$ blocked for a short time}
-	\State $P\gets$\Call{acyclicPath}{$s$}\Comment{try finding a path that avoids $e$}
+	\State $P\gets$\Call{acyclicEdgeProg}{$s$}\Comment{try finding a path that avoids $e$}
 	\State $c(e)\gets c_{alt}(e)$
 	\If{$P\ne \emptyset$}
 	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase2}
 	  \State \textbf{continue}
 	\Else
-	  \State $P\gets$ \Call{acyclicPath}{$s$}
+	  \State $P\gets$ \Call{acyclicEdgeProg}{$s$}
 		\Comment{try to find any augmentable path, at this point of time it will be decreasing the flow on $e$}
 	  \If{$P\ne \emptyset$}
 	    \State \Call {maxAugment}{$P$}\label{heur:lineAugCase3}
@@ -568,38 +595,47 @@ sum of flow from all sources. %We will also analyze its worst-case running time.
  \end{algorithmic}
  
 \end{algorithm}
-% 
-% \begin{prop}
-%  Given a network $G=(V,A)$ and an acyclic flow $f:A\to \R$ with $f(e)$ maximum and flow balances $b:V\to \R | 
-% \sum_{v\in V}b(v)=0$ . For $x\in \R$ define flow balances $b':V\to \R$ as $b'(s)=b(s)-x, s\in V$, $ b'(t)=b(t)+x, t\in 
-% V, t\neq s$, $ b'(v)=v\forall v\in V$.\\
-% 
-% There is an acyclic flow $f':A\to\R$ for the balances $b'$ with $f'(e)=f(e)+x$ if and only if there is an augmentable 
-% path from $s$ to $t$ using $e$ whose augmentation does not cause cyclic flow.
-% \end{prop}
-% In other words this proposition says that the described path-augmentation based algorithm works right as long as the 
-% flow on $e$ can  be increased. If this is not the case the algorithm tries to find any acyclic path. 
-
 
 \begin{prop}
- The described path augmenting algorithm finds the right solution for the acyclic flowbound problem. 
+ The described path augmention based algorithm computes the maximum flow value $f(e)$ on the specified arc $e$ in an 
+acyclic flow network.
 \end{prop}
 \begin{proof}
-  We show the equivalence of having an acyclic flow in a network and the ability to find a 
-  
-  
+%   We show the equivalence of having an acyclic flow in a network and the ability to find a 
   
  Given any acyclic flow $f$ in a network $G=(V,A)$ we can decompose $f$ into a set of flows over simple paths in the 
  network. Hence there always is a selection of paths to obtain the optimal flow over $e$. 
- We have to show that the selection process of our algorithm is sufficient for maximality. There are three points in 
- the algorithm where the augmentation can be called. Each time we pass on such a point without augmenting this is 
- because we did not find any path fulfilling our condition.
+ We have to show that the selection process of our algorithm is sufficient for maximality and that choosing another 
+ order of path augmentation is also ok. 
+ There are three points in  the algorithm where the augmentation can be called. Each time we pass on such a point 
+ without augmenting, this is because we did not find any path fulfilling our condition.
  
- If we try to find a path to augment we make some kind of local decision. We have to prove that this is globally 
- optimal. This means we have to show that if we do not find any acyclic path at a point in the algorithm then there is 
-no acyclic flow $f$ with higher flow value $f(e)$ on $e$ at all. 
+%  If we try to find a path to augment we make some kind of local decision. We have to prove that this is globally 
+%  optimal. This means we have to show that if we do not find any acyclic path at a point in the algorithm then there is 
+%  no acyclic flow $f$ with higher flow value $f(e)$ on $e$ at all. 
  
- Assume in the current 
+ The first case is to show that we do not pass line \ref{heur:lineAugCase1} in the algorithm (choosing a path 
+over $e$) when there is an acyclic flow with a higher flow value on $e$. 
+More formal:\\
+
+ Given a network $G=(V,A)$ and an acyclic flow $f:A\to \R$ with $f(e)$ maximum and flow balances $b:V\to \R$ with $ 
+\sum_{v\in V}b(v)=0$ . For $x\in \R$ define flow balances $b':V\to \R$ as $b'(s)=b(s)-x, s\in V$,
+$ b'(t)=b(t)+x,t\in V, t\neq s$, $ b'(v)=v\forall v\in V$.\\
+There is an acyclic flow $f':A\to\R$ for the balances $b'$ with $f'(e)=f(e)+x$ if and only if there is a 
+path with augmentation capacity $x$ from $s$ to $t$ using $e$ whose augmentation does not cause cyclic flow.\\
+
+\begin{proof}
+ One direction is clear (if there is any acyclic flow we can decompose it into flow on a collection of paths). The 
+other direction is proving that when we are searching for a path there always is one - so the path choosing algorithm 
+can find something.
+
+Say we have any acyclic flow with the balances $b$ and have the source $s$ and the sink $t$. The maximum flow between 
+sources and sinks over $e$ in the network is equals the capacity of the minimum cut containing $e$. This is 
+independent of the actual flow in the network $\Rightarrow$ there must be an $s-t$-path containing $e$ in the network. 
+We only have to show that this is acyclic: If augmenting a path $(a_1, a_2, \dots a_l$ produces cyclic flow there 
+has to be a flow directed from $a_j$ to $a_i$ with $i<j$. This flow is already there 
+\end{proof}
+
  
  
  
