@@ -504,15 +504,17 @@ although there exists an acyclic flow with a higher flow value $f(e)$. Figure \r
 augmentation is useless because in the first step a wrong path was chosen. TODO BILD
 %TODO BILD
 
-To fix this we must give up the idea of simple paths and relax them to edge progressions. An edge progression can 
+This example clearly shows the problems of a path based augmentation approach. A flow could block the wrong arcs while 
+the next augmentation step possibly needs these arcs. 
+We must give up the idea of finding simple paths and relax them to edge progressions. An edge progression can 
 contain arcs and vertices more than once. Thus it can do some kind of cyclic shifting on the flow. Since two flows with 
-the same balances in the same network only differ by cyclic flow we can change everything in the flow network. 
-Whenever needed the optimal edge progression can do a cyclic shift and afterwards augment the actual path. 
+the same balances in the same network only differ by cyclic flow we can change the flow network to the state we desire. 
+Whenever needed the optimal edge progression can do a cyclic shift and afterwards augment the actual path. \\
 
 Here we will not try to deal with the problem of finding such an edge progression. It is likely to be as 
-difficult as the acyclic flowbound problem itself. Nevertheless to show how such an algorithm would look like if we 
-could find such paths or edge progressione and as base for a heuristic approach we describe the algorithm 
-in pseudocode (\ref{algo:pathHeur}).
+difficult as the acyclic flowbound problem itself. Nevertheless  we describe the algorithm 
+in pseudocode (\ref{algo:pathHeur}) to show how such an algorithm would look like if we 
+could find such paths or edge progressions and to use it as basis for a heuristic approach.
 
 % 
 % Instead we assume we had a blackbox algorithm giving us 
@@ -593,78 +595,99 @@ in pseudocode (\ref{algo:pathHeur}).
     \State $b'(t) \gets b'(t) - $augval
   \EndFunction
  \end{algorithmic}
- 
 \end{algorithm}
 
 \begin{prop}
- The described path augmention based algorithm computes the maximum flow value $f(e)$ on the specified arc $e$ in an 
-acyclic flow network.
+ The described algorithm \ref{algo:pathHeur} together with a function \textit{acyclicEdgeProg()/acyclicEdgeProgOverE} 
+ that finds an augmentable edge progression (acyclicEdgeProgOverE using a specified arc $e$)
+ whose augmentation is not causing any flow cycles computes the optimal bounds to the acyclic flowbound problem. 
 \end{prop}
 \begin{proof}
-%   We show the equivalence of having an acyclic flow in a network and the ability to find a 
-  
- Given any acyclic flow $f$ in a network $G=(V,A)$ we can decompose $f$ into a set of flows over simple paths in the 
- network. Hence there always is a selection of paths to obtain the optimal flow over $e$. 
- We have to show that the selection process of our algorithm is sufficient for maximality and that choosing another 
- order of path augmentation is also ok. 
- There are three points in  the algorithm where the augmentation can be called. Each time we pass on such a point 
- without augmenting, this is because we did not find any path fulfilling our condition.
- 
-%  If we try to find a path to augment we make some kind of local decision. We have to prove that this is globally 
-%  optimal. This means we have to show that if we do not find any acyclic path at a point in the algorithm then there is 
-%  no acyclic flow $f$ with higher flow value $f(e)$ on $e$ at all. 
- 
- The first case is to show that we do not pass line \ref{heur:lineAugCase1} in the algorithm (choosing a path 
-over $e$) when there is an acyclic flow with a higher flow value on $e$. 
-More formal:\\
-
- Given a network $G=(V,A)$ and an acyclic flow $f:A\to \R$ with $f(e)$ maximum and flow balances $b:V\to \R$ with $ 
-\sum_{v\in V}b(v)=0$ . For $x\in \R$ define flow balances $b':V\to \R$ as $b'(s)=b(s)-x, s\in V$,
-$ b'(t)=b(t)+x,t\in V, t\neq s$, $ b'(v)=v\forall v\in V$.\\
-There is an acyclic flow $f':A\to\R$ for the balances $b'$ with $f'(e)=f(e)+x$ if and only if there is a 
-path with augmentation capacity $x$ from $s$ to $t$ using $e$ whose augmentation does not cause cyclic flow.\\
-
-\begin{proof}
- One direction is clear (if there is any acyclic flow we can decompose it into flow on a collection of paths). The 
-other direction is proving that when we are searching for a path there always is one - so the path choosing algorithm 
-can find something.
-
-Say we have any acyclic flow with the balances $b$ and have the source $s$ and the sink $t$. The maximum flow between 
-sources and sinks over $e$ in the network is equals the capacity of the minimum cut containing $e$. This is 
-independent of the actual flow in the network $\Rightarrow$ there must be an $s-t$-path containing $e$ in the network. 
-We only have to show that this is acyclic: If augmenting a path $(a_1, a_2, \dots a_l$ produces cyclic flow there 
-has to be a flow directed from $a_j$ to $a_i$ with $i<j$. This flow is already there 
+ We assume that the blackbox algorithm for finding an acyclic edge progression is correct. An edge progression can use
+ arcs more than once $\Rightarrow$ it can do cyclic shifting on every cycle in the same connected component: 
+ For every cyclic shift that is necessary it chooses an augmentable path towards the cycle, then goes around the cycle 
+ and on the same way back. If there is no augmentable path unto a cycle in the same connected component there has to be
+ a directed cut that is at its capacity bounds. But in this case this cycle (and everything behind the cut) cannot 
+ influence the acyclic path at all.
+ If the algorithm can change the flow on every cycle, it can produce every acyclic flow that is possible (before augmenting).
+ There is always a path if there is any acyclic flow with this flow value on $e$ because every acyclic flow can be 
+ decomposed into flow on simple paths. So the optimal edge progression could detect the right $s-t$-path, produce the 
+ acyclic flow without this path and then augment on it. So if the algorithm does not find any edge progression, there 
+ is also no acyclic flow with a higher flow value on $e$.  
 \end{proof}
 
+So we have seen that augmentation algorithms need 
  
- 
- 
- 
- 
- If in a flow $f$ there is no way to find a path locally (at the current iteration of the algorithm) then we 
-prove that  there is no acyclic flow $f'$ with a higher flow value on $e$ (with $f(e)< f'(e)$
- 
- How can we prove this? \\
- 
- The difference between two different flows in the same network with the same balances is always just a collection of 
-cycles. This means by shifting and rearranging flow we can obtain every possible flow in the network. If we can obtain 
-every possible flow in the network by cyclic shifting we can do this shifting implicit. On every cycle that we would 
-have to shift to get the "optimal" flow, also our path choosing algorithm can decide which way to go around this cycle. 
-So it can always choose the optimal way.
-Can it happen that this requires a path which is not simple and contains an arc twice? 
-
-%es koennte noetig sien dass ich nicht einfache pfade benötige, um kreisfreien fluss zu ermoeglichen (vor allem 
-% augmentierung in der gleichen richtung zwei mal)
- 
- 
-%  We have to show that if we did not find an augmentable path increasing flow over $e$ in the network, it is optimal to 
-% choose a path that does not increase flow over $e$ - and if this does not work either a path that may decrease the flow 
-% over $e$. 
+% 
+% \begin{prop}
+%  The described path augmention based algorithm computes the maximum flow value $f(e)$ on the specified arc $e$ in an 
+% acyclic flow network.
+% \end{prop}
+% \begin{proof}
+% %   We show the equivalence of having an acyclic flow in a network and the ability to find a 
+%   
+%  Given any acyclic flow $f$ in a network $G=(V,A)$ we can decompose $f$ into a set of flows over simple paths in the 
+%  network. Hence there always is a selection of paths to obtain the optimal flow over $e$. 
+%  We have to show that the selection process of our algorithm is sufficient for maximality and that choosing another 
+%  order of path augmentation is also ok. 
+%  There are three points in  the algorithm where the augmentation can be called. Each time we pass on such a point 
+%  without augmenting, this is because we did not find any path fulfilling our condition.
 %  
-
- 
- TODO!!!
-\end{proof}
+% %  If we try to find a path to augment we make some kind of local decision. We have to prove that this is globally 
+% %  optimal. This means we have to show that if we do not find any acyclic path at a point in the algorithm then there is 
+% %  no acyclic flow $f$ with higher flow value $f(e)$ on $e$ at all. 
+%  
+%  The first case is to show that we do not pass line \ref{heur:lineAugCase1} in the algorithm (choosing a path 
+% over $e$) when there is an acyclic flow with a higher flow value on $e$. 
+% More formal:\\
+% 
+%  Given a network $G=(V,A)$ and an acyclic flow $f:A\to \R$ with $f(e)$ maximum and flow balances $b:V\to \R$ with $ 
+% \sum_{v\in V}b(v)=0$ . For $x\in \R$ define flow balances $b':V\to \R$ as $b'(s)=b(s)-x, s\in V$,
+% $ b'(t)=b(t)+x,t\in V, t\neq s$, $ b'(v)=v\forall v\in V$.\\
+% There is an acyclic flow $f':A\to\R$ for the balances $b'$ with $f'(e)=f(e)+x$ if and only if there is a 
+% path with augmentation capacity $x$ from $s$ to $t$ using $e$ whose augmentation does not cause cyclic flow.\\
+% 
+% \begin{proof}
+%  One direction is clear (if there is any acyclic flow we can decompose it into flow on a collection of paths). The 
+% other direction is proving that when we are searching for a path there always is one - so the path choosing algorithm 
+% can find something.
+% 
+% Say we have any acyclic flow with the balances $b$ and have the source $s$ and the sink $t$. The maximum flow between 
+% sources and sinks over $e$ in the network is equals the capacity of the minimum cut containing $e$. This is 
+% independent of the actual flow in the network $\Rightarrow$ there must be an $s-t$-path containing $e$ in the network. 
+% We only have to show that this is acyclic: If augmenting a path $(a_1, a_2, \dots a_l$ produces cyclic flow there 
+% has to be a flow directed from $a_j$ to $a_i$ with $i<j$. This flow is already there 
+% \end{proof}
+% 
+%  
+%  
+%  
+%  
+%  
+%  If in a flow $f$ there is no way to find a path locally (at the current iteration of the algorithm) then we 
+% prove that  there is no acyclic flow $f'$ with a higher flow value on $e$ (with $f(e)< f'(e)$
+%  
+%  How can we prove this? \\
+%  
+%  The difference between two different flows in the same network with the same balances is always just a collection of 
+% cycles. This means by shifting and rearranging flow we can obtain every possible flow in the network. If we can obtain 
+% every possible flow in the network by cyclic shifting we can do this shifting implicit. On every cycle that we would 
+% have to shift to get the "optimal" flow, also our path choosing algorithm can decide which way to go around this cycle. 
+% So it can always choose the optimal way.
+% Can it happen that this requires a path which is not simple and contains an arc twice? 
+% 
+% %es koennte noetig sien dass ich nicht einfache pfade benötige, um kreisfreien fluss zu ermoeglichen (vor allem 
+% % augmentierung in der gleichen richtung zwei mal)
+%  
+%  
+% %  We have to show that if we did not find an augmentable path increasing flow over $e$ in the network, it is optimal to 
+% % choose a path that does not increase flow over $e$ - and if this does not work either a path that may decrease the flow 
+% % over $e$. 
+% %  
+% 
+%  
+%  TODO!!!
+% \end{proof}
 
 
 
