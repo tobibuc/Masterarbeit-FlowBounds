@@ -9,9 +9,9 @@ to have these constraints just on a cycle base (which would be a linearly small 
 conditions under which the acyclicity constraint of a cycle becomes redundant. Still there can be exponential many 
 cycles in a network and the condition could be fulfilled on \textit{cycle} of the network. 
 
-Furthermore we discuss a solving approach not using mixed integer programming but a direct flow algorithm based on 
-augmenting paths in the network.%TODO funktioniert das, oder gleich sagen nur als heuristik?
-
+Furthermore we discuss an idea to solve the problem with a direct algorithm augmenting paths. We show by examples that 
+path augmentation alone can not solve the problem, but the idea inspires a relaxation/heuristic algorithm which runs in 
+polynomial time.
 
 
 \subsection{MIP Formulations}
@@ -407,7 +407,7 @@ acyclicity constraints.
 \newpage
 \subsection{The Constrained Path Augmentation Model}%TODO kann man so ein modell finden, das mithilfe von constrained 
 % shortestpath problemen einen successive shortest path algo zu einem maxflowbound-algo macht? duerfte schwer werden...
-
+\label{model:pathaugment}
 The main idea in this chapter was to design an algorithm that uses path augmentation to saturate the given flow 
 demands. 
 The algorithm should try to push as much flow value as possible over the arc where flow is maximized, while having the 
@@ -612,417 +612,27 @@ could find such paths or edge progressions and to use it as basis for a heuristi
  If the algorithm can change the flow on every cycle, it can produce every acyclic flow that is possible (before augmenting).
  There is always a path if there is any acyclic flow with this flow value on $e$ because every acyclic flow can be 
  decomposed into flow on simple paths. So the optimal edge progression could detect the right $s-t$-path, produce the 
- acyclic flow without this path and then augment on it. So if the algorithm does not find any edge progression, there 
+ acyclic flow without this path and then augment. So if the algorithm does not find any edge progression, there 
  is also no acyclic flow with a higher flow value on $e$.  
 \end{proof}
 
-So we have seen that augmentation algorithms need 
+So we have seen that augmentation algorithms could only work with a too powerful algorithm that shifts flow before 
+augmenting on a path. The main problem is that a flow can unnecessarily block an arc that is needed in a later stage 
+of the algorithm. 
+
+So the following idea for a heuristic algorithm comes in: Can we increase the capacity bounds of the arcs in a way 
+such that they can only be blocked in the case when the acyclic flow bound is reached?\\
+
+Yes: if we double the capacities there will be no more flows blocked if not necessary: Even in flows that do not 
+require acyclicity an upper bound for flow on an arc $e$ is the flow that can be sent from sources to one end of the 
+maximized arc $e$ as well as the flow that can be sent from the other end of $e$ to sinks. This flow can be computed by 
+the standard maximum flow algorithms where path augmentation works well. But on each part of the problem - maximum flow 
+from sources to one end of $e$ and maximum flow from the other end vertex of $e$ to sinks - the capacity of each arc in 
+the network can only be used one time. So combining these two would give twice the capacity at most. Thus we can 
+conclude that a more restricted problem (like finding the acyclic bound) can not need more capacity than this on a 
+single arc.\\
+
+We will describe an equivalent variant of this idea in the next section more detailed.
  
-% 
-% \begin{prop}
-%  The described path augmention based algorithm computes the maximum flow value $f(e)$ on the specified arc $e$ in an 
-% acyclic flow network.
-% \end{prop}
-% \begin{proof}
-% %   We show the equivalence of having an acyclic flow in a network and the ability to find a 
-%   
-%  Given any acyclic flow $f$ in a network $G=(V,A)$ we can decompose $f$ into a set of flows over simple paths in the 
-%  network. Hence there always is a selection of paths to obtain the optimal flow over $e$. 
-%  We have to show that the selection process of our algorithm is sufficient for maximality and that choosing another 
-%  order of path augmentation is also ok. 
-%  There are three points in  the algorithm where the augmentation can be called. Each time we pass on such a point 
-%  without augmenting, this is because we did not find any path fulfilling our condition.
-%  
-% %  If we try to find a path to augment we make some kind of local decision. We have to prove that this is globally 
-% %  optimal. This means we have to show that if we do not find any acyclic path at a point in the algorithm then there is 
-% %  no acyclic flow $f$ with higher flow value $f(e)$ on $e$ at all. 
-%  
-%  The first case is to show that we do not pass line \ref{heur:lineAugCase1} in the algorithm (choosing a path 
-% over $e$) when there is an acyclic flow with a higher flow value on $e$. 
-% More formal:\\
-% 
-%  Given a network $G=(V,A)$ and an acyclic flow $f:A\to \R$ with $f(e)$ maximum and flow balances $b:V\to \R$ with $ 
-% \sum_{v\in V}b(v)=0$ . For $x\in \R$ define flow balances $b':V\to \R$ as $b'(s)=b(s)-x, s\in V$,
-% $ b'(t)=b(t)+x,t\in V, t\neq s$, $ b'(v)=v\forall v\in V$.\\
-% There is an acyclic flow $f':A\to\R$ for the balances $b'$ with $f'(e)=f(e)+x$ if and only if there is a 
-% path with augmentation capacity $x$ from $s$ to $t$ using $e$ whose augmentation does not cause cyclic flow.\\
-% 
-% \begin{proof}
-%  One direction is clear (if there is any acyclic flow we can decompose it into flow on a collection of paths). The 
-% other direction is proving that when we are searching for a path there always is one - so the path choosing algorithm 
-% can find something.
-% 
-% Say we have any acyclic flow with the balances $b$ and have the source $s$ and the sink $t$. The maximum flow between 
-% sources and sinks over $e$ in the network is equals the capacity of the minimum cut containing $e$. This is 
-% independent of the actual flow in the network $\Rightarrow$ there must be an $s-t$-path containing $e$ in the network. 
-% We only have to show that this is acyclic: If augmenting a path $(a_1, a_2, \dots a_l$ produces cyclic flow there 
-% has to be a flow directed from $a_j$ to $a_i$ with $i<j$. This flow is already there 
-% \end{proof}
-% 
-%  
-%  
-%  
-%  
-%  
-%  If in a flow $f$ there is no way to find a path locally (at the current iteration of the algorithm) then we 
-% prove that  there is no acyclic flow $f'$ with a higher flow value on $e$ (with $f(e)< f'(e)$
-%  
-%  How can we prove this? \\
-%  
-%  The difference between two different flows in the same network with the same balances is always just a collection of 
-% cycles. This means by shifting and rearranging flow we can obtain every possible flow in the network. If we can obtain 
-% every possible flow in the network by cyclic shifting we can do this shifting implicit. On every cycle that we would 
-% have to shift to get the "optimal" flow, also our path choosing algorithm can decide which way to go around this cycle. 
-% So it can always choose the optimal way.
-% Can it happen that this requires a path which is not simple and contains an arc twice? 
-% 
-% %es koennte noetig sien dass ich nicht einfache pfade benötige, um kreisfreien fluss zu ermoeglichen (vor allem 
-% % augmentierung in der gleichen richtung zwei mal)
-%  
-%  
-% %  We have to show that if we did not find an augmentable path increasing flow over $e$ in the network, it is optimal to 
-% % choose a path that does not increase flow over $e$ - and if this does not work either a path that may decrease the flow 
-% % over $e$. 
-% %  
-% 
-%  
-%  TODO!!!
-% \end{proof}
-
-
-
-
-% We have to show that we can model our acyclic path as the ressource constrained shortest path. Still ressource 
-% constrained shortest path is $\mathcal{NP}$-hard, %TODO
 
 \input{heuristic}
-%%TODO der pfadbasierte heuristische algo funtioniert nicht so einfach, Korrektheit beweisen oder weglassen/auf den 
-% anderen schlechteren beziehen...
-
-
-%Beweisen, dass man mindestens eine bestimmte Anzahl an Kreisen benötigt
-
-% \newpage
-% \subsection{A Path-Based Heuristic Approach}
-% Since solving big real world instances of Mixed Integer Programs is often slow, we also want to discuss an approach 
-% to get weaker results with a heuristic that is running much faster. The goal is still to get upper and lower bounds 
-% on the flow over an arc. This is not necessarily an optimal bound but any feasible bound. 
-% 
-% The main idea is to design an algorithm that uses path augmentation to saturate the given flow demands. The 
-% algorithm trys to push as much flow value as possible over the arc where flow is maximized. Algorithms that use path 
-% augmentation to compute flows are well known and some of the standard flow algorithms. The algorithm of Ford and 
-% Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on source-sink-paths in the 
-% network as well as the improved algorithms of Edmonds and Karp \cite{EdmondsKarp1972} or Dinic \cite{Dinic1970}. 
-% 
-% The advantage of this approach is that it is very easy to compute a path from one node to another or to decide that 
-% there is none. It can essentially be done by simple graph search algorithms. Some Maximum Flow algorithms use shortest 
-% path as subroutine in order to prove their optimality, which in our case would not work: we would set negative weight 
-% on the arc to maximize flow. But the shortest path problem is only easy to solve with nonnegative edge weights. With 
-% arbitrary negative edge weights it is equivalent to longest path, which is 
-% known to be NP-Complete by an easy reduction to hamiltonian path. \cite{}%TODO zitiere eine quelle dazu!
-% 
-% If we want to maximize flow over arc $a=(u,v)$ we just look for a path from our source $s$ to node $u$ and one from node 
-% $v$ to a sink $t$. Of course we have not ensured that the two paths have no arcs or nodes in common, so if we combine 
-% them this could produce cyclic flow, see for example figure \ref{bild:cycleFromCombinedPaths}. %TODO BILD
-% 
-% %Bild: combining two paths can produce a cycle TODO noch verbessern... z.b. kreis mit einem loop markieren
-% \begin{figure}[h!]
-% \centering
-% \begin{tikzpicture}
-% [scale=2, vertex/.style={circle,fill=black},arrow/.style={-latex, shorten >=0.2ex, shorten <=0.2ex}]
-%   \begin{scope}[
-%     decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
-%     ]
-% \node (a) at (3,0)[vertex]{};
-% % \node (stext) at (-0.1, 0.2){s};
-% \node (b) at (2,-0.5)[vertex]{} ;
-% \node (c) at (2,1)[vertex]{};
-% \node (s) at (3,2)[vertex]{};
-% \node (t) at (0,1)[vertex]{};
-% 
-% \draw[postaction={decorate}] (b) -- (a)node [pos=0.5, above, black] {e};
-% \draw[arrow, bend right, color=red] (s) to (c);
-% \draw[arrow, bend right, color=red] (c) to (b);
-% \draw[arrow, bend left, color=blue] (c) to (t);
-% \draw[arrow, bend right, color=blue] (a) to (c);
-% %beschriftungen
-% % \node (e1) at (0.4,0.6){$e_1$};
-% % \node (e2) at (1.6,0.6){$e_2$};
-% % \node (e3) at (1.6,-0.6){$e_3$};
-% % \node (e4) at (0.4,-0.6){$e_4$};
-% % \node (e5) at (1.15, 0){$e_5$};
-% % \draw (3) -- (5);
-%   \end{scope}
-% \end{tikzpicture}
-% \caption{If we just combine a path from the source to the tail of $e$ and from its head to the sink, we might get 
-% crossing paths, leading to cyclic flow}
-%  \label{bild:cycleFromCombinedPaths}
-% \end{figure}
-% 
-% But on every path the flow is going over $e$ only once, while in a MIP formulation as normal Min-Cost Flow Problem it 
-% could be as much as the capacity of $e$ allows. The heuristic will always fulfill the natural bound that flow over each 
-% arc is at most the sum of all ingoing/outgoing flow in the network. Before we can prove anything, we have to deal with 
-% the problem that there might be no path between a chosen source-sink pair over the specified arc $e$. In fact it is 
-% even worse: Figure \ref{bild:backaugmentationIsNecessary} %TODO make this picture, where we have to go back to saturate 
-% shows that situations can occur, where we have to decrease the amount of flow over $e$ within the heuristic to just 
-% make our flow a feasible flow. 
-% %TODO prove it
-% 
-% We will specify the heuristic algorithm here in pseudocode and show that it yields a valid bound not higher than the 
-% sum of flow from all sources. We will also analyze its worst-case running time.
-% 
-% %Pseudocode des Algorithmus
-% \begin{algorithm}
-%  \caption{path based heuristic flow bound algorithm}
-% \label{algo:pathHeur}
-%  %TODO gehe gerade von vorwärts gerichteter e aus, und maximierung
-%  \begin{algorithmic}[5]%[0] means no line numbers, n means every nth line number is displayed
-%   \Function{Heuristic}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R $}%hier übergabeparameter
-%     \State define $b':V\to \R,\, b'(v)\gets 0 \forall v\in V$ \Comment{temporary balances}
-%     \State define $f: A\to\R,\, f(v)\gets 0 \forall a\in A$
-%     \While {$\neg (b+b'\equiv 0) $}\Comment{while there are active source-sink-pairs}
-%       \If{ $c(e)>f(e)$}
-% 	\State $P_1\gets $\Call{pathFromSource}{u}
-% 	\State $P_2\gets $\Call{pathToSink}{v}
-% 	\If{$P_1\ne \emptyset \land P_2\ne \emptyset$}
-% 	  \State $P\gets P_1+e+P_2$\Comment{concatenate the paths found}
-% 	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase1}
-% 	  \State \textbf{continue}
-% 	\EndIf
-%       \EndIf
-% %       \Else
-% 	\State choose $s\in V$ with $b(s)+b'(s)<0$\Comment{source that is still active}
-% 	\State $c_{alt}(e)\gets c(e)$\Comment{save old capacity value}
-% 	\State $c(e)\gets f(e)$\Comment{make $e$ unaugmentable for a short time}
-% 	\State $P\gets$\Call{pathToSink}{$s$}\Comment{try finding a path that avoids $e$}
-% 	\State $c(e)\gets c_{alt}(e)$
-% 	\If{$P\ne \emptyset$}
-% 	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase2}
-% 	  \State \textbf{continue}
-% 	\Else
-% 	  \State $P\gets$ \Call{pathToSink}{$s$}
-% 		\Comment{try to find any path, at this point of time it will be decreasing the flow on $e$}
-% 	  \If{$P\ne \emptyset$}
-% 	    \State \Call {maxAugment}{$P$}\label{heur:lineAugCase3}
-% 	    \State \textbf{continue}
-% 	  \Else
-% 	    \State \Return problem infeasible
-% 	  \EndIf
-% 	\EndIf
-%     \EndWhile
-%     \State \Return $f(e)$
-%   \EndFunction
-%   \algstore{heur}
-%  \end{algorithmic}
-% 
-% \end{algorithm}%TODO die aufgerufenen Methoden ebenfalls als Pseudocode darstellen?
-% The algorithm calls some easy functions where the name already tells what should be happening there. Though they are 
-% simple we also describe them as short pseudocode:
-% 
-% \begin{algorithm}
-% %  \caption{find a path from given node to a source}
-%  \begin{algorithmic}\algrestore{heur}
-%   \Function{pathFromSource}{$u\in V$}
-%     \State define label visited on all nodes false
-% %     \State $v\gets 0 \,\forall v\in V$
-%     \State define map pred: $V\to V$
-%     \State $Q\gets $ empty queue data structure
-%     \State $Q\gets u$
-%     \While{$Q \ne \emptyset$}
-%       \State $tmp\gets Q.pop()$
-%       \ForAll{neighbors $n$ of $tmp$}
-% 	\If{cannot send flow from $n$ to $tmp$, i.e. $c((n,tmp))=f((n,tmp))$}
-% 	  \State \textbf{continue}
-% 	\ElsIf{$n$ not visited}
-% 	  \State $n\gets$ visited
-% 	  \State $pred(n)\gets tmp$
-% 	  \State $Q\gets n$
-% 	  \If{ $b(n)+b'(n)<0$}\Comment{active source}
-% 	    \State\Return path of predecessors from $n$
-% 	  \EndIf
-% 	\EndIf
-%       \EndFor
-%     \EndWhile
-%   
-%   \EndFunction
-%  \end{algorithmic}
-%  
-% \end{algorithm}
-% \begin{algorithm}
-%  \begin{algorithmic}
-%   \Function{pathToSink}{$v\in V$}\Comment{like pathFromSource backwards}
-%     \State define label visited on all nodes false
-% %     \State $v\gets 0 \,\forall v\in V$
-%     \State define map pred: $V\to V$
-%     \State $Q\gets $ empty queue data structure
-%     \State $Q\gets u$
-%     \While{$Q \ne \emptyset$}
-%       \State $tmp\gets Q.pop()$
-%       \ForAll{neighbors $n$ of $tmp$}
-% 	\If{cannot send flow from $tmp$ to $n$, i.e. $c((tmp,n))=f((tmp,n))$}
-% 	  \State \textbf{continue}
-% 	\ElsIf{$n$ not visited}
-% 	  \State $n\gets$ visited
-% 	  \State $pred(n)\gets tmp$
-% 	  \State $Q\gets n$
-% 	  \If{ $b(n)+b'(n)>0)$}\Comment{active sink}
-% 	    \State\Return path of predecessors from $n$
-% 	  \EndIf
-% 	\EndIf
-%       \EndFor
-%     \EndWhile
-%   
-%   \EndFunction
-%  \end{algorithmic}
-% \end{algorithm}
-% \begin{algorithm}
-%  \begin{algorithmic}
-%   \Function {maxAugment}{$P$}
-%     \State $s\gets $ source node of $P$
-%     \State $t\gets $ sink node of $P$
-%     \State augval $\gets \min(|s|,|t|)$
-%     \ForAll{$a\in P$}
-%       \State arcMaxAugval $\gets$ max augmentable flow in direction of $P$ on $a$ 
-%       \State augval $\gets \min($augval, arcMaxAugval)
-%     \EndFor
-%     \ForAll{$a\in P$}
-%       \If{$a$ is considered the second time in the same direction in $P$}
-% 	\State \textbf{continue}\Comment do not increase flow value here, equivalent to increase of capacity bounds on 
-% 		this arc. Why this is necessary see example \ref{example:mustNotAugmentArcTwice}
-%       \EndIf
-%       \State increase flow on $a$ in direction of $P$ by augval
-%     \EndFor
-%     \State $b'(s)\gets b'(s) + $augval
-%     \State $b'(t)\gets b'(t) - $augval
-%   \EndFunction
-%  \end{algorithmic}
-%  
-% \end{algorithm}
-% 
-% 
-% \newpage 
-% \subsubsection{Correctness of the heuristic}
-% Now we want to show that this algorithm is correct and always yields the result we desire. We have to show that the 
-% bounds are valid and include all feasible solutions and that the algorithm terminates within (a small) finite running 
-% time.
-% 
-% %Lemma: if graph search like in the algorithm does not find a way, there is no way!
-% \begin{lemma}\label{lemma:graphSearch}
-%  The graph search included in algorithm \ref{algo:pathHeur} finds a path from one node to another with the specified 
-% characteristics (to source or to sink, forward or backward) if and only if there exists any such path.
-% \end{lemma}
-% \begin{proof}
-%  TODO
-% \end{proof}
-% 
-% 
-% 
-% %correctness proof
-% \begin{prop}
-%  The output of algorithm \ref{algo:pathHeur} is a valid upper bound on the acyclic flow over the given arc $e$. 
-%  
-%  It is at most $\sum_{v\in V|b(v)>0\textrm{ source}}b(v)=-\sum_{v\in V|b(v)<0\textrm{ sink}}b(v)$ on each arc.
-% \end{prop}
-% \begin{proof}
-%  %start new proof and comment out the old messed up one
-%  We show correctness for each stage of the algorithm. This means we show that at each augmentation step the flow value 
-% on the maximized arc $e$ is at least as high as the maximum value in any acyclic flow satifying the same supply and 
-% demand. There are three stages: at first we try to send all flow over the maximized arc $e$. In the second step this is 
-% not possible anymore (as we show) so we try to find paths to augment where $e$ is not affected at all. In the last step 
-% we can try to satify all supply/demand in the network, accepting that it might decrease flow value on $e$. We show that 
-% this is correct and yields improved bounds. We also have to show that we can not go back to a former stage after 
-% completing it.
-% \begin{itemize}
-%  \item [First Stage (Forward augmentation on $e$, alg. line \ref{heur:lineAugCase1}) :] In step $i$ an additional 
-% supply and demand of say $\alpha_i$ gets satisfied. In each of the 
-% steps the flow value $f_i(e)$ on the maximized arc $e$ is also increased by $\alpha_i$. So while the algorithm is in 
-% this stage it has all flow going over $e$. In any acyclic flow this flow value can not be higher: if in an acyclic flow 
-% $f'_i(e)$ the flow value was higher than $f_i(e)$, flow from one source would have to go over $e$ twice. But this 
-% would form a cyclic flow somewhere. \Lightning.
-% 
-%   \item[Second Stage (Cannot increase flow over $e$, but can go around, alg. line \ref{heur:lineAugCase2}) :]
-%   
-%   
-%   \item[Third Stage (Cannot find a path that is not decreasing $f(e)$, alg. line \ref{heur:lineAugCase3}) :] 
-% \end{itemize}
-% 
-%  
-%  
-%  
-% \end{proof}
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% 
-% % 
-% % \begin{proof}%the old proof 
-% %   Let $\overline{f(e)}$ be the upper bound on $e$ returned by the heuristic algorithm. We show that there is no 
-% %   feasible acyclic flow $f'$ such that $f'(e)>\overline{f(e)}$:
-% %   
-% %   We will prove this by mathematical induction over the steps of the algorithm. Denote the current balances of step $i$ 
-% %   by $b_i'$ and the corresponding flow in the heuristics $i$th step by $f_i$.
-% %   \begin{itemize}
-% %    \item[Induction Hypothesis:] Given the balances $b_i'$ it always holds: 
-% %       $$\nexists \textrm{ feasible flow }f_{b_i'}':A\to \R\textrm{ s.t. }f'_{b_i'}(e) > f_i(e)$$
-% %    \item[Basis:] This is true for $b_0'$: We set $b_0'\equiv 0$ , so there are no sources and sinks. Hence the only 
-% %       feasible acyclic flow $f'$ is the constant $0$ flow. This is also exactly how the algorithm defined $f_0$ in the 
-% %       initialization, so $f_0\equiv f_{b_0'}'$.
-% %    \item[Inductive Step:] Assume $f_{b_{i-1}'}'(e)\le f_{i-1}(e)$ for all feasible $f'_{b_{i-1}'}$. Now in step $i$ the 
-% %       algorithm computes a path between a source $s_i$ and a sink $t_i$ and updates the balances at these two nodes by 
-% %       the augmentation value $\alpha_i$.
-% %       We have to analyze three cases in the algorithm how the augmented path is found and what happens in each case 
-% %       with the flow on arc $e$.
-% %       \begin{enumerate}
-% %        \item Case: (Forward augmentation on $e$, alg. line \ref{heur:lineAugCase1}) In the first case we found a path 
-% % 	  over $e$ where we can augment an amount of $\alpha_i$. Thus $f_i(e)=f_{i-1}(e)+\alpha_i$. 
-% % 	  Assume we had a flow $f'$ with $f_{b_{i}'}'(e)> f_{i}(e)$. If we subtract (i.e. augment backwards) $\alpha_i$
-% % 	  on the path found in step $i$, we obtain a flow that is feasible for the balances $b_{i-1}'$. On $e$ this 
-% % 	  flow has a flow value of $f_{b_i'}(e)-\alpha_i$. But this gives 
-% % 	  $$f_i(e)-\alpha_i =f_{i-1}(e)\ge f'_{b_{i-1}'}= f_{b_i'}'(e)-\alpha_i > f_{i}(e)-\alpha_i$$
-% % 	  which is clearly a contradiction. \Lightning
-% %        \item Case: (Cannot increase flow over $e$, but can go around, alg. line \ref{heur:lineAugCase2}) 
-% % 	  In this case either the graph search did not find any path going over $e$ or $e$ is at its capacity bound. 
-% % 	  If $e$ is at its capacity bound, it is obvious that there is no feasible flow with more flow on $e$.
-% % 	  
-% % 	  Consider the case the graph search did not find any augmentable path from the head or to the tail of $e$. 
-% % 	  To make it easier we assume we did not find a path from the head $v$ of $e$ to an active sink, it works the 
-% % 	  same way for a backward path to an active source.
-% % 	  Lemma \ref{lemma:graphSearch} tells us that in this case there really is no augmentable path from $v$ to any 
-% % 	  active sink. The only ways from $v$ that are ignored by the graph search are the ones going from $v$ over 
-% % 	  $e$. So if we consider the digraph of augmentable arcs of $G$ there is a directed cut between $v$ and every 
-% % 	  active sink. But this means that $e$ has reached its absolute maximum flow, since always the minimum size of
-% % 	  a cut is greater or equal the size of a flow through a network. 
-% % 	  %TODO kommt mir schwammig vor, zitiere oder beweisen?
-% % 	  So also every other flow $f'$ cannot have a greater value on $e$. In this case if we have any path that is 
-% % 	  not decreasing the flow value on $e$ it is a good choice to augment it. 
-% % 	  
-% %        \item Case: (Cannot find a path that is not decreasing $f(e)$, alg. line \ref{heur:lineAugCase3} )
-% % 	  In this case we searched for a path from a source to any sink, and the only one we found was going backwards 
-% % 	  over $e$. So if we would delete $e$ there would be a directed cut in the graph of augmentable arcs between 
-% % 	  the source and the part(s) of the graph with all sinks. Thus sending flow back on $e$ is the only possibility 
-% % 	  to increase flow value on this directed cut.
-% % %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%	  
-% % % 	  Now we augment the maximum value $\alpha_i$ on this path to get a feasible flow on the balances 
-% % % 	  $b_i$. If there would be any better flow $f_{b_{i}'}'(e)> f_{i}(e)$ again - like in the cases before - this 
-% % % 	  would yield also a better flow $f_{b_{i-1}'}'(e)> f_{i-1}(e)$ by augmenting back $\alpha_i$ on the path.  
-% % % 	  %TODO das argument müsste noch zeigen, dass die rückaugmentierung keine kapazitätsschranken verletzt!
-% %       \end{enumerate}
-% % 
-% %   \end{itemize}
-% % 
-% % 
-% % %   Let $f:A\to \R$ be the flow computed in the algorithm at the moment when it returned $\overline{f(e)}$. $f$ and $f'$ 
-% % % are two flows on the same network with the same in- and outflow, so the difference between them $f-f'$ is just a cyclic 
-% % % flow without sources or sinks. We can thus transform them into each other by a sequence of cyclic augmentations.
-% % \end{proof}
-% 
-% %Laufzeit
-% \begin{prop}
-%  Algorithm \ref{algo:pathHeur} always terminates after at most $\mathcal{O}()$ steps.
-% \end{prop}
