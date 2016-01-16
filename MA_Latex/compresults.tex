@@ -1,8 +1,8 @@
 % The models we described have also been implemented and tested on networks of different size.
-In this section we will discuss the practical implementations and results of the computation. For relevant real-world 
-problem sizes the exact models are too slow, even with separation of the acyclicity constraints. For this reason we 
-also describe how to relax the problem in order to get useable (though in general not optimal) results for the flow 
-bounds. 
+In this section we will discuss the practical implementations and present results of the computation. For relevant 
+real-world problem sizes the exact models are too slow, even with separation of the acyclicity constraints. For this 
+reason we also describe how to relax the problem in order to get useable (though in general not optimal) results for the 
+flow bounds. 
 We compare the bounds found by different approaches and with different settings (different networks and nominations) 
 to see which approach is suited best to actually compute acyclic flow bounds in a network. We also describe in short 
 how the standard bounds we used to compare the results to are computed. 
@@ -142,8 +142,10 @@ to the bounds found with this approach.
  cyclic Flow& x s & 1 & 2 & 3 \\
 %   4 & 5 & 6 \\
 %   7 & 8 & 9 \\
-\end{tabular}
- 
+\end{tabular} 
 \end{center}
+%ergebnisse fuer 135: nodepotential hatte gerade einmal das erste pipe berechnet (600) mit beiden schranken, nach 293 h 
+%rechenzeit, sepa (auf nur einem kern aber im gleichen rechner) war ebenfalls nicht fertig
+
 
 

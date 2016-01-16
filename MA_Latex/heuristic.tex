@@ -31,8 +31,8 @@ Let us describe the approach in a formal way.
 \subsubsection*{The Graph Transformation}
 
 The following algorithm \ref{algo:graphtransform} describes how the graph is transformed to the new graph. It mainly 
-splits the graph into two copies $X$ and $y$ , sets costs and introduces links between both parts and the 
-supersource/supersink.
+splits the graph into two copies $X$ and $Y$, sets costs and introduces links between both parts and the 
+supersource and supersink.
 
 %Pseudocode des Algorithmus
 \begin{algorithm}
@@ -76,7 +76,7 @@ supersource/supersink.
 %TODO Beispiel mit Bild
 TODO BILD-Beispiel 
 
-With this transformation and any algorithm for Mininimum Cost Flow we can set up an algorithm for our problem. 
+With this transformation and any algorithm for Minimum Cost Flow we can set up an algorithm for our problem. 
 For the Maximum Flow and Minimum Cost Flow Problem in graphs there are many standard algorithms we could use. The 
 classical Maximum Flow algorithm of Ford and Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut 
 theorem is based on augmenting flow on source-sink-paths in the network as well as the improved algorithms of Edmonds 
@@ -87,12 +87,12 @@ problem on the transformed graph is always feasible by construction.
 Deriving from the Max-Flow Algorithms there are many algorithms solving the Min-Cost-Flow Problem. Edmonds and 
 Karp described a Successive Shortest Path Algorithm in \cite{EdmondsKarp1972}. Goldberg and Tarjan proposed the Minimum 
 Mean Cycle Cancelling Algorithm \cite{minMeanCycleCancelling89} with runnning time of $\mathcal{O}(nm(log 
-n)\min\{log(nC), m log n\}) $.%TODO fuer die anderen ebenfalls laufzeiten odr fuer keine
+n)\min\{log(nC), m log n\}) $. %TODO fuer die anderen ebenfalls laufzeiten odr fuer keine
 Another algorithm is the Network Simplex by Orlin \cite{NetworkSimplexOrlin97} (which was used in the computational 
-study) and there are a lot more algorithms available for Minimum Cost Flow.
+study) There are a lot more algorithms available for Minimum Cost Flow.
 
-Our algorithm mainly applies a feasibility test, a transformation of the graph $G$ and a Minimum Cost Flow computation 
-on the transformed graph $G'$, see algorithm \ref{algo:simpleheur}
+Our algorithm mainly consists of a feasibility test, a transformation of the graph $G$ and a Minimum Cost Flow 
+computation on the transformed graph $G'$, see algorithm \ref{algo:simpleheur}. 
 
 \begin{algorithm}
  \caption{simple heuristic}
@@ -121,7 +121,8 @@ We show the correctness of the algorithm: %TODO and running time? dependent on u
 \end{prop}
 
 \begin{proof}
-\textbf{Feasibility Test: } If the flow network nomination (in- and outflow) is infeasible, no algorithm for the 
+\textbf{Feasibility Test: }We have to show that the ordinary feasibility test with maximum flow is sufficient even for 
+acyclic flow: If the flow network nomination (in- and outflow) is infeasible, no algorithm for the 
 maximum flow problem will find a flow that is fulfilling these balances completely. Then also for the stricter acyclic 
 flow problem this is infeasible. The other direction is also true: if there is a feasible flow, there also is a 
 feasible acyclic flow:
@@ -130,25 +131,29 @@ Take the maximum flow and choose one flow cycle within (If there is none we are 
 flow is going in the same direction in relation to the cycle. We can choose the minimum flow on the cycles arcs and 
 reduce flow on each arc of the cycle by this amount. The resulting flow is still a feasible flow, but we removed the 
 flow cycle. This can be done until the flow is acyclic. But if there is any acyclic flow, there also has to be an 
-acyclic flow that is maximum on the arc we are interested in. So to test feasibility it is enough to run a normal 
-maximum flow algorithm.\\
+acyclic flow that is maximum on the arc we are interested in. So in order to test feasibility it is enough to run a 
+ordinary maximum flow algorithm.\\
 
 
-\textbf{Maximality: }If a flow is acyclic we can decompose it into flow on a set of simple paths. This means that 
-the 
-Acyclic Flowbound Problem could theoretically be solved by an algorithm augmenting simple paths (in the 
-right order) where we put some extra constraints and objectives on these paths. These constraints have to forbid the 
-closing of any flow cycle by the path as well as forcing the path to use arc $e$ if possible. (Section 
-\ref{model:pathaugment} describes this idea and shows the difficulties of choosing the right path for augmentation.)\\
+\textbf{Relaxation: }To prove that we get an upper bound with this heuristic we have to show that the result we 
+get is the maximum value of a relaxation of the problem. 
+
+If a flow is acyclic we can decompose it into flow on a set of simple paths. This means that 
+the Acyclic Flowbound Problem could theoretically be solved by an algorithm augmenting simple paths (in the 
+right order) where we put some extra constraints and objectives on these paths. These extra constraints have to forbid 
+the closing of any flow cycle by the path as well as forcing the path to use arc $e$ if possible. (Section 
+\ref{model:pathaugment} describes this idea and shows the difficulties of choosing the right path for augmentation.)
 %TODO koennte das modell einzeln hinschreiben mit 
 %hinweis auf NP schwere von constrained shortest path. anschließend kommt das relaxierungsargument besser !!!
 %Außerdem hätte ich damit shconmal ein gutes modell
 
 The heuristic algorithm is a relaxation of this constrained path augmentation model. It still forces all paths to go 
-over $e$ if possible. 
+over $e$ if possible (which might be much more since it is a problem with weaker conditions). 
 We can reconstruct a flow in the original graph from the flow in the transformed graph by summing up the flow values on 
 both copied arcs, assigning this flow to the original arc: $f(a)=f'(a_X)+f'(a_Y)$ and the assigned flow value of the 
-bridge arc to the maximized arc of the original problem. All the flow conservation constraints still hold in this flow:
+bridge arc to the maximized arc of the original problem. 
+
+All the flow conservation constraints still hold after constructing the flow in the original graph from the two copies:
 \begin{align*}
 & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V_X \\
 +& \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V_Y \\
@@ -156,36 +161,44 @@ bridge arc to the maximized arc of the original problem. All the flow conservati
 v_X\in V_X, v_Y\in V_Y \\
 =& \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V \\
 \end{align*}
-However, the capacity constraints of the original problem might be violated! We set the arcs capacities in part $X$ and 
-part $Y$ both to the value of the original capacities. Thus it might happen that actual flow value in the original 
-graph sums up to a higher value than the capacity allows (up to twice the capacity). 
 
-Also we cannot guarantee the acyclicity anymore. It might occur that we have cyclic flow in our 
-original graph $G$ even if the flow in the transformed graph $G'$ is acyclic. This happens when paths from 
-the different parts $X$ and $Y$ of $G'$ are crossing when they are brought back to the original graph $G$ to 
-build a solution there. For an example see picture TODO
-%TODO BILD einfuegen zu kreuzenden kreiserzeugenden pfaden
+The flow balances at sources and sinks are set right by construction.\\
 
-So the algorithm relaxes the capacity constraints and allows weaker kinds of cycling. It still maximizes the amount of 
-flow going over the maximized arc $e$ (the bridge): if there is any flow that can be sent over $e$ this is the cheapest 
-way. All flows that are not passing $e$ at some point have to use the arcs from part $X$ of the transformed graph 
-directly to the super-sink $t$ (which causes cost $=1$ per flow unit) or even worse from the super-source $s$ directly 
-to the super-sink $t$ (which causes cost $=2$ per flow unit). To go over $e$ has no cost at all, therefore 
-the paths with positive costs are only used if there is a directed minimal cut from part $X$ to part $Y$ where no arc 
-has free capacity.
+When no more flow can be sent over the maximized arc $e$ the path augmentation model already gives a valid bound 
+if the flow is feasible. But in fact this model can determine the amount of flow that is necessary to augment backwards 
+on $e$ in a path model.
 
-
-$\Rightarrow$ Since the problem is just a relaxation of the original problem/the  constrained simple path model, the 
-obtained bound is always weaker (in this case $\ge$) than the optimal bound for maximum acyclic flow. 
-$\Rightarrow$ the heuristic is correct for finding upper bounds for the acyclic flow on an arc.
-
-\end{proof}%TODO der beweis ist lang und unuebersichtlich, man koennte fragen wozu man manche erklaerungen braucht.
-
-This basic heuristic can still be improved without changing the main algorithm. We distinguish whether the flow is 
-going over the bridge, going to a sink node in part $X$ of the transformed graph and thus having costs of 1 per unit, 
+We distinguish whether the flow is going over the bridge $e$, going to a sink node in already in part $X$ of the 
+transformed graph and thus having costs of 1 per unit, 
 or is going from $s$ to $t$ directly with a cost of 2 per unit. The flow with costs of 2 cannot be sent over $e$ in 
 forward direction neither find any sink in part $X$ of the graph. If there is a feasible flow in $G$ (which we tested) 
 the only possible way is that the remaining flow has to go backward over $e$. So we can reduce the flow on the 
 bridge by this amount of flow directly going from $s$ to $t$ and the bound is still valid. (In algorithm 
 \ref{algo:pathHeur} from the section before this would be the part in line \ref{heur:lineAugCase3} where flow is 
-augmented backwards).
+augmented backwards).\\
+
+$\Rightarrow$ Since the problem is just a relaxation of the original problem/the constrained simple path model, the 
+obtained bound is always weaker (in this case $\ge$) than the optimal bound for maximum acyclic flow. 
+$\Rightarrow$ the heuristic is correct for finding upper bounds for the acyclic flow on an arc.
+
+\end{proof}%TODO der beweis ist lang und unuebersichtlich, man koennte fragen wozu man manche erklaerungen braucht.
+
+% So the algorithm relaxes the capacity constraints and allows weaker kinds of cycling. It still maximizes the amount of 
+% flow going over the maximized arc $e$ (the bridge): if there is any flow that can be sent over $e$ this is the cheapest 
+% way. All flows that are not passing $e$ at some point have to use the arcs from part $X$ of the transformed graph 
+% directly to the super-sink $t$ (which causes cost $=1$ per flow unit) or even worse from the super-source $s$ directly 
+% to the super-sink $t$ (which causes cost $=2$ per flow unit). To go over $e$ has no cost at all, therefore 
+% the paths with positive costs are only used if there is a directed minimal cut from part $X$ to part $Y$ where no arc 
+% has free capacity.
+
+So we have seen that we can compute an upper bound via the optimum for this relaxed problem with a fast standard 
+algorithm for maximum flows that can be retranslated into the original problem. 
+However, the capacity constraints of the original problem might be violated after retranslation. We set the arcs 
+capacities in part $X$ and part $Y$ both to the value of the original capacities. Thus it might happen that actual flow 
+value in the original graph sums up to a higher value than the capacity allows (up to twice the capacity). 
+
+Also we cannot guarantee the acyclicity anymore. It might happen that we have cyclic flow in our 
+original graph $G$ even if the flow in the transformed graph $G'$ was acyclic. This happens when paths from 
+the different parts $X$ and $Y$ of $G'$ are crossing after they are brought back to the original graph $G$ to 
+build a solution there. For an example see picture TODO
+%TODO BILD einfuegen zu kreuzenden kreiserzeugenden pfaden
