@@ -122,30 +122,113 @@ bound.
 One of the first algorithmic problems that one might think of after seeing the flowbound problem is the normal minimum 
 cost flow problem \ref{def:mincostflow}. Setting a negative weight on only one arc in the network will 
 maximize flow on this specific arc. We described the connections with this problem in section \ref{sect:mincostflow}. 
-We set the maximal flow capacity on an arc to the natural upper bound "sum of all ingoing flow" if no tighter 
-capacity bounds are given. This is an extremely easy condition derived from the acyclicity and can always be applied.
+
+We can set the maximal flow capacity on an arc to the natural upper bound "sum of all ingoing flow" if no tighter 
+capacity bounds are given. This is a very easy condition derived from the acyclicity and can always be applied.
 
 This model is also implemented in Lamatto. It is modeled as a mixed integer programm with only flow balance and 
-capacity constraints. Binary directions are not contained in this model. The model also served as basis for the more 
-specific models - thus it is a relaxation of all the others.
+capacity constraints. Binary directions are not contained in this model. Because this MIP model also served as the 
+basis for the more specific MIP models it is a relaxation of all the others which just add some more constraints or 
+variables.
 
-We will refer to this model as "cyclic bounds" in the tables below. We compare the bounds from the different algorithms 
-to the bounds found with this approach. 
+We will refer to this model as "cyclic bounds" respectively "cyclic bounds + flowsum" in the tables below. We compare 
+the bounds from the different algorithms to the bounds found with this approach. 
 
 
 \subsubsection{Tables}
 \begin{center}
 
 \begin{tabular}{ l | c | c | c | c }
-\textbf{gaslib-40} & Time  & Fixed Flows & Tighter Bounds than \ref{model:cyclicFlow} & \\
+\textbf{gaslib-40} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
 \hline
- cyclic Flow& x s & 1 & 2 & 3 \\
-%   4 & 5 & 6 \\
-%   7 & 8 & 9 \\
+ cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $<1s$ & 21 & - & - \\
+ cycle base& $1s$ & 21 & 48 & 1372.4\\
+ heuristic& $<1s$& 21& 0 & 0\\
+ node potential& $4s$ & 21 & 48 & 1372.4 \\ 
+ sepa\_all& $112s$ & 21 & 48 & 1372.4\\
 \end{tabular} 
 \end{center}
 %ergebnisse fuer 135: nodepotential hatte gerade einmal das erste pipe berechnet (600) mit beiden schranken, nach 293 h 
 %rechenzeit, sepa (auf nur einem kern aber im gleichen rechner) war ebenfalls nicht fertig
 
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+\textbf{gaslib-582 warm\_1111} & Time  & Fixed Flows & Bounds tightened & avg improvement \\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1s$ & 365 & - & -\\
+ cycle base& $ $ &  &  &\\
+ heuristic& $ 11s$& 365& 164 & 5047.2 \\
+ node potential& $ $ &  &  &   \\ 
+ sepa\_1000& $ 50 min$ & 382 & 107 & 3802.1 \\
+ sepa\_5000& $ 159 min$ & 382 & 180&3971.6 \\
+ sepa\_20000& $ 281 min$ & 382 & 264 & 4312.5 \\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+
+\textbf{gaslib-582 cool\_12} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1s$ & 365 & - & - \\
+ cycle base& $ $ &  &  & \\
+ heuristic& $11s $& 365& 164 & 4050.9 \\
+ node potential& $ $ &  &  &    \\ 
+ sepa\_1000& $ 50 min $ & 378 & 100 & 3025.2\\
+ sepa\_5000& $ 158 min$ & 378 & 211 & 3525.6\\ 
+ sepa\_20000& $ 361 min$ & 378 & 242 & 3648.3  \\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+
+\textbf{gaslib-582 cold\_100} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1s$ & 365 & - & -  \\
+ cycle base& $ $ &  &  & \\
+ heuristic& $ 10s $& 365& 164 & 5157.4\\
+ node potential& $ $ &  &  &   \\ 
+ sepa\_1000& $50 min $ & 378 & 88 & 4265.5 \\
+ sepa\_5000& $ 127 min$ & 378 & 242 & 4508.9  \\
+ sepa\_20000& $ 382 min$ &  378& 241 & 4526.3  \\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+
+\textbf{gaslib-582 freezing\_1} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1s$ & 365 & - & - \\
+ cycle base& $ $ &  &  & \\
+ heuristic& $ 11s$& 365& 148 & 6148.2\\
+ node potential& $ $ &  &  &  \\ 
+ sepa\_1000& $50 min $ & 374 & 90 & 5405.4 \\
+ sepa\_5000& $ 154 min$ & 374 & 231 &5104  \\
+ sepa\_20000& $366 min $ & 374 & 244 &4929.8 \\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+
+\textbf{gaslib-582 mild\_10} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1s$ & 365 & - & -\\
+ cycle base& $ $ &  &  & \\
+ heuristic& $11s $&365 & 164 & 4291.5\\
+ node potential& $ $ &  &   &  \\ 
+ sepa\_1000& $50 min $ & 378 & 105 & 3271.3 \\
+ sepa\_5000& $ 158 min $ & 378 & 188 & 3329.5 \\
+ sepa\_20000& $ 394 min$ & 378 & 216 &3144.6 \\
+\end{tabular} 
+\end{center}
 
 
