@@ -175,59 +175,70 @@ arbitrarily large:
 unbounded. 
 \end{prop}
 \begin{proof}
- As a proof look at the two examples. 
+ In order to show this we look at the two examples:
  \begin{figure}[h!]
-\centering
-\begin{tikzpicture}
-[scale=2, vertex/.style={circle,fill=black}]
-\node (s) at (0,0)[vertex]{};
-\node (stext) at (-0.1, -0.2){s, $d(s)=1$};
-\node (t) at (2,0)[vertex]{} ;
-\node (ttext) at (2.1, -0.2){t, $(d(t)=-1$};
-\node (3) at (1,1.5)[vertex]{};
-\node(etext) at (1.7,0.9){e};
+  \centering
+  \begin{tikzpicture}
+  \node (s) at (0,0)[vertex, label=below:{s, $d(s)=-1$}]{};
+%   \node (stext) at (-0.1, -0.2){s, $d(s)=1$};
+    \node (t) at (2,0)[vertex, label=below:{t, $d(t)=1$}]{};
+%   \node (ttext) at (2.1, -0.2);
+  \node (3) at (1,1.5)[vertex]{};
+%   \node(etext) at (1.7,0.9){e};
 
-\draw (s) -- (3);
-\draw (s) -- (t);
-  \begin{scope}[
-    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
-    ]
-    \draw[postaction={decorate}] (3) -- (t);
-  \end{scope}
-\end{tikzpicture}
+  % \draw [edgeflow] (s)--(3);
+  \draw[arcflow] (s)--(3)--(t);
+  \draw [edge](s) -- (3);
+  \draw [edge](s) -- (t);
+  \draw[fatarc] (3) -- (t)node [pos=0.6, above] {$e$};;
+  \end{tikzpicture}
+ \caption{A simple network with acyclic flow}
+ \label{bild:acyclicTriangle}
  \end{figure}
-In this first picture we see that the flow on the maximized arc $e$ in the acyclic case has to be 1. If we allow cyclic 
-flow it could be any number - it is the minimum we choose as capacity for an arc in the network. Hence the 
-relative gap is
+ 
+ \begin{figure}[h!]
+  \centering
+  \begin{tikzpicture}
+  \node (t) at (2,0)[vertex, label=below:{t, $d(t)=1$}]{};
+  \node (s) at (0,0)[vertex, label=below:{s, $d(s)=-1$}]{};
+  \node (3) at (1,1.5)[vertex]{};
+
+  \draw[arcflow=red] (s)--(3)--(t)--(s)--(3)--(t);
+  \draw [edge](s) -- (3);
+  \draw [edge](s) -- (t);
+  \draw[fatarc] (3) -- (t)node [pos=0.6, above] {$e$};
+  \end{tikzpicture}
+ \caption{The same simple network with cycling flow that can pass $e$ several times}
+ \label{bild:cyclicTriangle}
+ \end{figure}
+In figure \ref{bild:acyclicTriangle} we see that the flow on the maximized arc $e$ in the acyclic case has to be 1. 
+If we allow cyclic flow as in figure \ref{bild:cyclicTriangle} it could be any number - it is the minimum we choose as 
+capacity for an arc in the network. Hence the relative gap is
 $$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}=\frac{\textrm{min capacity on the cycle}}{1}$$ which is unbounded.
+
   
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
-[scale=2, vertex/.style={circle,fill=black}]
-\node (s) at (0,0)[vertex]{};
-\node (stext) at (-0.1, 0.2){s};
-\node (t) at (0,2)[vertex]{} ;
-\node (ttext) at (-0.1, 1.8){t};
+\node (s) at (0,0)[vertex, label=s]{};
+% \node (stext) at (-0.1, 0.2){s};
+\node (t) at (0,2)[vertex, label=t]{} ;
+% \node (ttext) at (-0.1, 1.8){t};
 \node (3) at (1,1)[vertex]{};
 \node (4) at (2,2)[vertex]{};
 \node (5) at (2,0)[vertex]{};
-\node(etext) at (1.4,1.6){e};
 
-\draw (s) -- (3);
-\draw (t) -- (3);
-\draw (4) -- (5);
-\draw (3) -- (5);
-  \begin{scope}[
-    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
-    ]
-    \draw[postaction={decorate}] (3) -- (4);
-  \end{scope}
+\draw[arcflow] (s)--(3)--(t);
+\draw [edge](s) -- (3)--(5)--(4);
+\draw [edge](t) -- (3);
+\draw[fatarc] (3) -- (4)node [pos=0.6, above] {$e$};
 \end{tikzpicture}
- 
+\caption{In the acyclic case there is no flow at all on the arc $e$ in this network}
+\label{bild:acycliczeroflow}
 \end{figure}
 
-The second picture shows a graph where the flow on $e$ in the acyclic case is $0$. If we do not forbid cyclic flows, 
+Figure \ref{bild:acycliczeroflow} shows a graph where the flow on $e$ in the acyclic case is $0$. If we do not forbid 
+cyclic flows, 
 the flow on $e$ will always be $\min_{a\in \textrm{ cycle }C}c_u(a)$ like in the first picture. So the gap in relative 
 numbers $$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}=\frac{\min_{a\in \textrm{ cycle }C}(c_u(a))}{0}$$ is not even defined!
 \end{proof}
