@@ -48,18 +48,97 @@ Given an instance of the $s-t$-Hamiltonian Path problem, we have to transform it
 we show that the reduced problem is a yes-instance of the Acyclic Min Cost Flow decision problem if and only if the 
 original instance of the Hamiltonian Path problem is a yes-instance. Further the reduction must be computable in 
 polynomial time.
+ 
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node (s) at (0,0)[vertex, label=left:s]{};
+\node (t) at (0,1)[vertex, label=left:t]{} ;
+\node (3) at (1,0)[vertex]{};
+\node (4) at (1,1.7)[vertex]{};
+\node (5) at (1.7,1)[vertex]{};
+
+% \draw[edgeflow] (s)--(3)--(4)--(5)--(t);
+\draw[edge] (s)--(3)--(4)--(5)--(t);
+\draw[edge] (t)--(s)--(5)--(3);
+
+%now draw the transformed graph
+\node (s2) at (3,0)[vertex, label=left:s]{};
+\node (t2) at (3,1)[vertex, label=left:t]{} ;
+\node (32) at (4,0)[vertex]{};
+\node (42) at (4,1.7)[vertex]{};
+\node (52) at (4.7,1)[vertex]{};
+
+\draw[edgeflow] (s2)--(32)--(42)--(52)--(t2);
+\draw[edge] (s2)--(32)--(42)--(52)--(t2);
+\draw[edge] (t2)--(s2)--(52)--(32);
+\end{tikzpicture}
+\caption{This graph has an $s-t$-hamilton path contained, marked in blue in the second picture}
+\label{bild:hampath}
+\end{figure}
 
 An $s-t$-Hamiltonian Path is a path in a network starting at node $s$ and ending at node $t$ that is visiting every 
-node of $G$ exactly once. This can only work in connected graphs, so we know that if $n$ is the number of nodes in the 
+node of $G$ exactly once like in the example in figure \ref{bild:hampath}. 
+
+This can only work in connected graphs, so 
+we know that if $n$ is the number of nodes in the 
 graph, the Hamiltonian Path has to have size $n-1$. Our reduction is the following:
 
 Transform the $s-t$-Hamiltonian Path instance into an instance of a flow network where for each edge $\{uv\}$ there 
-are two directed arcs $(u,v),(v,u)$,the arcs $a\in A$ all have capacities $c(a)=[0,1]$ and costs of $-1$ 
+are two directed arcs $(u,v),(v,u)$, the arcs $a\in A$ all have capacities $c(a)=[0,1]$ and costs of $-1$ 
 with the same underlying graph as before. The nodes $s$ and $t$ become the source and sink of the flow.%TODO picture?
-The decision we ask for is whether there is a flow with total costs of at most $-(n-1)$ or not.
+The decision we ask for is whether there is a flow with total costs of at most $-(n-1)$ or not. (Figure 
+\ref{bild:hampathreduct} shows an example of such a transformation)
 
-It is obviously a polynomial transformation because only a linear number of flags and arcs is added to the network, 
-while the edges are deleted when they get replaced with the new arcs.
+ 
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node (s) at (0,0)[vertex, label=left:s]{};
+\node (t) at (0,1)[vertex, label=left:t]{} ;
+\node (3) at (1,0)[vertex]{};
+\node (4) at (1,1.7)[vertex]{};
+\node (5) at (1.7,1)[vertex]{};
+
+\draw[edgeflow] (s)--(3)--(4)--(5)--(t);
+\draw[edge] (s)--(3)--(4)--(5)--(t);
+\draw[edge] (t)--(s)--(5)--(3);
+
+%now draw the transformed graph
+\node (s2) at (3,0)[vertex, label=left:s]{};
+\node (t2) at (3,1)[vertex, label=left:t]{} ;
+\node (32) at (4,0)[vertex]{};
+\node (42) at (4,1.7)[vertex]{};
+\node (52) at (4.7,1)[vertex]{};
+
+\draw[curvedarcflow](s2)to(32);
+\draw[curvedarcflow](32)to(42);
+\draw[curvedarcflow](42)to(52);
+\draw[curvedarcflow](52)to(t2);
+\draw[curvedarc](s2)to(32);
+\draw[curvedarc](32)to(s2);
+\draw[curvedarc](42)to(32);
+\draw[curvedarc](32)to(42);
+\draw[curvedarc](42)to(52);
+\draw[curvedarc](52)to(42);
+\draw[curvedarc](t2)to(52);
+\draw[curvedarc](52)to(t2);
+\draw[curvedarc](s2)to(32);
+\draw[curvedarc](s2)to(52);
+\draw[curvedarc](52)to(s2);
+\draw[curvedarc](52)to(32);
+\draw[curvedarc](32)to(52);
+\draw[curvedarc](t2)to(s2);
+\draw[curvedarc](s2)to(t2);
+
+\end{tikzpicture}
+\caption{A graph with an $s-t$-hamilton path is transformed to an acyclic minimum cost flow instance with costs of $-1$ 
+per arc. Hence in this example we find a minimum acyclic flow of cost $-4=-n+1$}
+\label{bild:hampathreduct}
+\end{figure}
+
+It is obviously a polynomial time transformation because only a linear number of flags and arcs is added to the 
+network, while the edges are deleted when they get replaced with the new arcs.
 
 It yields the same decision as the original Hamiltonian Path instance:
 \begin{itemize}

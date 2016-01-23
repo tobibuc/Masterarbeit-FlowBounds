@@ -195,32 +195,23 @@ show that a cycle base works on the easiest possible example, but fails if the p
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
-[scale=2, vertex/.style={circle,fill=black}]
-  \begin{scope}[
-    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
-    ]
 \node (a) at (0,0)[vertex]{};
-% \node (stext) at (-0.1, 0.2){s};
+\node () at (-0.1, 0.2){s};
 \node (b) at (1,1)[vertex]{} ;
 \node (c) at (1,-1)[vertex]{};
 \node (d) at (2,0)[vertex]{};
 
-\draw[postaction={decorate}] (a) -- (b);
-\draw[postaction={decorate}] (b) -- (c);
-\draw[postaction={decorate}] (c) -- (a);
-\draw[postaction={decorate}] (c) -- (d);
-\draw[postaction={decorate}] (d) -- (b);
-%beschriftungen
-\node (e1) at (0.4,0.6){$e_1$};
-\node (e2) at (1.6,0.6){$e_2$};
-\node (e3) at (1.6,-0.6){$e_3$};
-\node (e4) at (0.4,-0.6){$e_4$};
-\node (e5) at (1.15, 0){$e_5$};
-% \draw (3) -- (5);
-  \end{scope}
+\draw[arc] (a) -- (b)node [pos=0.5, above]{$e_1$};
+\draw[arc] (b) -- (c)node [pos=0.5, left]{$e_2$};
+\draw[arc] (c) -- (a)node [pos=0.5, above]{$e_3$};
+\draw[arc] (c) -- (d)node [pos=0.5, above]{$e_4$};
+\draw[arc] (d) -- (b)node [pos=0.5,above]{$e_5$};
+%draw circle with arrowtip
+\draw[ultra thick, ->, red!50] (1.65,0) arc (0:290:0.25);
+\draw[ultra thick, ->, red!50] (0.8,0.15) arc (30:310:0.25);
 \end{tikzpicture}
-\caption{Here it suffices to forbid the 2 interior cycles TODO in order to obtain acyclicity}
- \label{bild:reichtkreisbasis1}
+\caption{Here it suffices to forbid the 2 interior cycles marked with red in order to obtain acyclicity}
+\label{bild:reichtkreisbasis1}
 \end{figure}
 %beweis dass hier wirklich eine Kreisbasis reicht!
 
@@ -239,31 +230,18 @@ automatically induced by them, it is a redundant constraint.
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
-[scale=2, vertex/.style={circle,fill=black}]
-  \begin{scope}[
-    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
-    ]
 \node (a) at (0,-0.1)[vertex]{};%center 
 \node (b) at (-1,-0.8)[vertex]{} ;
 \node (c) at (0,1)[vertex]{};
 \node (d) at (1,-0.8)[vertex]{};
 % \node(etext) at (1.4,1.6){e};
 
-\draw[postaction={decorate}] (a) -- (b);
-\draw[postaction={decorate}] (b) -- (c);
-\draw[postaction={decorate}] (c) -- (a);
-\draw[postaction={decorate}] (a) -- (d);
-\draw[postaction={decorate}] (d) -- (c);
-\draw[postaction={decorate}] (b) -- (d);
-%bescriftungen
-\node (e1) at (-0.6,0.2){$e_1$};
-\node (e2) at (0.6,0.2){$e_2$};
-\node (e3) at (0.5,-0.55){$e_3$};
-\node (e4) at (-0.5, -0.55){$e_4$};
-\node (e5) at (-0.1,0.4){$e_5$};
-\node (e6) at (0,-0.9){$e_6$};
-% \node (e7) at (){e7};
-  \end{scope}
+\draw[arc] (a) -- (b)node [pos=0.5, above]{$e_4$};
+\draw[arc] (b) -- (c)node [pos=0.5, above]{$e_1$};
+\draw[arc] (c) -- (a)node [pos=0.5, above]{$e_5$};
+\draw[arc] (a) -- (d)node [pos=0.5, above]{$e_3$};
+\draw[arc] (d) -- (c)node [pos=0.5, above]{$e_2$};
+\draw[arc] (b) -- (d)node [pos=0.5, below]{$e_6$};
 \end{tikzpicture}
 \caption{In this tetrahedron graph \textbf{no} cycle bases' acyclicity constraints can enforce acyclic flow on the 
 whole 
@@ -294,12 +272,15 @@ But the acylicity constraint of the cycle $(e_1 \overline{e_2} \,\overline{e_6})
 The resulting constraints are not sharp, because the left hand side and the right hand side depend on the length of the 
 cycles, which changes while we combine them.
 
+Due to symmetry in this complete graph it does not matter which cycles we choose for the cycle base. In fact there is 
+no combination of three cycles that could completely exclude cyclic flow solutions from the solution space.
+
 \begin{prop}
 \label{prop:redundantAcyclicityCons}
  Given two acyclicity constraints $cons_1$ and $cons_2$ of cycles $C_1$ and $C_2$ in $G$. The acyclicity constraint of 
 the joint cycle $C=C_1\cup C_2 \setminus \{a\in A| a\in C_1\land a\in C_2 \}$ is the sum of $cons_1$ amd $cons_2$ if 
 and only if $C_1$ and $C_2$ have exactly one arc in common (and this arc is directed differently in both 
-cycles/constraints).%TODO.
+cycles/has different sign in both constraints).
 \end{prop}
 This proposition shows that many of the acyclicity constraints in our model may be redundant and could be omitted. 
 But still the remaining constraints are exponential in the size of $G$.
