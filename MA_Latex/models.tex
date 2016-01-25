@@ -196,7 +196,7 @@ show that a cycle base works on the easiest possible example, but fails if the p
 \centering
 \begin{tikzpicture}
 \node (a) at (0,0)[vertex]{};
-\node () at (-0.1, 0.2){s};
+% \node () at (-0.1, 0.2){};
 \node (b) at (1,1)[vertex]{} ;
 \node (c) at (1,-1)[vertex]{};
 \node (d) at (2,0)[vertex]{};
@@ -404,7 +404,7 @@ illustrate with examples that only a relaxed version or either an algorithm with
 paths can work for the acyclic flowbound problem.\\
 
 If we want to maximize flow over arc $e=(u,v)$ the first idea might be to just search a path from $v$ to the sink $t$ 
-and another path from the sink $s$ to $u$. To find such a path can be done by graph search in the graph of augmentable 
+and another path from the sink $s$ to $u$. Finding such a path can be done by graph search in the graph of augmentable 
 arcs in linear time. Also the combined path of the two would always use the arc $e$.
 But it is not sufficient to just combine a path from source $s$ to node 
 $u$ and one from node $v$ to a sink $t$. Such a combination could produce cyclic flow, see for example figure 
@@ -414,62 +414,65 @@ $u$ and one from node $v$ to a sink $t$. Such a combination could produce cyclic
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
-[scale=2, vertex/.style={circle,fill=black},arrow/.style={-latex, shorten >=0.2ex, shorten <=0.2ex}]
-  \begin{scope}[
-    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
-    ]
-\node (a) at (3,0)[vertex]{};
+% [scale=2, vertex/.style={circle,fill=black},arrow/.style={-latex, shorten >=0.2ex, shorten <=0.2ex}]
+\node (a) at (2,0)[vertex, label=below:$v$]{};
 % \node (stext) at (-0.1, 0.2){s};
-\node (b) at (2,-0.5)[vertex]{} ;
-\node (c) at (2,1)[vertex]{};
-\node (s) at (3,2)[vertex]{};
-\node (t) at (0,1)[vertex]{};
+\node (b) at (1,-0.5)[vertex,label=below:$u$]{} ;
+\node (c) at (1,1)[vertex]{};
+\node (s) at (1.5,1.5)[vertex, label=s]{};
+\node (t) at (0,1)[vertex, label=left:t]{};
 
-\draw[postaction={decorate}] (b) -- (a)node [pos=0.5, above, black] {e};
-\draw[arrow, bend right, color=red] (s) to (c);
-\draw[arrow, bend right, color=red] (c) to (b);
-\draw[arrow, bend left, color=orange] (c) to (t);
-\draw[arrow, bend right, color=orange] (a) to (c);
-  \end{scope}
+\draw[arcflow, magenta] (s)--(c)--(b);
+\draw[arcflow, light blue] (a)--(c)--(t);
+\draw[arcflow, blue!50!magenta] (b)--(a);
+\draw[fatarc] (b) -- (a)node [pos=0.5, above, black] {e};
+\draw[edge] (s) to (c);
+\draw[edge] (c) to (b);
+\draw[edge] (c) to (t);
+\draw[edge] (a) to (c);
+\draw[ultra thick, ->, red!50] (1.55,0.27) arc (30:330:0.23);
 \end{tikzpicture}
-\caption{If we just combine a path from the source to the tail of $e$ and from its head to the sink, we might get 
-crossing paths, leading to cyclic flow}
+\caption{This small network shows that combining two independent paths (blue, magenta) from both endes of the maximized 
+arc unto source and sink can lead to cyclic flow}
  \label{bild:cycleFromCombinedPaths}
 \end{figure}
 
-The next straightforward idea is to use simple paths. This means we would just forbid that the two paths we found have 
+The next straightforward idea is to use simple paths containing the arc we want to maximize. This means we would just 
+forbid that the two paths we found have 
 vertices in common. 
 But it is also not sufficient to just use simple paths: it might happen that two different paths intersect in 
 such a way that the combination of these paths produces a flow cycle (see figure 
 \ref{bild:cycleFromDifferentCombinedPaths}).
 
-
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
-[scale=2, vertex/.style={circle,fill=black},arrow/.style={-latex, shorten >=0.2ex, shorten <=0.2ex}]
-  \begin{scope}[
-    decoration={markings,mark=at position 0.5 with {\arrow{triangle 60}}}
-    ]
-\node (a) at (3,0)[vertex]{};
+% [scale=2, vertex/.style={circle,fill=black},arrow/.style={-latex, shorten >=0.2ex, shorten <=0.2ex}]
+\node (a) at (2,0)[vertex, label=below:$v$]{};
 % \node (stext) at (-0.1, 0.2){s};
-\node (b) at (2,-0.5)[vertex]{} ;
-\node (c) at (2,1)[vertex]{};
-\node (d) at (1.5, -2)[vertex]{};
-\node (e) at (3.5, -1)[vertex]{};
-\node (s) at (3,2)[vertex]{};
-\node (t) at (0,1)[vertex]{};
+\node (b) at (1,-0.5)[vertex,label=below:$u$]{} ;
+\node (c) at (1,1)[vertex]{};
+\node (s1) at (1.5,1.5)[vertex, label=$s_1$]{};
+\node (t1) at (2.5,-1)[vertex, label=$t_1$]{};
+\node (s2) at (0,-1.5)[vertex, label=left:$s_2$]{};
+\node (t2) at (0,1)[vertex, label=left:$t_2$]{};
 
-\draw[postaction={decorate}] (b) -- (a)node [pos=0.5, above, black] {e};
-\draw[arrow, bend right, color=red] (s) to (c);
-\draw[arrow, bend right, color=red] (c) to (b);
-\draw[arrow, bend left, color=red] (a) to (e);
-\draw[arrow, bend right, color=blue] (c) to (t);
-\draw[arrow, bend right, color=blue] (a) to (c);
-\draw[arrow, bend left, color=blue] (d) to (b);
-  \end{scope}
+\draw[arcflow, magenta] (s1)--(c)--(b);
+\draw[arcflow, magenta] (a)--(t1);
+\draw[arcflow, light blue] (a)--(c)--(t2);
+\draw[arcflow, light blue] (s2)--(b);
+\draw[arcflow, blue!50!magenta] (b)--(a);
+\draw[fatarc] (b) -- (a)node [pos=0.5, above, black] {e};
+\draw[edge] (s1) to (c);
+\draw[edge] (c) to (b);
+\draw[edge] (c) to (t2);
+\draw[edge] (a) to (c);
+\draw[edge] (s2) to (b);
+\draw[edge] (a) to (t1);
+\draw[ultra thick, ->, red!50] (1.55,0.27) arc (30:330:0.23);
 \end{tikzpicture}
-\caption{If we combine two simple paths going over $e$ we might get a crossing, leading to cyclic flow}
+\caption{If we combine two simple $s-t$-paths (blue and magenta) going over $e$ we might get a crossing of both, 
+leading to cyclic flow}
  \label{bild:cycleFromDifferentCombinedPaths}
 \end{figure}
 
@@ -481,9 +484,124 @@ This is a problem for easy path searching methods. If we have to choose a next n
 know if we have to change a previous path we might have to branch on the decisions. It is even worse: 
 
 If the algorithm chooses to augment the wrong path it can happen that \textit{no} simple $s-t$-path can be augmented -
-although there exists an acyclic flow with a higher flow value $f(e)$. Figure \ref{} shows such a situation where path 
-augmentation is useless because in the first step a wrong path was chosen. TODO BILD
-%TODO BILD
+although there exists an acyclic flow with a higher flow value $f(e)$. Figure \ref{bild:blockingPathflowNet} shows such 
+a situation where path augmentation is useless because in the first step a wrong path was chosen. 
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+%picture to show how bad path flow augmentation can block arcs such that no simple path can obtain optimality anymore
+\node (a) at (0,3)[vertex]{};
+\node (s1) at (1,2.5)[source]{-1};
+\node (b) at (2,3)[vertex]{};
+\node (d) at (2,2)[vertex]{};
+\node (c) at (1.5,0)[vertex]{};
+\node (s2) at (3,3)[source]{-1};
+\node (t) at (1.5,1)[sink]{2};
+% \draw[arcflow] (s)--(3)--(t);
+\draw[fatarc] (b)--(a)node[pos=0.5, above]{$e$};
+% \draw[edge] (a)--(s1)--(d)--(b)--(s2)--(c)--(a);
+% \draw[edge] (c)--(t)--(d);
+\draw[edge] (a)--(s1)node [pos=0.5, above] {2};
+\draw[edge] (s1)--(d)node [pos=0.5, above] {1};
+\draw[edge] (d)--(b)node [pos=0.5, right] {2};
+\draw[edge] (b)--(s2)node [pos=0.5, above] {2};
+\draw[edge] (s2)--(c)node [pos=0.5, above] {2};
+\draw[edge] (c)--(a)node [pos=0.5, above] {2};
+% \draw[edge] (a)--()node [pos=0.5, above, blue] {2};
+\draw[edge] (c)--(t)node [pos=0.5,right] {2};
+\draw[edge] (t)--(d)node [pos=0.5, above] {2};
+\end{tikzpicture}
+\caption{Example graph with capacities on all arcs and demand values at sources and sinks}
+ \label{bild:blockingPathflowNet}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+%picture to show how bad path flow augmentation can block arcs such that no simple path can obtain optimality anymore
+\node (a) at (0,3)[vertex]{};
+\node (s1) at (1,2.5)[source]{-1};
+\node (b) at (2,3)[vertex]{};
+\node (d) at (2,2)[vertex]{};
+\node (c) at (1.5,0)[vertex]{};
+\node (s2) at (3,3)[source]{-1};
+\node (t) at (1.5,1)[sink]{2};
+\draw[arcflow, cyan, dashed] (s1)--(d)--(b);
+\draw[arcflow, cyan](b)--(a)--(c)--(t);
+\draw[arcflow, yellow, dashed] (s2)--(b)--(a)--(c)--(t);
+\draw[fatarc] (b)--(a)node[pos=0.5, above]{$e$};
+\draw[edge] (a)--(s1){};
+\draw[edge] (s1)--(d){};
+\draw[edge] (d)--(b){};
+\draw[edge] (b)--(s2){};
+\draw[edge] (s2)--(c){};
+\draw[edge] (c)--(a){};
+\draw[edge] (c)--(t){};
+\draw[edge] (t)--(d){};
+\end{tikzpicture}
+\caption{The optimum - the whole amount of flow is going over $e$ while the flow is still acyclic in the whole network}
+ \label{bild:blockingPathflowOpt}
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+[scale=0.7]
+%picture to show how bad path flow augmentation can block arcs such that no simple path can obtain optimality anymore
+\node (a) at (0,3)[vertex]{};
+\node (s1) at (1,2.5)[source]{-1};
+\node (b) at (2,3)[vertex]{};
+\node (d) at (2,2)[vertex]{};
+\node (c) at (1.5,0)[vertex]{};
+\node (s2) at (3,3)[source]{-1};
+\node (t) at (1.5,1)[sink]{2};
+\draw[arcflow, cyan] (s2)--(b)--(a);
+\draw[arcflow, cyan](a)--(s1)--(d)--(t);
+% \draw[arcflow, yellow, dashed] (s1)--(a)--(c)--(t);
+\draw[fatarc] (b)--(a)node[pos=0.5, above]{$e$};
+\draw[edge] (a)--(s1)node [pos=0.5, above] {2};
+\draw[edge] (s1)--(d)node [pos=0.5, above] {1};
+\draw[edge] (d)--(b)node [pos=0.5, right] {2};
+\draw[edge] (b)--(s2)node [pos=0.5, above] {2};
+\draw[edge] (s2)--(c)node [pos=0.5, above] {2};
+\draw[edge] (c)--(a)node [pos=0.5, above] {2};
+\draw[edge] (c)--(t)node [pos=0.5,right] {2};
+\draw[edge] (t)--(d)node [pos=0.5, above] {2};
+% \draw[edge] (a)--(s1){};
+% \draw[edge] (s1)--(d){};
+% \draw[edge] (d)--(b){};
+% \draw[edge] (b)--(s2){};
+% \draw[edge] (s2)--(c){};
+% \draw[edge] (c)--(a){};
+% \draw[edge] (c)--(t){};
+% \draw[edge] (t)--(d){};
+\node (2a) at (4,3)[vertex]{};
+\node (2s1) at (5,2.5)[source]{-1};
+\node (2b) at (6,3)[vertex]{};
+\node (2d) at (6,2)[vertex]{};
+\node (2c) at (5.5,0)[vertex]{};
+\node (2s2) at (7,3)[source]{-1};
+\node (2t) at (5.5,1)[sink]{2};
+\draw[arcflow, cyan] (2s2)--(2b)--(2a);
+\draw[arcflow, cyan](2a)--(2s1)--(2d)--(2t);
+\draw[arcflow, yellow, dashed] (2s1)--(2a)--(2c)--(2t);
+\draw[fatarc] (2b)--(2a)node[pos=0.5, above]{$e$};
+\draw[edge] (2a)--(2s1)node [pos=0.5, above] {2};
+\draw[edge] (2s1)--(2d)node [pos=0.5, above] {1};
+\draw[edge] (2d)--(2b)node [pos=0.5, right] {2};
+\draw[edge] (2b)--(2s2)node [pos=0.5, above] {2};
+\draw[edge] (2s2)--(2c)node [pos=0.5, above] {2};
+\draw[edge] (2c)--(2a)node [pos=0.5, above] {2};
+\draw[edge] (2c)--(2t)node [pos=0.5,right] {2};
+\draw[edge] (2t)--(2d)node [pos=0.5, above] {2};
+\end{tikzpicture}
+\caption{With the given capacities and the already augmented blue flow (left picture) there exists no simple path from 
+the middle source to the sink such that 
+flow on $e$ could be increased. The best possibility is to augment the dashed yellow path which yields a flow 
+value $f(e)=1$ on the maximized arc. This is not optimal as figure \ref{bild:blockingPathflowOpt} showed}
+ \label{bild:blockingPathflow}
+\end{figure}
 
 This example clearly shows the problems of a path based augmentation approach. A flow could block the wrong arcs while 
 the next augmentation step possibly needs these arcs. 
@@ -579,7 +697,8 @@ could find such paths or edge progressions and to use it as basis for a heuristi
 \end{algorithm}
 
 \begin{prop}
- The described algorithm \ref{algo:pathHeur} together with a function \textit{acyclicEdgeProg()/acyclicEdgeProgOverE} 
+ The described algorithm \ref{algo:pathHeur} together with a function \textit{acyclicEdgeProg()} 
+ resp. \textit{acyclicEdgeProgOverE} 
  that finds an augmentable edge progression (acyclicEdgeProgOverE using a specified arc $e$)
  whose augmentation is not causing any flow cycles computes the optimal bounds to the acyclic flowbound problem. 
 \end{prop}

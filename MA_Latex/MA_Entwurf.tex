@@ -63,17 +63,28 @@
 %this is to set arrow in middle of lines
 \tikzset{->-/.style={decoration={markings, mark=at position .5 with {\arrow{#1}}},postaction={decorate}}}
 \tikzset{vertex/.style={circle,fill=black!40}}
+\tikzset{source/.style={circle,draw=green,fill= green!20}}
+\tikzset{sink/.style={circle,draw=red,fill =red!20}}
 \tikzset{every picture/.append style={scale=2.5}}%maybe better set locally?
 \tikzset{edge/.style={semithick, solid}}%could also do dashed, dotted, double...
-\tikzset{arc/.style={->-, semithick, snake it}}
+\tikzset{arc/.style={->-, semithick}}
 \tikzset{fatarc/.style={very thick, ->-={latex}}}
-\tikzset{edgeflow/.style={line width=2.5pt, #1!40}} %rounded corners funzt nicht?
-\tikzset{arcflow/.style={->-, line width=2.5pt, #1!40}}
+\tikzset{edgeflow/.style={line width=3pt, #1!40}} %rounded corners funzt nicht?
+\tikzset{arcflow/.style={->-, line width=3pt, #1!40}}
 \tikzset{edgeflow/.default=blue}
 \tikzset{arcflow/.default=blue}
 \tikzset{->-/.default=stealth}
 \tikzset{curvedarc/.style={arc, bend angle = 10, bend right}}
 \tikzset{curvedarcflow/.style={arcflow, bend angle = 10, bend right}}
+% \begin{figure}[h!]
+% \centering
+% \begin{tikzpicture}
+% \node (s) at (0,0)[vertex, label=s]{};
+% \draw[arcflow] (s)--(3)--(t);
+% \end{tikzpicture}
+% \caption{}
+%  \label{bild:}
+% \end{figure}
 
 \begin{document}
 

@@ -74,7 +74,80 @@ supersource and supersink.
 \end{algorithm}
 
 %TODO Beispiel mit Bild
-TODO BILD-Beispiel 
+Figure \ref{bild:graphtransform} shows as an example how the graph from the last section would be transformed by this 
+algorithm
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[scale=0.6]
+\node (a) at (0,3)[vertex]{};
+\node (s1) at (1,2.5)[source]{-1};
+\node (b) at (2,3)[vertex]{};
+\node (d) at (2,2)[vertex]{};
+\node (c) at (1.5,0)[vertex]{};
+\node (s2) at (3,3)[source]{-1};
+\node (t) at (1.5,1)[sink]{2};
+% \draw[arcflow, cyan, dashed] (s1)--(d)--(b);
+% \draw[arcflow, cyan](b)--(a)--(c)--(t);
+% \draw[arcflow, yellow, dashed] (s2)--(b)--(a)--(c)--(t);
+\draw[fatarc] (b)--(a)node[pos=0.5, above]{$e$};
+\draw[edge] (a)--(s1){};
+\draw[edge] (s1)--(d){};
+\draw[edge] (d)--(b){};
+\draw[edge] (b)--(s2){};
+\draw[edge] (s2)--(c){};
+\draw[edge] (c)--(a){};
+\draw[edge] (c)--(t){};
+\draw[edge] (t)--(d){};
+
+%supersource und supersink
+\node(sups) at (0,-2.5)[source]{-2};
+\node(supt) at (7.5,-2.5)[sink]{2};
+
+\node (la) at (0,-1)[vertex]{};
+\node (ls1) at (1,-1.5)[source]{};
+\node (lb) at (2,-1)[vertex]{};
+\node (ld) at (2,-2)[vertex]{};
+\node (lc) at (1.5,-4)[vertex]{};
+\node (ls2) at (3,-1)[source]{};
+\node (lt) at (1.5,-3)[sink]{};
+% \draw[fatarc] (lb)--(la)node[pos=0.5, above]{$e$};
+\draw[edge] (la)--(ls1){};
+\draw[edge] (ls1)--(ld){};
+\draw[edge] (ld)--(lb){};
+\draw[edge] (lb)--(ls2){};
+\draw[edge] (ls2)--(lc){};
+\draw[edge] (lc)--(la){};
+\draw[edge] (lc)--(lt){};
+\draw[edge] (lt)--(ld){};
+
+\node (ra) at (4,-1)[vertex]{};
+\node (rs1) at (5,-1.5)[source]{};
+\node (rb) at (6,-1)[vertex]{};
+\node (rd) at (6,-2)[vertex]{};
+\node (rc) at (5.5,-4)[vertex]{};
+\node (rs2) at (7,-1)[source]{};
+\node (rt) at (5.5,-3)[sink]{};
+\draw[fatarc, bend left] (lb)to(ra);
+\draw[edge] (ra)--(rs1){};
+\draw[edge] (rs1)--(rd){};
+\draw[edge] (rd)--(rb){};
+\draw[edge] (rb)--(rs2){};
+\draw[edge] (rs2)--(rc){};
+\draw[edge] (rc)--(ra){};
+\draw[edge] (rc)--(rt){};
+\draw[edge] (rt)--(rd){};
+\draw[arc, green!70!blue] (sups)--(ls1)node[pos=0.5, left]{$cap=1$};
+\draw[arc, green!70!blue] (sups)--(ls2)node[pos=0.5, above]{$cap=1$};
+\draw[arc, red] (rt)--(supt)node[pos=0.5, below]{$cap=2,\, cost=0$};
+\draw[arc, red] (lt)--(supt)node[pos=0.5, above]{$cap=2,\, cost=1$};
+\draw[arc, purple!40!blue, bend right =90] (sups)to(supt)node at (4,-5){$cap=\infty,\,cost=2$};
+
+\end{tikzpicture}
+\caption{The transformation of the example network from the former section}
+ \label{bild:graphtransform}
+\end{figure}
+
 
 With this transformation and any algorithm for Minimum Cost Flow we can set up an algorithm for our problem. 
 For the Maximum Flow and Minimum Cost Flow Problem in graphs there are many standard algorithms we could use. The 
@@ -113,6 +186,63 @@ computation on the transformed graph $G'$, see algorithm \ref{algo:simpleheur}.
 \end{algorithm}
 
 We show the correctness of the algorithm: %TODO and running time? dependent on used mincostflow!
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[scale=0.6]
+%supersource und supersink
+\node(sups) at (0,-2.5)[source]{-2};
+\node(supt) at (7.5,-2.5)[sink]{2};
+%left part
+\node (la) at (0,-1)[vertex]{};
+\node (ls1) at (1,-1.5)[source]{};
+\node (lb) at (2,-1)[vertex]{};
+\node (ld) at (2,-2)[vertex]{};
+\node (lc) at (1.5,-4)[vertex]{};
+\node (ls2) at (3,-1)[source]{};
+\node (lt) at (1.5,-3)[sink]{};
+%right part
+\node (ra) at (4,-1)[vertex]{};
+\node (rs1) at (5,-1.5)[source]{};
+\node (rb) at (6,-1)[vertex]{};
+\node (rd) at (6,-2)[vertex]{};
+\node (rc) at (5.5,-4)[vertex]{};
+\node (rs2) at (7,-1)[source]{};
+\node (rt) at (5.5,-3)[sink]{};
+
+\draw[arcflow, cyan] (sups)--(ls2)--(lb);
+\draw[arcflow, cyan, bend left] (lb)to (ra);
+\draw[arcflow, cyan](ra)--(rs1)--(rd)--(rt)--(supt);
+\draw[arcflow, yellow!80!orange, dashed](sups)--(ls1)--(ld)--(lb);
+\draw[arcflow, yellow!80!orange, dashed, bend left](lb)to(ra);
+\draw[arcflow, yellow!80!orange, dashed](ra)--(rc)--(rt)--(supt);
+
+\draw[edge] (la)--(ls1){};
+\draw[edge] (ls1)--(ld){};
+\draw[edge] (ld)--(lb){};
+\draw[edge] (lb)--(ls2){};
+\draw[edge] (ls2)--(lc){};
+\draw[edge] (lc)--(la){};
+\draw[edge] (lc)--(lt){};
+\draw[edge] (lt)--(ld){};
+\draw[fatarc, bend left] (lb)to(ra);
+\draw[edge] (ra)--(rs1){};
+\draw[edge] (rs1)--(rd){};
+\draw[edge] (rd)--(rb){};
+\draw[edge] (rb)--(rs2){};
+\draw[edge] (rs2)--(rc){};
+\draw[edge] (rc)--(ra){};
+\draw[edge] (rc)--(rt){};
+\draw[edge] (rt)--(rd){};
+\draw[arc, green!70!blue] (sups)--(ls1)node[pos=0.5, left]{$cap=1$};
+\draw[arc, green!70!blue] (sups)--(ls2)node[pos=0.5, right]{$cap=1$};
+\draw[arc, red] (rt)--(supt)node[pos=0.5, below]{$cap=2,\, cost=0$};
+\draw[arc, red] (lt)--(supt)node[pos=0.5, above]{$cap=2,\, cost=1$};
+\draw[arc, purple!40!blue, bend right =90] (sups)to(supt)node at (4,-5){$cap=\infty,\,cost=2$};
+\end{tikzpicture}
+\caption{This flow has zero costs, is feasible in the heuristic and has the optimum value $f(e)=2$}
+ \label{bild:graphtransformWithFlow}
+\end{figure}
 
 \begin{prop}
  The heuristic algorithm \ref{algo:simpleheur} returns a valid upper bound for the possible acyclic flow on a given 
@@ -183,10 +313,13 @@ $\Rightarrow$ the heuristic is correct for finding upper bounds for the acyclic 
 
 \end{proof}%TODO der beweis ist lang und unuebersichtlich, man koennte fragen wozu man manche erklaerungen braucht.
 
-% So the algorithm relaxes the capacity constraints and allows weaker kinds of cycling. It still maximizes the amount of 
-% flow going over the maximized arc $e$ (the bridge): if there is any flow that can be sent over $e$ this is the cheapest 
+% So the algorithm relaxes the capacity constraints and allows weaker kinds of cycling. It still maximizes the amount 
+of 
+% flow going over the maximized arc $e$ (the bridge): if there is any flow that can be sent over $e$ this is the 
+cheapest 
 % way. All flows that are not passing $e$ at some point have to use the arcs from part $X$ of the transformed graph 
-% directly to the super-sink $t$ (which causes cost $=1$ per flow unit) or even worse from the super-source $s$ directly 
+% directly to the super-sink $t$ (which causes cost $=1$ per flow unit) or even worse from the super-source $s$ 
+directly 
 % to the super-sink $t$ (which causes cost $=2$ per flow unit). To go over $e$ has no cost at all, therefore 
 % the paths with positive costs are only used if there is a directed minimal cut from part $X$ to part $Y$ where no arc 
 % has free capacity.
@@ -197,8 +330,47 @@ However, the capacity constraints of the original problem might be violated afte
 capacities in part $X$ and part $Y$ both to the value of the original capacities. Thus it might happen that actual flow 
 value in the original graph sums up to a higher value than the capacity allows (up to twice the capacity). 
 
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node (a) at (0,-6)[vertex]{};
+\node (s1) at (1,-6.5)[source]{-1};
+\node (b) at (2,-6)[vertex]{};
+\node (d) at (2,-7)[vertex]{};
+\node (c) at (1.5,-9)[vertex]{};
+\node (s2) at (3,-6)[source]{-1};
+\node (t) at (1.5,-8)[sink]{2};
+% \draw[arcflow, cyan, dashed] (s1)--(d)--(b);
+\draw[arcflow, cyan](s2)--(b);
+\draw[arcflow, cyan](b)--(a)--(s1)--(d);
+\draw[arcflow, cyan](d)--(t);
+\draw[arcflow, yellow!70!orange, dashed] (s1)--(d);
+\draw[arcflow, yellow!70!orange, dashed] (d)--(b)--(a)--(c);
+\draw[arcflow, yellow!70!orange, dashed] (c)--(t);
+\draw[fatarc] (b)--(a)node[pos=0.5, above]{$e$};
+\draw[edge] (a)--(s1){};
+\draw[edge] (s1)--(d)node(errpos)[pos=0.5]{};
+\draw[edge] (d)--(b){};
+\draw[edge] (b)--(s2){};
+\draw[edge] (s2)--(c){};
+\draw[edge] (c)--(a){};
+\draw[edge] (c)--(t){};
+\draw[edge] (t)--(d){};
+\node (err) at (-1,-7)[ellipse, red, draw=red]{ $f(a)=2>cap(a)=1$};
+\draw[->, stealth, semithick, bend right,red](err)to(errpos);
+\draw[ultra thick, ->, red!50] (1.55,-6.2) arc (30:330:0.2);
+% \draw[pattern=dots, pattern color=red](a)--(s1)--(b);%(0,-6)--(1,-6)--(1,-5);
+%TODO man könnte doch kreisfluss umschlossenes gebiet rot füllen?
+\end{tikzpicture}
+\caption{If we retransform the flow from figure \ref{bild:graphtransformWithFlow} (which is feasible in the heuristic) 
+to the original network we get a violated capacity constraint on the arc with $c=1$. The flow is not acyclic anymore 
+either.}
+ \label{bild:graphretransformWithFlow}
+\end{figure}
 Also we cannot guarantee the acyclicity anymore. It might happen that we have cyclic flow in our 
 original graph $G$ even if the flow in the transformed graph $G'$ was acyclic. This happens when paths from 
 the different parts $X$ and $Y$ of $G'$ are crossing after they are brought back to the original graph $G$ to 
-build a solution there. For an example see picture TODO
+build a solution there. For an example see figure \ref{bild:graphretransformWithFlow} which is the retransformation of 
+the example flow in figure \ref{bild:graphtransformWithFlow}.
 %TODO BILD einfuegen zu kreuzenden kreiserzeugenden pfaden
