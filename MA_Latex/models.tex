@@ -373,11 +373,63 @@ constraint redundant.
 %remark that this more general proposition is important for the planar case
 There are some special cases where the above result can be very helpful and indeed reduce the number of needed 
 acylicity constraints to polynomial size. This is not only relevant in theory, but also in practice: a real world gas 
-network might have (at least partially) a planar graph representation. Planar graphs fulfill the condition to find a 
+network might have (at least partially) a planar graph representation. 
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node (s) at (0,0)[source]{-1};
+\node (1) at (0.5,1)[vertex]{};
+\node (2) at (0.8,-1)[vertex]{};
+\node (3) at (1,0.2)[vertex]{};
+\node (4) at (1.1,0.5)[vertex]{};
+\node (5) at (1.3,-0.7)[vertex]{};
+\node (6) at (1.5,0.1)[vertex]{};
+\node (7) at (1.8,-1)[vertex]{};
+\node (8) at (1.9,1.5)[vertex]{};
+\node (9) at (2,0)[vertex]{};
+\node (t) at (2.5,0)[sink]{1};
+% \draw[arcflow] (s)--(3)--(t);
+\draw[edge] (s)--(1)--(3)--(4)--(6)--(8)--(t);
+\draw[edge] (1)--(8)--(4);
+\draw[edge] (s)--(2)--(5)--(9)--(t)--(7)--(2);
+\draw[edge] (s)--(5)--(3);
+\draw[edge] (5)--(6);
+\draw[ultra thick, blue, rounded corners](0.6,1)--(1,0.3)--(1.05,0.55)--(1.8,1.42) --cycle;
+\draw[ultra thick, blue, rounded corners](1.1,0.2)--(1.1,0.4)--(1.4,0.1)--(1.3, -0.6) --cycle;
+\draw[ultra thick, blue, rounded corners](1.15,0.53)--(1.5,0.15)--(1.84,1.4) --cycle;
+\draw[ultra thick, blue, rounded corners](0.5,0.9)--(0.9,0.2)--(1.2,-0.6)--(0.1,0) --cycle;
+\draw[ultra thick, blue, rounded corners](0.1,-0.1)--(0.8,-0.9)--(1.2,-0.7) --cycle;
+\draw[ultra thick, blue, rounded corners](0.9,-0.95)--(1.35,-0.78)--(2,-0.1)--(2.4,-0.05)--(1.8,-0.95) --cycle;
+\draw[ultra thick, blue, rounded corners](1.36,-0.6)--(1.6,0.1)--(1.93,1.4)--(2.4,0.1)--(2,0.1) --cycle;
+\draw[ultra thick, blue, rounded corners](-.1,0)--(0.45, 1.1)--(1.95,1.6)--(2.6,0)--(1.9,-1.1)--(1.8,-1.1)--(0.75,-1.1) 
+--cycle;
+\node (s1) at (0,3)[source]{-1};
+\node (11) at (0.5,4)[vertex]{};
+\node (21) at (0.8,2)[vertex]{};
+\node (31) at (1,3.2)[vertex]{};
+\node (41) at (1.1,3.5)[vertex]{};
+\node (51) at (1.3,2.3)[vertex]{};
+\node (61) at (1.5,3.1)[vertex]{};
+\node (71) at (1.8,2)[vertex]{};
+\node (81) at (1.9,4.5)[vertex]{};
+\node (91) at (2,3)[vertex]{};
+\node (t1) at (2.5,3)[sink]{1};
+% \draw[arcflow] (s)--(3)--(t);
+\draw[edge] (s1)--(11)--(31)--(41)--(61)--(81)--(t1);
+\draw[edge] (11)--(81)--(41);
+\draw[edge] (s1)--(21)--(51)--(91)--(t1)--(71)--(21);
+\draw[edge] (s1)--(51)--(31);
+\draw[edge] (51)--(61);
+\end{tikzpicture}
+\caption{Flow on this example network can be forced to become acyclic by adding only the acyclicity constraints on the 
+blue marked cycles}
+ \label{bild:planarAcyclicity}
+\end{figure}
+
+Planar graphs fulfill the condition to find a 
 cycle which is dividing the graph into different parts easily - each cycle in a planar graph embedding divides the 
-graph 
-into interior and exterior. If we have only one source and one sink and find an embedding where both are on the outer 
-(unbounded) face of the graph, it is sufficient to have the acyclicity constraints only on the face cycles of the 
+graph into interior and exterior. If we have only one source and one sink and find an embedding where both are on the 
+outer (unbounded) face of the graph, it is sufficient to have the acyclicity constraints only on the face cycles of the 
 graph. The same holds for all areas or subgraphs without sources/sinks that are enclosed by a cycle: we only need small 
 simple cycles and all other acyclicity constraints are redundant.
 

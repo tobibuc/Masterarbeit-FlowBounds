@@ -180,7 +180,7 @@ depending on the definition of the feasible set $\mathcal{I}$.
 As we will make use of such programs we want to define the basics here. We use the framework SCIP ("Solving Constraint 
 Integer Programs") for solving our problem. For details of the solver setup we refer to the PhD Thesis of Tobias 
 Achterberg \cite{Achterberg2007} where he describes the main design of his Constraint Integer Programming solver SCIP. 
-The following definitions also follow this work \cite{Achterberg2007}.
+The following definitions also follow the work of Achterberg \cite{Achterberg2007}.
 
 \begin{definition}
  A \textit{constraint program} is a triple $(\mathcal{C},\mathcal{D},f)$ and consists of solving
@@ -214,9 +214,10 @@ It can also happen that every variable is integer, i.e. $\mathcal{I}=\{1,\dots, 
 \textit{integer program} or \textit{IP} in this case.
 
 Solving linear programs can be done in polynomial time. Algorithms to achieve this were described by 
-Khachiyan\cite{KHACHIYAN198053} and Karmarkar \cite{Karmarkar:1984:NPA:800057.808695}. Integer programs (and by this 
-also their generalization mixed integer programs) can be (and mainly are) used for modeling $\mathcal{NP}$ hard 
-problems, so unless $\mathcal{P}=\mathcal{NP}$ there is no polynomial algorithm to solve them. 
+Khachiyan\cite{KHACHIYAN198053} and Karmarkar \cite{Karmarkar:1984:NPA:800057.808695}. Integer programs and by this 
+also their generalization mixed integer programs can be (and mainly are) used for modeling $\mathcal{NP}$ hard 
+problems. So unless $\mathcal{P}=\mathcal{NP}$ there is no polynomial algorithm to solve them.
+%TODO define complexity classes?
 
 Thus the LP relaxation of a MIP is a very important problem.
 \begin{definition}
@@ -226,6 +227,7 @@ Thus the LP relaxation of a MIP is a very important problem.
  $$\min\{c^T x|Ax\le b, x\in\R^n \}$$
 \end{definition}
 
-It can be solved efficiently (as it is a linear program) giving a bound on the solution. It is used to get a start 
+It can be solved efficiently since it is a linear program. The solution of the LP relaxation of a problem is  giving a 
+bound on the solution of the mixed integer problem. It is used to get a starting 
 point for a branching process or cutting planes that might yield an optimal or nearly optimal solution. Also the bounds 
 from LP relaxations are needed to cut off subtrees while branching on the variables of the problem.

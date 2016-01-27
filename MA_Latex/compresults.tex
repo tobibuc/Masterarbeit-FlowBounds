@@ -236,4 +236,27 @@ the bounds from the different algorithms to the bounds found with this approach.
 \end{tabular} 
 \end{center}
 
+The results show that in all cases the bounds get better with more time for the separation algorithm, while the exact 
+models need too much time. The heuristics results are weak, but far better than setting the limit to only 1000 nodes. 
+%TODO mehr schreiben hier
+The bounds computed can be read in and used by the solver to improve building of other models like the discretization. 
+The impact of the computed flow bounds on this model is shown in the tables below.
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c |c}
+
+\textbf{gaslib-582 cold\_100} & Modelbuilding Time  & Fixed Dirs & nonlinear f. & vars(cont,disc)&cons\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $7s$ & 440/609 & 241(219+22)& 5727(4113+1614)&8216 \\
+%  cycle base& $ $ &  &  & \\
+ heuristic& $ 8s$& 440/609& 241(219+22) & 5675(4087+1588)&8162\\
+%  node potential& $ $ &  &  &  \\ 
+ sepa\_1000& $7s $ & 467/609 & 237(217+20)& 5471(3977+1944) & 7930 \\
+ sepa\_5000& $ 7s$ & 467/609& 237(217+20)& 5185(3834+1351)&7641  \\
+ sepa\_20000& $7s$& 467/609 & 237(217+20) & 5185(3834+1351)& 7640 \\
+ sepa\_60000& $ 8s$& 469/609 &237(217+20) & 4903(3693+1210)& 7339 \\
+\end{tabular} 
+\end{center}
+
 
