@@ -18,7 +18,18 @@ described by ordinary differential equations.
 The computation of the flow is difficult due to numerical and algorithmical reasons. Good preprocessing 
 routines can help a lot by reducing the domains and model sizes before the main computation is started.
 Since the flow of gas in the network is always determined by pressure differences and flow is always going from higher 
-pressure to lower pressure we know that we can exclude any cyclic flow in the network. We can compute a flow with 
+pressure to lower pressure we know that flow in the network in general has to be acyclic. The only exception of this 
+is a compressor station. An active compressor station can increase the pressure and by this could indeed cause cyclic 
+flow. However we will simplify the model and assume acyclic flow. 
+%TODO kann ich beweisen (sollle ich??) dass es immer eine gleichwertige azyklische loesung gibt?
+We can compute a flow with 
 maximum value on a specified arc in the network with a standard Minimum Cost Flow algorithm. 
 However a Minimum Cost Flow Algorithm usually is allowed to have cyclic flows and thus will maximize flow by shifting 
-it around a cycle containing the maximized arc as long 
+it around a cycle containing the maximized arc as long as the flow on the cycle can be increased on every arc. 
+
+The main question leading to this thesis was how we could improve bounds and compute flows if we assume the flow to 
+have no cycles. normal and multicommodity network flows are well known algorithmical problems, but (as far as the 
+author knows) there is no work on acyclic network flows and how to compute them. 
+Whereever we have a network with nonpositive lower capacity bounds, we can make any flow acyclic by shifting flow 
+back on the cycles until an edge has zero flow. But if we are interested in the maximum possible flow on an edge under 
+the condition of acyclicity things get more complicated. 

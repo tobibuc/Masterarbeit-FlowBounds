@@ -135,7 +135,8 @@ We will refer to this model as "cyclic bounds" respectively "cyclic bounds + flo
 the bounds from the different algorithms to the bounds found with this approach. 
 
 
-\subsubsection{Tables}
+\subsection{Tables}
+\subsubsection{Bound Improvements}
 \begin{center}
 
 \begin{tabular}{ l | c | c | c | c }
@@ -227,12 +228,12 @@ the bounds from the different algorithms to the bounds found with this approach.
 %  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
  cyclic bounds+flowsum& $1s$ & 365 & - & -\\
  cycle base& $ $ &  &  & \\
- heuristic& $11s $&365 & 164 & 4291.5\\
+ heuristic& $11s$ & 365 & 164 & 4291.5\\
  node potential& $ $ &  &   &  \\ 
  sepa\_1000& $50 min $ & 378 & 105 & 3271.3 \\
  sepa\_5000& $ 158 min $ & 378 & 188 & 3329.5 \\
  sepa\_20000& $ 394 min$ & 378 & 216 &3144.6 \\
- sepa\_60000& $651 min $ & 378& 289&3593.3 \\
+ sepa\_60000& $651 min $ & 378& 289 & 3593.3 \\
 \end{tabular} 
 \end{center}
 
@@ -242,21 +243,146 @@ models need too much time. The heuristics results are weak, but far better than 
 The bounds computed can be read in and used by the solver to improve building of other models like the discretization. 
 The impact of the computed flow bounds on this model is shown in the tables below.
 
+\subsubsection{Model building impact}
 \begin{center}
-\begin{tabular}{ l | c | c | c | c |c}
+\begin{tabular}{ l | c | c | c | c | c }
+\textbf{gaslib-40} & Fixed Dirs(of 45) & nonlinear f. & variables (cont,discr)&constraints\\
+\hline
+ cyclic bounds&24 & 57& 1477 (948+529)&2009 \\
+ cyclic bounds+flowsum& 24 & 57& 1477 (948+529)&2009 \\
+ cycle base& 26 & 57 & 955 (687+268)  & 1473\\
+ heuristic& 24 & 57& 1477 (948+529)&2009&\\
+ node potential& 25 &57  &955 (687+268)  &1473  \\ 
+ sepa& 34 &57  &955 (687+268)  &1473 \\
+\end{tabular} 
+\end{center}
+If we compare the results on this small gaslib-40 network with its table of bound values there are two interesting 
+points. In building the model there is no difference between the cyclic bounds that were computed with respect to the 
+sum of ingoing flow and the ones were the sum of ingoing flow was not set as upper flow bound. Obviously these bounds 
+are already used implicitely. Nevertheless it is worth using these natural bounds already in the bound computation, 
+since the separation algorithms run much faster and give better results when they are given these bounds before. 
 
-\textbf{gaslib-582 cold\_100} & Modelbuilding Time  & Fixed Dirs & nonlinear f. & vars(cont,disc)&cons\\
+The second point is that the number of fixed flow directions in the last two entries increases a lot, although the 
+exact algorithms both found the same optimal solution. The reason is a single numerical difference. It might be useful 
+to round values which are extremely close to zero (like this $1^{-10}$) to get more fixations for the model. 
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+\textbf{gaslib-582 cold\_100} & Fixed Dirs(of 609) & nonlinear f. & variables (cont,discr)&constraints\\
 \hline
 %  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $7s$ & 440/609 & 241(219+22)& 5727(4113+1614)&8216 \\
+ cyclic bounds+flowsum& 440 & 241& 5727 (4113+1614)&8216 \\
 %  cycle base& $ $ &  &  & \\
- heuristic& $ 8s$& 440/609& 241(219+22) & 5675(4087+1588)&8162\\
+ heuristic& 440& 241 & 5675 (4087+1588)&8162\\
 %  node potential& $ $ &  &  &  \\ 
- sepa\_1000& $7s $ & 467/609 & 237(217+20)& 5471(3977+1944) & 7930 \\
- sepa\_5000& $ 7s$ & 467/609& 237(217+20)& 5185(3834+1351)&7641  \\
- sepa\_20000& $7s$& 467/609 & 237(217+20) & 5185(3834+1351)& 7640 \\
- sepa\_60000& $ 8s$& 469/609 &237(217+20) & 4903(3693+1210)& 7339 \\
+ sepa\_1000& 467 & 237& 5471 (3977+1944) & 7930 \\
+ sepa\_5000& 467& 237& 5185 (3834+1351)& 7641  \\
+ sepa\_20000& 467 & 237 & 5185 (3834+1351)& 7640 \\
+ sepa\_60000& 469 &237 & 4903 (3693+1210)& 7339 \\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+\textbf{gaslib-582 freezing\_1} & Fixed Dirs(of 609) & nonlinear f. & variables (cont,discr)&constraints\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& 438 & 241& 5757 (4128+1629)&8246 \\
+%  cycle base& $ $ &  &  & \\
+ heuristic& 438& 241 & 5701 (4100+1601)&8188\\
+%  node potential& $ $ &  &  &  \\ 
+ sepa\_1000& 466 & 237& 5443 (3963+1480) & 
+
+Die Darstellung ihres Mitstreiters haben die Flüchtlingshelfer allerdings verbreitet und gestützt, als hätten sie 
+persönliche Kenntnis von dem todkranken Mann. Die Medien, auch SPIEGEL ONLINE, haben den Fall schnell aufgegriffen - 
+wenn auch stets mit dem Verweis darauf, dass die Behörden den Tod nicht bestätigen würden.
+
+Am Mittwochabend war klar: "Es gibt keinen toten syrischen Flüchtling", hieß es aus Berliner Senatskreisen, später 
+folgte die Bestätigung durch die Polizei. Und so wanderte der Satz "Es gibt keinen toten syrischen Flüchtling" in die 
+Schlagzeilen, zurecht, denn er stimmt. Aber er stimmt eben nur im direkten Zusammenhang mit der erfundenen Geschichte 
+des ehrenamtlichen Lageso-Helfers. Tatsächlich gibt es Tausende tote syrische Flüchtlinge, auf der Flucht über das 
+Mittelmeer ertrunkene Familien.
+
+Es gibt keinen toten syrischen Flüchtling am Berliner Lageso, doch das bedeutet nicht, dass im und vor dem Lageso alles 
+in Ordnung wäre. Tatsächlich sind die Zustände dort nach wie vor so verheerend, ist das Versagen der Berliner Verwaltung 
+so enorm, dass sich auch deshalb die Lügengeschichte des Dirk V. schnell verbreiten konnte: Niemand konnte sie als allzu 
+unwahrscheinlich abtun.
+
+7905 \\
+ sepa\_5000& 469& 237& 5171 (3827+1344)& 7632  \\
+ sepa\_20000& 466 & 237 & 5099 (3791+1308)& 7553 \\
+ sepa\_60000& 472 &237 & 4747 (3615+1132)& 7192 \\
 \end{tabular} 
 \end{center}
 
 
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+\textbf{gaslib-582 cool\_12} & Fixed Dirs(of 609) & nonlinear f. & variables (cont,discr)&constraints\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& 450 & 241& 5427 (3963+1464)&7926 \\
+%  cycle base& $ $ &  &  & \\
+ heuristic& 450& 241 & 5371 (3935+1436)&7868\\
+%  node potential& $ $ &  &  &  \\ 
+ sepa\_1000& 480 & 237& 4993 (3738+1255) & 7464 \\
+ sepa\_5000& 480& 237& 4805 (3644+1161)& 7268  \\
+ sepa\_20000& 480 & 237 & 4803 (3643+1160)& 7266 \\
+ sepa\_60000& 482 &237 & 4655 (3569+1086)& 7099 \\
+\end{tabular} 
+\end{center}
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+
+\textbf{gaslib-582 mild\_10} & Fixed Dirs(of 609) & nonlinear f. & variables (cont,discr)&constraints\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& 458 & 241& 5569 (4034+1535)&8077 \\
+%  cycle base& $ $ &  &  & \\
+ heuristic& 458& 241 & 5491 (3995+1496)&7997\\
+%  node potential& $ $ &  &  &  \\ 
+ sepa\_1000& 488 & 237& 4991 (3737+1254) & 7469 \\
+ sepa\_5000& 490& 237& 4871 (3677+1194)& 7344  \\
+ sepa\_20000& 492 & 237 & 4709 (3596+1113)& 7163 \\
+ sepa\_60000& 494 &237 & 4675 (3579+1096)& 7117 \\
+\end{tabular} 
+\end{center}
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+
+\textbf{gaslib-582 warm\_1111} & Fixed Dirs(of 609) & nonlinear f. & variables (cont,discr)&constraints\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& 458 & 241& 5673 (4086+1587)&8183 \\
+%  cycle base& $ $ &  &  & \\
+ heuristic& 458& 241 & 5589 (4044+1545)&8097\\
+%  node potential& $ $ &  &  &  \\ 
+ sepa\_1000& 487 & 237& 4865 (3674+1191) & 7335 \\
+ sepa\_5000& 492& 237& 4745 (3614+1131)& 7212  \\
+ sepa\_20000& 494 & 237 & 4433 (3458+975)& 6886 \\
+ sepa\_60000& 496 &237 & 4371 (3427+944)& 6823 \\
+\end{tabular} 
+\end{center}
+
+For the big networks we are only able to compare the results of heuristics because the exact algorithms take far 
+too long for solving. The tables show that improved bounds yield a smaller model. The more nodes we allow in the 
+separation process, the tighter the bounds. With tighter bounds we get a smaller model. Hence it could in fact make 
+sense to compute such bounds to accelerate the solving process in the end. For this there are even more improvements 
+one could try to make: In a graph there can be induced paths (i.e. neighboring vertices with degree 2). On a path the 
+flow value has to be the same on each edge, so also the bounds have to be the same. 
+
+Hence it is sufficient to compute the bound on one arc of a path and automatically set the same bound on the other 
+arcs of this path.
+
+Another improvement could be to immediately write the computed bounds into the network for all further computations. 
+Currently every arcs bounds are computed on the same network with default flow bounds. It might improve the algorithm 
+if the already computed bounds are set directly into the network and used when another arc is computed. It could also 
+work to compute bounds only on a small selection of interesting arcs and propagate these bounds. In an incomplete 
+acyclicity constraint separation algorithm like what we used for the gaslib-582 networks there are sometimes arcs where 
+the MIP solver did find a good solution, while it did not find one on neighboring arcs. Since the heuristic in a way 
+propagates flow bounds it even could improve the bounds to let the heuristic run again after setting the bounds already 
+found.
+There might also be different models or algorithms than the ones described in this thesis. The results show that in 
+practice some relevant improvements on the flow bounds can be achieved by taking into account that gas flow has to be 
+acyclic. It also shows the differences between cyclic and acyclic flow bounds can be huge not only in theory (the gap 
+can be unbounded as we have shown) but also in practice.
