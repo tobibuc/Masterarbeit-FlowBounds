@@ -247,11 +247,13 @@ As a different relaxation we could weaken the capacity constraints, but still in
 on an arc $e$. In the normal Max-Flow Problem dropping the capacity constraints reduces the problem to finding a 
 shortest path between the source and the sink. 
 
-In our case , if there is only one source and one sink, we have to decide whether there is a simple path from the 
+In our case, if there is only one source and one sink, we have to decide whether there is a simple path from the 
 source to the sink that contains the maximized arc $e$. If there are more sources and sinks, we already have the 
-problem of finding a set of simple paths. %TODO haerte des Problems? Wie loest man es?
+problem of finding a set of simple paths containing $e$. Since the general constrained shortest path problem is 
+$\mathcal{NP}$ hard this seems not to be promising and won't be disscussed here.
+%TODO haerte des Problems? Wie loest man es?
 
 %
-Is this problem easy to solve, and how to solve it? TODO
+% Is this problem easy to solve, and how to solve it? TODO
 %
 

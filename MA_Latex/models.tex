@@ -63,7 +63,7 @@ Integer Nonlinear Program
 We show that this flow indeed is an acyclic one:
 
 \begin{prop}
- A flow which fulfills the constraints of the above nonlinear program is always acyclic.
+ A flow which fulfills the constraints of the above mixed integer nonlinear program is always acyclic.
 \end{prop}
 \begin{proof}
  Assume a flow fulfilling the above constraints would have cyclic flow on a cycle $C$. Without loss of generality 
@@ -217,7 +217,8 @@ show that a cycle base works on the easiest possible example, but fails if the p
 
 Why are the constraints of a cycle base sufficient in this case of figure \ref{bild:reichtkreisbasis1}? 
 
-We see this immediately, when we look at all acyclicity constraints for the 3 cycles contained in the graph:
+We see this immediately when we look at all acyclicity constraints for the 3 cycles contained in the graph 
+($x_i$ being the binary direction variables of $e_i$, $i\in\{1\dots 5\}$):
 \begin{align*}
  1 &\le x_1+x_4+x_5\le 2&\\
  1&\le x_2+x_3+x_5\le 2& \iff -2\le -x_2-x_3-x_5\le -1\\
@@ -237,10 +238,10 @@ automatically induced by them, it is a redundant constraint.
 % \node(etext) at (1.4,1.6){e};
 
 \draw[arc] (a) -- (b)node [pos=0.5, above]{$e_4$};
-\draw[arc] (b) -- (c)node [pos=0.5, above]{$e_1$};
-\draw[arc] (c) -- (a)node [pos=0.5, above]{$e_5$};
+\draw[arc] (b) -- (c)node [pos=0.5, left ]{$e_1$};
+\draw[arc] (c) -- (a)node [pos=0.5, left ]{$e_5$};
 \draw[arc] (a) -- (d)node [pos=0.5, above]{$e_3$};
-\draw[arc] (d) -- (c)node [pos=0.5, above]{$e_2$};
+\draw[arc] (d) -- (c)node [pos=0.5, right]{$e_2$};
 \draw[arc] (b) -- (d)node [pos=0.5, below]{$e_6$};
 \end{tikzpicture}
 \caption{In this tetrahedron graph \textbf{no} cycle bases' acyclicity constraints can enforce acyclic flow on the 
@@ -248,6 +249,32 @@ whole
 graph}
  \label{bild:reichtkreisbasis2}
 \end{figure}
+%Bild: Beispiel dafuer dass es nicht reicht mit konkreter Kreisbasis
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node (a) at (0,-0.1)[vertex]{};%center 
+\node (b) at (-1,-0.8)[vertex]{} ;
+\node (c) at (0,1)[vertex]{};
+\node (d) at (1,-0.8)[vertex]{};
+% \node(etext) at (1.4,1.6){e};
+
+\draw[arc] (a) -- (b)node [pos=0.5, above]{$e_4$};
+\draw[arc] (b) -- (c)node [pos=0.5, left ]{$e_1$};
+\draw[arc] (c) -- (a)node [pos=0.5, left ]{$e_5$};
+\draw[arc] (a) -- (d)node [pos=0.5, above]{$e_3$};
+\draw[arc] (d) -- (c)node [pos=0.5, right]{$e_2$};
+\draw[arc] (b) -- (d)node [pos=0.5, below]{$e_6$};
+\draw[ultra thick, ->, red] (0.2,-0.5) arc (0:290:0.2);
+\draw[ultra thick, blue, rounded corners](0.1,-0.1)--(0.05,0.8)--(0.9,-0.7) --cycle;
+\draw[ultra thick, blue, rounded corners](-0.1,-0.1)--(-0.05,0.8)--(-0.9,-0.7) --cycle;
+\draw[ultra thick, blue, rounded corners](1.2,-0.9)--(-1.2,-.9)--(0,1.2) --cycle;
+\end{tikzpicture}
+\caption{The example tetrahedron graph with the blue marked cycles where acyclicity constraints can not forbid cyclic 
+flow on the marked red cycle}%TODO mit dem rechenbeispiel abgleichen?
+ \label{bild:reichtkreisbasis3}
+\end{figure}
+
 For figure \ref{bild:reichtkreisbasis2} the situation is more complex, though there is only one more arc in the graph. 
 But the number of cycles grows exponentially, so we get 7 cycles in this case. Their inequalities are:
 \begin{align*}

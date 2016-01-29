@@ -28,8 +28,32 @@ However a Minimum Cost Flow Algorithm usually is allowed to have cyclic flows an
 it around a cycle containing the maximized arc as long as the flow on the cycle can be increased on every arc. 
 
 The main question leading to this thesis was how we could improve bounds and compute flows if we assume the flow to 
-have no cycles. normal and multicommodity network flows are well known algorithmical problems, but (as far as the 
+have no cycles. Normal and multicommodity network flows are well known algorithmical problems, but (as far as the 
 author knows) there is no work on acyclic network flows and how to compute them. 
 Whereever we have a network with nonpositive lower capacity bounds, we can make any flow acyclic by shifting flow 
 back on the cycles until an edge has zero flow. But if we are interested in the maximum possible flow on an edge under 
 the condition of acyclicity things get more complicated. 
+
+We simplified the problem by assuming that there are no compressor stations. At the same time we just ignore the 
+physical properties of the gas. We do not compute or take care of any gas density, pressure or possible pressure loss. 
+Pressure is only used to justify the assumption of acyclicity. This abstraction is justified by the fact that it is 
+weaker than the original problem which also has to fulfill the flow conditions we use. The bounds are only needed 
+for preprocessing and hoped to improve the model size in the end. 
+
+\subsubsection{Related Work}
+The diploma thesis of Thea Göllner \cite{DiplomarbeitTheaGoellner} describes preprocessing techniques for stationary gas 
+network optimization models. This is the same model as the one we use here. In her thesis she also describes an 
+algorithm for determining flow directions on the arcs of the network and determines cases in which we can fix the flow 
+direction even on arcs contained in cycles of a certain kind. To achieve this she makes use of the acyclicity property 
+of gas flow as well. 
+Fixing a flow is basically saying that the lower flow bound in one direction is zero. Thus her work is a special case 
+of the much more general approach on preprocessing acyclic bounds we have in here. The fixing of flow directions that 
+she proposes works on induced paths of the network and on cycles where flow can only be coming in from one side. 
+She also shows the restrictions of this approach and says that for many cases it is necessary to take pressure or flow 
+quantity into account in order to see if one can fix the direction variable. 
+
+Here we aim at computing more general acyclic flow bounds. So we can not only fix the direction of flow in some special 
+cases but also give upper bounds on possible flow and bounds in cases were it is not clear which direction flow has to 
+take. It still yields flow directions in the cases described. But in practice a combination of our models with the 
+flow direction fixing Göllner did could improve runtime and quality, because for big networks we can only use heuristic 
+algorithms in practice.
