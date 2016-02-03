@@ -62,18 +62,20 @@ $$d_l(v)\le d_u(v)-\underbrace{f'((z,v))}_{0\le f'((z,v))\le d_u(v)-d_l(v)}=d'(v
 
  %cycle was already defined in the Definitions chapter
 \begin{definition}
-A \textit{cyclic flow} within such a feasible network flow $f$ is a flow $f':C\to \R$ where $C\subseteq A$ is a cycle, 
-$$\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$$ for all arcs the flow 
-directions in $f'$ and $f$ are the same, i.e. $f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 0$ and 
-there is really a nonzero flow, i.e. $f'(a) \ne 0 \,\forall a\in C$. 
+A \textit{cyclic flow} within a feasible network flow $f$ is a maximal flow $f':C\to \R$ where $C\subseteq A$ is a 
+cycle, $$\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$$ for all arcs the 
+flow directions in $f'$ and $f$ are the same, i.e. $$f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 
+0$$ and there is really a nonzero flow, i.e. $$f'(a) \ne 0 \,\forall a\in C$$. 
 
-If there is any cyclic flow $f'$ in a network flow $f$ we say that $f$ contains a flow cycle. If there is no cyclic 
+If we can find any cyclic flow $f'$ in a network flow $f$ we say that $f$ contains a flow cycle. If there is no cyclic 
 flow, we say $f$ is \textit{acyclic} or an \textit{acyclic flow} on $G$.\\
 
 The conditions imply, that a cyclic flow is one that has no sources or sinks and the same value of flow on each arc.
 
-The \textit{size of a cyclic flow} is the absolute amount of of flow contributing to the cycle. This means it is the 
-maximum value $|f'(a)|$ a cyclic flow $f'$ can reach. 
+The \textit{size of a cyclic flow} we call the maximal absolute amount of flow contributing to the cycle. This means 
+it is the value $|f'(a)|$ a cyclic flow $f'$ has on an arc and the amount of flow that is really cycling. If we reduce 
+flow on each arc of the cycle by the size of the flow there should be at least one arc with zero flow resulting since 
+we said that it is maximal.
 %flow $ f: C\to \R ,\, C\subseteq A \textrm{ a cycle, }\,c_l(a)\le 
 %f(a)\le c_u(a)\, \forall a\in C$ with the property that 
 \end{definition}
@@ -83,20 +85,38 @@ maximum value $|f'(a)|$ a cyclic flow $f'$ can reach.
 \begin{definition}
   Given a graph $G=(V,A)$ like above, with $e \in A$ a specific arc of $G$. 
   
-  We call the problem of finding an acyclic flow $f:A\to \R$ with $f(e)\ge f'(e)\,\forall f':A\to \R \textrm{ s.t.} f' 
-\textrm{ is an acyclic flow on }G$ the \textit{ Edge-Maximizing Acyclic Flow Problem}.
+  We call the problem of finding an acyclic flow 
+  $$f:A\to \R\textrm{ with }f(e)\ge f'(e)\,\forall f':A\to \R \textrm{ s.t.} f' \textrm{ is an acyclic flow on }G$$
+  the \textit{ Acyclic Flowbound Problem}.
+\end{definition}
+For describing the algorithms and manipulations of network flows we will need further definitions. 
+\begin{definition}
+ Assume we are in the situation that we have have a current flow $f$ in the given network $G$ and we have a set 
+$S\subseteq A$ of arcs with a direction forward or backwards for each - for example a path from a source to a sink. We 
+call the act of setting flow to
+$$f'(a)= f(a)+x \,\forall a\in S:\textrm{ a is forward, }f'(a)= f(a)-x \,\forall a\in S:\textrm{ a is backward}$$
+in a way that $f'$ again is a feasible flow for a (maybe different) set of flow demands $d':V\to \R$ 
+\textit{ augmenting a value $x$ on $S$}. 
+
+If the demand values for which the flow is acyclic do not change, the set of arcs we augment have to be a 
+cycle. In this case we also call this shifting flow on a cycle in $G$.
 \end{definition}
 
-\begin{prop}
-  The maximal flow value on the maximized arc $e$ in the Edge-Maximizing Acyclic Flow Problem is the same as the 
-  maximal flow value if only cycles containing $e$ are forbidden. 
-\end{prop}
-\begin{proof}
 
- Let $F_{acyc}$ be the set of flows that are really acyclic and $F_{cyc}^e$ the flows that can have cyclic flow on 
+\begin{prop}
+  The maximum flow value on the maximized arc $e$ in the Edge-Maximizing Acyclic Flow Problem is the same as the 
+  maximal flow value if only cyclic flow on cycles containing $e$ is forbidden. 
+\end{prop}
+This proposition is stating that only a small fraction of the cycles in the network are important. It is not necessary 
+to add the acyclicity constraints on all cycles - they do only make a difference if the arc we maximize is contained in 
+the cycle. If we have any feasible flow in a network, then we also have an acyclic flow there. We can just shift flow 
+along cycles until one arc has zero flow until the flow is acyclic. The proof does the same with cycles not containing 
+the maximized arc, reasoning these cycles do not impact the optimal solution on the maximized arc.
+\begin{proof}
+ Let $F_{acyc}$ be the set of flows that are completely acyclic and $F_{cyc}^e$ the flows that can have cyclic flow on 
  cycles not containing $e$. Since $F_{acyc}\subseteq F_{cyc}^e $ (i.e. the partially cyclic flow problem is a 
  relaxation of the acyclic problem) we always have $f_{cyc}(e)\ge f_{acyc}(e)$ for all $f_{cyc}\in F_{cyc}^e, 
-f_{acyc}\in F_{acyc}(e)$ that are maximizing flow on $e$. We have to show that also $f_{cyc}(e)\le f_{acyc}(e))$.
+f_{acyc}\in F_{acyc}$ that are maximizing flow on $e$. We have to show that also $f_{cyc}(e)\le f_{acyc}(e))$.
 % Every two flows differ only by a sequence of cyclic flow augmentations in the network. Thus if not $f_{cyc}(e)\le 
 % f_{acyc}(e)$ we can choose a pair $f,f'$ such that $f$ is completely acyclic and $f'$ is not, $f'(e)>f(e)$ and that 
 % $f'$ differs from $f$ by just one cyclic shift of flow (take the first flow of the sequence where $f'(e)>f(e)$).
@@ -114,30 +134,31 @@ f_{acyc}\in F_{acyc}(e)$ that are maximizing flow on $e$. We have to show that a
 % end we get an acyclic flow with the same flow value.
 We show how we can produce a completely acyclic flow $f'\in F_{acyc}$ from any given flow $f_{cyc}\in F_{cyc}^e$. 
 
-This flow will have the same flow value on $e$: $f'(e)=f_{cyc}(e)$ , so for each flow $f\in F_{cyc}^e$ there is an 
-acyclic flow with at least the same flow value on $e$.\\
+This flow will have the same flow value on $e$: $f'(e)=f_{cyc}(e)$ , so we prove for each flow $f\in F_{cyc}^e$ there 
+is an acyclic flow with at least the same flow value on $e$.\\
+
 Take a given flow $f\in F_{cyc}^e\setminus F_{acyc}$. Consider a cycle $C$ where $f$ has cyclic flow. On $C$ all flow 
-is going in the same direction. Choose the minimum flow value $\alpha(C)=\min(f(a)|a\in C)$ on an edge of $C$ and 
-decrease flow on every edge of $C$ by $\alpha$. On no arc the direction of flow was reversed, so no new cyclic flows
-are created by this. But on one arc at least there is no flow at all, so on $C$ we have no cyclic flow anymore. The 
-resulting flow is still a valid flow: On each node ingoing and outgoing flow is decreased by the same value $\alpha$ so 
-flow balances still hold. The capacity constraints are still fulfilled because we know that no minimum flow bound is 
+is going in the same direction. Choose the minimum flow value $\alpha(C)=\min(f(a)|a\in C)$ on an edge of $C$ and shift 
+flow by $-\alpha$ (this means decrease flow on every edge of $C$ by $\alpha$). On no arc the direction of flow was 
+reversed, so there are no new cyclic flows created by this. But on at least one arc there is no flow at all now, 
+so on the cycle $C$ we have no cyclic flow anymore. 
+The resulting flow is still a valid flow: On each node ingoing and outgoing flow is decreased by the same value $\alpha$ 
+so flow balances still hold. The capacity constraints are still fulfilled because we know that no minimum flow bound is 
 higher than 0 in our problem. The flow on the special arc $e$ is unchanged, since $e$ must not be contained in any 
 cyclic flow.
 
 We can continue this until there is no cyclic flow left and we transformed our flow into a flow $f'\in F_{acyc}$ with 
 the same flow value on $e$ as before. The algorithm terminates after less than $|A(G)|$ repetitions because every arc 
 can be set to zero only once.\\
-$\Rightarrow $ We conclude that $\max(f(e)|f\in F_{cyc}^e)\le \max(f'(e)|f'\in F_{acyc})$ and together with 
-$F_{acyc}\subseteq F_{cyc}^e $ this yields
-$$\Rightarrow \max(f(e)|f\in F_{cyc}^e)= \max(f'(e)|f'\in F_{acyc}) $$
+$\Rightarrow $ We conclude that $$\max(f(e)|f\in F_{cyc}^e)\le \max(f'(e)|f'\in F_{acyc})$$ and together with 
+$F_{acyc}\subseteq F_{cyc}^e $ this gives us
+$$\max(f(e)|f\in F_{cyc}^e)= \max(f'(e)|f'\in F_{acyc}) $$
 \end{proof}
 
 
-Now that we defined our problem, we can investigate it deeper. The acyclic Flowbound Problem is obviously closely 
-related to other flow problems, 
-though the special constraints we built make it more complicated. One way to deal with this is to look at related 
-problems, which could give bounds on our problem or even the same solution in special cases.
+Now we can investigate the problem deeper. The Acyclic Flowbound Problem is obviously closely related to other flow 
+problems though the special constraints we built make it more complicated. One way to deal with this is to look at 
+related problems, which could give bounds on our problem or even the same solution in special cases.
 
 \subsubsection{Relation To Other Flow Problems/Relaxations}
 \label{sect:mincostflow}
@@ -148,25 +169,26 @@ instance of a Min-Cost-Flow where we allow edge weights to be negative:
 \begin{definition}\label{def:mincostflow}
  The \textit{Minimum Cost Flow Problem} is the problem to determine a feasible network flow with the least possible 
 cost $c_f$. The cost function $c:A\to \R$ (or often $c:A\to \R_{\ge 0}$) is defined on every arc, the cost of the flow 
-is $c_f = \sum_{a\in A}|f(a)|\cdot c(a)$. So for a given network and cost function we look for a flow $f$ s.t. $c_f\le 
-c_{f'}\forall f':A\to \R$.
+is $$c_f := \sum_{a\in A}|f(a)|\cdot c(a)$$ So for a given network and cost function we look for a feasible network 
+flow $f$ with $$c_f\le c_{f'}\,\forall f':A\to \R$$ i.e. with minimum overall costs.
 \end{definition}
 
 This problem is normally defined with nonnegative cost functions, like in \cite{EdmondsKarp1972} where 
 Jack Edmonds and Richard Karp present their well known $O(V\cdot E^2)$ flow algorithm. At least cycles of negative 
 weight should be excluded, since they lead to problems in the algorithm's subroutines like shortest path. Nevertheless 
 there are algorithms that can handle negative cycles without a problem - but they will of course give a solution 
-where as much flow as possible is just flowing around these negative cycles. 
+where as much flow as possible is just going around these negative cycles. 
 %, and make the problem hard. We will proof the hardness of this problem later.TODO auch ohne kreisfreiheit?
 
-In our application we want to find upper and lower bounds on the possible flow over each arc. For this we set the 
+In our application we want to find upper and lower bounds on the possible flow over each arc, or equivalently the 
+maximum possible flow on this arc in forward and backward direction. For this we set the 
 weight on the arc $e$ where we want to maximize flow to -1 and compute a Minimum Cost Flow in the graph. If $e$ is 
 contained in a cycle of $G$ whose arcs all have a very high upper capacity bound, $e$ will get a very high bound as 
 well. The reason is that any cyclic flow over $e$ can reduce the cost of the flow. Hence as much cyclic flow as 
 possible will be used to obtain a Minimum Cost Flow. 
 
 So in most cases the bound computed with a Min-Cost Flow algorithm is not sharp. Still it gives an upper bound for the 
-possible flow. Hence one could ask how good this bound will be, and whether we can use it as an approximation. It turns 
+possible flow. One could ask how good this bound will be, and whether we can use it as an approximation. It turns 
 out that the gap between the amount of flow on an arc $e$ in an acyclic flow and in a possibly cyclic flow can be 
 arbitrarily large:
 
@@ -179,15 +201,16 @@ unbounded.
  \begin{figure}[h!]
   \centering
   \begin{tikzpicture}
-  \node (s) at (0,0)[vertex, label=below:{s, $d(s)=-1$}]{};
+  \node (s) at (0,0)[source, label=below:{s, $d(s)=-1$}]{-1};
 %   \node (stext) at (-0.1, -0.2){s, $d(s)=1$};
-    \node (t) at (2,0)[vertex, label=below:{t, $d(t)=1$}]{};
+    \node (t) at (2,0)[sink, label=below:{t, $d(t)=1$}]{1};
 %   \node (ttext) at (2.1, -0.2);
   \node (3) at (1,1.5)[vertex]{};
 %   \node(etext) at (1.7,0.9){e};
 
   % \draw [edgeflow] (s)--(3);
-  \draw[arcflow] (s)--(3)--(t);
+  \draw[arcflow] (s)--(3);
+  \draw[arcflow] (3)--(t);
   \draw [edge](s) -- (3);
   \draw [edge](s) -- (t);
   \draw[fatarc] (3) -- (t)node [pos=0.6, above] {$e$};;
@@ -199,8 +222,8 @@ unbounded.
  \begin{figure}[h!]
   \centering
   \begin{tikzpicture}
-  \node (t) at (2,0)[vertex, label=below:{t, $d(t)=1$}]{};
-  \node (s) at (0,0)[vertex, label=below:{s, $d(s)=-1$}]{};
+  \node (t) at (2,0)[sink, label=below:{t, $d(t)=1$}]{1};
+  \node (s) at (0,0)[source, label=below:{s, $d(s)=-1$}]{-1};
   \node (3) at (1,1.5)[vertex]{};
 
   \draw[arcflow=red] (s)--(3)--(t)--(s)--(3)--(t);
@@ -216,13 +239,18 @@ If we allow cyclic flow as in figure \ref{bild:cyclicTriangle} it could be any n
 capacity for an arc in the network. Hence the relative gap is
 $$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}=\frac{\textrm{min capacity on the cycle}}{1}$$ which is unbounded.
 
+
+Figure \ref{bild:acycliczeroflow} shows a graph where the flow on $e$ in the acyclic case is $0$. If we do not forbid 
+cyclic flows, 
+the flow on $e$ will always be $\min_{a\in \textrm{ cycle }C}c_u(a)$ like in the first picture. So the gap in relative 
+numbers $$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}=\frac{\min_{a\in \textrm{ cycle }C}(c_u(a))}{0}$$ is not even defined!
   
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
-\node (s) at (0,0)[vertex, label=s]{};
+\node (s) at (0,0)[source]{s};
 % \node (stext) at (-0.1, 0.2){s};
-\node (t) at (0,2)[vertex, label=t]{} ;
+\node (t) at (0,2)[sink]{t} ;
 % \node (ttext) at (-0.1, 1.8){t};
 \node (3) at (1,1)[vertex]{};
 \node (4) at (2,2)[vertex]{};
@@ -236,11 +264,6 @@ $$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}=\frac{\textrm{min capacity on the cycle}}{1
 \caption{In the acyclic case there is no flow at all on the arc $e$ in this network}
 \label{bild:acycliczeroflow}
 \end{figure}
-
-Figure \ref{bild:acycliczeroflow} shows a graph where the flow on $e$ in the acyclic case is $0$. If we do not forbid 
-cyclic flows, 
-the flow on $e$ will always be $\min_{a\in \textrm{ cycle }C}c_u(a)$ like in the first picture. So the gap in relative 
-numbers $$ \frac{f_{cyc}(e)}{f_{acyclic}(e)}=\frac{\min_{a\in \textrm{ cycle }C}(c_u(a))}{0}$$ is not even defined!
 \end{proof}
 
 As a different relaxation we could weaken the capacity constraints, but still insist on an acyclic flow that is maximum 

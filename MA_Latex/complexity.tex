@@ -1,8 +1,31 @@
 In this chapter we will discuss the computational complexity of the \textit{Acyclic Flow Problem}. We show that 
 Cycle-free Min-Cost-Flow with negative weights is $\mathcal{NP}$-complete, and that our problem is just a special case 
-of this problem. 
+of this problem. \\
 
-TODO DEFINITION NP
+$\mathcal{NP}$-completeness is maybe the most important concept in the classification of combinatorial optimization 
+problems. The $\mathcal{P-NP}$-Problem is an open question for many years now. Many computer scientists conjecture that 
+in fact $\mathcal{P}\neq \mathcal{NP}$ and the $\mathcal{NP}$-complete algorithmical problems are hard to solve. 
+
+The classical formal definition of the class $\mathcal{NP}$ in complexity theory uses formal languages and automata 
+theory (namely Turing Machines). For this formal definition we refer to the textbook of Korte and Vygen 
+\cite{KorteVygenCombOpt2007}. If we are a bit less formal we can define it the following way:
+\begin{definition}
+%  A decision problem is an algorithmic problem that has yes or no as solution.
+%  A polynomial algorithm is a procedure that 
+
+% A combinatorial decision problem is in the complexity class $\mathcal{NP}$ if there is any nondeterministic algorithm 
+% which computes the output "yes" in a polynomial number of steps.
+
+A combinatorial decision problem (a problem with the possible solutions "yes" and "no") is in the complexity class 
+$\mathcal{NP}$ iff there is an algorithm that gets the problem and an additional input (the certificate) and computes 
+"yes" in a polynomial number of steps iff the instance is a "yes"-instance of the problem and the right certificate is 
+given, otherwise false.
+\end{definition}
+
+
+
+
+% TODO DEFINITION NP
 %TODO Definition des Cyclefree MinCostFlow mit negativen Gewichten, Beweis über NP-Reduktion auf s-t-Hamilton-Pfad oder 
 %longest path, Erklärung dass es Unterproblem ist, TODO kann man für das Unterproblem selbst auch etwas zeigen? Das 
 %könnte ja durchaus auch Polynomiell sein!
@@ -33,7 +56,7 @@ capacities are respected by running over all arcs and checking them, thus this p
 We can also check the acyclicity in polynomial time: On each of the arcs we can start a graph search, considering arcs 
 only in their flow direction. If this graph search comes back to the original arc again, there is a cycle. %TODOprove?
 If graph search does not find a way to the tail of the original arc, there is no cyclic flow on this arc. The graph 
-search is also a linear algorithm. If we do this for each arc, the running ime is still quadratic.
+search is also a linear algorithm. If we do this for each arc, the running time is still quadratic.
 \end{proof}
 
 \begin{lemma}

@@ -34,9 +34,6 @@ Armin F{\"u}genschuh, Bj{\"o}rn Gei{\ss}ler, Ralf Gollmer, Christine Hayn, Rene
   planning problems in unbundled liberalized gas markets}, Energy Systems
   \textbf{5} (2013), no.~3, 449 -- 473.
 
-\bibitem{DiplomarbeitTheaGoellner}
-Thea Goellner, \emph{Preprocessing}, Ph.D. thesis, 2010.
-
 \bibitem{minMeanCycleCancelling89}
 Andrew~V. Goldberg and Robert~E. Tarjan, \emph{Finding minimum-cost
   circulations by canceling negative cycles}, J. ACM \textbf{36} (1989), no.~4,
@@ -46,6 +43,10 @@ Andrew~V. Goldberg and Robert~E. Tarjan, \emph{Finding minimum-cost
 Martin Gr{\"o}tschel, Michael J{\"u}nger, and Gerhard Reinelt, \emph{On the
   acyclic subgraph polytope}, Mathematical Programming \textbf{33} (1985),
   no.~1, 28--42 (English).
+
+\bibitem{DiplomarbeitTheaGoellner}
+Thea Göllner, \emph{Preprocessingtechniken für die optimierung stationärer
+  gasnetzwerke}, 2010.
 
 \bibitem{HumpolaJoormannOucherifPfetschScheweSchmidtSchwarz:2015}
 Jesco Humpola, Imke Joormann, Djamal Oucherif, Marc~E. Pfetsch, Lars Schewe,

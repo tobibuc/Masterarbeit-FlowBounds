@@ -142,12 +142,12 @@ the bounds from the different algorithms to the bounds found with this approach.
 \begin{tabular}{ l | c | c | c | c }
 \textbf{gaslib-40} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
 \hline
- cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $<1s$ & 21 & - & - \\
- cycle base& $1s$ & 21 & 48 & 1372.4\\
- heuristic& $<1s$& 21& 0 & 0\\
- node potential& $4s$ & 21 & 48 & 1372.4 \\ 
- sepa\_all& $112s$ & 21 & 48 & 1372.4\\
+ cyclic bounds& $<1$ s& 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $<1$ s& 21 & - & - \\
+ cycle base& $1$ s & 21 & 48 & 1372.4\\
+ heuristic& $<1$ s& 21& 0 & 0\\
+ node potential& $4$ s& 21 & 48 & 1372.4 \\ 
+ sepa\_all& $112$ s& 21 & 48 & 1372.4\\
 \end{tabular} 
 \end{center}
 %ergebnisse fuer 135: nodepotential hatte gerade einmal das erste pipe berechnet (600) mit beiden schranken, nach 293 h 
@@ -158,14 +158,14 @@ the bounds from the different algorithms to the bounds found with this approach.
 \textbf{gaslib-582 warm\_1111} & Time  & Fixed Flows & Bounds tightened & avg improvement \\
 \hline
 %  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $1s$ & 365 & - & -\\
+ cyclic bounds+flowsum& $1$ s& 365 & - & -\\
  cycle base& $ $ &  &  &\\
- heuristic& $ 11s$& 365& 164 & 5047.2 \\
+ heuristic& $ 11$ s& 365& 164 & 5047.2 \\
  node potential& $ $ &  &  &   \\ 
- sepa\_1000& $ 50 min$ & 382 & 107 & 3802.1 \\
- sepa\_5000& $ 159 min$ & 382 & 180 & 3971.6 \\
- sepa\_20000& $ 281 min$ & 382 & 264 & 4312.5 \\
- sepa\_60000& $702 min $ & 382& 278& 4267.7\\
+ sepa\_1000& $ 50$ min & 382 & 107 & 3802.1 \\
+ sepa\_5000& $ 159$ min & 382 & 180 & 3971.6 \\
+ sepa\_20000& $ 281$ min & 382 & 264 & 4312.5 \\
+ sepa\_60000& $702$ min  & 382& 278& 4267.7\\
 \end{tabular} 
 \end{center}
 
@@ -175,14 +175,14 @@ the bounds from the different algorithms to the bounds found with this approach.
 \textbf{gaslib-582 cool\_12} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
 \hline
 %  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $1s$ & 365 & - & - \\
+ cyclic bounds+flowsum& $1$ s & 365 & - & - \\
  cycle base& $ $ &  &  & \\
- heuristic& $11s $& 365 & 164 & 4050.9 \\
+ heuristic& $11$ s & 365 & 164 & 4050.9 \\
  node potential& $ $ &  &  &    \\ 
- sepa\_1000& $ 50 min $ & 378 & 100 & 3025.2\\
- sepa\_5000& $ 158 min$ & 378 & 211 & 3525.6\\ 
- sepa\_20000& $ 361 min$ & 378 & 242 & 3648.3  \\
- sepa\_60000& $678 min $ & 378 & 276 & 3390.3 \\
+ sepa\_1000& $ 50$ min  & 378 & 100 & 3025.2\\
+ sepa\_5000& $ 158$ min & 378 & 211 & 3525.6\\ 
+ sepa\_20000& $ 361$ min & 378 & 242 & 3648.3  \\
+ sepa\_60000& $678$ min  & 378 & 276 & 3390.3 \\
 \end{tabular} 
 \end{center}
 
@@ -195,11 +195,13 @@ the bounds from the different algorithms to the bounds found with this approach.
  cyclic bounds+flowsum& $1s$ & 365 & - & -  \\
  cycle base& $ $ &  &  & \\
  heuristic& $ 10s $& 365& 164 & 5157.4\\
- node potential& $ $ &  &  &   \\ 
- sepa\_1000& $50 min $ & 378 & 88 & 4265.5 \\
- sepa\_5000& $ 127 min$ & 378 & 242 & 4508.9  \\
- sepa\_20000& $ 382 min$ &  378& 241 & 4526.3  \\
- sepa\_60000& $635 min $ & 378& 283& 4200\\
+ nodepot\_500000& $123$ min &  &  &   \\ 
+ nodepot\_500000& $123$ min &  &  &   \\ 
+ nodepot\_500000& $123$ min &  &  &   \\ 
+ sepa\_1000& $50$ min  & 378 & 88 & 4265.5 \\
+ sepa\_5000& $ 127$ min & 378 & 242 & 4508.9  \\
+ sepa\_20000& $ 382$ min &  378& 241 & 4526.3  \\
+ sepa\_60000& $635$ min  & 378& 283& 4200\\
 \end{tabular} 
 \end{center}
 
@@ -211,12 +213,15 @@ the bounds from the different algorithms to the bounds found with this approach.
 %  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
  cyclic bounds+flowsum& $1s$ & 365 & - & - \\
  cycle base& $ $ &  &  & \\
- heuristic& $ 11s$& 365& 148 & 6148.2\\
- node potential& $ $ &  &  &  \\ 
- sepa\_1000& $50 min $ & 374 & 90 & 5405.4 \\
- sepa\_5000& $ 154 min$ & 374 & 231 &5104  \\
- sepa\_20000& $366 min $ & 374 & 244 &4929.8 \\
- sepa\_60000& $593 min $ & 374& 276& 4777.6\\
+ heuristic& $ 11$s& 365& 148 & 6148.2\\
+ nodepot\_5000& $ 5$ min/8 cores & 365 & 0 & 0 \\ 
+ nodepot\_60000& $18$ min /8 cores & 366 & 51 & 4123.2 \\ 
+ nodepot\_500000& $127$ min/8 cores &366  & 57 & 4224.7 \\ 
+ sepa\_1000& $50$ min & 374 & 90 & 5405.4 \\
+ sepa\_5000& $ 154$ min & 374 & 231 & 5104  \\
+ sepa\_20000& $366$ min & 374 & 244 & 4929.8 \\
+ sepa\_60000& $593$ min & 374 & 276 & 4777.6\\
+ sepa\_300000& $3135$ min & 374 & 295 & 4652.8\\
 \end{tabular} 
 \end{center}
 
@@ -226,14 +231,15 @@ the bounds from the different algorithms to the bounds found with this approach.
 \textbf{gaslib-582 mild\_10} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
 \hline
 %  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $1s$ & 365 & - & -\\
+ cyclic bounds+flowsum& $1$ s& 365 & - & -\\
  cycle base& $ $ &  &  & \\
- heuristic& $11s$ & 365 & 164 & 4291.5\\
+ heuristic& $11$ s& 365 & 164 & 4291.5\\
  node potential& $ $ &  &   &  \\ 
- sepa\_1000& $50 min $ & 378 & 105 & 3271.3 \\
- sepa\_5000& $ 158 min $ & 378 & 188 & 3329.5 \\
- sepa\_20000& $ 394 min$ & 378 & 216 &3144.6 \\
- sepa\_60000& $651 min $ & 378& 289 & 3593.3 \\
+ nodepot\_500000& $135$ min/8 cores &  &  &  \\ 
+ sepa\_1000& $50$ min & 378 & 105 & 3271.3 \\
+ sepa\_5000& $ 158$ min  & 378 & 188 & 3329.5 \\
+ sepa\_20000& $ 394$ min & 378 & 216 &3144.6 \\
+ sepa\_60000& $651$ min  & 378& 289 & 3593.3 \\
 \end{tabular} 
 \end{center}
 
@@ -291,24 +297,7 @@ to round values which are extremely close to zero (like this $1^{-10}$) to get m
 %  cycle base& $ $ &  &  & \\
  heuristic& 438& 241 & 5701 (4100+1601)&8188\\
 %  node potential& $ $ &  &  &  \\ 
- sepa\_1000& 466 & 237& 5443 (3963+1480) & 
-
-Die Darstellung ihres Mitstreiters haben die Flüchtlingshelfer allerdings verbreitet und gestützt, als hätten sie 
-persönliche Kenntnis von dem todkranken Mann. Die Medien, auch SPIEGEL ONLINE, haben den Fall schnell aufgegriffen - 
-wenn auch stets mit dem Verweis darauf, dass die Behörden den Tod nicht bestätigen würden.
-
-Am Mittwochabend war klar: "Es gibt keinen toten syrischen Flüchtling", hieß es aus Berliner Senatskreisen, später 
-folgte die Bestätigung durch die Polizei. Und so wanderte der Satz "Es gibt keinen toten syrischen Flüchtling" in die 
-Schlagzeilen, zurecht, denn er stimmt. Aber er stimmt eben nur im direkten Zusammenhang mit der erfundenen Geschichte 
-des ehrenamtlichen Lageso-Helfers. Tatsächlich gibt es Tausende tote syrische Flüchtlinge, auf der Flucht über das 
-Mittelmeer ertrunkene Familien.
-
-Es gibt keinen toten syrischen Flüchtling am Berliner Lageso, doch das bedeutet nicht, dass im und vor dem Lageso alles 
-in Ordnung wäre. Tatsächlich sind die Zustände dort nach wie vor so verheerend, ist das Versagen der Berliner Verwaltung 
-so enorm, dass sich auch deshalb die Lügengeschichte des Dirk V. schnell verbreiten konnte: Niemand konnte sie als allzu 
-unwahrscheinlich abtun.
-
-7905 \\
+ sepa\_1000& 466 & 237& 5443 (3963+1480) & 7905 \\
  sepa\_5000& 469& 237& 5171 (3827+1344)& 7632  \\
  sepa\_20000& 466 & 237 & 5099 (3791+1308)& 7553 \\
  sepa\_60000& 472 &237 & 4747 (3615+1132)& 7192 \\
