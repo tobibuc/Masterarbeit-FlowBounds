@@ -3,12 +3,13 @@ Cycle-free Min-Cost-Flow with negative weights is $\mathcal{NP}$-complete, and t
 of this problem. \\
 
 $\mathcal{NP}$-completeness is maybe the most important concept in the classification of combinatorial optimization 
-problems. The $\mathcal{P-NP}$-Problem is an open question for many years now. Many computer scientists conjecture that 
-in fact $\mathcal{P}\neq \mathcal{NP}$ and the $\mathcal{NP}$-complete algorithmical problems are hard to solve. 
+problems (we will define it in a second). The $\mathcal{P-NP}$-Problem is an open question for many years now. Many 
+computer scientists conjecture that in fact $\mathcal{P}\neq \mathcal{NP}$ and the $\mathcal{NP}$-complete algorithmical 
+problems are hard to solve. 
 
 The classical formal definition of the class $\mathcal{NP}$ in complexity theory uses formal languages and automata 
 theory (namely Turing Machines). For this formal definition we refer to the textbook of Korte and Vygen 
-\cite{KorteVygenCombOpt2007}. If we are a bit less formal we can define it the following way:
+\cite{KorteVygenCombOpt2007}. If we accept to be a bit less formal we can define it the following way:
 \begin{definition}
 %  A decision problem is an algorithmic problem that has yes or no as solution.
 %  A polynomial algorithm is a procedure that 
@@ -17,17 +18,36 @@ theory (namely Turing Machines). For this formal definition we refer to the text
 % which computes the output "yes" in a polynomial number of steps.
 
 A combinatorial decision problem (a problem with the possible solutions "yes" and "no") is in the complexity class 
-$\mathcal{NP}$ iff there is an algorithm that gets the problem and an additional input (the certificate) and computes 
-"yes" in a polynomial number of steps iff the instance is a "yes"-instance of the problem and the right certificate is 
-given, otherwise false.
+$\mathcal{NP}$ iff there exists an algorithm that, given the problem and an additional input (the certificate), 
+computes "yes" in a polynomial bounded number of steps if and only if the instance is a "yes"-instance of the problem 
+\textit{and} the right certificate is given, otherwise false.\\
+The set of problems where there exists an algorithm that always finds the correct answer in a polynomial (in the input 
+size) bounded number of steps is called the complexity class $\mathcal{P}$. 
 \end{definition}
 
+Obviously all problems for which polynomial algorithms are known are in $\mathcal{NP}$, so 
+$\mathcal{P}\subseteq\mathcal{NP}$. We do not know if polynomial algorithms (without the "certificate") exist for all 
+problems in $\mathcal{NP}$. There are problems in $\mathcal{NP}$ for which no subexponential algorithm is known so far, 
+for example the SAT problem. For some of them one can show that a polynomial algorithm for this problem already would 
+imply a polynomial algorithm for all others. 
+
+\begin{definition}
+ A problem \textit{P} is called $\mathcal{NP}$-complete if \textit{P}$\in\mathcal{NP}$ and for every problem 
+\textit{P'} $\in \mathcal{NP}$ there exists an algorithm with polynomial bounded running time if it can call an 
+oracle for \textit{P}, i.e. a blackbox algorithm solving \textit{P} in a single step.
+\end{definition}
+
+Stephen Cook proved that every problem in $\mathcal{NP}$ can be solved by a polynomial algorithm if the SAT (boolean 
+satisfiability) problem can be solved polynomially \cite{Cook:1971:CTP:800157.805047}. 
+Richard Karp presented the result that the hamiltonian cycle problem (and by this also the hamiltonian path problem) 
+can be reduced to SAT (\cite{Karp1972}). Thus these problems are $\mathcal{NP}$-complete.
+
+We want to show that the acyclic minimum cost flow problem, of which the acyclic flowbound problem is a special case, 
+is an $\mathcal{NP}$-complete problem. This justifies to deal with algorithms that either are not provable to have 
+polynomial worst case running time or else are no exact algorithms but rather heuristics to find a weaker bound.
 
 
-
-% TODO DEFINITION NP
-%TODO Definition des Cyclefree MinCostFlow mit negativen Gewichten, Beweis über NP-Reduktion auf s-t-Hamilton-Pfad oder 
-%longest path, Erklärung dass es Unterproblem ist, TODO kann man für das Unterproblem selbst auch etwas zeigen? Das 
+%TODO kann man für das Unterproblem selbst auch etwas zeigen? Das 
 %könnte ja durchaus auch Polynomiell sein!
 
 \begin{definition}
@@ -36,7 +56,9 @@ network $G$ with the additional constraint  that there is no cyclic flow the \te
 Problem. 
 
 The corresponding decision problem is to decide the question if there can be any acyclic flow with total cost of at 
-most $x$ in the network.%TODO how to deal with the decision problem? normally NP is only defined for this one!
+most $x$ in the network. With binary search on the values of $x$ we can solve any optimization problem by iteratively 
+solving the corresponding decision problem - so since both have the same complexity, we can speak of $\mathcal{NP}$ 
+completeness of the optimization problem as well . 
 \end{definition}
 
 \begin{theorem}
@@ -65,8 +87,11 @@ search is also a linear algorithm. If we do this for each arc, the running time 
 \begin{proof}
 
 To show the $\mathcal{NP}$ hardness, we reduce the problem to the \textit{undirected $s-t$-Hamiltonian Path Problem} 
-which is well known as a standard example for $\mathcal{NP}$ hardness, see \ref{} 
-%TODO zitieren wo hampath vorkommt,NP-haertebeweis
+which is well known as a standard example for $\mathcal{NP}$ completeness. Hamiltonian cycle is $\mathcal{NP}$ 
+complete both in the directed and undirected case, see \cite{Karp1972}. To find an $s-t$-hamiltonian path in a graph 
+$G$ for some vertices $s,t\in V(G)$ we add one extra vertex $x$ and the edges $(t,x)$ and $(x,u)$ to $G$. This new 
+graph has a hamiltonian cycle if and only if $G$ has a hamiltonian path from $s$ to $t$. \\
+%done zitieren wo hampath vorkommt,NP-haertebeweis
 
 Given an instance of the $s-t$-Hamiltonian Path problem, we have to transform it into an instance of our problem. Then 
 we show that the reduced problem is a yes-instance of the Acyclic Min Cost Flow decision problem if and only if the 
@@ -104,13 +129,12 @@ polynomial time.
 An $s-t$-Hamiltonian Path is a path in a network starting at node $s$ and ending at node $t$ that is visiting every 
 node of $G$ exactly once like in the example in figure \ref{bild:hampath}. 
 
-This can only work in connected graphs, so 
-we know that if $n$ is the number of nodes in the 
+This can only work in connected graphs, so we know that if $n$ is the number of nodes in the 
 graph, the Hamiltonian Path has to have size $n-1$. Our reduction is the following:
 
 Transform the $s-t$-Hamiltonian Path instance into an instance of a flow network where for each edge $\{uv\}$ there 
 are two directed arcs $(u,v),(v,u)$, the arcs $a\in A$ all have capacities $c(a)=[0,1]$ and costs of $-1$ 
-with the same underlying graph as before. The nodes $s$ and $t$ become the source and sink of the flow.%TODO picture?
+with the same underlying graph as before. The nodes $s$ and $t$ become the source and sink of the flow.
 The decision we ask for is whether there is a flow with total costs of at most $-(n-1)$ or not. (Figure 
 \ref{bild:hampathreduct} shows an example of such a transformation)
 

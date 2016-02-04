@@ -10,6 +10,11 @@
 \bibitem{Achterberg2007}
 Tobias Achterberg, \emph{Constraint integer programming}, Ph.D. thesis, 2007.
 
+\bibitem{Cook:1971:CTP:800157.805047}
+Stephen~A. Cook, \emph{The complexity of theorem-proving procedures},
+  Proceedings of the Third Annual ACM Symposium on Theory of Computing (New
+  York, NY, USA), STOC '71, ACM, 1971, pp.~151--158.
+
 \bibitem{Dinic1970}
 E.~A. Dinic, \emph{{A}lgorithm for {S}olution of a {P}roblem of {M}aximum
   {F}low in a {N}etwork with {P}ower {E}stimation}, Soviet Math Doklady
@@ -57,6 +62,15 @@ Jesco Humpola, Imke Joormann, Djamal Oucherif, Marc~E. Pfetsch, Lars Schewe,
 N.~Karmarkar, \emph{A new polynomial-time algorithm for linear programming},
   Proceedings of the Sixteenth Annual ACM Symposium on Theory of Computing (New
   York, NY, USA), STOC '84, ACM, 1984, pp.~302--311.
+
+\bibitem{Karp1972}
+Richard~M. Karp, \emph{Complexity of computer computations: Proceedings of a
+  symposium on the complexity of computer computations, held march 20--22,
+  1972, at the ibm thomas j. watson research center, yorktown heights, new
+  york, and sponsored by the office of naval research, mathematics program, ibm
+  world trade corporation, and the ibm research mathematical sciences
+  department}, ch.~Reducibility among Combinatorial Problems, pp.~85--103,
+  Springer US, Boston, MA, 1972.
 
 \bibitem{KHACHIYAN198053}
 L.G. Khachiyan, \emph{Polynomial algorithms in linear programming}, USSR

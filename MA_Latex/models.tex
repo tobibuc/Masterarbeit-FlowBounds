@@ -16,12 +16,11 @@ polynomial time.
 
 \subsection{MIP Formulations}
 For many combinatorial Problems it is the best practical solution to formulate them as a Mixed Integer Problem and just 
-solve this problem with modern MIP Solvers such as CPlex, Gurobi, SCIP etc. Often there are different possible 
-formulations of the problem as 
-MIP, which might yield very different running times due to numerical or algorithmical reasons. In our problem, it is 
-easy to model the flow conservation and the ingoing and outgoing flow on vertices. Like described before, we can assign 
-a negative weight to an arc variable and this way maximize flow over this arc by minimizing the overall cost. This 
-would be the typical MIP formulation of a min cost flow:
+solve this problem with modern MIP Solvers such as CPlex, Gurobi, XPRESS, SCIP etc. Often there are different possible 
+formulations of the problem as MIP, which might result in very different running times due to numerical or algorithmical 
+reasons. In our problem, it is easy to model the flow conservation and the ingoing and outgoing flow on vertices. Like 
+described before, we can assign a negative weight to an arc variable and this way maximize flow over this arc by 
+minimizing the overall cost. This would be the typical MIP formulation of a min cost flow:
 
 \begin{align*}
   &\min \sum_{a\in A} w_a\cdot q_a  \\
