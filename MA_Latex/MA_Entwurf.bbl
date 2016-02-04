@@ -68,12 +68,12 @@ Bernhard Korte and Jens Vygen, \emph{Combinatorial optimization: Theory and
   algorithms}, 4th ed., Springer Publishing Company, Incorporated, 2007.
 
 \bibitem{NetworkSimplexOrlin97}
-JamesB. Orlin, \emph{A polynomial time primal network simplex algorithm for
+James~B. Orlin, \emph{A polynomial time primal network simplex algorithm for
   minimum cost flows}, Mathematical Programming \textbf{78} (1997), no.~2,
   109--129 (English).
 
 \bibitem{PfetschFuegenschuhGeissleretal.2012}
-Marc~E. Pfetsch, Armin F{\"u}genschuh, Bj{\"o}rn Gei{\"s}ler, Nina Gei{\"s}ler,
+Marc~E. Pfetsch, Armin F{\"u}genschuh, Bj{\"o}rn Gei{\ss}ler, Nina Gei{\ss}ler,
   Ralf Gollmer, Benjamin Hiller, Jesco Humpola, Thorsten Koch, Thomas Lehmann,
   Alexander Martin, Antonio Morsi, Jessica R{\"o}vekamp, Lars Schewe, Martin
   Schmidt, R{\"u}diger Schultz, Robert Schwarz, Jonas Schweiger, Claudia
