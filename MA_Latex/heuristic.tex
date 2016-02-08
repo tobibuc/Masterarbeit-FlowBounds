@@ -312,17 +312,6 @@ $\Rightarrow$ the heuristic is correct for finding upper bounds for the acyclic 
 
 \end{proof}%TODO der beweis ist lang und unuebersichtlich, man koennte fragen wozu man manche erklaerungen braucht.
 
-% So the algorithm relaxes the capacity constraints and allows weaker kinds of cycling. It still maximizes the amount 
-of 
-% flow going over the maximized arc $e$ (the bridge): if there is any flow that can be sent over $e$ this is the 
-cheapest 
-% way. All flows that are not passing $e$ at some point have to use the arcs from part $X$ of the transformed graph 
-% directly to the super-sink $t$ (which causes cost $=1$ per flow unit) or even worse from the super-source $s$ 
-directly 
-% to the super-sink $t$ (which causes cost $=2$ per flow unit). To go over $e$ has no cost at all, therefore 
-% the paths with positive costs are only used if there is a directed minimal cut from part $X$ to part $Y$ where no arc 
-% has free capacity.
-
 So we have seen that we can compute an upper bound via the optimum for this relaxed problem with a fast standard 
 algorithm for maximum flows that can be retranslated into the original problem. 
 However, the capacity constraints of the original problem might be violated after retranslation. We set the arcs 

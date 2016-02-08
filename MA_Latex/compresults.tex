@@ -1,7 +1,8 @@
 % The models we described have also been implemented and tested on networks of different size.
 In this section we will discuss the practical implementations and present results of the computation. For relevant 
 real-world problem sizes the exact models are too slow, even with separation of the acyclicity constraints. For this 
-reason we also describe how to relax the problem in order to get useable (though in general not optimal) results for the 
+reason we also describe how to relax the problem in order to get useable (though in general not optimal) results for 
+the 
 flow bounds. 
 We compare the bounds found by different approaches and with different settings (different networks and nominations) 
 to see which approach is suited best to actually compute acyclic flow bounds in a network. We also describe in short 
@@ -21,6 +22,26 @@ All algorithms where tested on a PC with instances of the \textit{"gaslib"} gasn
 downloaded on \url{http://gaslib.zib.de/}. A detailed description of this problem library can be found in 
 \cite{HumpolaJoormannOucherifPfetschScheweSchmidtSchwarz:2015}.
 %TODO muss ich den PC mit Anzahl kernen etc spezifizieren?!?
+
+\subsubsection{Cyclic Flow Bounds}%describe the exactfb algo implemented before
+\label{model:cyclicFlow}
+To start a comparison we need a bound value to which we can compare. This value should be one that is fast and 
+easy to compute, in some way sensible and not too far away from a realistic solution, and of course a valid upper 
+bound. 
+One of the first algorithmic problems that one might think of after seeing the flowbound problem is the normal minimum 
+cost flow problem \ref{def:mincostflow}. Setting a negative weight on only one arc in the network will 
+maximize flow on this specific arc. We described the connections with this problem in section \ref{sect:mincostflow}. 
+
+We can set the maximal flow capacity on an arc to the natural upper bound "sum of all ingoing flow" if no tighter 
+capacity bounds are given. This is a very easy condition derived from the acyclicity and can always be applied.
+
+This model is also implemented in Lamatto. It is modeled as a mixed integer programm with only flow balance and 
+capacity constraints. Binary directions are not contained in this model. Because this MIP model also served as the 
+basis for the more specific MIP models it is a relaxation of all the others which just add some more constraints or 
+variables.
+
+We will refer to this model as "cyclic bounds" respectively "cyclic bounds + flowsum" in the tables below. We compare 
+the bounds from the different algorithms to the bounds found with this approach. 
 
 \subsubsection{MIP with Node Potentials and Binary Direction Variables}
 The MIP model described in \ref{model:nodePotential} was implemented in Lamatto, using Gurobi as solver for this 
@@ -52,15 +73,31 @@ Big-M-constraints of the form
 \end{align*}
 with sufficient big values for $M$ and $N$. This model heavily relies on the Big-M constraints.
 For any MIP solver these indicator or Big-M constraints are difficult to handle, because the optimal vertex of the LP 
-polyhedron can be quite far from the optimal mixed integer solution.\\
+polyhedron can be quite far from the optimal mixed integer solution. Modern MIP solvers also allow to directly 
+formulate and add indicator constraints for a problem and try to improve the branching on these variables constraints. 
+This was done here: the indicator constraints were explicitly given to the solver which tries to set the $M$ and $N$ 
+constants and handle the constraints as good as possible. Still the model suffers from the same problem: The vertices 
+of the LP-relaxation polytope are quite far from the integral points which might be feasible in the MIP. After 
+solving the (easy) linear program there there remains a lot of (computational hard) work for the branch and bound 
+process left to do. So it is natural to not expect larger instances of the problem to be quickly solved by this model.\\
 
 The model was tested on the smallest network named "gaslib-40" of the gaslib package. After running the algorithm for 5 
 seconds the optimal bounds for all arcs of the network were computed. The results were the same as with the Acyclicity 
-Constraint (separation) Model, apart from numerical rounding differences. \\
+Constraint (separation) Model, apart from numerical rounding differences. 
 
-On the medium size network "gaslib-135" of the gaslib package TODO
+On the medium size network "gaslib-135" of the gaslib package, this model already fails to deliver exact results. Even 
+after running it on a desktop PC with 8 cores for more than a week just the first bound of the first arc was computed. 
+The result for the even bigger gaslib582 network was similar. It was not possible to solve the problem with this model 
+on a bigger network. To get some result and make the approach comparable we also look at a relaxation of the problem.
+%TODO genauere testergebnisse (vermutlich fail nach etlichen tagen)
 
-%TODO testergebnisse (vermutlich fail nach etlichen tagen)
+\subsubsection{Relaxation of the Node Potential Model}
+For the included solver (Gurobi) one can set a limit to the processed branch-and-bound nodes. 
+If no solution is found within this limit the dual bound at this stage still gives a bound on the maximum flow. This is 
+a relaxation of the problem (the dual bound of a maximization problem is always greater or equal to the maximum 
+$\Rightarrow$ the dual bound is a valid upper bound for the acyclic flowbound problem). In the tables below we refer to 
+this relaxed model with "nodepot\_x" if there is a nodelimit of x set.
+
 
 \subsubsection{MIP with Binary Direction Variables and separated Acyclicity Constraints}
 In section \ref{model:AcyclicityConstraints} we described a model using acyclicity constraints on the binary directions 
@@ -90,7 +127,8 @@ constraints does not work in practice. Nevertheless this model gives us an inter
 flowbound problem for free: 
 
 We can limit the time or the number of nodes in the branch and bound tree for each arc in the network. If an optimal 
-solution can be found with low effort, we get the optimum bound. If the situation is difficult and we run into the limit 
+solution can be found with low effort, we get the optimum bound. If the situation is difficult and we run into the 
+limit 
 we just take the dual bound of the mixed integer program. This number is always an upper bound because it is always 
 greater or equal to the optimum (which is the maximum flow). \\
 
@@ -113,26 +151,6 @@ We have seen in \ref{bild:reichtkreisbasis2} that the acyclicity constraints of 
 cycle base) do not suffice to forbid cyclic flow  in the network. Still we can try to use them as a relaxation to the 
 exact problem. This will already avoid cyclic flow on single cycles that are not touching each other. The tables show 
 how the idea works out in practice.
-
-\subsubsection{Cyclic Flow Bounds}%describe the exactfb algo implemented before
-\label{model:cyclicFlow}
-To start a comparison we need a bound value to which we can compare. This value should be one that is fast and 
-easy to compute, in some way sensible and not too far away from a realistic solution, and of course a valid upper 
-bound. 
-One of the first algorithmic problems that one might think of after seeing the flowbound problem is the normal minimum 
-cost flow problem \ref{def:mincostflow}. Setting a negative weight on only one arc in the network will 
-maximize flow on this specific arc. We described the connections with this problem in section \ref{sect:mincostflow}. 
-
-We can set the maximal flow capacity on an arc to the natural upper bound "sum of all ingoing flow" if no tighter 
-capacity bounds are given. This is a very easy condition derived from the acyclicity and can always be applied.
-
-This model is also implemented in Lamatto. It is modeled as a mixed integer programm with only flow balance and 
-capacity constraints. Binary directions are not contained in this model. Because this MIP model also served as the 
-basis for the more specific MIP models it is a relaxation of all the others which just add some more constraints or 
-variables.
-
-We will refer to this model as "cyclic bounds" respectively "cyclic bounds + flowsum" in the tables below. We compare 
-the bounds from the different algorithms to the bounds found with this approach. 
 
 
 \subsection{Tables}
