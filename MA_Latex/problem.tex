@@ -62,6 +62,21 @@ $$d_l(v)\le d_u(v)-\underbrace{f'((z,v))}_{0\le f'((z,v))\le d_u(v)-d_l(v)}=d'(v
 
  %cycle was already defined in the Definitions chapter
 \begin{definition}
+Given a feasible network flow $f:A\to \R$ in a network $G=(V,A)$. Let us say $f$ can be \textit{divided} or we 
+\textit{divide the network flow} $f$ into flows $f_1$ and $f_2$ if there exist flows $f_1, f_2:A\to \R$ such that 
+\begin{enumerate}
+ \item both divided flows $f_1$ and $f_2$ are again feasible network flows for demands $d_1, d_2$
+ \item For all arcs the flow directions in $f_1, f_2$ and $f$ are the same, i.e. 
+  $$f(a)\ge 0\Rightarrow f_i(a)\ge 0,\, f(a)\le 0 \Rightarrow f_i(a)\le 0 \,\textrm{ for } i=\{1,2\}$$
+ \item The demands of both flows sum up to the demand of $f$ and only at sources and sinks of $f$ there are sources 
+ or sinks of the divided flows: 
+  $$d(v)=0\Rightarrow d_1(v)=d_2(v)=0$$ $$d(v)=d_1(v)+d_2(v) \textrm{ for all }v\in V$$
+ \item The flow values of both flows sum up to the flow value of $f$:$$f(a)=f_1(a)+f_2(a) \textrm{ for all }a\in A$$
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+
 A \textit{cyclic flow} within a feasible network flow $f$ is a maximal flow $f':C\to \R$ where $C\subseteq A$ is a 
 cycle, $$\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$$ for all arcs the 
 flow directions in $f'$ and $f$ are the same, i.e. $$f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 
