@@ -81,12 +81,8 @@ $$q_a\cdot (\pi_w -\pi_v)\le 0 \,\forall a=(v,w)\in A $$ and $$(\pi_v - \pi_w)^2
 %introduce rho (=richtung) variables
 Instead we introduce a new binary variable $\rho_{vw}$ to indicate the flow direction on $a=(v,w)$, and say this 
 variable has to be 1 if flow is from $v$ to $w$ and 0 if it is from $w$ to $v$. Also if $\rho_{vw}$ is $1$ the 
-potential $\pi_v$ of $v$ has to be greater than the potential $\pi_w$ of $w$ and the other way around. 
-We can explicitly formulate the implications of these variables as indicator constraints. An indicator constraint in a 
-mixed integer program consistst of a binary variable and a linear constraint. The linear constraint is only active if 
-the binary variables value is 1, it is ignored if it is 0. Technically it is no problem to take the negated variable 
-to change when the constraint is turned on and off, so depending on the solution value of the binary variable different 
-constraints can be turned on or off. The implications we want to model here are the following:
+potential $\pi_v$ of $v$ has to be greater than the potential $\pi_w$ of $w$ and the other way around. So with 
+indicatorconstraints we get 
 
 % \label{model:nodePotentialIndicator}
 \begin{align*}
@@ -96,13 +92,8 @@ constraints can be turned on or off. The implications we want to model here are 
  &\rho_{vw}=0 &\Rightarrow &q((v,w))\le 0\\
  &\rho_{vw} \in \{0,1\}&&
 \end{align*}
+We can reformulate these indicator constraints as
 
-In order to get a pure mixed integer program we can reformulate these indicator constraints as so called 
-Big-M-constraints. These constraints are constructed the following way: Each linear inequality can be transformed into 
-a "$\le 0$" -inequality. Then we add or subtract the binary variable (or the negation) on the right hand side of this 
-transformed inequality multiplied by a big constant. This constant has to be just big enough to make sure the 
-inequality automatically always holds if the binary variable used is 1. If on the other hand the binary variable is 0 
-then the inequality really has to be fulfilled. This way we can model the implications above as actual MIP constraints:
 %  \label{model:nodePotentialBigM}
 \begin{align*}
  &\pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1\\
@@ -111,9 +102,9 @@ then the inequality really has to be fulfilled. This way we can model the implic
  &q((v,w))&\le & M\rho_{vw}\\
  &\rho_{vw} \in \{0,1\}&&\\
 \end{align*}
-where $N\in \R$ and $M\in \R$ are sufficient big constants. Sufficient big in this case could mean we choose the values 
-$$N=|V|$$ $$M=\sum_{v\in V}|d(v)|$$
-With all this the complete Mixed Integer Program is:
+where $N\in \R$ and $M\in \R$ are sufficient big constants. Sufficient big in this case could mean we choose 
+$N=|V|\, ,M=\sum_{v\in V}|d(v)|$. \\
+So the complete Mixed Integer Program is:
 
 % \label{model:nodePotentialWithBigM}
 \begin{align*}
@@ -129,11 +120,7 @@ With all this the complete Mixed Integer Program is:
  & \pi_v \in \R & & & \forall v\in V\\
  & d_a \in \{0,1\} & & &\forall a\in A\\
  & \rho_{vw} \in \{0,1\}&&& \forall a=(v,w)\in A\\
- & N &=& |V| &\\
- & M &=& \sum_{v\in V}|d(v)|&\\
 \end{align*}
-
-
 %TODO show that these constraints are equivalent to the nonlinear ones? or make a comment at least?
 
 \subsubsection{Model 2: Acyclicity Constraints On All Cycles}
@@ -193,7 +180,7 @@ or if we normalize the MIP to only $\le$ inequalities:
 \end{align}
 
 
-\subsection{The Number of Cycles we have to forbid}
+\subsection{The number of cycles we have to forbid}
 The model above has one obvious problem we have to deal with: Since it has a constraint for every cycle of $G$ and the 
 number of cycles in a graph might be exponential, even setting up the model would need exponential running time. 
 
@@ -723,7 +710,7 @@ could find such paths or edge progressions and to use it as basis for a heuristi
 \label{algo:pathHeur}
  %TODO gehe gerade von vorwärts gerichteter e aus, und maximierung
  \begin{algorithmic}[5]%[0] means no line numbers, n means every nth line number is displayed
-  \Function{Heuristic}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R $}%hier übergabeparameter
+  \Function{Heuristic}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R^{|V|} $}%hier übergabeparameter
     \State define $b':V\to \R,\, b'(v)\gets 0 \forall v\in V$ \Comment{temporary balances}
     \State define $f: A\to\R,\, f(v)\gets 0 \forall a\in A$
     \While {$\neg (b+b'\equiv 0) $}\Comment{while there are active source-sink-pairs}
@@ -802,12 +789,12 @@ could find such paths or edge progressions and to use it as basis for a heuristi
  influence the acyclic path at all.
  If the algorithm can change the flow on every cycle, it can produce every acyclic flow that is possible (before augmenting).
  There is always a path if there is any acyclic flow with this flow value on $e$ because every acyclic flow can be 
- decomposed into flow on simple paths. We conclude that the optimal edge progression could detect the right $s-t$-path, 
- produce the acyclic flow without this path and then augment. So if the algorithm does not find any edge progression, 
- there is also no acyclic flow with a higher flow value on $e$.  
+ decomposed into flow on simple paths. So the optimal edge progression could detect the right $s-t$-path, produce the 
+ acyclic flow without this path and then augment. So if the algorithm does not find any edge progression, there 
+ is also no acyclic flow with a higher flow value on $e$.  
 \end{proof}
 
-We have seen that augmentation algorithms could only work with a too powerful algorithm that shifts flow before 
+So we have seen that augmentation algorithms could only work with a too powerful algorithm that shifts flow before 
 augmenting on a path. The main problem is that a flow can unnecessarily block an arc that is needed in a later stage 
 of the algorithm. 
 

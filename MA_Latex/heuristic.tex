@@ -41,7 +41,7 @@ supersource and supersink.
  \begin{algorithmic}[5]
   \Function{MakeTransformedGraph}{$G=(V,A), e\in A$}
   \State create empty graph $G':=(V',A'), V'=A'=\emptyset$
-  \State create labels capacity $A'\to \R$, cost $A'\to \R$% , demand $V'\to\R$
+  \State create labels capacity $A'\to \R^{|A|}$, cost $A'\to \R^{|A|}$% , demand $V'\to\R$
   \State create $s, t\in V$ \Comment{ supersource and supersink}
   \State create $a_0 :=(s,t) \in A'$
   \State capacity$(a_0)\gets\infty$ 
@@ -311,6 +311,17 @@ obtained bound is always weaker (in this case $\ge$) than the optimal bound for 
 $\Rightarrow$ the heuristic is correct for finding upper bounds for the acyclic flow on an arc.
 
 \end{proof}%TODO der beweis ist lang und unuebersichtlich, man koennte fragen wozu man manche erklaerungen braucht.
+
+% So the algorithm relaxes the capacity constraints and allows weaker kinds of cycling. It still maximizes the amount 
+of 
+% flow going over the maximized arc $e$ (the bridge): if there is any flow that can be sent over $e$ this is the 
+cheapest 
+% way. All flows that are not passing $e$ at some point have to use the arcs from part $X$ of the transformed graph 
+% directly to the super-sink $t$ (which causes cost $=1$ per flow unit) or even worse from the super-source $s$ 
+directly 
+% to the super-sink $t$ (which causes cost $=2$ per flow unit). To go over $e$ has no cost at all, therefore 
+% the paths with positive costs are only used if there is a directed minimal cut from part $X$ to part $Y$ where no arc 
+% has free capacity.
 
 So we have seen that we can compute an upper bound via the optimum for this relaxed problem with a fast standard 
 algorithm for maximum flows that can be retranslated into the original problem. 

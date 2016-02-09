@@ -6,7 +6,7 @@ mixed-integer optimization problem, which is is quite hard to solve.
 % For solving the nonlinear constraints, we compute a [linearization... TODO ]
 
 On first glance it may seem that solving a normal Min-Cost-Flow algorithm could give an appropriate bound 
-on an arc for this problem. If we set the weight $w_e$ on an arc $e$ to 1 or -1 and all other weights on zero, we get 
+on an arc for this problem. If we set the weight $w_e$ on an arc $e$ to 1 or -1 and all other weights to zero, we get 
 a valid bound on the maximum or minimum possible flow on the arc. However, this bound is for most of the arcs far from 
 reality. The reason is, that a Min-Cost-Flow could have cycles within it, and the algorithm could maximize the flow by 
 sending as much flow as possible on a cycle. In natural gas networks this can not happen since the flow is 
@@ -35,7 +35,7 @@ to be linear in the input size. Still on some networks the condition is not appl
 We furthermore discuss the idea of an approach that tries to modify and adjust path based algorithms for maximum flow 
 or minimum cost flow in order to solve this problem. We present examples to show that this can only produce a 
 heuristic algorithm or else requires to solve another hard problem as subroutine. A heuristic algorithm close to the 
-one we would get her is described and analysed.
+one we would get there is described and analysed.
 
 The algorithms/models we discussed were also implemented. in the end we give details on the algorithms that were 
 implemented and compare results achieved by them. 

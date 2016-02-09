@@ -15,8 +15,8 @@ $$\sum_{v \in V\textrm{ sink}}d_u(v)-\sum_{v \in V\textrm{ source}}d_l(v)=0$$
 %TODO am ende kontrollieren, dass demands (was positiv, was negativ) konsistent verwendet wurde!
 
 Let there be a capacity function 
-$$c:A\to \mathcal{P}(\R), \, c(a)=[c_l(a), c_u(a)],\, c_l(a)\le 0 \le c_u(a) \, \forall a\in A$$
-and a flow  $f: A\to \R $ with $$c_l(a)\le f(a)\le 
+$$c:A\to \mathcal{P}(\R^{|A|}), \, c(a)=[c_l(a), c_u(a)],\, c_l(a)\le 0 \le c_u(a) \, \forall a\in A$$
+and a flow  $f: A\to\R^{|A|} $ with $$c_l(a)\le f(a)\le 
 c_u(a)\, \forall a\in A$$ and $$\sum_{a\in\delta^-(v)}f(a)-\sum_{a\in\delta^+(v)}f(a)-d(v) = 0 \, \forall v\in V$$
 We call this a \textit{feasible network flow on G}, i.e. a flow with balances of 0 and respected capacity bounds.
 We also call $$\sum_{a\in \delta^-(v)}f(a)-\sum_{a\in\delta^+(v)}f(a)-d(v)$$ the flow balance, which might be nonzero 
@@ -62,71 +62,153 @@ $$d_l(v)\le d_u(v)-\underbrace{f'((z,v))}_{0\le f'((z,v))\le d_u(v)-d_l(v)}=d'(v
 
  %cycle was already defined in the Definitions chapter
 \begin{definition}
-Given a feasible network flow $f:A\to \R$ in a network $G=(V,A)$. Let us say $f$ can be \textit{divided} or we 
-\textit{divide the network flow} $f$ into flows $f_1$ and $f_2$ if there exist flows $f_1, f_2:A\to \R$ such that 
+Given a feasible network flow $f:A\to \R^{|A|}$ in a network $G=(V,A)$. Let us say $f$ can be \textit{split} or we 
+\textit{split the network flow} $f$ into flows $f_1$ and $f_2$, $f=f_1+f_2$, if there exist flows $f_1, f_2:A\to 
+\R^{|A|}$ such that 
 \begin{enumerate}
  \item both divided flows $f_1$ and $f_2$ are again feasible network flows for demands $d_1, d_2$
  \item For all arcs the flow directions in $f_1, f_2$ and $f$ are the same, i.e. 
   $$f(a)\ge 0\Rightarrow f_i(a)\ge 0,\, f(a)\le 0 \Rightarrow f_i(a)\le 0 \,\textrm{ for } i=\{1,2\}$$
  \item The demands of both flows sum up to the demand of $f$ and only at sources and sinks of $f$ there are sources 
- or sinks of the divided flows: 
+ or sinks of the split flows: 
   $$d(v)=0\Rightarrow d_1(v)=d_2(v)=0$$ $$d(v)=d_1(v)+d_2(v) \textrm{ for all }v\in V$$
  \item The flow values of both flows sum up to the flow value of $f$:$$f(a)=f_1(a)+f_2(a) \textrm{ for all }a\in A$$
 \end{enumerate}
 \end{definition}
 
 \begin{definition}
+ We say a network flow $f:A\to \R^{|A|}$ in $G=(V,A)$ contains cyclic flow if $f$ can be split into two flows $f_1$ 
+and $f_2$ in a way such that one of the flows (say $f_1$) is a nonzero flow, but all demands $d_1$ for the flow are 
+zero. This part of the flow is called cyclic flow. 
+Formally this is:
+$ \exists f_1, f_2:A\to \R^{|A|}$ such that: 
+\begin{enumerate}
+ \item $f=f_1+f_2$
+ \item $ d_1\equiv 0 $
+ \item $ f_1\neq 0$
+\end{enumerate}
+% If the cyclic flow is maximal the other part of the flow is acyclic. 
+A flow is called acyclic if it does not contain cyclic flow.\\
 
-A \textit{cyclic flow} within a feasible network flow $f$ is a maximal flow $f':C\to \R$ where $C\subseteq A$ is a 
-cycle, $$\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$$ for all arcs the 
-flow directions in $f'$ and $f$ are the same, i.e. $$f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 
-0$$ and there is really a nonzero flow, i.e. $$f'(a) \ne 0 \,\forall a\in C$$. 
+Any cyclic flow can be split into different cyclic flows in a way such that in each of these the arcs with nonzero 
+flow value form a simple cycle and all have the same absolute flow value. We call this part a flow cycle and the value 
+on the arcs its size.
 
-If we can find any cyclic flow $f'$ in a network flow $f$ we say that $f$ contains a flow cycle. If there is no cyclic 
-flow, we say $f$ is \textit{acyclic} or an \textit{acyclic flow} on $G$.\\
+% A \textit{cyclic flow} within a feasible network flow $f$ is a maximal flow $f':C\to \R$ where $C\subseteq A$ is a 
+% cycle, $$\sum_{a\in \delta^+(v)\cap C}f(a)-\sum_{a\in\delta^-(v)\cap C}f(a) = 0 \, \forall v\in C$$ for all arcs the 
+% flow directions in $f'$ and $f$ are the same, i.e. $$f(a)\ge 0\Rightarrow f'(a)\ge 0,\, f(a)\le 0 \Rightarrow f'(a)\le 
+% 0$$ and there is really a nonzero flow, i.e. $$f'(a) \ne 0 \,\forall a\in C$$. 
+% 
+% If we can find any cyclic flow $f'$ in a network flow $f$ we say that $f$ contains a flow cycle. If there is no cyclic 
+% flow, we say $f$ is \textit{acyclic} or an \textit{acyclic flow} on $G$.\\
 
-The conditions imply, that a cyclic flow is one that has no sources or sinks and the same value of flow on each arc.
+% The \textit{size of a cyclic flow} we call the maximal absolute amount of flow contributing to the cycle. This means 
+% it is the value $|f'(a)|$ a cyclic flow $f'$ has on an arc and the amount of flow that is really cycling. If we reduce 
+% flow on each arc of the cycle by the size of the flow there should be at least one arc with zero flow resulting since 
+% we said that it is maximal.
 
-The \textit{size of a cyclic flow} we call the maximal absolute amount of flow contributing to the cycle. This means 
-it is the value $|f'(a)|$ a cyclic flow $f'$ has on an arc and the amount of flow that is really cycling. If we reduce 
-flow on each arc of the cycle by the size of the flow there should be at least one arc with zero flow resulting since 
-we said that it is maximal.
 %flow $ f: C\to \R ,\, C\subseteq A \textrm{ a cycle, }\,c_l(a)\le 
 %f(a)\le c_u(a)\, \forall a\in C$ with the property that 
 \end{definition}
-%TODO Kreisflussmenge, Kreisflusskapazität, Augmentierung
+%BILD fuer die illustration der definition mit der Aufteilung machen
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node (s) at (0,0)[source]{s};
+\node (t) at (3,0)[sink]{t};
+\node (1) at (1,0)[vertex]{};
+\node (2) at (2,0)[vertex]{};
+\node (3) at (1,1)[vertex]{};
+\node (4) at (2,1)[vertex]{};
+\draw[arcflow] (s)--(1);
+\draw[arcflow] (1)--(2);
+\draw[arcflow] (2)--(t);
+\draw[arcflow] (2)--(4)--(3)--(1);
+\draw[arc] (s)--(1)node [pos=0.5, below, blue]{$3$};
+\draw[arc] (1)--(2)node [pos=0.5, below, blue]{$5$};
+\draw[arc] (2)--(4)node [pos=0.5, right, blue]{$2$};
+\draw[arc] (4)--(3)node [pos=0.5, below, blue]{$2$};
+\draw[arc] (3)--(1)node [pos=0.5, left, blue]{$2$};
+\draw[arc] (2)--(t)node [pos=0.5, below, blue]{$3$};
+\end{tikzpicture}
+\caption{This flow is cyclic - as figure \ref{bild:dividedFlow} shows it contains a cycle}
+ \label{bild:undividedFlow}
+\end{figure}
 
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}[scale=0.7]
+\node (s) at (0,0)[source]{s};
+\node (t) at (3,0)[sink]{t};
+\node (1) at (1,0)[vertex]{};
+\node (2) at (2,0)[vertex]{};
+\node (3) at (1,1)[vertex]{};
+\node (4) at (2,1)[vertex]{};
+\draw[arcflow] (s)--(1);
+\draw[arcflow] (1)--(2);
+\draw[arcflow] (2)--(t);
+% \draw[arcflow] (2)--(4)--(3)--(1);
+\draw[arc] (s)--(1)node [pos=0.5, below, blue]{$3$};
+\draw[arc] (1)--(2)node [pos=0.5, below, blue]{$3$};
+\draw[arc] (2)--(4)node [pos=0.5, right, blue]{$0$};
+\draw[arc] (4)--(3)node [pos=0.5, below, blue]{$0$};
+\draw[arc] (3)--(1)node [pos=0.5, left, blue]{$0$};
+\draw[arc] (2)--(t)node [pos=0.5, below, blue]{$3$};
+
+\node (s) at (4,0)[source]{s};
+\node (t) at (7,0)[sink]{t};
+\node (1) at (5,0)[vertex]{};
+\node (2) at (6,0)[vertex]{};
+\node (3) at (5,1)[vertex]{};
+\node (4) at (6,1)[vertex]{};
+% \draw[arcflow] (s)--(1);
+\draw[arcflow] (1)--(2);
+% \draw[arcflow] (2)--(t);
+\draw[arcflow] (2)--(4)--(3)--(1);
+\draw[arc] (s)--(1)node [pos=0.5, below, blue]{$0$};
+\draw[arc] (1)--(2)node [pos=0.5, below, blue]{$2$};
+\draw[arc] (2)--(4)node [pos=0.5, right, blue]{$2$};
+\draw[arc] (4)--(3)node [pos=0.5, below, blue]{$2$};
+\draw[arc] (3)--(1)node [pos=0.5, left, blue]{$2$};
+\draw[arc] (2)--(t)node [pos=0.5, below, blue]{$0$};
+\end{tikzpicture}
+\caption{ This is the flow of the above figure \ref{bild:undividedFlow} split into an acyclic and a cyclic part.}
+ \label{bild:dividedFlow}
+\end{figure}
 
 \begin{definition}
   Given a graph $G=(V,A)$ like above, with $e \in A$ a specific arc of $G$. 
   
-  We call the problem of finding an acyclic flow 
-  $$f:A\to \R\textrm{ with }f(e)\ge f'(e)\,\forall f':A\to \R \textrm{ s.t.} f' \textrm{ is an acyclic flow on }G$$
+We call the problem of finding an acyclic flow 
+$$f:A\to\R^{|A|}\textrm{ with }f(e)\ge f'(e)\,\forall f':A\to\R^{|A|}\textrm{ s.t.} f'\textrm{ is an acyclic flow on 
+}G$$
   the \textit{ Acyclic Flowbound Problem}.
 \end{definition}
+
 For describing the algorithms and manipulations of network flows we will need further definitions. 
 \begin{definition}
  Assume we are in the situation that we have have a current flow $f$ in the given network $G$ and we have a set 
-$S\subseteq A$ of arcs with a direction forward or backwards for each - for example a path from a source to a sink. We 
+$S\subseteq A$ of arcs with a direction forward or backward for each - for example a path from a source to a sink. We 
 call the act of setting flow to
 $$f'(a)= f(a)+x \,\forall a\in S:\textrm{ a is forward, }f'(a)= f(a)-x \,\forall a\in S:\textrm{ a is backward}$$
-in a way that $f'$ again is a feasible flow for a (maybe different) set of flow demands $d':V\to \R$ 
+in a way that $f'$ again is a feasible flow for a (maybe different) set of flow demands $d':V\to\R^{|V|}$ 
 \textit{ augmenting a value $x$ on $S$}. 
 
-If the demand values for which the flow is acyclic do not change, the set of arcs we augment have to be a 
-cycle. In this case we also call this shifting flow on a cycle in $G$.
+If we augment a cycle flow the demand values do not change. We also call this shifting flow on a cycle in $G$.
+
 \end{definition}
 
 
 \begin{prop}
-  The maximum flow value on the maximized arc $e$ in the Edge-Maximizing Acyclic Flow Problem is the same as the 
-  maximal flow value if only cyclic flow on cycles containing $e$ is forbidden. 
+  The maximum flow value on the specified arc $e$ in the Acyclic Flow Problem is the same as the 
+  maximal flow value on this arc in the case where only cyclic flow on cycles containing $e$ is forbidden. 
 \end{prop}
-This proposition is stating that only a small fraction of the cycles in the network are important. It is not necessary 
+This proposition is stating that only a small part of the cycles in the network are important. It is not necessary 
 to add the acyclicity constraints on all cycles - they do only make a difference if the arc we maximize is contained in 
 the cycle. If we have any feasible flow in a network, then we also have an acyclic flow there. We can just shift flow 
-along cycles until one arc has zero flow until the flow is acyclic. The proof does the same with cycles not containing 
-the maximized arc, reasoning these cycles do not impact the optimal solution on the maximized arc.
+along cycles until one arc has zero flow, and repeat this procedure until the flow is acyclic. The proof does the same 
+with cycles not containing the specified arc $e$, reasoning these cycles do not impact the optimal solution on this
+maximized arc.
 \begin{proof}
  Let $F_{acyc}$ be the set of flows that are completely acyclic and $F_{cyc}^e$ the flows that can have cyclic flow on 
  cycles not containing $e$. Since $F_{acyc}\subseteq F_{cyc}^e $ (i.e. the partially cyclic flow problem is a 
@@ -183,9 +265,10 @@ instance of a Min-Cost-Flow where we allow edge weights to be negative:
 
 \begin{definition}\label{def:mincostflow}
  The \textit{Minimum Cost Flow Problem} is the problem to determine a feasible network flow with the least possible 
-cost $c_f$. The cost function $c:A\to \R$ (or often $c:A\to \R_{\ge 0}$) is defined on every arc, the cost of the flow 
+cost $c_f$. The cost function $c:A\to\R^{|A|}$ (or often $c:A\to\R^{|A|}_{\ge 0}$) is defined on every arc, the cost of 
+the flow 
 is $$c_f := \sum_{a\in A}|f(a)|\cdot c(a)$$ So for a given network and cost function we look for a feasible network 
-flow $f$ with $$c_f\le c_{f'}\,\forall f':A\to \R$$ i.e. with minimum overall costs.
+flow $f$ with $$c_f\le c_{f'}\,\forall f':A\to\R^{|A|}$$ i.e. with minimum overall costs.
 \end{definition}
 
 This problem is normally defined with nonnegative cost functions, like in \cite{EdmondsKarp1972} where 
