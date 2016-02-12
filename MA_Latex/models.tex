@@ -6,7 +6,7 @@ go in direction from higher to lower potentials. The second model uses decision 
 flow and special acyclicity constraints on them for each cycle. They are different in size as the second MIP model 
 explicitly uses constraints on the cycles to exclude cyclic flow from the solution. We show that it is not sufficient 
 to have these constraints just on a cycle base (which would be a linearly small number). But we can prove 
-conditions under which the acyclicity constraint of a cycle becomes redundant. Still there can be exponential many 
+conditions under which an acyclicity constraint of a cycle becomes redundant. Still there can be exponential many 
 cycles in a network and the condition could be fulfilled on \textit{cycle} of the network. 
 
 Furthermore we discuss an idea to solve the problem with a direct algorithm augmenting paths. We show by examples that 
@@ -20,7 +20,7 @@ solve this problem with modern MIP Solvers such as CPlex, Gurobi, XPRESS, SCIP e
 formulations of the problem as MIP, which might result in very different running times due to numerical or algorithmical 
 reasons. In our problem, it is easy to model the flow conservation and the ingoing and outgoing flow on vertices. Like 
 described before, we can assign a negative weight to an arc variable and this way maximize flow over this arc by 
-minimizing the overall cost. This would be the typical MIP formulation of a min cost flow:
+minimizing the overall cost. This would be the typical MIP formulation of a minimum cost flow:
 
 \begin{align*}
   &\min \sum_{a\in A} w_a\cdot q_a  \\
@@ -29,7 +29,7 @@ minimizing the overall cost. This would be the typical MIP formulation of a min 
   & c_l(a)\le q_a \le c_u(a) & \forall a\in A
 \end{align*}
 
-This model still allows cyclic flow, so we have to find constraints to avoid cyclicity. 
+This model still allows cyclic flow, so we have to find constraints to avoid cycling. 
 \subsubsection{Model 1: Node Potentials}
 \label{model:nodePotential}
 %TODO welche formulierungen koennte es noch geben fuer dieses problem?
@@ -37,13 +37,14 @@ This model still allows cyclic flow, so we have to find constraints to avoid cyc
 
 One idea (that is unfortunately not a linear problem formulation anymore) would be to set potentials on the nodes and 
 allow only flow from higher to lower potential. This is quite close to the application of our problem in gas flow 
-computation, where gas will only flow from places with high pressure to places with lower pressure in the network. So 
+computation, where gas will only flow from locations with high pressure to locations with lower pressure in the 
+network. So 
 each vertex $v$ would get a variable $\pi_v$ for its potential, each arc $a$ as before a variable $q_a$ for the amount 
-of flow. Then we add the constraint $$q_a\cdot (\pi_v -\pi_w)\ge 0\,\forall a=(v,w)\in A $$
+of flow. Then we add the constraint $$q_a\cdot (\pi_v -\pi_w)\ge 0\quad\forall a=(v,w)\in A $$
 We have to ensure that the values of the potentials are all 
 different, or that there is no flow between nodes of the same potential. Otherwise any solution where all potentials 
 are set to the same value would fulfill this constraint, regardless if it is acyclic or not. So in practice we could 
-set a constant $\varepsilon > 0$ to describe the minimum distance between the potentials. A feasible 
+set a constant $\varepsilon > 0$ to describe the minimum difference between the potentials values. A feasible 
 solution now has to fulfill the constraint above on every arc. If we set up the constraint as above, we get the Mixed 
 Integer Nonlinear Program
 
@@ -69,9 +70,11 @@ We show that this flow indeed is an acyclic one:
 we label the vertices on the cycle from $1$ to $n$ and assume all arcs are directed forward on this cycle. This means 
 there are arcs $a_1=(v_1,v_2),a_2=(v_2,v_3), \dots a_n=(v_n, v_1)\in C$ such that $q_{a_i} > 0 \,\forall i={1,\dots , 
 n}$. Also we know from the constraints  $q_a\cdot (\pi_v -\pi_w)\ge 0$ and $\pi_v - \pi_w \neq 0$ (Hence $\Rightarrow 
-\pi_v\neq\pi_w)\, \forall v,w\in V$. So we conclude an ordering of the vertices potentials: $q_{a_1}\cdot (\pi_{v_1} 
--\pi_{v_2})\ge 0 \Rightarrow \pi_{v_1}>\pi_{v_2}$ and so on. This yields a sequence $\pi_{v_1}>\pi_{v_2}>\dots 
->\pi_{v_n}>\pi_{v_1}$, which is a contradiction. \Lightning
+\pi_v\neq\pi_w)\, \forall v,w\in V$. So we conclude an ordering of the vertice's potentials: 
+$$q_{a_i}\cdot (\pi_{v_i} -\pi_{v_{i+1}})\ge 0 \Rightarrow \pi_{v_i}>\pi_{v_{i+1}}\quad\forall i\in\{1,\dots ,n-1\}$$ 
+and 
+$$q_{a_n}\cdot (\pi_{v_n} -\pi_{v_1})\ge 0 \Rightarrow \pi_{v_n}>\pi_{v_1}$$ 
+This results in a sequence $$\pi_{v_1}>\pi_{v_2}>\dots >\pi_{v_n}>\pi_{v_1}$$ which is a contradiction. \Lightning
 \end{proof}
 
 However, solving nonlinear mixed integer programs comes with many difficulties, so we will use indicator constraints 
@@ -80,9 +83,9 @@ $$q_a\cdot (\pi_w -\pi_v)\le 0 \,\forall a=(v,w)\in A $$ and $$(\pi_v - \pi_w)^2
 
 %introduce rho (=richtung) variables
 Instead we introduce a new binary variable $\rho_{vw}$ to indicate the flow direction on $a=(v,w)$, and say this 
-variable has to be 1 if flow is from $v$ to $w$ and 0 if it is from $w$ to $v$. Also if $\rho_{vw}$ is $1$ the 
-potential $\pi_v$ of $v$ has to be greater than the potential $\pi_w$ of $w$ and the other way around. So with 
-indicatorconstraints we get 
+variable has to be 1 if flow is directed from $v$ to $w$ and 0 if it is directed from $w$ to $v$. Also if $\rho_{vw}$ 
+is $1$ the potential $\pi_v$ of $v$ has to be greater than the potential $\pi_w$ of $w$ and the other way around. So 
+with indicatorconstraints we get 
 
 % \label{model:nodePotentialIndicator}
 \begin{align*}
@@ -184,11 +187,12 @@ or if we normalize the MIP to only $\le$ inequalities:
 The model above has one obvious problem we have to deal with: Since it has a constraint for every cycle of $G$ and the 
 number of cycles in a graph might be exponential, even setting up the model would need exponential running time. 
 
-So do we really need every cycle? Or is it enough to just forbid cyclic flow on a small subset (e.g. a cycle base) of 
-the cycles of $G$? 
+So do we really need every cycle? One starting idea for this thesis was the question whether it might be enough to just 
+forbid cyclic flow on a cycle base of the cycles of $G$, or maybe another such small set of cycles.
 
-The figures \ref{bild:reichtkreisbasis1} and \ref{bild:reichtkreisbasis2} %TODO
-show that a cycle base works on the easiest possible example, but fails if the problem gets just a bit more complicated:
+The figures \ref{bild:reichtkreisbasis1} and \ref{bild:reichtkreisbasis2}
+show that a cycle base works on the easiest possible example, but fails if the problem gets just a little bit more 
+complicated:
 
 %Bild/bsp: zwei dreiecke mit einer gemeinsamen seite - auf 2 Kreisen Fluss verbieten reicht TODO
 \begin{figure}[h!]
@@ -205,18 +209,22 @@ show that a cycle base works on the easiest possible example, but fails if the p
 \draw[arc] (c) -- (a)node [pos=0.5, above]{$e_3$};
 \draw[arc] (c) -- (d)node [pos=0.5, above]{$e_4$};
 \draw[arc] (d) -- (b)node [pos=0.5,above]{$e_5$};
+\draw[ultra thick, blue, rounded corners](0.1,0)--(0.94,0.85)--(0.94,-0.85) --cycle;
+\draw[ultra thick, blue, rounded corners](2-0.1,0)--(2-0.94,0.85)--(2-0.94,-0.85) --cycle;
+
 %draw circle with arrowtip
-\draw[ultra thick, ->, red!50] (1.65,0) arc (0:290:0.25);
-\draw[ultra thick, ->, red!50] (0.8,0.15) arc (30:310:0.25);
+% \draw[ultra thick, ->, red!50] (1.65,0) arc (0:290:0.25);
+% \draw[ultra thick, ->, red!50] (0.8,0.15) arc (30:310:0.25);
 \end{tikzpicture}
-\caption{Here it suffices to forbid the 2 interior cycles marked with red in order to obtain acyclicity}
+\caption{Here it suffices to forbid the 2 interior cycles marked with blue in order to obtain acyclicity}
 \label{bild:reichtkreisbasis1}
 \end{figure}
 %beweis dass hier wirklich eine Kreisbasis reicht!
 
 Why are the constraints of a cycle base sufficient in this case of figure \ref{bild:reichtkreisbasis1}? 
 
-We see this immediately when we look at all acyclicity constraints for the 3 cycles contained in the graph 
+The graph in figure \ref{bild:reichtkreisbasis1} has only three cycles in total. We see that two of them 
+suffice immediately when we look at all acyclicity constraints for the 3 cycles contained in the graph 
 ($x_i$ being the binary direction variables of $e_i$, $i\in\{1\dots 5\}$):
 \begin{align*}
  1 &\le x_1+x_4+x_5\le 2&\\
@@ -269,7 +277,7 @@ graph}
 \draw[ultra thick, blue, rounded corners](-0.1,-0.1)--(-0.05,0.8)--(-0.9,-0.7) --cycle;
 \draw[ultra thick, blue, rounded corners](1.2,-0.9)--(-1.2,-.9)--(0,1.2) --cycle;
 \end{tikzpicture}
-\caption{The example tetrahedron graph with the blue marked cycles where acyclicity constraints can not forbid cyclic 
+\caption{The example tetrahedron graph with the blue marked cycles whose acyclicity constraints can not forbid cyclic 
 flow on the marked red cycle}%TODO mit dem rechenbeispiel abgleichen?
  \label{bild:reichtkreisbasis3}
 \end{figure}
@@ -304,12 +312,12 @@ no combination of three cycles that could completely exclude cyclic flow solutio
 \begin{prop}
 \label{prop:redundantAcyclicityCons}
  Given two acyclicity constraints $cons_1$ and $cons_2$ of cycles $C_1$ and $C_2$ in $G$. The acyclicity constraint of 
-the joint cycle $C=C_1\cup C_2 \setminus \{a\in A| a\in C_1\land a\in C_2 \}$ is the sum of $cons_1$ amd $cons_2$ if 
+the joint cycle $C=C_1\cup C_2 \setminus \{a\in A| a\in C_1\land a\in C_2 \}$ is the sum of $cons_1$ and $cons_2$ if 
 and only if $C_1$ and $C_2$ have exactly one arc in common (and this arc is directed differently in both 
 cycles/has different sign in both constraints).
 \end{prop}
-This proposition shows that many of the acyclicity constraints in our model may be redundant and could be omitted. 
-But still the remaining constraints are exponential in the size of $G$.
+This proposition shows that many of the acyclicity constraints in our model may be redundant and could be omitted if 
+so. But still the remaining constraints are exponential in the size of $G$ in the worst case.
 
 \begin{proof}
  Assume we are given two cycles $C_1,\,C_2\in G=(V,A)$ with exactly one arc $g\in A$ 
@@ -376,7 +384,8 @@ following properties:
   \item $G'\cup C$ consists of cycles whose direct sum is $C$ %TODO is direct sum what I really mean? Define it?
  \end{itemize}
  Then any acyclic orientation of the other cycles than $C$ in $G'\cup C$ implies already the acyclicity of $C$. This 
-  means the acyclicity constraint of $C$ is redundant.
+  means the acyclicity constraint of $C$ is redundant. The power of this proposition is that it can be applied 
+  recursively to eventually form a whole region in the graph where only the smallest cycles need acyclicity constraints.
 
 \end{prop}
 %Beweisen, dass in einem Gebiet ohne Quellen oder Senken (das planar ist?) einfache kreise reichen
@@ -468,25 +477,26 @@ acyclicity constraints.
 % shortestpath problemen einen successive shortest path algo zu einem maxflowbound-algo macht? duerfte schwer werden...
 \label{model:pathaugment}
 The main idea in this chapter was to design an algorithm that uses path augmentation to saturate the given flow 
-demands. 
-The algorithm should try to push as much flow value as possible over the arc where flow is maximized, while having the 
+demands. In the end this idea doesn't work out, but to to see why it fails and what would be needed in order to make 
+the approach work gives a bit deeper insight into the acyclic flowbound problem. Furthermore in the following section 
+we will see a heuristic approach that was originally based on these insights.We also show the difficulties of choosing a 
+path and illustrate with examples that only a relaxed version or either an algorithm with edge progressions instead of 
+simple paths can work for the acyclic flowbound problem.\\
+
+The idea was that the algorithm should try to push as much flow value as possible over the arc where flow is 
+maximized, while having the 
 constraint that the resulting flow is acyclic. %TODO geht das ueberhaupt mit succ shortest path?
 Algorithms that use path augmentation to compute flows are well known and among the standard flow algorithms. The 
 algorithm of Ford and Fulkerson \cite{Ford-Fulkerson_algo} arising from their Max-Flow-Min-Cut theorem is based on 
 source-sink-paths in the network as well as the improved algorithms of Edmonds and Karp \cite{EdmondsKarp1972} or Dinic 
 \cite{Dinic1970}. 
 
-This idea of path augmentation is conveniant and nice looking in the beginning. It is the base for a direct heuristic 
-approach to the problem that can produce valid bounds very fast. We also show the difficulties of choosing a path and 
-illustrate with examples that only a relaxed version or either an algorithm with edge progressions instead of simple 
-paths can work for the acyclic flowbound problem.\\
-
 If we want to maximize flow over arc $e=(u,v)$ the first idea might be to just search a path from $v$ to the sink $t$ 
 and another path from the sink $s$ to $u$. Finding such a path can be done by graph search in the graph of augmentable 
 arcs in linear time. Also the combined path of the two would always use the arc $e$.
 But it is not sufficient to just combine a path from source $s$ to node 
 $u$ and one from node $v$ to a sink $t$. Such a combination could produce cyclic flow, see for example figure 
-\ref{bild:cycleFromCombinedPaths}. %TODO BILD
+\ref{bild:cycleFromCombinedPaths}. \\
 
 %Bild: combining two paths can produce a cycle TODO noch verbessern... z.b. kreis mit einem loop markieren
 \begin{figure}[h!]
@@ -516,8 +526,7 @@ arc unto source and sink can lead to cyclic flow}
 \end{figure}
 
 The next straightforward idea is to use simple paths containing the arc we want to maximize. This means we would just 
-forbid that the two paths we found have 
-vertices in common. 
+forbid that the two paths we found have vertices in common. 
 But it is also not sufficient to just use simple paths: it might happen that two different paths intersect in 
 such a way that the combination of these paths produces a flow cycle (see figure 
 \ref{bild:cycleFromDifferentCombinedPaths}).
@@ -618,7 +627,7 @@ a situation where path augmentation is useless because in the first step a wrong
 \draw[edge] (c)--(t){};
 \draw[edge] (t)--(d){};
 \end{tikzpicture}
-\caption{The optimum - the whole amount of flow is going over $e$ while the flow is still acyclic in the whole network}
+\caption{The optimum - all flow is going over $e$ while the flow is still acyclic in the whole network}
  \label{bild:blockingPathflowOpt}
 \end{figure}
 
@@ -811,6 +820,5 @@ conclude that a more restricted problem (like finding the acyclic bound) can not
 single arc.\\
 
 We will describe an equivalent variant of this idea in the next section more detailed.
- 
 
 \input{heuristic}

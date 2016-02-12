@@ -5,9 +5,9 @@ through special pipelines.
 %TODO wie sollte ich das projekt am besten referenzieren?
 This thesis evolved from a joint research project of the Konrad Zuse Zentrum fuer Informationstechnik Berlin(ZIB) with 
 Open Grid Europe (OGE) who operate the largest network of gas pipelines in germany. 
-A general overview over the work on the gas network planning problem is given in 
+A general overview over the work on the gas network planning problem done in this project is given in 
 \cite{FuegenschuhGeisslerGollmeretal.2013}. The problem of finding settings for all active components of the network 
-such that given demands and supplies can be sent through the network with respect to all constraints is the 
+such that given (static) demands and supplies can be sent through the network with respect to all constraints is the 
 \textit{nomination validation} problem. A description of the model used and work done for the nomination validation 
 problem can be found in \cite{PfetschFuegenschuhGeissleretal.2012}. 
 
@@ -16,7 +16,7 @@ Pressure can be increased in compressor stations and controlled by elements like
 described by ordinary differential equations. 
 
 The computation of the flow is difficult due to numerical and algorithmical reasons. Good preprocessing 
-routines can help a lot by reducing the domains and model sizes before the main computation is started.
+routines can help a lot by reducing the domains and model sizes before the main computation is started - .
 Since the flow of gas in the network is always determined by pressure differences and flow is always going from higher 
 pressure to lower pressure we know that flow in the network in general has to be acyclic. The only exception of this 
 is a compressor station. An active compressor station can increase the pressure and by this could indeed cause cyclic 
@@ -32,10 +32,12 @@ cycles.
 %erklärung warum wir engere Bounds brauchen können
 The bounds are expected to be useful for two things in the solving process of the nomination validation problem 
 described in \cite{PfetschFuegenschuhGeissleretal.2012}. If we have stronger bounds on the flow values in the network, 
-it might improve the models that solve the actual nomination validation. 
+it might improve the models that solve the actual nomination validation problem. 
 %TODO detaillierter! Erst das Modell mit dem MIP beschreiben und dass es durch kleinere Intervalle die Zahl der vars 
 %verringert
-% TODO dann 
+
+
+% TODO dann das MINLP beschreiben und wie sich im MINLP die Modellgroesse verkleinert
 
 
 Normal and multicommodity network flows are well known algorithmical problems, but (at least to my 
@@ -50,7 +52,7 @@ Pressure is only used to justify the assumption of acyclicity. This abstraction 
 weaker than the original problem which also has to fulfill the flow conditions we use. The bounds are only needed 
 for preprocessing and hoped to improve the model size in the end. 
 
-\subsubsection{Related Work}
+\subsection{Related Work}
 The diploma thesis of Thea Göllner \cite{DiplomarbeitTheaGoellner} describes preprocessing techniques for stationary gas 
 network optimization models. This is the same model as the one we use here. In her thesis she also describes an 
 algorithm for determining flow directions on the arcs of the network and determines cases in which we can fix the flow 
