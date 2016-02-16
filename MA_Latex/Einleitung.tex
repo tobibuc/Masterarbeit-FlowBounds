@@ -1,31 +1,31 @@
 
-Today there are various real-world problems that are (tried to be) solved by computational methods. One of them (which 
-is currently attacked at the Konrad Zuse Zentrum für Informationstechnik Berlin (ZIB)) is the Problem of transporting 
-natural gas through a network of pipelines. Due to the physics of gas flows this turns out to be a nonlinear, nonconvex 
-mixed-integer optimization problem, which is is quite hard to solve. 
-% For solving the nonlinear constraints, we compute a [linearization... TODO ]
+Today there are various real-world problems that are (tried to be) solved by computational methods. One of them which 
+is currently attacked at the Konrad Zuse Zentrum für Informationstechnik Berlin (ZIB) is the Problem of transporting 
+natural gas through a network of pipelines. Motivated by this challenging problem the question of how to produce 
+acyclic network flows arises. This problem is not specific for gas networks but for general flow in networks with arc 
+capacities and indeed can be seen as just a special case of the famous minimum cost flow problem. 
 
-On first glance it may seem that solving a normal Min-Cost-Flow algorithm could give an appropriate bound 
-on an arc for this problem. If we set the weight $w_e$ on an arc $e$ to 1 or -1 and all other weights to zero, we get 
+To my knowledge there is no literature about acyclic network flows despite wide research on various flow problems. 
+Whereever we have a network with nonpositive lower capacity bounds, we can make any flow acyclic by shifting flow 
+back on the cycles until an edge has zero flow. 
+However, we are interested in bounds on flow values for the arcs of the network. For each arc we have a maximum 
+capacity and want to know the maximum flow value this arc could have in a feasible network flow that is acyclic. Thus 
+we have to find the \textit{best} acyclic flow for each arc. This problem turns out to be much more challenging.
+
+
+At first glance it may seem that solving a normal Min-Cost-Flow algorithm could give an appropriate bound 
+on an arc. If we set the weight $w_e$ on an arc $e$ to 1 or -1 and all other weights to zero, we get 
 a valid bound on the maximum or minimum possible flow on the arc. However, this bound is for most of the arcs far from 
-reality. The reason is, that a Min-Cost-Flow could have cycles within it, and the algorithm could maximize the flow by 
-sending as much flow as possible on a cycle. In natural gas networks this can not happen since the flow is 
-always induced by pressure differences. The only exception are active compressure stations. While they increase 
-pressure it is possible that they cause cyclic flow. However, in real gas networks a compressor station would normally 
-be placed at a point where it has the highest impact. This is of course where it is unlikely to waste energy by sending 
-flow on a cycle. The pressure would rather be controlled by resistors, valves and control valves in order to avoid 
-cycing. So we will assume that flow is always acyclic in gas networks.
-%TODO kann man zeigen, dass die in "guten" netzen nie kreisfluss erzeugen müssen? weil es nur verschwendung waere?
-So (ignoring that compressor stations could increase pressure) there is no cyclic flow. The intention of this thesis now 
-is to investigate the problem of flow bounds in a network where the flow is assumed to be acyclic. 
+reality. The reason is that a Min-Cost-Flow could have cycles within it and the algorithm could maximize the flow by 
+sending as much flow as possible on a cycle. In natural gas networks this can not happen (except from compressor 
+stations) since the flow is always induced by pressure differences.\\
 
-We take this gas network problem as motivation but do not use gas physics properties other than acyclicity. Instead we 
-are only interested in the abstract network flow problem with the additional condition of flows being acyclic, and 
-in the bounds on flow value in such a network. 
+\subsection{Outline}
+The intention of this thesis is to investigate the problem of flow bounds in a network where the flow is assumed to be 
+acyclic. 
 
-% We will 
-In this thesis we first define the mathematical/algorithmical problem and examine connections to known problems and 
-relaxations of the acyclic flowbound problem. We show that the minimum cost flow problem with general (possibly 
+We will first define the mathematical/algorithmical problem and examine connections to known problems 
+and relaxations of the acyclic flowbound problem. We show that the minimum cost flow problem with general (possibly 
 negative) weights becomes $\mathcal{NP}$-hard if we demand acyclic flow. 
 Justified by this we model the problem as a mixed integer program. We present two different mixed integer programs 
 that model our exact problem. One of the MIP models relies on constraints which each forbid cyclic flow on a cycle of 
@@ -37,8 +37,10 @@ or minimum cost flow in order to solve this problem. We present examples to show
 heuristic algorithm or else requires to solve another hard problem as subroutine. A heuristic algorithm close to the 
 one we would get there is described and analysed.
 
-The algorithms/models we discussed were also implemented. in the end we give details on the algorithms that were 
+The algorithms/models we discussed were also implemented. In the end we present details of the algorithms that were 
 implemented and compare results achieved by them. 
+
+\input{motivation}
 
 
 % [TODO kurzer Abriss pber den Inhalt der Arbeit]

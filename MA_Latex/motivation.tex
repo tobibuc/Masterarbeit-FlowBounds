@@ -3,54 +3,56 @@ Natural gas is one of the most common ressources of energy in germany and makes 
 consumption. Most of this gas is produced in ressource-rich countries like Russia or Norway and transported to Germany 
 through special pipelines. 
 %TODO wie sollte ich das projekt am besten referenzieren?
-This thesis evolved from a joint research project of the Konrad Zuse Zentrum fuer Informationstechnik Berlin(ZIB) with 
+This thesis evolved from a joint research project of the Konrad Zuse Zentrum fuer Informationstechnik Berlin (ZIB) with 
 Open Grid Europe (OGE) who operate the largest network of gas pipelines in germany. 
-A general overview over the work on the gas network planning problem done in this project is given in 
+A general overview over the work done at ZIB on the gas network planning in this project is given in 
 \cite{FuegenschuhGeisslerGollmeretal.2013}. The problem of finding settings for all active components of the network 
 such that given (static) demands and supplies can be sent through the network with respect to all constraints is the 
-\textit{nomination validation} problem. A description of the model used and work done for the nomination validation 
-problem can be found in \cite{PfetschFuegenschuhGeissleretal.2012}. 
+\textit{nomination validation} problem. A description of the model used and work done at ZIB for the nomination 
+validation problem can be found in \cite{PfetschFuegenschuhGeissleretal.2012}. 
 
 The flow of gas through a pipeline network is determined by physical conditions such as pressure and temperature. 
 Pressure can be increased in compressor stations and controlled by elements like valves. Pressure loss along a pipe is 
 described by ordinary differential equations. 
 
-The computation of the flow is difficult due to numerical and algorithmical reasons. Good preprocessing 
-routines can help a lot by reducing the domains and model sizes before the main computation is started - .
+The computation of such a physically exact flow is difficult due to numerical and algorithmical reasons. Good 
+preprocessing routines can help a lot by reducing the domains and model sizes before the main computation is started.
+
 Since the flow of gas in the network is always determined by pressure differences and flow is always going from higher 
 pressure to lower pressure we know that flow in the network in general has to be acyclic. The only exception of this 
-is a compressor station. An active compressor station can increase the pressure and by this could indeed cause cyclic 
-flow. However we will simplify the model and assume acyclic flow. 
-%TODO kann ich beweisen (sollte ich??) dass es immer eine gleichwertige azyklische loesung gibt?
-We can compute a flow with 
-maximum value on a specified arc in the network with a standard Minimum Cost Flow algorithm. 
-However a Minimum Cost Flow Algorithm usually is allowed to have cyclic flows and thus will maximize flow by shifting 
-it around a cycle containing the maximized arc as long as the flow on the cycle can be increased on every arc. 
+rule is a compressor station. While  active compressor stations increase
+pressure it is possible that they cause cyclic flow. But of course in real gas networks a compressor station would 
+normally be placed at a point where it has the highest impact. This is naturally at a place where it is unlikely to 
+waste energy by sending flow on a cycle. The pressure would rather be controlled by resistors, valves and control valves 
+in order to avoid cycing. So we will assume that the acyclic flow model is reasonable for the gas flow problem.\\
 
-The main question leading to this thesis was how we could improve bounds and compute flows if we assume the flow has no 
-cycles. 
 %erklärung warum wir engere Bounds brauchen können
 The bounds are expected to be useful for two things in the solving process of the nomination validation problem 
 described in \cite{PfetschFuegenschuhGeissleretal.2012}. If we have stronger bounds on the flow values in the network, 
 it might improve the models that solve the actual nomination validation problem. 
 %TODO detaillierter! Erst das Modell mit dem MIP beschreiben und dass es durch kleinere Intervalle die Zahl der vars 
 %verringert
+For the MILP approach described in \cite{PfetschFuegenschuhGeissleretal.2012} a linearization of the 
+nonlinear model is computed. If the bounds are smaller or flow is even fixed to a specific value, the interval to be 
+linearized is smaller. The smaller the interval, the less variables are needed. A small model might improve the running 
+time and solvability of the model.
+
+We also hope for improvements on the outer approximation with spatial branching approach. Here improved bounds could 
+result in a stronger relaxation and thereby make solving the problem faster. \\
+% TODO das MINLP beschreiben und wie sich im MINLP die Modellgroesse verkleinert?
+
+So to have good bounds and reduce problem size is a goal set in order to reduce the overall running time of the 
+nomination validation computations. To achieve this it is necessary to find the bounds quickly. This is why we also 
+present relaxations/heuristics for the acyclic flowbound problem. The effects of the bounds on the MILP model reduction 
+are shown in the last section of this thesis.
 
 
-% TODO dann das MINLP beschreiben und wie sich im MINLP die Modellgroesse verkleinert
 
-
-Normal and multicommodity network flows are well known algorithmical problems, but (at least to my 
-knowledge) there is no work on acyclic network flows and how to compute them. 
-Whereever we have a network with nonpositive lower capacity bounds, we can make any flow acyclic by shifting flow 
-back on the cycles until an edge has zero flow. But if we are interested in the maximum possible flow on an edge under 
-the condition of acyclicity things get more complicated. 
-
-We simplified the problem by assuming that there are no compressor stations. At the same time we just ignore the 
-physical properties of the gas. We do not compute or take care of any gas density, pressure or possible pressure loss. 
-Pressure is only used to justify the assumption of acyclicity. This abstraction is justified by the fact that it is 
-weaker than the original problem which also has to fulfill the flow conditions we use. The bounds are only needed 
-for preprocessing and hoped to improve the model size in the end. 
+% We simplified the problem by assuming that there are no compressor stations or at least they do not cause cyclic flow. 
+% At the same time we just ignore the physical properties of the gas. We do not compute or take care of any gas density, 
+% pressure or possible pressure loss. Pressure is only used to justify the assumption of acyclicity. This abstraction is 
+% justified by the fact that it is weaker than the original problem which also has to fulfill the flow conditions we use. 
+% The bounds are only needed for preprocessing and to improve the model size in the end. 
 
 \subsection{Related Work}
 The diploma thesis of Thea Göllner \cite{DiplomarbeitTheaGoellner} describes preprocessing techniques for stationary gas 
