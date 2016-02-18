@@ -6,10 +6,12 @@ acyclic network flows arises. This problem is not specific for gas networks but 
 capacities and indeed can be seen as just a special case of the famous minimum cost flow problem. 
 
 To my knowledge there is no literature about acyclic network flows despite wide research on various flow problems. 
+Thus this thesis will try to develop models and algorithms to handle it and compute acyclic flows.
 Whereever we have a network with nonpositive lower capacity bounds, we can make any flow acyclic by shifting flow 
 back on the cycles until an edge has zero flow. 
-However, we are interested in bounds on flow values for the arcs of the network. For each arc we have a maximum 
-capacity and want to know the maximum flow value this arc could have in a feasible network flow that is acyclic. Thus 
+However, we are interested in bounds on the flow which means that it is not enough to find just any acyclic flow. 
+For each arc we have a maximum 
+capacity and want to know the maximum flow value this arc could have in a feasible acyclic network flow. Thus 
 we have to find the \textit{best} acyclic flow for each arc. This problem turns out to be much more challenging.
 
 
