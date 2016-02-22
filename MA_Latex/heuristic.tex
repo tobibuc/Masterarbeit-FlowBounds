@@ -164,7 +164,7 @@ Another algorithm is the Network Simplex by Orlin \cite{NetworkSimplexOrlin97} (
 study) There are a lot more algorithms available for Minimum Cost Flow.
 
 Our algorithm mainly consists of a feasibility test, a transformation of the graph $G$ and a Minimum Cost Flow 
-computation on the transformed graph $G'$, see algorithm \ref{algo:simpleheur}. 
+computation on the transformed graph $G'$. For a pseudocode see algorithm \ref{algo:simpleheur}. 
 
 \begin{algorithm}
  \caption{simple heuristic}
@@ -259,7 +259,8 @@ feasible acyclic flow:
 Take the maximum flow and choose one flow cycle within (If there is none we are done). On all arcs of the cycle the 
 flow is going in the same direction in relation to the cycle. We can choose the minimum flow on the cycles arcs and 
 reduce flow on each arc of the cycle by this amount. The resulting flow is still a feasible flow, but we removed the 
-flow cycle. This can be done until the flow is acyclic. But if there is any acyclic flow, there also has to be an 
+cyclic part on a cycle of the network. This can be done until the flow is acyclic. But if there is any acyclic flow,
+there also has to be an 
 acyclic flow that is maximum on the arc we are interested in. So in order to test feasibility it is enough to run a 
 ordinary maximum flow algorithm.\\
 

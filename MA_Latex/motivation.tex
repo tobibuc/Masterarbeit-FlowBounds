@@ -35,13 +35,13 @@ it might improve the models that solve the actual nomination validation problem.
 For the MILP approach described in \cite{PfetschFuegenschuhGeissleretal.2012} a linearization of the 
 nonlinear model is computed. If the bounds are smaller or flow is even fixed to a specific value, the interval to be 
 linearized is smaller. The smaller the interval, the less variables are needed. A small model might improve the running 
-time and solvability of the model.
+time / solvability of the model.
 
 We also hope for improvements on the outer approximation with spatial branching approach. Here improved bounds could 
 result in a stronger relaxation and thereby make solving the problem faster. \\
 % TODO das MINLP beschreiben und wie sich im MINLP die Modellgroesse verkleinert?
 
-So to have good bounds and reduce problem size is a goal set in order to reduce the overall running time of the 
+So we set the goal to have good bounds and reduce problem size in order to reduce the overall running time of the 
 nomination validation computations. To achieve this it is necessary to find the bounds quickly. This is why we also 
 present relaxations/heuristics for the acyclic flowbound problem. The effects of the bounds on the MILP model reduction 
 are shown in the last section of this thesis.
