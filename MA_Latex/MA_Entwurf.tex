@@ -1,4 +1,4 @@
-\documentclass[a4paper]{article}
+\documentclass[a4paper]{book}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
@@ -18,6 +18,10 @@
 
 % \usepackage{wasysym}	% verschiedene Symbole, siehe http://rpi.edu/dept/arc/training/latex/LaTeX_symbols.pdf
 \usepackage{marvosym}
+%use german style date format
+\usepackage[ddmmyyyy]{datetime}
+\renewcommand{\dateseparator}{.}
+
 \graphicspath{{Bilder/}}
 
 \theoremstyle{definition}
@@ -87,7 +91,7 @@
 % \end{figure}
 
 \begin{document}
-
+\pagenumbering{gobble}
 \title{Entwurf MA - Bounds for Acyclic Network Flows}
 
 \author{Tobias Buchwald}
@@ -106,36 +110,37 @@
 \large{Berlin,  \today}
 
 \end{center} 
-
 \newpage
+\mbox{}
+\newpage
+\pagenumbering{arabic}
 \include{Erklaerung}
 \newpage
+\mbox{}
 \newpage
 \tableofcontents
 \newpage
-\section*{Zusammenfassung}\input{deutschZusammenfassung}
+\chapter*{Zusammenfassung}\input{deutschZusammenfassung}
 \newpage
-\section{Introduction} \input{Einleitung}
+\chapter{Introduction} \input{Einleitung}
 \newpage
 % \input{motivation}
 % \newpage
-\subsection{Basic Notation and Definitions}\input{Definitionen}
+\section{Basic Notation and Definitions}\input{Definitionen}
 \newpage
-\section{The Acyclic Flowbound Problem}\input{problem}
-\subsubsection{Computational Complexity}\input{complexity}
+\chapter{The Acyclic Flowbound Problem}\input{problem}
+\section{Computational Complexity}\input{complexity}
 \newpage
-\section{Models and Solving Approaches}\input{models}
+\chapter{Models and Solving Approaches}\input{models}
 \newpage
-\section{Implementation and Computational Results}\input{compresults}
-\newpage
-\section{Summary}
+\chapter{Implementation and Computational Results}\input{compresults}
+% \newpage
+% \section{Summary}
 
 
-
-
 \newpage
 \newpage
-\addcontentsline{toc}{section}{Bibliography}
+\addcontentsline{toc}{chapter}{Bibliography}
 \bibliographystyle{amsplain}
 % \bibliographystyle{apalike}
 \bibliography{literatur}

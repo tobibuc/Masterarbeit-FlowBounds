@@ -14,7 +14,7 @@ path augmentation alone can not solve the problem, but the idea inspires a relax
 polynomial time.
 
 
-\subsection{MIP Formulations}
+\section{MIP Formulations}
 For many combinatorial Problems it is the best practical solution to formulate them as a Mixed Integer Problem and just 
 solve this problem with modern MIP Solvers such as CPlex, Gurobi, XPRESS, SCIP etc. Often there are different possible 
 formulations of the problem as MIP, which might result in very different running times due to numerical or algorithmical 
@@ -30,7 +30,7 @@ minimizing the overall cost. This would be the typical MIP formulation of a mini
 \end{align*}
 
 This model still allows cyclic flow, so we have to find constraints to avoid cycling. 
-\subsubsection{Model 1: Node Potentials}
+\subsection{Model 1: Node Potentials}
 \label{model:nodePotential}
 %TODO welche formulierungen koennte es noch geben fuer dieses problem?
 %TODO PORTA results and polytope of the problem?
@@ -126,7 +126,7 @@ So the complete Mixed Integer Program is:
 \end{align*}
 %TODO show that these constraints are equivalent to the nonlinear ones? or make a comment at least?
 
-\subsubsection{Model 2: Acyclicity Constraints On All Cycles}
+\subsection{Model 2: Acyclicity Constraints On All Cycles}
 \label{model:AcyclicityConstraints}
 Another idea to solve the Acyclic Flow Bound Problem 
 %(which was partially implemented in Lamatto by Robert Schwarz) 
@@ -183,7 +183,7 @@ or if we normalize the MIP to only $\le$ inequalities:
 \end{align}
 
 
-\subsection{The number of cycles we have to forbid}
+\section{The number of cycles we have to forbid}
 The model above has one obvious problem we have to deal with: Since it has a constraint for every cycle of $G$ and the 
 number of cycles in a graph might be exponential, even setting up the model would need exponential running time. 
 
@@ -473,7 +473,7 @@ Still we have a problem with the sources and sinks. If there are many of them we
 acyclicity constraints.
 
 \newpage
-\subsection{The Constrained Path Augmentation Model}%TODO kann man so ein modell finden, das mithilfe von constrained 
+\section{The Constrained Path Augmentation Model}%TODO kann man so ein modell finden, das mithilfe von constrained 
 % shortestpath problemen einen successive shortest path algo zu einem maxflowbound-algo macht? duerfte schwer werden...
 \label{model:pathaugment}
 The main idea in this chapter was to design an algorithm that uses path augmentation to saturate the given flow 

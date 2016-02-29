@@ -4,7 +4,7 @@ Integer Program (MIP) and as well some natural relaxations, which might be easie
 
 We will represent our originally undirected graph by a directed graph where flow is allowed to go over edges backward 
 and forward as well. This allows us to specify directions forward and backward on every edge in a consistant way. 
-
+\section{Problem Definition}
 
 \begin{definition}
  Let $G=(V,A)$ be a directed Graph and $e \in A$ a specific arc of $G$. For every vertex $v\in V$ let there be a 
@@ -257,7 +257,7 @@ Now we can investigate the problem deeper. The Acyclic Flowbound Problem is obvi
 problems though the special constraints we built make it more complicated. One way to deal with this is to look at 
 related problems, which could give bounds on our problem or even the same solution in special cases.
 
-\subsubsection{Relation To Other Flow Problems/Relaxations}
+\section{Relation To Other Flow Problems/Relaxations}
 \label{sect:mincostflow}
 If we look for related problems, it is natural to just drop the constraints of our problem. In this case we could for 
 example easily forget the contraint that flows have to be acyclic. If we do this, our problem becomes a special 
