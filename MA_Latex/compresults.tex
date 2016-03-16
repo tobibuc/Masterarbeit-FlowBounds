@@ -23,27 +23,26 @@ model. However,the two layers of indicator constraints seem to be a heavy proble
 practice. The following model was implemented:
 \begin{align*}
   &\min \sum_{a\in A} w_a\cdot q_a & \\
- s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V \\
- & q_a &\le& c_u(a) & \forall a\in A\\
- & q_a &\ge& c_l(a) & \forall a\in A\\
- & \rho_{vw}=1 &\Rightarrow &\pi_v\ge\pi_w +1 & \forall (v,w)\in A\\
- & \rho_{vw}=0 &\Rightarrow &\pi_w\ge\pi_v +1& \forall (v,w)\in A\\
- & \rho_{vw}=1 &\Rightarrow &q((v,w))\ge 0& \forall (v,w)\in A\\
- & \rho_{vw}=0 &\Rightarrow &q((v,w))\le 0& \forall (v,w)\in A\\
- & q_a \in \R & & &\forall a\in A\\
- & \pi_v \in \R & & & \forall v\in V\\
- & d_a \in \{0,1\} & & &\forall a\in A\\
- & \rho_{vw} \in \{0,1\}&&& \forall a=(v,w)\in A\\
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v, &\forall v\in V \\
+ & q_a &\le& c_u(a),& \forall a\in A\\
+ & q_a &\ge& c_l(a), & \forall a\in A\\
+ & \rho_{vw}=1 &\Rightarrow &\pi_v\ge\pi_w +1, & \forall (v,w)\in A\\
+ & \rho_{vw}=0 &\Rightarrow &\pi_w\ge\pi_v +1,& \forall (v,w)\in A\\
+ & \rho_{vw}=1 &\Rightarrow &q((v,w))\ge 0,& \forall (v,w)\in A\\
+ & \rho_{vw}=0 &\Rightarrow &q((v,w))\le 0,& \forall (v,w)\in A\\
+ & q_a \in \R, & & &\forall a\in A\\
+ & \pi_v \in \R, & & & \forall v\in V\\
+ & \rho_{vw} \in \{0,1\},&&& \forall a=(v,w)\in A.\\
 \end{align*}
 Integer node potentials imply the direction of the arc between the incident nodes. These binary direction 
 variables again imply the sign of the actual flow on an arc. Indicator constraints are usually implemented via 
 Big-M-constraints of the form 
 \begin{align*}
- &\pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1\\
- &\pi_v-\pi_w&\le &N\rho_{vw}-1 \\
- &q((v,w))&\ge& M(\rho_{vw}-1)\\
- &q((v,w))&\le & M\rho_{vw}\\
- &\rho_{vw} \in \{0,1\}&&\\
+ &\pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1,\\
+ &\pi_v-\pi_w&\le &N\rho_{vw}-1, \\
+ &q((v,w))&\ge& M(\rho_{vw}-1),\\
+ &q((v,w))&\le & M\rho_{vw},\\
+ &\rho_{vw} \in \{0,1\}.&&\\
 \end{align*}
 with sufficient big values for $M$ and $N$. This model heavily relies on the Big-M constraints.
 For any MIP solver these indicator or Big-M constraints are difficult to handle, because the optimal vertex of the LP 
@@ -53,7 +52,7 @@ The model was tested on the smallest network named "gaslib-40" of the gaslib pac
 seconds the optimal bounds for all arcs of the network were computed. The results were the same as with the Acyclicity 
 Constraint (separation) Model, apart from numerical rounding differences. \\
 
-On the medium size network "gaslib-135" of the gaslib package TODO
+% On the medium size network "gaslib-135" of the gaslib package the results were as 
 
 %TODO testergebnisse (vermutlich fail nach etlichen tagen)
 

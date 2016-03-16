@@ -2,8 +2,8 @@ We already described the gas flow problem, where the motivation for this thesis 
 problem as a general combinatorial flow problem with specific contraints. We will also give the formulation as a Mixed 
 Integer Program (MIP) and as well some natural relaxations, which might be easier to solve.
 
-We will represent our originally undirected graph by a directed graph where flow is allowed to go over edges backward 
-and forward as well. This allows us to specify directions forward and backward on every edge in a consistant way. 
+We will represent our originally undirected graph by a directed graph where flow is allowed to go over arcs backward 
+and forward as well. This allows us to specify directions forward and backward on every arc in a consistant way. 
 \section{Problem Definition}
 
 \begin{definition}
@@ -22,6 +22,11 @@ We call this a \textit{feasible network flow on G}, i.e. a flow with balances of
 We also call $$\sum_{a\in \delta^-(v)}f(a)-\sum_{a\in\delta^+(v)}f(a)-d(v)$$ the flow balance, which might be nonzero 
 in incomplete flows during a solving algorithm.\\
 \end{definition}
+Note that a flow value can have a negative sign in this definition. This is due to the fact that we want to have a 
+consistant notion of direction on an arc but also allow flow in both directions. A negative sign is simply saying that 
+flow is going in backward direction. We will speak of maximizing flow on an arc, which in this setting means maximizing 
+the absolute value of flow in a prescribed direction. So either we look for the maximum value in forward direction or 
+the (always negative!) minimum value in backward direction.\\
 
 The standard definition of Flow Problems has fixed demand values $d(v)=const$ instead of an interval. These two 
 definitions are equivalent in the way that you can transform them into each other easily in polynomial time. Obviously 

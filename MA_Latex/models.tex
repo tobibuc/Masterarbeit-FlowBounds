@@ -16,7 +16,8 @@ polynomial time.
 
 \section{MIP Formulations}
 For many combinatorial Problems it is the best practical solution to formulate them as a Mixed Integer Problem and just 
-solve this problem with modern MIP Solvers such as CPlex, Gurobi, XPRESS, SCIP etc. Often there are different possible 
+solve this problem with modern MIP Solvers such as CPlex \cite{cplex}, Gurobi \cite{gurobi}, XPRESS \cite{xpress}, SCIP 
+\cite{scip} etc. Often there are different possible 
 formulations of the problem as MIP, which might result in very different running times due to numerical or algorithmical 
 reasons. In our problem, it is easy to model the flow conservation and the ingoing and outgoing flow on vertices. Like 
 described before, we can assign a negative weight to an arc variable and this way maximize flow over this arc by 
@@ -134,19 +135,19 @@ sign of the flow on this arc tells us in which direction flow is send over this 
 $\rho_a\in \{0,1\}$ for each arc $a\in A$ that indicate the direction of flow and are coupled with the flow variables:
 \begin{align*}
 \rho_a=1 & \Rightarrow q_a\ge 0 \\
-\rho_a=0 & \Rightarrow q_a\le 0
+\rho_a=0 & \Rightarrow q_a\le 0.
 \end{align*}
 These indicator constraints can be handled the way they are by standard MIP solvers, but to make them real MIP 
 constraints we may formulate them as follows (with $M$ a constant sufficient big, e.g. $M=\sum_{v\in V}|d_v|$) :
 \begin{align*}
  q_a + M\cdot (1-\rho_a) &\ge 0\\
- q_a - M\cdot \rho_a & \le 0
+ q_a - M\cdot \rho_a & \le 0.
 \end{align*}
 
 In addition to decision variables for the flow direction, we have to add constraints to avoid cycles. If the flow is 
 acyclic, each cycle should have at least two arcs with opposite directions. In other words, there has to be one arc
 in forward direction and one in backward direction, so with $n:=|C|$ we get as constraint:
-$$ 1\le\sum_{a\in C\textrm{ forward }} \rho_a + \sum_{a\in C\textrm{ backward }}1-\rho_a\le n-1$$
+$$ 1\le\sum_{a\in C\textrm{ forward }} \rho_a + \sum_{a\in C\textrm{ backward }}1-\rho_a\le n-1.$$
 
 Let us formulate this in a slightly different way to get only one sum: For each cycle of size $C_n=C_l+C_m$ 
 let $C_m$ be the number of arcs directed forward and $C_l$ the number of arcs directed backward. We define that always 
@@ -159,26 +160,26 @@ cycles.
 So our MIP formulation of the model is finally
 \begin{align*}
  &\min \sum_{a\in A} w_a\cdot q_a & \\
- s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a = d_v\ &\forall v\in V \\
-  & c_l(a)\le q_a \le c_u(a) & \forall a\in A\\
- &q_a + M\cdot (1-\rho_a) \ge 0 & \forall a\in A\\
- &q_a - M\cdot \rho_a \le 0 & \forall a\in A\\
- &1-l \le \sum_{a\in C}\rho_a \le n-(l+1) & \forall \textrm{ cycle }C\in G\\
- & q_a \in \R &\forall a\in A\\
- & \rho_a \in \{0,1\} &\forall a\in A
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a = d_v,\, &\forall v\in V \\
+  & c_l(a)\le q_a \le c_u(a), & \forall a\in A\\
+ &q_a + M\cdot (1-\rho_a) \ge 0, & \forall a\in A\\
+ &q_a - M\cdot \rho_a \le 0, & \forall a\in A\\
+ &1-l \le \sum_{a\in C}\rho_a \le n-(l+1), & \forall \textrm{ cycle }C\in G\\
+ & q_a \in \R, &\forall a\in A\\
+ & \rho_a \in \{0,1\}, &\forall a\in A
 \end{align*}
 or if we normalize the MIP to only $\le$ inequalities:
 \begin{align}
  &\min \sum_{a\in A} w_a\cdot q_a & \\
- s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& b_v\ &\forall v\in V \\
- & q_a &\le& c_u(a) & \forall a\in A\\
- & -q_a &\le& c_l(a) & \forall a\in A\\
- &-q_a - M\cdot (1-\rho_a) &\le& 0 & \forall a\in A\\
- &q_a - M\cdot \rho_a &\le& 0 & \forall a\in A\\
- &1-l - \sum_{a\in C}\rho_a &\le& 0 & \forall \textrm{ cycle }C\in G\\
- & \sum_{a\in C}\rho_a +(l+1)-n &\le& 0 & \forall \textrm{ cycle }C\in G\\
- & q_a \in \R & & &\forall a\in A\\
- & \rho_a \in \{0,1\} & & &\forall a\in A
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& b_v,\ &\forall v\in V \\
+ & q_a &\le& c_u(a), & \forall a\in A\\
+ & -q_a &\le& c_l(a), & \forall a\in A\\
+ &-q_a - M\cdot (1-\rho_a) &\le& 0, & \forall a\in A\\
+ &q_a - M\cdot \rho_a &\le& 0, & \forall a\in A\\
+ &1-l - \sum_{a\in C}\rho_a &\le& 0 ,& \forall \textrm{ cycle }C\in G\\
+ & \sum_{a\in C}\rho_a +(l+1)-n &\le& 0, & \forall \textrm{ cycle }C\in G\\
+ & q_a \in \R, & & &\forall a\in A\\
+ & \rho_a \in \{0,1\}, & & &\forall a\in A.
 \end{align}
 
 
@@ -228,7 +229,7 @@ suffice immediately when we look at all acyclicity constraints for the 3 cycles 
 \begin{align*}
  1 &\le x_1+x_4+x_5\le 2&\\
  1&\le x_2+x_3+x_5\le 2& \iff -2\le -x_2-x_3-x_5\le -1\\
- -1 &\le x_1-x_2-x_3+x_4 \le 1&
+ -1 &\le x_1-x_2-x_3+x_4 \le 1&.
 \end{align*}
 The last inequality is exactly the sum of the two inequalities above. Hence if two are fulfilled, the last one is 
 automatically induced by them, it is a redundant constraint.
@@ -284,13 +285,13 @@ flow on the marked red cycle}%TODO mit dem rechenbeispiel abgleichen?
 For figure \ref{bild:reichtkreisbasis2} the situation is more complex, though there is only one more arc in the graph. 
 But the number of cycles grows exponentially, so we get 7 cycles in this case. Their inequalities are:
 \begin{align*}
- 1 &\le x_1+x_4+x_5\le 2&\\
- 1&\le x_2+x_3+x_5\le 2& \\%\iff -2\le -x_2-x_3-x_5\le -1\\
- -1&\le x_3-x_4-x_6\le 0\\
- -1&\le x_1-x_2-x_6\le 0\\ 
- -1 &\le x_1-x_2-x_3+x_4 \le 1&\\
- 0 &\le x_1+x_3+x_5-x_6\le 2\\
- 1&\le x_2+x_4+x_5+x_6\le 3\\
+ 1 &\le x_1+x_4+x_5\le 2,\\
+ 1&\le x_2+x_3+x_5\le 2 ,\\%\iff -2\le -x_2-x_3-x_5\le -1\\
+ -1&\le x_3-x_4-x_6\le 0,\\
+ -1&\le x_1-x_2-x_6\le 0,\\ 
+ -1 &\le x_1-x_2-x_3+x_4 \le 1,\\
+ 0 &\le x_1+x_3+x_5-x_6\le 2,\\
+ 1&\le x_2+x_4+x_5+x_6\le 3,\\
 \end{align*}
 We could choose the three cycles $(e_1 e_5 e_4)$, $(e_2 e_5 e_3)$, $(e_3 \overline{e_6}\, \overline{e_4})$ as a cycle 
 base, these cycles induce the first three constraints. By combining the first and second, we directly get the fifth 
@@ -299,7 +300,7 @@ $3$, the result is
 \begin{align*}
  &&-1 &\le &x_1&-x_2&-x_3&+x_4 &&\le 1\\
  &+&-1&\le &&&x_3&-x_4&-x_6&\le 0\\
- &=&-2&\le&x_1&-x_2&&&-x_6&\le 1
+ &=&-2&\le&x_1&-x_2&&&-x_6&\le 1.
 \end{align*}
 But the acylicity constraint of the cycle $(e_1 \overline{e_2} \,\overline{e_6})$ is $-1\le x_1-x_2-x_6\le 0$ instead. 
 The resulting constraints are not sharp, because the left hand side and the right hand side depend on the length of the 
@@ -321,8 +322,8 @@ so. But still the remaining constraints are exponential in the size of $G$ in th
 \begin{proof}
  Assume we are given two cycles $C_1,\,C_2\in G=(V,A)$ with exactly one arc $g\in A$ 
 contained in both cycles, and the direction of the cycles such that $g$ is forward in one cycle and backward in the 
-other cycle. Without loss of generality we assume it is forward in $C_1$ and backward in $C_2$, i.e. $x_g$ has a 
-positive sign in $cons_1:\,lhs_1\le \dots\le rhs_1$ and a negative sign in $cons_2:\, lhs_2\le \dots\le rhs_2$, which 
+other cycle. Without loss of generality we assume it is directed forward in $C_1$ and backward in $C_2$, i.e. $x_g$ has 
+a positive sign in $cons_1:\,lhs_1\le \dots\le rhs_1$ and a negative sign in $cons_2:\, lhs_2\le \dots\le rhs_2$, which 
 are the acyclicity constraints of $C_1$ and $C_2$. 
 
 $\Rightarrow :$ 
@@ -331,11 +332,12 @@ of the cycle the constraint belongs to. Consider two cycles $C_1$ and $C_2$ and 
 \land a\in C_2 \}$ be the set of arcs that are contained in both cycles, $j:=|J|$. 
 
 If we sum up the constraints $cons_1$ and $cons_2$ of the cycles $C_1$ and $C_2$ we obviously get another constraint,
-say $cons_3:\, lhs=lhs_1+lhs_2\le\dots\le rhs_1+rhs_2=rhs$. The length of the joint cycle $C$ is $l=l_1+l_2-2\cdot j$. 
+say $$cons_3:\, lhs=lhs_1+lhs_2\le\dots\le rhs_1+rhs_2=rhs.$$ The length of the joint cycle $C$ is 
+$$l=l_1+l_2-2\cdot j.$$ 
 We have 
-$$rhs-lhs=rhs_1+rhs_2-lhs_1-lhs_2=\underbrace{rhs_1-lhs_1}_{l_1-2}+\underbrace{rhs_2-lhs_2}_{l_2-2}=l_1+l_2-4$$
-It holds
-$$l_1+l_2-4=l_1+l_2-2j-2=l-2 \iff j=1$$ 
+$$rhs-lhs=rhs_1+rhs_2-lhs_1-lhs_2=\underbrace{rhs_1-lhs_1}_{l_1-2}+\underbrace{rhs_2-lhs_2}_{l_2-2}=l_1+l_2-4.$$
+Further it holds:
+$$l_1+l_2-4=l_1+l_2-2j-2=l-2 \iff j=1.$$ 
 This means that only if $C_1$ and $C_2$ have exactly one arc in common (i.e. $j=1$), the necessary condition 
 $rhs-lhs=l-2$ is fulfilled to get the new acyclicity constraint.
 
@@ -435,7 +437,7 @@ network might have (at least partially) a planar graph representation.
 \draw[ultra thick, blue, rounded corners](0.1,-0.1)--(0.8,-0.9)--(1.2,-0.7) --cycle;
 \draw[ultra thick, blue, rounded corners](0.9,-0.95)--(1.35,-0.78)--(2,-0.1)--(2.4,-0.05)--(1.8,-0.95) --cycle;
 \draw[ultra thick, blue, rounded corners](1.36,-0.6)--(1.6,0.1)--(1.93,1.4)--(2.4,0.1)--(2,0.1) --cycle;
-\draw[ultra thick, blue, rounded corners](-.1,0)--(0.45, 1.1)--(1.95,1.6)--(2.6,0)--(1.9,-1.1)--(1.8,-1.1)--(0.75,-1.1) 
+\draw[ultra thick, blue, rounded corners](-.2,0)--(0.45, 1.1)--(1.95,1.6)--(2.7,0)--(1.9,-1.1)--(1.8,-1.1)--(0.75,-1.1) 
 --cycle;
 \node (s1) at (0,3)[source]{-1};
 \node (11) at (0.5,4)[vertex]{};
@@ -598,7 +600,7 @@ a situation where path augmentation is useless because in the first step a wrong
 \draw[edge] (c)--(t)node [pos=0.5,right] {2};
 \draw[edge] (t)--(d)node [pos=0.5, above] {2};
 \end{tikzpicture}
-\caption{Example graph with capacities on all arcs and demand values at sources and sinks}
+\caption{Example graph with capacities on all arcs and demand values at sources and sinks.}
  \label{bild:blockingPathflowNet}
 \end{figure}
 
@@ -626,7 +628,8 @@ a situation where path augmentation is useless because in the first step a wrong
 \draw[edge] (c)--(t){};
 \draw[edge] (t)--(d){};
 \end{tikzpicture}
-\caption{The optimum - all flow is going over $e$ while the flow is still acyclic in the whole network}
+\caption{The optimum on the example graph from above figure \ref{bild:blockingPathflowNet} - all flow is going over $e$ 
+while the flow is still acyclic in the whole network. The maximum flow value on $e$ is 2 in this example.}
  \label{bild:blockingPathflowOpt}
 \end{figure}
 
@@ -644,7 +647,6 @@ a situation where path augmentation is useless because in the first step a wrong
 \node (t) at (1.5,1)[sink]{2};
 \draw[arcflow, cyan] (s2)--(b)--(a);
 \draw[arcflow, cyan](a)--(s1)--(d)--(t);
-% \draw[arcflow, yellow, dashed] (s1)--(a)--(c)--(t);
 \draw[fatarc] (b)--(a)node[pos=0.5, above]{$e$};
 \draw[edge] (a)--(s1)node [pos=0.5, above] {2};
 \draw[edge] (s1)--(d)node [pos=0.5, above] {1};
@@ -654,14 +656,6 @@ a situation where path augmentation is useless because in the first step a wrong
 \draw[edge] (c)--(a)node [pos=0.5, above] {2};
 \draw[edge] (c)--(t)node [pos=0.5,right] {2};
 \draw[edge] (t)--(d)node [pos=0.5, above] {2};
-% \draw[edge] (a)--(s1){};
-% \draw[edge] (s1)--(d){};
-% \draw[edge] (d)--(b){};
-% \draw[edge] (b)--(s2){};
-% \draw[edge] (s2)--(c){};
-% \draw[edge] (c)--(a){};
-% \draw[edge] (c)--(t){};
-% \draw[edge] (t)--(d){};
 \node (2a) at (4,3)[vertex]{};
 \node (2s1) at (5,2.5)[source]{-1};
 \node (2b) at (6,3)[vertex]{};
@@ -697,7 +691,7 @@ the same balances in the same network only differ by cyclic flow we can change t
 Whenever needed the optimal edge progression can do a cyclic shift and afterwards augment the actual path. \\
 
 Here we will not try to deal with the problem of finding such an edge progression. It is likely to be as 
-difficult as the acyclic flowbound problem itself. Nevertheless  we describe the algorithm 
+difficult as the acyclic flowbound problem itself. But we describe the algorithm 
 in pseudocode (\ref{algo:pathHeur}) to show how such an algorithm would look like if we 
 could find such paths or edge progressions and to use it as basis for a heuristic approach.
 

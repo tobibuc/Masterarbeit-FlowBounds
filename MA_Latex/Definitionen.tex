@@ -7,14 +7,15 @@ about combinatorial optimization by Korte and Vygen \cite{KorteVygenCombOpt2007}
 
 \begin{definition}
 
-An undirected graph is a triple (V, E, $\Psi$), where $V$ and $E$ are finite sets and
+An \textit{undirected graph} is a triple (V, E, $\Psi$), where $V$ and $E$ are finite sets and
 $\Psi: E\to \{X \subseteq V: |X| = 2\}$. \\
-A directed graph or digraph is a triple $(V, E, \Psi)$,
+A \textit{directed graph or digraph} is a triple $(V, E, \Psi)$,
 where $V$ and $E$ are finite sets and $\Psi : E \to \{(v, w) \in V \times V : v \neq w\}$. 
+In application to the gas problem we might call the graph modelling the gas infrastructure a \textit{network}. 
 \end{definition}
  
 The elements of $V$ are called vertices, the elements of $E$ are the edges. $\Psi$ is the incidence 
-function giving the relation between elements of $V$ and elements of$E$. 
+function giving the relation between elements of $V$ and elements of $E$. 
 
 In this thesis by a graph we normally mean the directed graph. If we talk about undirected graphs it will be stated 
 explicitly. Edges of directed graphs will also be called arcs to make clear that they are directed.\\
@@ -23,14 +24,12 @@ Two edges $e, e'$ with $\Psi(e) = \Psi ( e')$ are called parallel. Graphs withou
 edges are called simple. For simple graphs we usually identify an edge $e$ with its
 image $\psi(e)$ and write $G = (V(G), E(G))$ or $G=(V,E)$, where $E(G) \subseteq \{X \subseteq V(G) : |X| = 2\}$
 or $E(G) \subseteq V(G) \times V(G)$. %We often use this simpler notation even in the presence
-%of parallel edges, then the ``set'' $E (G)$ may contain several ``identical'' elements. 
+%of parallel edges, then the ``set'' $E (G)$ may contain several "identical'' elements. 
 In this thesis all graphs are considered simple so we use this notation. 
 %rausnehmen weil gar keine parallelen Kanten gebraucht werden
  
 \begin{definition}
-$|E(G)|=m$ denotes the number of edges
-%, and for two edge sets $E$ and $F$ we always have $|E \cup F | = |E | + |F |$ even if parallel edges arise.
-and $|V(G)|=n$ denotes the number of vertices of a graph.
+$|E(G)|=m$ denotes the number of edges and $|V(G)|=n$ denotes the number of vertices of a graph.
 \end{definition}
 \begin{definition}
 
@@ -154,7 +153,8 @@ for modern mathematics. The acyclic flow problem we describe in this thesis is a
 graph theoretical optimization problem. Here we define such problems in general as well as the basics of integer 
 programming which is a standard approach to solve such problems. 
 
-The definitions are taken from the scriptum of the course ADM I by Martin Gr\"otschel held in 2012/2013. %TODO referenz
+The definitions are taken from the scriptum of the course ADM I by Martin Gr\"otschel held in 2012/2013, see 
+\cite{groetschelSkript}. %TODO referenz
 
 \begin{definition}
  Given a finite set $\mathcal{I}$ and a function $f:\mathcal{I}\to\R$. The problem of finding the element 
