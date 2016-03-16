@@ -57,7 +57,6 @@ Integer Nonlinear Program
  & (\pi_v - \pi_w)^2 &\ge& \varepsilon &\forall v,w \in V\\
  & q_a \in \R & & &\forall a\in A\\
  & \pi_v \in \R & & & \forall v\in V\\
- & d_a \in \{0,1\} & & &\forall a\in A\\
 \end{align*}
 
 We show that this flow indeed is an acyclic one:
@@ -73,13 +72,14 @@ n}$. Also we know from the constraints  $q_a\cdot (\pi_v -\pi_w)\ge 0$ and $\pi_
 \pi_v\neq\pi_w)\, \forall v,w\in V$. So we conclude an ordering of the vertice's potentials: 
 $$q_{a_i}\cdot (\pi_{v_i} -\pi_{v_{i+1}})\ge 0 \Rightarrow \pi_{v_i}>\pi_{v_{i+1}}\quad\forall i\in\{1,\dots ,n-1\}$$ 
 and 
-$$q_{a_n}\cdot (\pi_{v_n} -\pi_{v_1})\ge 0 \Rightarrow \pi_{v_n}>\pi_{v_1}$$ 
+$$q_{a_n}\cdot (\pi_{v_n} -\pi_{v_1})\ge 0 \Rightarrow \pi_{v_n}>\pi_{v_1}.$$ 
 This results in a sequence $$\pi_{v_1}>\pi_{v_2}>\dots >\pi_{v_n}>\pi_{v_1}$$ which is a contradiction. \Lightning
 \end{proof}
 
 However, solving nonlinear mixed integer programs comes with many difficulties, so we will use indicator constraints 
 or an equivalent Big-M constraint to get a mixed integer formulation avoiding these difficulties. For this we  replace 
-$$q_a\cdot (\pi_w -\pi_v)\le 0 \,\forall a=(v,w)\in A $$ and $$(\pi_v - \pi_w)^2 \ge \varepsilon \,\forall v,w \in V$$
+$$q_a\cdot (\pi_w -\pi_v)\le 0 \quad\forall a=(v,w)\in A $$ and 
+$$(\pi_v - \pi_w)^2 \ge \varepsilon \,\forall v,w \in V.$$
 
 %introduce rho (=richtung) variables
 Instead we introduce a new binary variable $\rho_{vw}$ to indicate the flow direction on $a=(v,w)$, and say this 
@@ -112,17 +112,16 @@ So the complete Mixed Integer Program is:
 % \label{model:nodePotentialWithBigM}
 \begin{align*}
   &\min \sum_{a\in A} w_a\cdot q_a & \\
- s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V \\
- & q_a &\le& c_u(a) & \forall a\in A\\
- & q_a &\ge& c_l(a) & \forall a\in A\\
- & \pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1& \forall a=(v,w)\in A\\
- & \pi_v-\pi_w&\le &N\rho_{vw}-1& \forall a=(v,w)\in A\\
- & q_a&\ge& M(\rho_{vw}-1)& \forall a=(v,w)\in A\\
- & q_a&\le & M\rho_{vw}& \forall a=(v,w)\in A\\
- & q_a \in \R & & &\forall a\in A\\
- & \pi_v \in \R & & & \forall v\in V\\
- & d_a \in \{0,1\} & & &\forall a\in A\\
- & \rho_{vw} \in \{0,1\}&&& \forall a=(v,w)\in A\\
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v,\, &\forall v\in V \\
+ & q_a &\le& c_u(a), & \forall a\in A\\
+ & q_a &\ge& c_l(a), & \forall a\in A\\
+ & \pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1,& \forall a=(v,w)\in A\\
+ & \pi_v-\pi_w&\le &N\rho_{vw}-1,& \forall a=(v,w)\in A\\
+ & q_a&\ge& M(\rho_{vw}-1),& \forall a=(v,w)\in A\\
+ & q_a&\le & M\rho_{vw},& \forall a=(v,w)\in A\\
+ & q_a \in \R, & & &\forall a\in A\\
+ & \pi_v \in \R, & & & \forall v\in V\\
+ & \rho_{vw} \in \{0,1\},&&& \forall a=(v,w)\in A.\\
 \end{align*}
 %TODO show that these constraints are equivalent to the nonlinear ones? or make a comment at least?
 

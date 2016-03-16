@@ -15,7 +15,7 @@ capacity and want to know the maximum flow value this arc could have in a feasib
 we have to find the \textit{best} acyclic flow for each arc. This problem turns out to be much more challenging.
 
 
-At first glance it may seem that solving a normal Min-Cost-Flow algorithm could give an appropriate bound 
+At first glance it may seem that running a normal Min-Cost-Flow algorithm could give an appropriate bound 
 on an arc. If we set the weight $w_e$ on an arc $e$ to 1 or -1 and all other weights to zero, we get 
 a valid bound on the maximum or minimum possible flow on the arc. However, this bound is for most of the arcs far from 
 reality. The reason is that a Min-Cost-Flow could have cycles within it and the algorithm could maximize the flow by 

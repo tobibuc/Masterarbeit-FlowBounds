@@ -217,7 +217,6 @@ Solving linear programs can be done in polynomial time. Algorithms to achieve th
 Khachiyan\cite{KHACHIYAN198053} and Karmarkar \cite{Karmarkar:1984:NPA:800057.808695}. Integer programs and by this 
 also their generalization mixed integer programs can be (and mainly are) used for modeling $\mathcal{NP}$ hard 
 problems. So unless $\mathcal{P}=\mathcal{NP}$ there is no polynomial algorithm to solve them.
-%TODO define complexity classes?
 
 Thus the LP relaxation of a MIP is a very important problem.
 \begin{definition}
@@ -227,7 +226,7 @@ Thus the LP relaxation of a MIP is a very important problem.
  $$\min\{c^T x|Ax\le b, x\in\R^n \}$$
 \end{definition}
 
-It can be solved efficiently since it is a linear program. The solution of the LP relaxation of a problem is  giving a 
+It can be solved efficiently since it is a linear program. The solution of the LP relaxation of a problem gives a
 bound on the solution of the mixed integer problem. It is used to get a starting 
-point for a branching process or cutting planes that might yield an optimal or nearly optimal solution. Also the bounds 
-from LP relaxations are needed to cut off subtrees while branching on the variables of the problem.
+point for a branching process or for cutting planes, heuristics etc. that might yield an optimal or nearly optimal 
+solution. 
