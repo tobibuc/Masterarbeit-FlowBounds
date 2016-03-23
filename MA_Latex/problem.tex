@@ -26,7 +26,7 @@ Note that a flow value can have a negative sign in this definition. This is due 
 consistant notion of direction on an arc but also allow flow in both directions. A negative sign is simply saying that 
 flow is going in backward direction. We will speak of maximizing flow on an arc, which in this setting means maximizing 
 the absolute value of flow in a prescribed direction. So either we look for the maximum value in forward direction or 
-the (always negative!) minimum value in backward direction.\\
+the (usually nagative) minimum value in backward direction.\\
 
 The standard definition of Flow Problems has fixed demand values $d(v)=const$ instead of an interval. These two 
 definitions are equivalent in the way that you can transform them into each other easily in polynomial time. Obviously 
@@ -82,9 +82,9 @@ Given a feasible network flow $f:A\to \R^{|A|}$ in a network $G=(V,A)$. Let us s
 \end{definition}
 
 \begin{definition}
- We say a network flow $f:A\to \R^{|A|}$ in $G=(V,A)$ contains cyclic flow if $f$ can be split into two flows $f_1$ 
-and $f_2$ in a way such that one of the flows (say $f_1$) is a nonzero flow, but all demands $d_1$ for the flow are 
-zero. This part of the flow is called cyclic flow. 
+ We say a network flow $f:A\to \R^{|A|}$ in $G=(V,A)$ contains \textit{cyclic flow} if $f$ can be split into two flows 
+$f_1$ and $f_2$ in a way such that one of the flows (say $f_1$) is a nonzero flow, but all demands $d_1$ for the flow 
+are zero. This part of the flow is called \textit{cyclic flow}. 
 Formally this is:
 $ \exists f_1, f_2:A\to \R^{|A|}$ such that: 
 \begin{enumerate}
@@ -199,7 +199,7 @@ $$f'(a)= f(a)+x \,\forall a\in S:\textrm{ a is forward, }f'(a)= f(a)-x \,\forall
 in a way that $f'$ again is a feasible flow for a (maybe different) set of flow demands $d':V\to\R^{|V|}$ 
 \textit{ augmenting a value $x$ on $S$}. 
 
-If we augment a cycle flow the demand values do not change. We also call this shifting flow on a cycle in $G$.
+If we augment a cycle flow the demand values do not change. We also call this \textit{shifting flow on a cycle} in $G$.
 
 \end{definition}
 
