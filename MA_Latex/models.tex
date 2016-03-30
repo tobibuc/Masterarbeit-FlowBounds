@@ -145,16 +145,18 @@ constraints we may formulate them as follows (with $M$ a constant sufficient big
 \end{align*}
 
 In addition to decision variables for the flow direction, we have to add constraints to avoid cycles. If the flow is 
-acyclic, each cycle should have at least two arcs with opposite directions. In other words, there has to be one arc
-in forward direction and one in backward direction, so with $n:=|C|$ we get as constraint:
+acyclic, each cycle should have at least two arcs with opposite directions. In other words, there has to be at least 
+one arc in forward direction (i.e. at least one summand is 1) and at least one in backward direction (i.e. a summand 
+equals 0), so with $n:=|C|$ we get the constraint:
 $$ 1\le\sum_{a\in C\textrm{ forward }} \rho_a + \sum_{a\in C\textrm{ backward }}1-\rho_a\le n-1.$$
 
-Let us formulate this in a slightly different way to get only one sum: For each cycle of size $C_n=C_l+C_m$ 
-let $C_m$ be the number of arcs directed forward and $C_l$ the number of arcs directed backward. We define that always 
-$C_l\le C_m$, so forward is defined as the direction that more arcs are pointing towards (left or right would only 
-make sense in a planar embedding). Then we get the constraint $$1-l \le \sum_{a\in C}\rho_a\le n-(l+1)$$ that forbids 
-any cyclic flow on $C$. We will show later under which conditions such constraints also forbid cyclic flow on other 
-cycles. 
+Let us formulate this in a slightly different way to get only one sum: For each cycle $C_n=C_l+C_m$ of size $n=m+l$
+let $C_m, \, |C_m|=m$ be the arcs of $C$ directed forward and $C_l, |C_l|= l$ the arcs directed backward. We define 
+that always 
+$l\le m$, so forward is defined as the direction that more arcs are pointing towards (to define it by a rotation to 
+left or right would only make sense in a planar embedding). Then we get the constraint $$1-l \le \sum_{a\in C}\rho_a\le 
+n-(l+1)$$ that forbids any cyclic flow on $C$. We will show later under which conditions such constraints also forbid 
+cyclic flow on other cycles. 
 %TODO was ist wenn gleich viele? Ist das als Definition so ueberhaupt ok?
 
 So our MIP formulation of the model is finally
@@ -204,11 +206,11 @@ complicated:
 \node (c) at (1,-1)[vertex]{};
 \node (d) at (2,0)[vertex]{};
 
-\draw[arc] (a) -- (b)node [pos=0.5, above]{$e_1$};
-\draw[arc] (b) -- (c)node [pos=0.5, left]{$e_2$};
-\draw[arc] (c) -- (a)node [pos=0.5, above]{$e_3$};
-\draw[arc] (c) -- (d)node [pos=0.5, above]{$e_4$};
-\draw[arc] (d) -- (b)node [pos=0.5,above]{$e_5$};
+\draw[arc] (a) -- (b)node [pos=0.5, left]{$e_1$};
+\draw[arc] (b) -- (c)node [pos=0.5, right]{$e_5$};
+\draw[arc] (c) -- (a)node [pos=0.5, left]{$e_4$};
+\draw[arc] (c) -- (d)node [pos=0.5, right]{$e_3$};
+\draw[arc] (d) -- (b)node [pos=0.5,right]{$e_2$};
 \draw[ultra thick, blue, rounded corners](0.1,0)--(0.94,0.85)--(0.94,-0.85) --cycle;
 \draw[ultra thick, blue, rounded corners](2-0.1,0)--(2-0.94,0.85)--(2-0.94,-0.85) --cycle;
 
@@ -227,14 +229,14 @@ The graph in figure \ref{bild:reichtkreisbasis1} has only three cycles in total.
 suffice immediately when we look at all acyclicity constraints for the 3 cycles contained in the graph 
 ($x_i$ being the binary direction variables of $e_i$, $i\in\{1\dots 5\}$):
 \begin{align*}
- 1 &\le x_1+x_4+x_5\le 2&\\
- 1&\le x_2+x_3+x_5\le 2& \iff -2\le -x_2-x_3-x_5\le -1\\
- -1 &\le x_1-x_2-x_3+x_4 \le 1&.
+ 1 &\le& x_1&&&+x_4&+x_5\le& 2&\\
+ -2&\le &&-x_2&-x_3&&-x_5\le& -1& \iff 1\le x_2+x_3+x_5\le 2\\
+ -1 &\le &x_1&-x_2&-x_3&+x_4& \le& 1&.
 \end{align*}
 The last inequality is exactly the sum of the two inequalities above. Hence if two are fulfilled, the last one is 
 automatically induced by them, it is a redundant constraint.
 
-%BILD : bei einem ``tetraeder''-graphen reicht es nicht, drei der möglichen Kreise zu verbieten!
+%BILD : bei einem "tetraeder"-graphen reicht es nicht, drei der möglichen Kreise zu verbieten!
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
@@ -311,10 +313,13 @@ no combination of three cycles that could completely exclude cyclic flow solutio
 
 \begin{prop}
 \label{prop:redundantAcyclicityCons}
- Given two acyclicity constraints $cons_1$ and $cons_2$ of cycles $C_1$ and $C_2$ in $G$. The acyclicity constraint of 
-the joint cycle $C=C_1\cup C_2 \setminus \{a\in A| a\in C_1\land a\in C_2 \}$ is the sum of $cons_1$ and $cons_2$ if 
-and only if $C_1$ and $C_2$ have exactly one arc in common (and this arc is directed differently in both 
-cycles/has different sign in both constraints).
+ Given two acyclicity constraints $cons_1$ and $cons_2$ of cycles $C_1 \neq C_2$ in $G$ such that the arcs 
+contained in both cycles $a\in C_1\cap C_2$ build a path/$C_1\cap C_2$ is a connected component of $G$. 
+The acyclicity constraint of the joint cycle $C=C_1\cup C_2 \setminus C_1\cap C_2$
+%\{a\in A| a\in C_1\land a\in C_2 \}$ 
+is the sum of $cons_1$ and $cons_2$ if and only if $C_1$ and $C_2$ have exactly one arc in common (and this arc is 
+directed differently in both cycles/has different sign in both constraints, otherwise it is formally the difference 
+instead of the sum).
 \end{prop}
 This proposition shows that many of the acyclicity constraints in our model may be redundant and could be omitted if 
 so. But still the remaining constraints are exponential in the size of $G$ in the worst case.
@@ -361,16 +366,17 @@ cycles implies the acyclicity of combined cycles even if there is more than one 
 
 \begin{prop}
  Given two cycles $C_1, C_2$ with a set of shared arcs $J:=\{a\in C_1|a\in C_2\}$ which we assume to have size greater 
-than one ($j:=|J|>1$). If $J$ is a path in the graph with no sink or source vertex in the interior, the acyclicity of 
-$C_1, C_2$ together implies acyclicity of the cycle $C_3:=C_1\cup C_2\setminus C_1\cap C_2$.
+than one ($j:=|J|>1$). If $J$ is a path in the graph with no sink or source vertex in the interior and every vertex $v$
+having degree $\delta(v)=2$ in $G$, the acyclicity of $C_1$ and $ C_2$ together implies acyclicity of the cycle 
+$C_3:=C_1\cup C_2\setminus C_1\cap C_2$.
 \end{prop}
 \begin{proof}
  We prove this via contradiction. If the common arcs $J$ are a path like above, they have flow always in the same 
 direction. Suppose $C_1$ and $C_2$ are acyclic, but $C_3$ is not. This means in both $C_1$ and $C_2$ there are arcs 
 with different directions on the cycle, while they are all in the same direction on $C_3$. This means, the arcs with 
-different direction have to be in the path $J$ of shared arcs of $C_1$ and $C_2$. Hence within the path $J$ there must 
-be arcs which are directed oppositely to each other. This can only happen, if one of the vertices in the interior of 
-$J$ is a sink or a source. \Lightning
+different flow direction have to be in the path $J$ of shared arcs of $C_1$ and $C_2$. Hence within the path $J$ there 
+must be arcs which are directed oppositely to each other. This can only happen, if one of the vertices in the interior 
+of $J$ is a sink or a source. \Lightning
 \end{proof}
 %verallgemeinerung: teilt ein kreis den graph in zwei teile, dann ist es ausreichend wenn im innern azyklizität gegeben 
 %und keine quelle/senke vorhanden ist? (verallgemeinerung von planarem Fall)
@@ -382,27 +388,76 @@ following properties:
   \item $G\setminus C$ is disconnected
   \item Let $G'$ be a connected component of $G\setminus C$ 
   \item $G'$ has no source or sink nodes
-  \item $G'\cup C$ consists of cycles whose direct sum is $C$ %TODO is direct sum what I really mean? Define it?
+  \item There are at least two different arcs $(u_1,v_1) \neq (u_2,v_2)$ between $G'$ and $C$, i.e. arcs with one of 
+    the endnodes belonging to $C$ and the other belonging to $G'$. This ensures that we have each arc of $C$ in other 
+    cycles of $G'\cup C$ than $C$ itself.
  \end{itemize}
- Then any acyclic orientation of the other cycles than $C$ in $G'\cup C$ implies already the acyclicity of $C$. This 
-  means the acyclicity constraint of $C$ is redundant. The power of this proposition is that it can be applied 
-  recursively to eventually form a whole region in the graph where only the smallest cycles need acyclicity constraints.
-
+ Then acyclicity of the other cycles than $C$ in $G'\cup C$ implies already the acyclicity of $C$. This 
+  means the acyclicity constraint belonging to the cycle $C$ is redundant. 
 \end{prop}
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\node (s) at (0,0)[source]{-1};
+\node (1) at (0.5,1)[vertex]{};
+\node (2) at (0.8,-1)[vertex]{};
+\node (3) at (1,0.2)[vertex]{};
+\node (4) at (1.1,0.5)[vertex]{};
+\node (5) at (1.3,-0.7)[vertex]{};
+\node (6) at (1.5,0.1)[source]{-1};
+\node (7) at (1.8,-1)[vertex]{};
+\node (8) at (1.9,1.5)[vertex]{};
+\node (9) at (2,0)[vertex]{};
+\node (t) at (2.5,0)[sink]{2};
+\draw[ultra thick, blue!30, rounded corners](0.6,1)--(1,0.3)--(1.05,0.55)--(1.8,1.42) --cycle;
+\draw[ultra thick, blue!30, rounded corners](1.1,0.2)--(1.1,0.4)--(1.4,0.1)--(1.3, -0.6) --cycle;
+\draw[ultra thick, blue!30, rounded corners](1.15,0.53)--(1.5,0.15)--(1.84,1.4) --cycle;
+\draw[ultra thick, blue!30, rounded corners](0.5,0.9)--(0.9,0.2)--(1.2,-0.6)--(0.1,0) --cycle;
+% \draw[ultra thick, blue, rounded corners](0.1,-0.1)--(0.8,-0.9)--(1.2,-0.7) --cycle;
+% \draw[ultra thick, blue, rounded corners](0.9,-0.95)--(1.35,-0.78)--(2,-0.1)--(2.4,-0.05)--(1.8,-0.95) --cycle;
+% \draw[ultra thick, blue, rounded corners](1.36,-0.6)--(1.6,0.1)--(1.93,1.4)--(2.4,0.1)--(2,0.1) --cycle;
+% \draw[ultra thick, blue, rounded corners](-.2,0)--(0.45, 1.1)--(1.95,1.6)--(2.7,0)--(1.9,-1.1)--(1.8,-1.1)--(0.75,-1.1) 
+
+\draw[ultra thick,red, rounded corners](-0.1,0)--(0.45,1.1)--(2,1.6)--(1.55,0.1)--(1.35,-0.8) --cycle;%s-1-8-6-5-s
+% \draw[arcflow] (s)--(3)--(t);
+\draw[edge] (s)--(1)--(3)--(4)--(6)--(8)--(t);
+\draw[edge] (1)--(8)--(4);
+\draw[edge] (s)--(2)--(5)--(9)--(t)--(7)--(2);
+\draw[edge] (s)--(5)--(3);
+\draw[edge] (5)--(6);
+\end{tikzpicture}
+\caption{This picture shows one example how the cycle $C$ (marked red) defines a region $G'$ of the graph where it is 
+enough to have acyclicity constraints on a small set of cycles (marked light blue). Thus the acyclicity constraint of 
+$C$ does not have to be added to the MIP. But we cannot extend this to the whole graph $G$, because the source 
+node in the middle must not be in the interior $G'$.}
+ \label{bild:redundantCycle}
+\end{figure}
+  
+\begin{remark}
+  The power of this proposition is that it can be applied recursively to eventually form a region in the graph 
+  where only the smallest cycles need acyclicity constraints. For an example see figure \ref{bild:redundantCycle}.
+\end{remark}
+
 %Beweisen, dass in einem Gebiet ohne Quellen oder Senken (das planar ist?) einfache kreise reichen
 \begin{proof}
- Consider only the subgraph $G'\cup C$ and assume $C$ had a cyclic orientation. In $C$ there has to be a chordal path 
-through $G'$. Since there are no sources or sinks in $G'$, in fact there must be a \textit{directed} path from one node 
-$v_1 \in C$ to another node $v_k\in C$ going through $G'$: starting from any arc incident to a node on $C$ and one in 
-$G'$, we will always find another arc from the endnode in the same direction unless we run into a cycle or a 
-source/sink node. But since neither exists in $G'$, after a finite number of arcs we come to a node on $C$ again. Thus 
-we can always find a directed path in our setting. 
+ Consider only the subgraph $G'\cup C$ and assume $C$ had a cyclic orientation. We show that in this case there has to 
+be another cycle than $C$ in $G'\cup C$.
 
-But there are two smaller cycles $C_1$ and $C_2$ if we divide $C$ along this path. $C$ is a directed cycle and the path 
+In $G'\cup C$ there has to be a directed path, that means a path where all arcs (or flows on all arcs) are directed in 
+the same way: Start from a node $u$ in $C$ with an arc $(u,v)$ going into $G'$. Assume flow direction on this arc is 
+forward and there really is a flow value $\ge 0$. We know that inside $G'$ there are no sources or sinks. So in order 
+to fulfill flow balance constraints the flow has to be transported forward to another node $\Rightarrow$ there has to 
+be at least one arc with outgoing flow. There are no infinite flow loops inside $G'$, so after finitely many 
+steps we have to go out of $G'$ again. Since $C$ is disconnecting $G$, the only possibility for leaving $G'$ is that we 
+choose an arc whose endpoint is a node in $C$. In the procedure we always chose arcs with outgoing flow, so now we have 
+a directed flow path with only the endpoints being in $C$. 
+
+But we get two smaller cycles $C_1$ and $C_2$ if we divide $C$ along this path. $C$ is a directed cycle and the path 
 is also directed $\Rightarrow$ so one of the two cycles has to be directed, which contradicts our assumption. 
 \Lightning 
 
-Hence we conclude that acyclicity and absence of sources/sinks in the interior of a cycle make its acyclicity 
+Now we just state this the other way around: If there is no other cyclic flow besides on $C$ also $C$ has to be acyclic.
+Hence we can conclude that acyclicity and absence of sources/sinks in the interior of a cycle make its acyclicity 
 constraint redundant.
 \end{proof}
 
@@ -463,11 +518,12 @@ blue marked cycles}
 \end{figure}
 
 Planar graphs fulfill the condition to find a 
-cycle which is dividing the graph into different parts easily - each cycle in a planar graph embedding divides the 
+cycle which is dividing the graph into different parts easily - every cycle in a planar graph embedding divides the 
 graph into interior and exterior. If we have only one source and one sink and find an embedding where both are on the 
-outer (unbounded) face of the graph, it is sufficient to have the acyclicity constraints only on the face cycles of the 
-graph. The same holds for all areas or subgraphs without sources/sinks that are enclosed by a cycle: we only need small 
-simple cycles and all other acyclicity constraints are redundant.
+outer (unbounded) face of the graph, it is sufficient to have the acyclicity constraints only on the cycles in $G$ 
+with empty interior in the embedding (which are called the face cycles). The same holds for all areas or subgraphs 
+without sources/sinks that are enclosed by a cycle: we only need small simple cycles and all other acyclicity 
+constraints are redundant.
 
 % TODO BILD : Bei einem Gitter mit vielen Quellen/Senken sind wir verloren... !
 Still we have a problem with the sources and sinks. If there are many of them we still run into exponential numbers of 
@@ -530,7 +586,8 @@ The next straightforward idea is to use simple paths containing the arc we want 
 forbid that the two paths we found have vertices in common. 
 But it is also not sufficient to just use simple paths: it might happen that two different paths intersect in 
 such a way that the combination of these paths produces a flow cycle (see figure 
-\ref{bild:cycleFromDifferentCombinedPaths}).
+\ref{bild:cycleFromDifferentCombinedPaths} and the example with figures \ref{bild:blockingPathflowNet}, 
+\ref{bild:blockingPathflowOpt} and \ref{bild:blockingPathflow}).
 
 \begin{figure}[h!]
 \centering
@@ -708,15 +765,15 @@ could find such paths or edge progressions and to use it as basis for a heuristi
 
 %Pseudocode des Algorithmus
 \begin{algorithm}
- \caption{path based heuristic flow bound algorithm}
+ \caption{path based heuristic flow bound algorithm for the upper bound}
 \label{algo:pathHeur}
  %TODO gehe gerade von vorwärts gerichteter e aus, und maximierung
  \begin{algorithmic}[5]%[0] means no line numbers, n means every nth line number is displayed
-  \Function{Heuristic}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R^{|V|} $}%hier übergabeparameter
-    \State define $b':V\to \R,\, b'(v)\gets 0 \forall v\in V$ \Comment{temporary balances}
-    \State define $f: A\to\R,\, f(v)\gets 0 \forall a\in A$
+  \Function{HeurMaxAcycFlow}{$G=(V,A),\, e=(u,v)\in A,\, b:V\to \R^{|V|} $}%hier übergabeparameter
+    \State define $b':V\to \R,\, b'(v)\gets 0 \quad\forall v\in V$ \Comment{temporary balances}
+    \State define $f: A\to\R,\, f(a)\gets 0 \quad\forall a\in A$
     \While {$\neg (b+b'\equiv 0) $}\Comment{while there are active source-sink-pairs}
-      \If{ $c(e)>f(e)$}
+      \If{ $c_u(e)>f(e)$}\Comment{assume we maximize $e$ in forward direction}
       \State choose active source $v\in V$ 
 	\State $P\gets $\Call{acyclicEdgeProgOverE}{$v, e$}
 	  %\Comment{find augmentable path over $e$ such that we still have acyclic flow after augmentation}
@@ -727,16 +784,16 @@ could find such paths or edge progressions and to use it as basis for a heuristi
       \EndIf
 %       \Else
 	\State choose $s\in V$ with $b(s)+b'(s)<0$\Comment{source that is still active}
-	\State $c_{alt}(e)\gets c(e)$\Comment{save old capacity value}
-	\State $c(e)\gets f(e)$\Comment{make $e$ blocked for a short time}
+	\State $c_{old}(e)\gets c_u(e)$\Comment{save old capacity value}
+	\State $c_u(e)\gets f(e)$\Comment{make $e$ blocked for a short time}
 	\State $P\gets$\Call{acyclicEdgeProg}{$s$}\Comment{try finding a path that avoids $e$}
-	\State $c(e)\gets c_{alt}(e)$
+	\State $c_u(e)\gets c_{old}(e)$
 	\If{$P\ne \emptyset$}
 	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase2}
 	  \State \textbf{continue}
 	\Else
 	  \State $P\gets$ \Call{acyclicEdgeProg}{$s$}
-		\Comment{try to find any augmentable path, at this point of time it will be decreasing the flow on $e$}
+	    \Comment{try to find any augmentable path, at this point of time it will be decreasing the flow on $e$}
 	  \If{$P\ne \emptyset$}
 	    \State \Call {maxAugment}{$P$}\label{heur:lineAugCase3}
 	    \State \textbf{continue}
@@ -758,7 +815,7 @@ could find such paths or edge progressions and to use it as basis for a heuristi
   \Function {maxAugment}{$P$}
     \State $s \gets $ source node of $P$
     \State $t \gets $ sink node of $P$
-    \State augval $\gets \min(|s|,|t|)$
+    \State augval $\gets \min(|b(s)-b'(s)|,|b(t)-b'(t)|)$
     \ForAll{$a\in P$}
       \State arcMaxAugval $\gets$ max augmentable flow in direction of $P$ on $a$ 
       \State augval $\gets \min($augval, arcMaxAugval)
