@@ -3,9 +3,16 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 % \usepackage[ngerman]{babel}
-\usepackage{times, graphicx, currvita, hyperref, longtable, float, caption, subcaption}
+% \usepackage{svg}
+\usepackage{svg, pstricks, pdfpages, times, graphicx, currvita, hyperref, longtable, float, caption, subcaption}
 \usepackage{amsmath,amsfonts,amssymb, amsthm}%, dsfont, bbm, mathtools, stmaryrd}
+
+%the next lines ensure that ALL page numbers are at the bottom of the page
 \usepackage{fancyhdr}
+\fancyhf{}
+\cfoot{\thepage}
+\pagestyle{fancy}    
+\renewcommand{\headrulewidth}{0pt}
 \usepackage{color}
 % \usepackage{pgf}
 \usepackage{tikz}
@@ -15,14 +22,13 @@
 \usepackage{algorithm}
 \usepackage{algpseudocode}%should also load algorithmicx
 \usepackage{hyperref}
-
 % \usepackage{wasysym}	% verschiedene Symbole, siehe http://rpi.edu/dept/arc/training/latex/LaTeX_symbols.pdf
 \usepackage{marvosym}
 %use german style date format
 \usepackage[ddmmyyyy]{datetime}
 \renewcommand{\dateseparator}{.}
 
-\graphicspath{{Bilder/}}
+% \graphicspath{{Bilder/}}
 
 \theoremstyle{definition}
 \newtheorem{definition}{Definition}[section]

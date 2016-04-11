@@ -18,9 +18,9 @@ of details regarding the machines, programming languages, data structures or jus
 to give an overview what worked well in the implementation and what did not.\\
 
 \subsection{MIP with Node Potentials and Binary Direction Variables}
-The MIP model described in \ref{model:nodePotential} was implemented in Lamatto, using Gurobi as solver for this 
-model. However,the two layers of indicator constraints seem to be a heavy problem of the model in 
-practice. The following model was implemented:
+The mixed integer programming model described in \ref{model:nodePotential} was implemented with Lamatto \cite{lamatto}, 
+using Gurobi \cite{gurobi} as solver. In this model there are two layers of indicator constraints. This seems to be a 
+heavy problem of the model, whose performance shall be discussed later. The following model was implemented:
 \begin{align*}
   &\min \sum_{a\in A} w_a\cdot q_a & \\
  s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v, &\forall v\in V \\
@@ -44,19 +44,23 @@ Big-M-constraints of the form
  &q((v,w))&\le & M\rho_{vw},\\
  &\rho_{vw} \in \{0,1\}.&&\\
 \end{align*}
-with sufficient big values for $M$ and $N$. This model heavily relies on the Big-M constraints.
+with sufficient big values for $M$ and $N$. This model heavily relies on the Big-M / indicator constraints.
 For any MIP solver these indicator or Big-M constraints are difficult to handle, because the optimal vertex of the LP 
 polyhedron can be quite far from the optimal mixed integer solution.\\
 
-The model was tested on the smallest network named "gaslib-40" of the gaslib package. After running the algorithm for 5 
-seconds the optimal bounds for all arcs of the network were computed. The results were the same as with the Acyclicity 
-Constraint (separation) Model, apart from numerical rounding differences. \\
+In the tables below we will refer to this model as \textit{nodepotential}.\\
+ 
+\textbf{Relaxation:} For a mixed 
+integer program in practice the runnning time is mainly influenced by the time used in the branch and bound process
+of the solver. Throughout this process the solver has always a lower bound and an upper bound for the solution value. 
+If we stop this process before the optimal solution is found we can still take the dual bound of the MIP as a (weaker) 
+bound for the maximum flow on the specified arc. Thus we can create a heuristic algorithm by limiting the running time 
+or the number of nodes in the branch-and-bound process. We use a node limit in order to get reproducable results. \\
 
-% On the medium size network "gaslib-135" of the gaslib package the results were as 
-
-%TODO testergebnisse (vermutlich fail nach etlichen tagen)
-
-\subsection{MIP with Binary Direction Variables and separated Acyclicity Constraints}
+We refer to this model solved within a node limit of $X$ nodes as \textit{nodepot\_X}.
+ 
+ 
+ \subsection{MIP with Binary Direction Variables and a Separation of Acyclicity Constraints}
 In section \ref{model:AcyclicityConstraints} we described a model using acyclicity constraints on the binary directions 
 for each cycle that was found during the solving process.
 This model itself is independent of the implementation of the acyclicity constraints. But since a graph can have an 
@@ -66,48 +70,52 @@ size - in fact it could happen that the conditions for \ref{prop:redundantAcycli
 certain networks (though we also did not proof that a clever generalization of the proposition couldn't do better). 
 For example the condition of the proposition states that there have to be two cycles with exactly one arc in common. 
 But there are of course example networks not containing any two cycles like this. (You could just subdivide every arc 
-in a network. Then every two cycles have at least two arcs in common.)\\
+in a network. Then each pair of two cycles has at least two arcs in common.)\\
 
-So the implementation does not add all the acyclicity constraints explicitely. Instead, the MIP Solver gets a 
-general constraint that demands that there is no cyclic flow in the network. When this constraint is checked and there 
-is cyclic flow somewhere in the network, a new linear acyclicity constraint on the cycle with the detected cyclic flow 
-is added. An Acyclicity Constraint Handler was implemented for this thesis in Lamatto with SCIP as MIP solver. \\
+Because of this the implementation does not add all the acyclicity constraints explicitely. Instead, the MIP Solver 
+gets a general constraint that demands that there is no cyclic flow in the network. When this constraint is checked and 
+there is cyclic flow somewhere in the network, a new linear acyclicity constraint on the cycle with the detected cyclic 
+flow is added. An Acyclicity Constraint Handler was implemented for this in Lamatto \cite{lamatto} with SCIP 
+\cite{scip} as solver. \\
 
-Like the other exact model with node potentials this model takes lots of time to compute the optimal solution. In 
-a network there are huge numbers of arcs to be computed that yield similar subproblems, some of them being 
-difficult and running very long. Like in the Node Potential Model we could only produce an exact solution for the 
-"gaslib-40" network while the algorithm was running too long on the other gaslib test instances.
+Where this model is solved unto optimality we refer to this model in the tables as \textit{sepa\_all}.\\
 
-\subsection{Relaxations of the Exact Separation Model}
+% Like the other exact model with node potentials this model takes lots of time to compute the optimal solution. In 
+% a network there are huge numbers of arcs to be computed that yield similar subproblems, some of them being 
+% difficult and running very long. Like in the Node Potential Model we could only produce an exact solution for the 
+% "gaslib-40" network while the algorithm was running too long on the other gaslib test instances.
+
+\textbf{Relaxations of the Exact Separation Model: }
 If we want to have fast answers or compute bigger networks the exact model with separation of acyclicity 
 constraints does not work in practice. Nevertheless this model gives us an interesting relaxation of the acyclic 
 flowbound problem for free: 
 
-We can limit the time or the number of nodes in the branch and bound tree for each arc in the network. If an optimal 
-solution can be found with low effort, we get the optimum bound. If the situation is difficult and we run into the 
-limit 
+We can limit the time or the number of nodes in the branch and bound tree in the solver for each arc in the network. 
+This is exactly the same approach we also used in the node potential model. If an optimal solution can be found with low 
+effort, we get the optimum bound. If the situation is difficult and we run into the limit 
 we just take the dual bound of the mixed integer program. This number is always an upper bound because it is always 
 greater or equal to the optimum (which is the maximum flow). \\
 
 With this algorithm we will always get some solution. This solution might be $\infty$. To get rid of the infinite 
 values, we can combine it with a simple bound estimate. For example we can take the sum of all ingoing flow as upper 
 bound for all arcs with a dual bound that is greater than this. Depending on the preset limit this dual solution could
-closer to or further from the optimum. 
+be closer to or further from the optimum. 
 
-This relaxation was implemented with a limit on the nodes and is compared to 
+This relaxation was implemented with a limit on the nodes branched again and is compared to 
 others in the tables below. The tables refer to this relaxation as "sepa\_X" for the exact MIP with separation of 
-acyclicity constraints and a node limit of \textit{X} in the branch and bound process of the MIP.
+acyclicity constraints and a node limit of \textit{X} in the branch and bound process of the MIP.\\
 
-\subsection{Acyclicity Constraints on a Cycle Base}% this is roberts code, props to him!
+% this is roberts code, props to him!
+\textbf{Acyclicity Constraints on a Cycle Base: }
 This idea was the starting point of this thesis and implemented by Robert Schwarz some time before. It is like the 
-former an incomplete application of the acyclicity constraints. It adds all its acyclicity constraints in the 
-beginning. The advantages are easier implementation and hope for a faster running time since the solver does not need 
-to add new constraints all the time.
+relaxation seen before an incomplete application of the acyclicity constraints. It adds all its acyclicity constraints 
+in the beginning, but strongly limits the numbder of those constraints. The advantages are easier implementation and 
+hope for a faster running time since the solver does not need to add new constraints all the time.
 
 We have seen in \ref{bild:reichtkreisbasis2} that the acyclicity constraints of a small subset of the cycles (like a 
 cycle base) do not suffice to forbid cyclic flow  in the network. Still we can try to use them as a relaxation to the 
 exact problem. This will already avoid cyclic flow on single cycles that are not touching each other. The tables show 
-how the idea works out in practice.
+how the idea works out in practice, we refer to it as \textit{cyclebase}.
 
 \subsection{Cyclic Flow Bounds}%describe the exactfb algo implemented before
 \label{model:cyclicFlow}
@@ -131,12 +139,42 @@ the bounds from the different algorithms to the bounds found with this approach.
 
 
 \section{Computational results}
-\subsection{Test Settings}
+\subsection{Test Instances}
 
-All algorithms where tested on a PC with instances of the \textit{"gaslib"} gasnet test library. The library can be 
-downloaded on \url{http://gaslib.zib.de/}. A detailed description of this problem library can be found in 
+All algorithms where tested with instances of the \textit{"GasLib"} test library \cite{gaslib}. This is a 
+collection of gas network and nomination data based on real-world data from the german gas network operator "Open Grid 
+Europe GmbH. 
+
+The first network we test the algorithms on is the small GasLib-40 network with just 3 exits, 29 entries, 39 
+pipes and 6 compressors. Figure \ref{bild:gaslib40} shows this network which apparently has a relatively small number 
+of elements and especially a structure with few cycles.
+
+\begin{figure}[h!, scale = 0.6]
+  \centering
+  \includegraphics[width=.6\textwidth]{gaslib-40_bild.pdf}
+  \caption{schematic plot of the GasLib-40 gasnet with relatively few cycles and elements}
+  \label{bild:gaslib40}
+\end{figure}
+
+
+The other network is the GasLib-582 network (see figure \ref{bild:gaslib582} ) containing 31 entries, 129 exits, 422 
+inner nodes, 278 pipes, 269 shortpipes and a number of other connection elements. This network is based on distorted 
+real-world data in order to yield computationally realistic behavior. In this network not only the number of elements 
+but also the number of cycles in the graph is much higher. The expectation is thus a much higher running time and 
+difficulty to find good solutions. \\
+
+\begin{figure}[h!, scale = 0.6]
+  \centering
+  \includegraphics[width=.8\textwidth]{gaslib-582_bild.pdf}
+  \caption{schematic plot of the GasLib-582 gasnet representing a realistic real-world gasnet}
+  \label{bild:gaslib582}
+\end{figure}
+
+A detailed description of the GasLib library can be found in 
 \cite{HumpolaJoormannOucherifPfetschScheweSchmidtSchwarz:2015}.\\
-%TODO muss ich den PC mit Anzahl kernen etc spezifizieren?!?
+
+\subsection{Test Settings}
+%TODO muss ich den PC mit Anzahl Kernen etc spezifizieren?!?
 The processor of the Computer used for testing was a 64 bit Intel(R) Xeon(R) CPU E3-1290 V2 @ 3.70GHz with 8 cores. The 
 PC had a RAM of 16 Gigabytes. The running times might be influenced by the fact that the tests were not running 
 exclusively. The MIP model with node potentials was using Gurobi as solver, which parallelized the solving process on 
@@ -153,7 +191,7 @@ the 8 cores, other than SCIP.
  cyclic bounds+flowsum& $<1$ s& 21 & - & - \\
  cycle base& $1$ s & 21 & 48 & 1372.4\\
  heuristic& $<1$ s& 21& 0 & 0\\
- node potential& $4$ s& 21 & 48 & 1372.4 \\ 
+ nodepotential& $4$ s& 21 & 48 & 1372.4 \\ 
  sepa\_all& $112$ s& 21 & 48 & 1372.4\\
 \end{tabular} 
 \end{center}
@@ -168,7 +206,7 @@ the 8 cores, other than SCIP.
  cyclic bounds+flowsum& $1$ s& 365 & - & -\\
  cycle base& $ $ &  &  &\\
  heuristic& $ 11$ s& 365& 164 & 5047.2 \\
-%  node potential& $ $ &  &  &   \\ 
+%  nodepotential& $ $ &  &  &   \\ 
  nodepot\_60000& $20$ min/8 cores &370  &53  &3232.1   \\ 
  nodepot\_500000& $132$ min/8 cores & 370 & 74 & 2825.7  \\ 
  sepa\_1000& $ 50$ min & 382 & 107 & 3802.1 \\
@@ -187,7 +225,7 @@ the 8 cores, other than SCIP.
  cyclic bounds+flowsum& $1$ s & 365 & - & - \\
  cycle base& $ $ &  &  & \\
  heuristic& $11$ s & 365 & 164 & 4050.9 \\
-%  node potential& $ $ &  &  &    \\ 
+%  nodepotential& $ $ &  &  &    \\ 
  nodepot\_60000& $19$ min/8 cores & 366 & 63 &  2175.6 \\ 
  nodepot\_500000& $135$ min/8 cores & 366 & 74 & 2291.8  \\ 
  sepa\_1000& $ 50$ min  & 378 & 100 & 3025.2\\
@@ -244,7 +282,7 @@ the 8 cores, other than SCIP.
  cyclic bounds+flowsum& $1$ s& 365 & - & -\\
  cycle base& $ $ &  &  & \\
  heuristic& $11$ s& 365 & 164 & 4291.5\\
-%  node potential& $ $ &  &   &  \\ 
+%  nodepotential& $ $ &  &   &  \\ 
  nodepot\_60000& $20$ min/8 cores & 366 & 63 & 2383.5 \\ 
  nodepot\_500000& $135$ min/8 cores & 366 & 74 & 2372.6 \\ 
  sepa\_1000& $50$ min & 378 & 105 & 3271.3 \\
@@ -272,7 +310,7 @@ The impact of the computed flow bounds on this model is shown in the tables belo
  cyclic bounds+flowsum& 24 & 57& 1477 (948+529)&2009 \\
  cycle base& 26 & 57 & 955 (687+268)  & 1473\\
  heuristic& 24 & 57& 1477 (948+529)&2009&\\
- node potential& 25 &57  &955 (687+268)  &1473  \\ 
+ nodepotential& 25 &57  &955 (687+268)  &1473  \\ 
  sepa& 34 &57  &955 (687+268)  &1473 \\
 \end{tabular} 
 \end{center}
@@ -294,7 +332,7 @@ to round values which are extremely close to zero (like this $1^{-10}$) to get m
  cyclic bounds+flowsum& 440 & 241& 5727 (4113+1614)&8216 \\
 %  cycle base& $ $ &  &  & \\
  heuristic& 440& 241 & 5675 (4087+1588)&8162\\
-%  node potential& $ $ &  &  &  \\ 
+%  nodepotential& $ $ &  &  &  \\ 
  sepa\_1000& 467 & 237& 5471 (3977+1944) & 7930 \\
  sepa\_5000& 467& 237& 5185 (3834+1351)& 7641  \\
  sepa\_20000& 467 & 237 & 5185 (3834+1351)& 7640 \\
@@ -311,7 +349,7 @@ to round values which are extremely close to zero (like this $1^{-10}$) to get m
  cyclic bounds+flowsum& 438 & 241& 5757 (4128+1629)&8246 \\
 %  cycle base& $ $ &  &  & \\
  heuristic& 438& 241 & 5701 (4100+1601)&8188\\
-%  node potential& $ $ &  &  &  \\ 
+%  nodepotential& $ $ &  &  &  \\ 
  sepa\_1000& 466 & 237& 5443 (3963+1480) & 7905 \\
  sepa\_5000& 469& 237& 5171 (3827+1344)& 7632  \\
  sepa\_20000& 466 & 237 & 5099 (3791+1308)& 7553 \\
@@ -329,7 +367,7 @@ to round values which are extremely close to zero (like this $1^{-10}$) to get m
  cyclic bounds+flowsum& 450 & 241& 5427 (3963+1464)&7926 \\
 %  cycle base& $ $ &  &  & \\
  heuristic& 450& 241 & 5371 (3935+1436)&7868\\
-%  node potential& $ $ &  &  &  \\ 
+%  nodepotential& $ $ &  &  &  \\ 
  sepa\_1000& 480 & 237& 4993 (3738+1255) & 7464 \\
  sepa\_5000& 480& 237& 4805 (3644+1161)& 7268  \\
  sepa\_20000& 480 & 237 & 4803 (3643+1160)& 7266 \\
@@ -346,7 +384,7 @@ to round values which are extremely close to zero (like this $1^{-10}$) to get m
  cyclic bounds+flowsum& 458 & 241& 5569 (4034+1535)&8077 \\
 %  cycle base& $ $ &  &  & \\
  heuristic& 458& 241 & 5491 (3995+1496)&7997\\
-%  node potential& $ $ &  &  &  \\ 
+%  nodepotential& $ $ &  &  &  \\ 
  sepa\_1000& 488 & 237& 4991 (3737+1254) & 7469 \\
  sepa\_5000& 490& 237& 4871 (3677+1194)& 7344  \\
  sepa\_20000& 492 & 237 & 4709 (3596+1113)& 7163 \\
@@ -363,7 +401,7 @@ to round values which are extremely close to zero (like this $1^{-10}$) to get m
  cyclic bounds+flowsum& 458 & 241& 5673 (4086+1587)&8183 \\
 %  cycle base& $ $ &  &  & \\
  heuristic& 458& 241 & 5589 (4044+1545)&8097\\
-%  node potential& $ $ &  &  &  \\ 
+%  nodepotential& $ $ &  &  &  \\ 
  sepa\_1000& 487 & 237& 4865 (3674+1191) & 7335 \\
  sepa\_5000& 492& 237& 4745 (3614+1131)& 7212  \\
  sepa\_20000& 494 & 237 & 4433 (3458+975)& 6886 \\

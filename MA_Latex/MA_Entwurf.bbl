@@ -8,12 +8,20 @@
 \begin{thebibliography}{10}
 
 \bibitem{xpress}
-\emph{{"FICO Xpress Optimization Suite"}},
+\emph{{FICO Xpress Optimization Suite}},
   \url{http://www.fico.com/en/analytics/optimization}, 2015.
 
 \bibitem{scip}
-\emph{{"SCIP: Solving Constraint Integer Programs"}}, \url{http://scip.zib.de},
+\emph{{SCIP: Solving Constraint Integer Programs}}, \url{http://scip.zib.de},
   2015.
+
+\bibitem{gaslib}
+\emph{{GasLib:a library of gas network instances}}, 2016.
+
+\bibitem{lamatto}
+\emph{{Lamatto++: A Framework for Modeling and Solving Mixed-Integer Nonlinear
+  Programming Problems on Networks}},
+  \url{http://www.mso.math.fau.de/edom/projects/lamatto.html}, 2016.
 
 \bibitem{Achterberg2007}
 Tobias Achterberg, \emph{Constraint integer programming}, Ph.D. thesis, 2007.
@@ -28,7 +36,7 @@ Stephen~A. Cook, \emph{The complexity of theorem-proving procedures},
   York, NY, USA), STOC '71, ACM, 1971, pp.~151--158.
 
 \bibitem{cplex}
-International Business~Machines Corp., \emph{{"IBM ILOG CPLEX Optimizer"}},
+International Business~Machines Corp., \emph{{IBM ILOG CPLEX Optimizer}},
   \url{http://www-01.ibm.com/software/integration/optimization/cplex-optimizer},
   2015.
 
@@ -87,7 +95,7 @@ Jesco Humpola, Imke Joormann, Djamal Oucherif, Marc~E. Pfetsch, Lars Schewe,
   {G}as {N}etwork {I}nstances}, Tech. report, November 2015.
 
 \bibitem{gurobi}
-Gurobi~Optimization Inc., \emph{{"Gurobi Optimizer Reference Manual"}},
+Gurobi~Optimization Inc., \emph{{Gurobi Optimizer Reference Manual}},
   \url{http://www.gurobi.com}, 2015.
 
 \bibitem{Karmarkar:1984:NPA:800057.808695}

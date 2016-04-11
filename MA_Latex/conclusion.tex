@@ -1,0 +1,14 @@
+%zusammenfassung: was war Fragestellung, was wurde gemacht und welche Ergebnisse! hat die Arbeit gebracht? 
+%sollte so geschrieben sein, dass jemand der die Arbeit nicht komplett gelesen hat/lesen will die Ergebnisse versteht
+
+
+The acyclic flowbound problem turns out to be an interesting mathematical and algorithmical problem. For the more 
+general Acyclic Minimum Cost Flow Problem with arbitrary weights we showed the $\mathcal{NP}$ hardness, however it 
+remains an open question if this is only due to the unlimited number of arcs with negative arc weights. If so, there 
+might be a chance to find a direct, efficient algorithm.
+Despite this the implemented MIP models showed a huge increase in running time even for moderate problem sizes. This 
+indicates some hardness of the problem itself. To the author it apperas unlikely that the Acyclic Flowbound Problem 
+should not be $\mathcal{NP}$ hard.
+
+However, small problems were solvable with both models described and implemented in this thesis to optimality. With 
+enough time and effort also a limitation of these models running time by time or MIP nodes yields good bounds. 
