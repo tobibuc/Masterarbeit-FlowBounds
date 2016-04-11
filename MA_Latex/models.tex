@@ -26,8 +26,8 @@ minimizing the overall cost. This would be the typical MIP formulation of a mini
 \begin{align*}
   &\min \sum_{a\in A} w_a\cdot q_a  \\
   %TODO an die balance-intervall formulierung anpassen
- s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a = d_v\ &\forall v\in V \\
-  & c_l(a)\le q_a \le c_u(a) & \forall a\in A
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a = d_v, &\forall v\in V \\
+  & c_l(a)\le q_a \le c_u(a), & \forall a\in A
 \end{align*}
 
 This model still allows cyclic flow, so we have to find constraints to avoid cycling. 
@@ -51,7 +51,7 @@ Integer Nonlinear Program
 
 \begin{align*}\label{model:nodePotentialQuadratic}
   &\min \sum_{a\in A} w_a\cdot q_a & \\
- s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V \\
+ s.t. & \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v &\forall v\in V \\
  & q_a &\le& c_u(a) & \forall a\in A\\
  & -q_a &\le& c_l(a) & \forall a\in A\\
  & -q_a\cdot (\pi_v -\pi_w)&\le& 0 &\forall a=(v,w)\in A\\
@@ -90,20 +90,20 @@ with indicatorconstraints we get
 
 % \label{model:nodePotentialIndicator}
 \begin{align*}
- &\rho_{vw}=1 &\Rightarrow &\pi_v\ge\pi_w +1\\
- &\rho_{vw}=0 &\Rightarrow &\pi_w\ge\pi_v +1\\
- &\rho_{vw}=1 &\Rightarrow &q((v,w))\ge 0\\
- &\rho_{vw}=0 &\Rightarrow &q((v,w))\le 0\\
- &\rho_{vw} \in \{0,1\}&&
+ &\rho_{vw}=1 &\Rightarrow &\pi_v\ge\pi_w +1,\\
+ &\rho_{vw}=0 &\Rightarrow &\pi_w\ge\pi_v +1,\\
+ &\rho_{vw}=1 &\Rightarrow &q((v,w))\ge 0,\\
+ &\rho_{vw}=0 &\Rightarrow &q((v,w))\le 0,\\
+ &\rho_{vw} \in \{0,1\}.&&
 \end{align*}
 We can reformulate these indicator constraints as
 
 %  \label{model:nodePotentialBigM}
 \begin{align*}
- &\pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1\\
- &\pi_v-\pi_w&\le &N\rho_{vw}-1 \\
- &q((v,w))&\ge& M(\rho_{vw}-1)\\
- &q((v,w))&\le & M\rho_{vw}\\
+ &\pi_v-\pi_w &\ge & N(\rho_{vw}-1)+1,\\
+ &\pi_v-\pi_w&\le &N\rho_{vw}-1 ,\\
+ &q((v,w))&\ge& M(\rho_{vw}-1),\\
+ &q((v,w))&\le & M\rho_{vw},\\
  &\rho_{vw} \in \{0,1\}&&\\
 \end{align*}
 where $N\in \R$ and $M\in \R$ are sufficient big constants. Sufficient big in this case could mean we choose 
@@ -774,8 +774,8 @@ could find such paths or edge progressions and to use it as basis for a heuristi
     \State define $f: A\to\R,\, f(a)\gets 0 \quad\forall a\in A$
     \While {$\neg (b+b'\equiv 0) $}\Comment{while there are active source-sink-pairs}
       \If{ $c_u(e)>f(e)$}\Comment{assume we maximize $e$ in forward direction}
-      \State choose active source $v\in V$ 
-	\State $P\gets $\Call{acyclicEdgeProgOverE}{$v, e$}
+      \State choose active source $s\in V$ 
+	\State $P\gets $\Call{acyclicEdgeProgOverE}{$s, e$}
 	  %\Comment{find augmentable path over $e$ such that we still have acyclic flow after augmentation}
 	\If{$P\ne \emptyset $}
 	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase1}
@@ -784,10 +784,10 @@ could find such paths or edge progressions and to use it as basis for a heuristi
       \EndIf
 %       \Else
 	\State choose $s\in V$ with $b(s)+b'(s)<0$\Comment{source that is still active}
-	\State $c_{old}(e)\gets c_u(e)$\Comment{save old capacity value}
-	\State $c_u(e)\gets f(e)$\Comment{make $e$ blocked for a short time}
+	\State $c_u^{old}(e)\gets c_u(e)$, $c_l^{old}(e)\gets c_l(e)$\Comment{save old capacity values}
+	\State $c_u(e)\gets f(e),\, c_l(e)\gets f(e)$\Comment{make $e$ blocked for a short time}
 	\State $P\gets$\Call{acyclicEdgeProg}{$s$}\Comment{try finding a path that avoids $e$}
-	\State $c_u(e)\gets c_{old}(e)$
+	\State $c_u(e)\gets c_u^{old}(e), c_l(e)\gets c_l^{old}(e)$
 	\If{$P\ne \emptyset$}
 	  \State \Call {maxAugment}{$P$}\label{heur:lineAugCase2}
 	  \State \textbf{continue}
@@ -834,7 +834,7 @@ could find such paths or edge progressions and to use it as basis for a heuristi
 \end{algorithm}
 
 \begin{prop}
- The described algorithm \ref{algo:pathHeur} together with a function \textit{acyclicEdgeProg()} 
+ The described algorithm \ref{algo:pathHeur} together with a function \textit{acyclicEdgeProg} 
  resp. \textit{acyclicEdgeProgOverE} 
  that finds an augmentable edge progression (acyclicEdgeProgOverE using a specified arc $e$)
  whose augmentation is not causing any flow cycles computes the optimal bounds to the acyclic flowbound problem. 
@@ -842,18 +842,23 @@ could find such paths or edge progressions and to use it as basis for a heuristi
 \begin{proof}
  We assume that the blackbox algorithm for finding an acyclic edge progression is correct. An edge progression can use
  arcs more than once $\Rightarrow$ it can do cyclic shifting on every cycle in the same connected component: 
- For every cyclic shift that is necessary it chooses an augmentable path towards the cycle, then goes around the cycle 
- and on the same way back. If there is no augmentable path unto a cycle in the same connected component there has to be
- a directed cut that is at its capacity bounds. But in this case this cycle (and everything behind the cut) cannot 
- influence the acyclic path at all.
+ 
+ The potential problem with a path augmentation based approach is that one could increase flow value on the 
+ arc that is maximized only in a different flow distribution at a local algorithm step. But edge progressions can use 
+ arcs more than once. 
+ If a cyclic shift of flow would be necessary in order to get a flow from which the optimum augmentation is possible, 
+ shifting flow on an edge progression can do such a shift: it chooses an augmentable path $P$ towards a node of the cycle,
+ then goes around the cycle in the direction we want to shift flow and afterwards takes $P$ backward. 
+ 
  If the algorithm can change the flow on every cycle, it can produce every acyclic flow that is possible (before augmenting).
- There is always a path if there is any acyclic flow with this flow value on $e$ because every acyclic flow can be 
- decomposed into flow on simple paths. So the optimal edge progression could detect the right $s-t$-path, produce the 
- acyclic flow without this path and then augment. So if the algorithm does not find any edge progression, there 
- is also no acyclic flow with a higher flow value on $e$.  
+ Every acyclic flow can be  decomposed into flow on simple paths. 
+ So the optimal edge progression could detect the right  $s-t$-path, produce the  acyclic flow without this path and then augment. 
+   
 \end{proof}
+Thinking about this it becomes clear that finding the right edge progression alone is as hard as solving the acyclic 
+flowbound problem as a whole. 
 
-So we have seen that augmentation algorithms could only work with a too powerful algorithm that shifts flow before 
+So we have seen that augmentation algorithms would only work with a too powerful algorithm that shifts flow before 
 augmenting on a path. The main problem is that a flow can unnecessarily block an arc that is needed in a later stage 
 of the algorithm. 
 
