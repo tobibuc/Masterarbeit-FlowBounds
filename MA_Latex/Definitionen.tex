@@ -37,7 +37,8 @@ We say that an edge $e = \{v, w\}$ or $e = (v, w)$ joins $v$ and $w$. In this ca
 $v$ is a \textit{neighbour} of $w$ (and vice versa). $v$ and $w$ are the \textit{endpoints} of $e$. If $v$ is an 
 endpoint of an edge $e$, we say that $v$ is \textit{incident} with $e$. 
 In the directed case we say that $e=( v, w)$ leaves $v$ and enters $w$,
-$v$ is the \textit{tail} and $w$ is the \textit{head} of the arc $e$. %Two edges which share at least one endpoint are 
+$v$ is the \textit{tail} and $w$ is the \textit{head} of the arc $e$. 
+Two edges which share at least one endpoint are 
 called adjacent. 
 \end{definition}
 
@@ -95,7 +96,7 @@ arcs of $v$
 \end{definition}
 We use subscripts (e.g. $\delta_G(X)$) to specify the graph $G$ if necessary.
 \begin{definition}
-The degree of a vertex $v$ is $|\delta(v)|$, the number of edges incident to $v$. In the directed 
+The \textit{degree} of a vertex $v$ is $|\delta(v)|$, the number of edges incident to $v$. In the directed 
 case, the in-degree is $|\delta^-(v)|$, the out-degree is $|\delta^+(v)|$, and the degree is 
 $|\delta^+(v)|+ |\delta^-(v)|$.
 \end{definition}
@@ -134,15 +135,28 @@ cycle in $G$ is called a \textit{Hamiltonian cycle}. A graph containing a Hamilt
 graph}.
 \end{definition}
 
-% For two vertices $v$ and $w$ we write $dist(v, w)$ or $dist_G (v, w)$ for the length of
-% a shortest $v-w$-path (the distance from $v$ to $w$) in $G$. If there is no $v-w$-path at all,
-% i.e. $w$ is not reachable from $v$, we set $dist(v, w) := \inf$. In the undirected case,
-% $dist(v, w) = dist(w, v)$ for all $v, w \in V(G)$.
+\begin{definition}
+ A \textit{ connected component } of a graph $G$ is a subgraph $G'\subseteq G$ such that there is a path in $G'$ from 
+ every node $v\in G'$ to every other node $u\in G'$. We call a graph $G$ that forms a connected component on its own 
+ \textit{connected}. 
+\end{definition}
 
-% We shall often have a cost function $c : E(G) \to \R$. Then for $F \subseteq E(G)$ we
-% write $c(F) := \sum_{e\in F} c(e)$ (and $c(\emptyset) = 0$). This extends $c$ to a modular function
-% $c : 2^{E(G)}\to \R$. Moreover, $dist_{(G,c)}(v, w)$ denotes the minimum $c(E(P))$ over all
-% $v-w$-paths $P$ in $G$.
+
+\begin{definition}
+For two vertices $v$ and $w$ we write $dist(v, w)$ or $dist_G (v, w)$ for the length of
+a shortest $v-w$-path (the \textit{distance} from $v$ to $w$) in $G$. If there is no $v-w$-path at all,
+i.e. $w$ is not reachable from $v$, we set $dist(v, w) := \inf$. In the undirected case,
+$dist(v, w) = dist(w, v)$ for all $v, w \in V(G)$.
+\end{definition}
+
+\begin{definition}
+
+We shall often have a cost function $c : E(G) \to \R$. Then for $F \subseteq E(G)$ we
+write $c(F) := \sum_{e\in F} c(e)$ (and $c(\emptyset) = 0$). This extends $c$ to a modular function
+$c : 2^{E(G)}\to \R$. Moreover, $dist_{(G,c)}(v, w)$ denotes the minimum $c(E(P))$ over all
+$v-w$-paths $P$ in $G$.
+ 
+\end{definition}
 
 \subsection{Combinatorial Optimization}
 %TODO

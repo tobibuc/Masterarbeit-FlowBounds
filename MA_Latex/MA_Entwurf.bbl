@@ -18,6 +18,10 @@
 \bibitem{Achterberg2007}
 Tobias Achterberg, \emph{Constraint integer programming}, Ph.D. thesis, 2007.
 
+\bibitem{Aggarwal96afaster}
+C.~Aggarwal, H.~Kaplan, J.~Orlin, and R.~Tarjan, \emph{A faster primal network
+  simplex algorithm}, 1996.
+
 \bibitem{Cook:1971:CTP:800157.805047}
 Stephen~A. Cook, \emph{The complexity of theorem-proving procedures},
   Proceedings of the Third Annual ACM Symposium on Theory of Computing (New
@@ -51,6 +55,11 @@ Armin F{\"u}genschuh, Bj{\"o}rn Gei{\ss}ler, Ralf Gollmer, Christine Hayn, Rene
   Bernhard~M. Willert, \emph{Mathematical optimization for challenging network
   planning problems in unbundled liberalized gas markets}, Energy Systems
   \textbf{5} (2013), no.~3, 449 -- 473.
+
+\bibitem{Goldberg:1987}
+A.~Goldberg and R.~Tarjan, \emph{Solving minimum-cost flow problems by
+  successive approximation}, Proceedings of the Nineteenth Annual ACM Symposium
+  on Theory of Computing (New York, NY, USA), STOC '87, ACM, 1987, pp.~7--18.
 
 \bibitem{minMeanCycleCancelling89}
 Andrew~V. Goldberg and Robert~E. Tarjan, \emph{Finding minimum-cost
@@ -90,10 +99,8 @@ N.~Karmarkar, \emph{A new polynomial-time algorithm for linear programming},
 Richard~M. Karp, \emph{Complexity of computer computations: Proceedings of a
   symposium on the complexity of computer computations, held march 20--22,
   1972, at the ibm thomas j. watson research center, yorktown heights, new
-  york, and sponsored by the office of naval research, mathematics program, ibm
-  world trade corporation, and the ibm research mathematical sciences
-  department}, ch.~Reducibility among Combinatorial Problems, pp.~85--103,
-  Springer US, Boston, MA, 1972.
+  york}, ch.~Reducibility among Combinatorial Problems, pp.~85--103, Springer
+  US, Boston, MA, 1972.
 
 \bibitem{KHACHIYAN198053}
 L.G. Khachiyan, \emph{Polynomial algorithms in linear programming}, USSR
@@ -103,6 +110,10 @@ L.G. Khachiyan, \emph{Polynomial algorithms in linear programming}, USSR
 \bibitem{KorteVygenCombOpt2007}
 Bernhard Korte and Jens Vygen, \emph{Combinatorial optimization: Theory and
   algorithms}, 4th ed., Springer Publishing Company, Incorporated, 2007.
+
+\bibitem{NetworkSimplexOrlin89}
+James~B. Orlin, \emph{A faster strongly polynomial minimum cost flow
+  algorithm}, Operations Research \textbf{41} (1993), no.~2, 338--350.
 
 \bibitem{NetworkSimplexOrlin97}
 James~B. Orlin, \emph{A polynomial time primal network simplex algorithm for

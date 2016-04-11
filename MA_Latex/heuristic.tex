@@ -4,7 +4,7 @@
 As we have seen, the computations of the MIP formulation with separation of the Acyclicity Constraints could be 
 expensive in running time and ressource consumption. The solved problem is a relaxation of the real-world 
 problem anyway, so we can as well think 
-about different relaxations and heuristic approaches. This chapter will introduce a simple and easy to 
+about different relaxations and heuristic approaches. This chapter will introduce an easy to 
 implement heuristic approach inspired by the idea of the former section, where we showed why path augmentation models 
 do not work for the acyclic flowbound problem. This approach uses a graph transformation and computes a Minimum Cost 
 Flow on the transformed graph. We show that we get a valid bound for the Acyclic Flowbound Problem from this 
@@ -50,17 +50,20 @@ supersource and supersink.
     \State create $v_X, v_Y\in V'$
     \If{$v$ is source of $G$}
       \State create arc $a:=(s,v_X)\in A'$
+      \State cost$(a)\gets 0$
       \State capacity$(a)\gets$ supply$(v)$
     \ElsIf{$v$ is sink of $G$}
       \State create arc $a:=(v_X, t)\in A'$
       \State create arc $b:=(v_Y,t)\in A'$
       \State cost$(a)\gets 1$
+      \State cost$(b)\gets 0$
     \EndIf
   \EndFor
   \ForAll{$a=(u,v)\in A$}
     \If{$a=e$}\Comment{for the arc to maximize we only make a bridge, no copy}
       \State create arc $e':=(u_X, v_Y)\in A'$
       \State capacity$(e')\gets$ capacity$(e)$
+      \State cost$(e')\gets 0$
     \Else
       \State create arcs $a_X:=(u_X, v_X), a_Y:=(u_Y, v_Y)\in A'$
       \State capacity$(a_X)\gets$ capacity$(a)$, capacity$(a_Y)\gets$ capacity$(a)$
@@ -140,7 +143,7 @@ algorithm
 \draw[arc, green!70!blue] (sups)--(ls2)node[pos=0.5, above]{$cap=1$};
 \draw[arc, red] (rt)--(supt)node[pos=0.5, below]{$cap=2,\, cost=0$};
 \draw[arc, red] (lt)--(supt)node[pos=0.5, above]{$cap=2,\, cost=1$};
-\draw[arc, purple!40!blue, bend right =90] (sups)to(supt)node at (4,-5){$cap=\infty,\,cost=2$};
+\draw[arc, purple!40!blue, bend right =90] (sups)to(supt)node at (4,-5){$a_0:\,cap=\infty,\,cost=2$};
 
 \end{tikzpicture}
 \caption{The transformation of the example network from the former section}
@@ -158,16 +161,22 @@ problem on the transformed graph is always feasible by construction.
 
 Deriving from the Max-Flow Algorithms there are many algorithms solving the Min-Cost-Flow Problem. Edmonds and 
 Karp described a Successive Shortest Path Algorithm in \cite{EdmondsKarp1972}. Goldberg and Tarjan proposed the Minimum 
-Mean Cycle Cancelling Algorithm \cite{minMeanCycleCancelling89} with runnning time of $\mathcal{O}(nm(log 
-n)\min\{log(nC), m log n\}) $. %TODO fuer die anderen ebenfalls laufzeiten odr fuer keine
-Another algorithm is the Network Simplex by Orlin \cite{NetworkSimplexOrlin97} (which was used in the computational 
-study) There are a lot more algorithms available for Minimum Cost Flow.
+Mean Cycle Cancelling Algorithm \cite{minMeanCycleCancelling89} with runnning time of $\mathcal{O}(nm\log 
+n\min\{\log(nC), m \log n\}) $ and also a cost scaling algorithm running in 
+$ \mathcal{O}(\min(n^3, n^{5/3}\cdot m^{2/3}, nm\cdot \log n)\log(nC))$ \cite{Goldberg:1987}. 
+Another algorithm is the Network Simplex \cite{NetworkSimplexOrlin89, NetworkSimplexOrlin97} with running time of 
+$ \mathcal{O}(nm\cdot \log n\cdot \min\{m\cdot \log n, \log (nC)\})$ \cite{Aggarwal96afaster} which was used in the 
+computational study of this thesis. There is a huge variety of algorithms available for Minimum Cost Flow with many 
+good implementations publicly available. 
 
 Our algorithm mainly consists of a feasibility test, a transformation of the graph $G$ and a Minimum Cost Flow 
-computation on the transformed graph $G'$. For a pseudocode see algorithm \ref{algo:simpleheur}. 
+computation on the transformed graph $G'$. The graph transformation can be done in linear time, so the Minimum Cost 
+Flow algorithm mainly decides about the running time of the whole procedure. An advantage of this approach is that it is 
+easily possible to switch the algorithm used for min cost flow and leave the rest unchanged. 
+For a pseudocode see algorithm \ref{algo:simpleheur} . 
 
 \begin{algorithm}
- \caption{simple heuristic}
+ \caption{flowbound heuristic}
  \label{algo:simpleheur}
  \begin{algorithmic}
   \Function{FlowBoundHeur}{$G=(V,A), e\in A$}
@@ -184,7 +193,6 @@ computation on the transformed graph $G'$. For a pseudocode see algorithm \ref{a
  \end{algorithmic}
 \end{algorithm}
 
-We show the correctness of the algorithm: %TODO and running time? dependent on used mincostflow!
 
 \begin{figure}[h!]
 \centering
@@ -237,11 +245,12 @@ We show the correctness of the algorithm: %TODO and running time? dependent on u
 \draw[arc, green!70!blue] (sups)--(ls2)node[pos=0.5, right]{$cap=1$};
 \draw[arc, red] (rt)--(supt)node[pos=0.5, below]{$cap=2,\, cost=0$};
 \draw[arc, red] (lt)--(supt)node[pos=0.5, above]{$cap=2,\, cost=1$};
-\draw[arc, purple!40!blue, bend right =90] (sups)to(supt)node at (4,-5){$cap=\infty,\,cost=2$};
+\draw[arc, purple!40!blue, bend right =90] (sups)to(supt)node at (4,-5){$a_0:\,cap=\infty,\,cost=2$};
 \end{tikzpicture}
 \caption{This flow has zero costs, is feasible in the heuristic and has the optimum value $f(e)=2$}
  \label{bild:graphtransformWithFlow}
 \end{figure}
+We show the correctness of the algorithm: %TODO and running time? dependent on used mincostflow!
 
 \begin{prop}
  The heuristic algorithm \ref{algo:simpleheur} returns a valid upper bound for the possible acyclic flow on a given 
@@ -250,8 +259,9 @@ We show the correctness of the algorithm: %TODO and running time? dependent on u
 \end{prop}
 
 \begin{proof}
-\textbf{Feasibility Test: }We have to show that the ordinary feasibility test with maximum flow is sufficient even for 
-acyclic flow: If the flow network nomination (in- and outflow) is infeasible, no algorithm for the 
+\textbf{Feasibility Test: }We have to show that the ordinary feasibility test with maximum flow is sufficient even to
+ensure feasibility for the acyclic flow problem: If the flow network nomination (in- and outflow) is infeasible, no 
+algorithm for the 
 maximum flow problem will find a flow that is fulfilling these balances completely. Then also for the stricter acyclic 
 flow problem this is infeasible. The other direction is also true: if there is a feasible flow, there also is a 
 feasible acyclic flow:
@@ -281,13 +291,15 @@ The heuristic algorithm is a relaxation of this constrained path augmentation mo
 over $e$ if possible (which might be much more since it is a problem with weaker conditions). 
 We can reconstruct a flow in the original graph from the flow in the transformed graph by summing up the flow values on 
 both copied arcs, assigning this flow to the original arc: $f(a)=f'(a_X)+f'(a_Y)$ and the assigned flow value of the 
-bridge arc to the maximized arc of the original problem. 
+bridge arc to the maximized arc of the original problem. \\
 
+Let $q_a$ be the variables whose values equal the flow value on the respective arc $f(a)$ and let $\delta'(v)$ be the 
+degrees of nodes in the transformed graph and $ \delta(v) $ the node degrees in the original (retransformed) graph.
 All the flow conservation constraints still hold after constructing the flow in the original graph from the two copies:
 \begin{align*}
-& \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V_X \\
-+& \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V_Y \\
-=& \sum_{a\in \delta^+(v_X)\cup\delta^+(v_Y)}q_a - \sum_{a\in\delta^- (v_X)\cup\delta^-(v_Y)}q_a &=& d_v\ &\forall 
+& \sum_{a\in \delta'^+(v)}q_a - \sum_{a\in\delta'^- (v)}q_a &=& d_v\ &\forall v\in V_X \\
++& \sum_{a\in \delta'^+(v)}q_a - \sum_{a\in\delta'^- (v)}q_a &=& d_v\ &\forall v\in V_Y \\
+=& \sum_{a\in \delta'^+(v_X)\cup\delta'^+(v_Y)}q_a - \sum_{a\in\delta'^- (v_X)\cup\delta'^-(v_Y)}q_a &=& d_v\ &\forall 
 v_X\in V_X, v_Y\in V_Y \\
 =& \sum_{a\in \delta^+(v)}q_a - \sum_{a\in\delta^- (v)}q_a &=& d_v\ &\forall v\in V \\
 \end{align*}
