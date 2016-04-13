@@ -37,7 +37,8 @@ We say that an edge $e = \{v, w\}$ or $e = (v, w)$ joins $v$ and $w$. In this ca
 $v$ is a \textit{neighbour} of $w$ (and vice versa). $v$ and $w$ are the \textit{endpoints} of $e$. If $v$ is an 
 endpoint of an edge $e$, we say that $v$ is \textit{incident} with $e$. 
 In the directed case we say that $e=( v, w)$ leaves $v$ and enters $w$,
-$v$ is the \textit{tail} and $w$ is the \textit{head} of the arc $e$. %Two edges which share at least one endpoint are 
+$v$ is the \textit{tail} and $w$ is the \textit{head} of the arc $e$. 
+Two edges which share at least one endpoint are 
 called adjacent. 
 \end{definition}
 
@@ -95,7 +96,7 @@ arcs of $v$
 \end{definition}
 We use subscripts (e.g. $\delta_G(X)$) to specify the graph $G$ if necessary.
 \begin{definition}
-The degree of a vertex $v$ is $|\delta(v)|$, the number of edges incident to $v$. In the directed 
+The \textit{degree} of a vertex $v$ is $|\delta(v)|$, the number of edges incident to $v$. In the directed 
 case, the in-degree is $|\delta^-(v)|$, the out-degree is $|\delta^+(v)|$, and the degree is 
 $|\delta^+(v)|+ |\delta^-(v)|$.
 \end{definition}
@@ -135,7 +136,9 @@ graph}.
 \end{definition}
 
 \begin{definition}
- A s\textit{ }
+ A \textit{ connected component } of a graph $G$ is a subgraph $G'\subseteq G$ such that there is a path in $G'$ from 
+ every node $v\in G'$ to every other node $u\in G'$. We call a graph $G$ that forms a connected component on its own 
+ \textit{connected}. 
 \end{definition}
 
 

@@ -1,14 +1,55 @@
 %zusammenfassung: was war Fragestellung, was wurde gemacht und welche Ergebnisse! hat die Arbeit gebracht? 
 %sollte so geschrieben sein, dass jemand der die Arbeit nicht komplett gelesen hat/lesen will die Ergebnisse versteht
 
+In this thesis we wanted to see if the bounds on flow values can be improved if we take into account that the flow has 
+to be acyclic. 
+We therefor defined the acyclic flowbound problem which turns out to be an interesting mathematical and algorithmical 
+problem. We could show that the gap between cyclic and acyclic flow is not bounded and exhibit relations to known 
+mathematical problems. Two different mixed integer programs modelling this problem as well as a heuristic were 
+described, implemented and tested. 
 
-The acyclic flowbound problem turns out to be an interesting mathematical and algorithmical problem. For the more 
-general Acyclic Minimum Cost Flow Problem with arbitrary weights we showed the $\mathcal{NP}$ hardness, however it 
-remains an open question if this is only due to the unlimited number of arcs with negative arc weights. If so, there 
+For the more general Acyclic Minimum Cost Flow Problem with arbitrary weights we showed the $\mathcal{NP}$ hardness, 
+however it remains an open question if this is only due to the unlimited number of arcs with negative arc weights. If 
+so, there 
 might be a chance to find a direct, efficient algorithm.
 Despite this the implemented MIP models showed a huge increase in running time even for moderate problem sizes. This 
-indicates some hardness of the problem itself. To the author it apperas unlikely that the Acyclic Flowbound Problem 
-should not be $\mathcal{NP}$ hard.
+holds for two different exact MIP models tested as well as for their relaxations. The heuristics results were 
+relatively weak but still improve the bounds used until now.
 
-However, small problems were solvable with both models described and implemented in this thesis to optimality. With 
-enough time and effort also a limitation of these models running time by time or MIP nodes yields good bounds. 
+Small problems are solvable with both MIP models described and implemented to optimality. With 
+enough time and effort also a limitation by solvers running time or MIP nodes yields good bounds. \\
+
+
+There are more practical improvements to the algorithms one could try to implement: 
+
+In a graph there can be induced paths (i.e. neighboring vertices with degree 2).
+On a path the flow value has to be the same on each edge, so also the bounds have to be the same and it is sufficient 
+to compute the bound on one arc of a path and automatically set the same bound on the other arcs of this path.
+
+Another improvement could be to immediately write the computed bounds into the network for all further computations. 
+Currently every arcs bounds are computed on the same network with default flow bounds. It might improve the algorithm 
+if the already computed bounds are set directly into the network and used when another arcs bound is computed. It could 
+also work to compute bounds only on a small selection of interesting arcs and propagate these bounds. In an incomplete 
+acyclicity constraint separation algorithm like what we used for the gaslib-582 networks there are sometimes arcs where 
+the MIP solver did find a good solution, while it did not find one on neighboring arcs. Since the heuristic in a way 
+propagates flow bounds it even could improve the bounds to let the heuristic run again after setting the bounds already 
+found.
+
+A smaller network of course would help a lot for the solvers, since the number of variables could be decreased by large 
+numbers. The interesting part for the acyclic flowbound problem are strongly connected components, i.e. 
+components where for each pair of nodes there are at least 2 different paths connecting them with no arcs in common. 
+Thus one idea to make the models work in practice would be to just isolate the strongly connected components and 
+compute acyclic flow bounds on each of them seperately. While the worst case complexity stays the same, real networks 
+have a nice structure (for example planar and with a small tree width).\\
+
+There might also be models or algorithms than the ones described in this thesis. The results show that in 
+practice some relevant improvements on the flow bounds can be achieved by taking into account that gas flow has to be 
+acyclic. It also shows the differences between cyclic and acyclic flow bounds can be huge not only in theory (the gap 
+can be unbounded as we have shown) but also in practice.\\
+
+On the theoretical side it would of course be interesting to have a direct proof of $\mathcal{NP}$ hardness or a better 
+algorithm. 
+
+Another interesting question could be if the number of acyclicity constraints can be bounded by proving more cases for 
+redundancies or finding an example that needs exponential numbers of them. 
+

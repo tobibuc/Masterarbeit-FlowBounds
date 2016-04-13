@@ -1,4 +1,5 @@
 % The models we described have also been implemented and tested on networks of different size.
+\label{chapter:compresults}
 In this section we will discuss the practical implementations and present results of the computation. For relevant 
 real-world problem sizes the exact models are too slow, even with separation of the acyclicity constraints. For this 
 reason we also describe how to relax the problem in order to get useable (though in general not optimal) results for the 
@@ -76,7 +77,7 @@ Because of this the implementation does not add all the acyclicity constraints e
 gets a general constraint that demands that there is no cyclic flow in the network. When this constraint is checked and 
 there is cyclic flow somewhere in the network, a new linear acyclicity constraint on the cycle with the detected cyclic 
 flow is added. An Acyclicity Constraint Handler was implemented for this in Lamatto \cite{lamatto} with SCIP 
-\cite{scip} as solver. \\
+\cite{scip} \cite{Achterberg2009} as solver. \\
 
 Where this model is solved unto optimality we refer to this model in the tables as \textit{sepa\_all}.\\
 
@@ -182,255 +183,135 @@ the 8 cores, other than SCIP.
 
 
 \subsection{Bound Improvements}
+As first metric to compare the results of the different approaches we will use the actual bound improvements of our 
+implementations. This is a very natural way of comparing the results because it was the original question we asked: How 
+can we get good bounds for the Acyclic Flowbound Problem? 
+
+As starting point for our comparison we can take the cyclic flowbound approach (see \ref{model:cyclicFlow} ). It turns 
+out that it is always a good idea to combine it with the simple upper bound "sum of all ingoing flow": Out of the 39 
+pipes in the small GasLib-40 test network there were 48 bound improvements (when both upper and lower bounds were 
+improved counting as two improvements) by using the ingoing flow sum as upper bound. In other words there were 48 
+bounds where cyclic flowbound approach was worse than the trivial flow sum bound. 
+Since it has almost no effect on the running time of the algorithm one should always use this trivial bound. This 
+bound was also preset for the computations using other models and improved their performance.\\
+
+The comparison of the cyclic bounds + flowsum approach with the other approaches is the main part here. The complete 
+tables can be found in the appendix \ref{appendix:boundimprove}. 
+
+We can look at the GasLib-40 test and recognize that the heuristic algorithm is not better than the cyclic bounds at 
+all in this example. All other algorithms found the optimum solution instead, but with very different timings. Though 
+using acyclicity constraints only on a cycle base is not optimal in general, in this case it is sufficient and yields 
+the best running time among the optimal results. The nodepotential model shows a quite reasonable performance, while 
+the full separation needs almost 2 minutes just on this tiny example.
+
 \begin{center}
 
-\begin{tabular}{ l | c | c | c | c }
-\textbf{gaslib-40} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\begin{tabular}{ l | c | c }
+\textbf{gaslib-40} & Time & Improvement\\
 \hline
- cyclic bounds& $<1$ s& 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $<1$ s& 21 & - & - \\
- cycle base& $1$ s & 21 & 48 & 1372.4\\
- heuristic& $<1$ s& 21& 0 & 0\\
- nodepotential& $4$ s& 21 & 48 & 1372.4 \\ 
- sepa\_all& $112$ s& 21 & 48 & 1372.4\\
+ cyclic bounds+flowsum& $<1$ s& - \\
+ cycle base& $1$ s & optimum\\
+ heuristic& $<1$ s& none\\
+ nodepotential& $4$ s & optimum\\ 
+ sepa\_all& $112$ s& optimum\\
 \end{tabular} 
 \end{center}
-%ergebnisse fuer 135: nodepotential hatte gerade einmal das erste pipe berechnet (600) mit beiden schranken, nach 293 h 
-%rechenzeit, sepa (auf nur einem kern aber im gleichen rechner) war ebenfalls nicht fertig
+
+The GasLib-135 network was used for a few test computations, but the exact models did not solve and there seemed to be 
+no advantage to the realistic network. This is why the comparisons are carried out only on the GasLib-582 testset.
+
+For the bigger instances of the GasLib-582 testset the picture looks much different than on GasLib-40. This is only in 
+small parts influenced by the nominations - as the tables in \ref{appendix:boundimprove} show the differences between 
+different nominations on the same network is small and the tendency is always the same. The exact algorithms and even 
+the approach putting acyclicity constraints only on the cycles of a cycle base fail completely here. Thus we can only 
+compare the heuristic bounds and see how fast they are improving. The following table is compiled of the 
+rounded geometric mean values of the test runs.
 
 \begin{center}
 \begin{tabular}{ l | c | c | c | c }
-\textbf{gaslib-582 warm\_1111} & Time  & Fixed Flows & Bounds tightened & avg improvement \\
+\textbf{gaslib-582 geom. mean} & Time  & Fixed Flows & Bounds tightened & avg improvement \\
 \hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
  cyclic bounds+flowsum& $1$ s& 365 & - & -\\
- cycle base& $ $ &  &  &\\
- heuristic& $ 11$ s& 365& 164 & 5047.2 \\
-%  nodepotential& $ $ &  &  &   \\ 
- nodepot\_60000& $20$ min/8 cores &370  &53  &3232.1   \\ 
- nodepot\_500000& $132$ min/8 cores & 370 & 74 & 2825.7  \\ 
- sepa\_1000& $ 50$ min & 382 & 107 & 3802.1 \\
- sepa\_5000& $ 159$ min & 382 & 180 & 3971.6 \\
- sepa\_20000& $ 281$ min & 382 & 264 & 4312.5 \\
- sepa\_60000& $702$ min  & 382& 278& 4267.7\\
+ heuristic& $ 11$ s& 365& 164 & 4885 \\
+ nodepot\_60000& $19$ min/8 cores & 368 &58  &  3004 \\ 
+ nodepot\_500000& $130$ min/8 cores & 368 &70  & 2896 \\ 
+ sepa\_1000& $ 50$ min & 378 & 98 & 3869 \\
+ sepa\_5000& $ 151$ min & 378 & 209 & 4037 \\
+ sepa\_20000& $ 354$ min & 378 & 241 & 4060 \\
+ sepa\_60000& $ 651$ min  & 378& 280& 4015\\
 \end{tabular} 
 \end{center}
 
-\begin{center}
-\begin{tabular}{ l | c | c | c | c }
+The table shows that the heuristic does substantially better than the cyclic bounds approach. It also needs a quite 
+short time and where it improves bounds it has a high average improvement. The nodepotential approach is the looser 
+here: despite higher nodelimits than the separation approach its results are even worse than the results found 
+by the heuristic. Thus in practice the heuristic and where the time is less important the separation approach seem to 
+fit best. 
 
-\textbf{gaslib-582 cool\_12} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
-\hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $1$ s & 365 & - & - \\
- cycle base& $ $ &  &  & \\
- heuristic& $11$ s & 365 & 164 & 4050.9 \\
-%  nodepotential& $ $ &  &  &    \\ 
- nodepot\_60000& $19$ min/8 cores & 366 & 63 &  2175.6 \\ 
- nodepot\_500000& $135$ min/8 cores & 366 & 74 & 2291.8  \\ 
- sepa\_1000& $ 50$ min  & 378 & 100 & 3025.2\\
- sepa\_5000& $ 158$ min & 378 & 211 & 3525.6\\ 
- sepa\_20000& $ 361$ min & 378 & 242 & 3648.3  \\
- sepa\_60000& $678$ min  & 378 & 276 & 3390.3 \\
-\end{tabular} 
-\end{center}
+While running time of the separation algorithms increases underproportional with the nodelimit, the quality of the 
+solution improves quite well in the beginning. Even the average improvement, which is not changing much with higher 
+node limits, is better than for the node potential approach. Note that this is in contrast to the behavior of 
+the two exact models in the small GasLib-40 network where the node potential model was far superior over the separation 
+of acyclicity constraints. It is possible that for solving the model completely still node potential could be a better 
+model.
 
-\begin{center}
-\begin{tabular}{ l | c | c | c | c }
-
-\textbf{gaslib-582 cold\_100} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
-\hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $1s$ & 365 & - & -  \\
- cycle base& $ $ &  &  & \\
- heuristic& $ 10s $& 365& 164 & 5157.4\\
- nodepot\_60000& $19$ min/8 cores & 370 & 63 & 3539.6  \\ 
- nodepot\_500000& $123$ min/8 cores & 370 & 71 & 3142  \\ 
- sepa\_1000& $50$ min  & 378 & 88 & 4265.5 \\
- sepa\_5000& $ 127$ min & 378 & 242 & 4508.9  \\
- sepa\_20000& $ 382$ min &  378& 241 & 4526.3  \\
- sepa\_60000& $635$ min  & 378& 283& 4200\\
-\end{tabular} 
-\end{center}
-
-\begin{center}
-\begin{tabular}{ l | c | c | c | c }
-
-\textbf{gaslib-582 freezing\_1} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
-\hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $1s$ & 365 & - & - \\
- cycle base& $ $ &  &  & \\
- heuristic& $ 11$s& 365& 148 & 6148.2\\
- nodepot\_5000& $ 5$ min/8 cores & 365 & 0 & 0 \\ 
- nodepot\_60000& $18$ min/8 cores & 366 & 51 & 4123.2 \\ 
- nodepot\_500000& $127$ min/8 cores &366  & 57 & 4224.7 \\ 
- sepa\_1000& $50$ min & 374 & 90 & 5405.4 \\
- sepa\_5000& $ 154$ min & 374 & 231 & 5104  \\
- sepa\_20000& $366$ min & 374 & 244 & 4929.8 \\
- sepa\_60000& $593$ min & 374 & 276 & 4777.6\\
- sepa\_300000& $3135$ min & 374 & 295 & 4652.8\\
-\end{tabular} 
-\end{center}
-
-\begin{center}
-\begin{tabular}{ l | c | c | c | c }
-
-\textbf{gaslib-582 mild\_10} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
-\hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& $1$ s& 365 & - & -\\
- cycle base& $ $ &  &  & \\
- heuristic& $11$ s& 365 & 164 & 4291.5\\
-%  nodepotential& $ $ &  &   &  \\ 
- nodepot\_60000& $20$ min/8 cores & 366 & 63 & 2383.5 \\ 
- nodepot\_500000& $135$ min/8 cores & 366 & 74 & 2372.6 \\ 
- sepa\_1000& $50$ min & 378 & 105 & 3271.3 \\
- sepa\_5000& $ 158$ min  & 378 & 188 & 3329.5 \\
- sepa\_20000& $ 394$ min & 378 & 216 &3144.6 \\
- sepa\_60000& $651$ min  & 378& 289 & 3593.3 \\
-\end{tabular} 
-\end{center}
-
-The results show that in all cases the bounds get better with more time for the separation algorithm, while the exact 
-models need too much time. The heuristics results are weak, but still far better than setting the limit to only 1000 
-nodes. If we compare the nodelimit relaxations of the two exact MIP models it gets clear that the separation is by far 
-superior in finding relatively good solutions. This still does not guarantuee it would be better if both are running 
-until the exact bounds on all arcs are found or if the model sizes or structures differ.
-%TODO mehr schreiben hier
 
 \subsection{Model building impact}
-The bounds computed can be read in and used by the solver to improve building of other models like the discretization. 
-The impact of the computed flow bounds on this model is shown in the tables below.
+The bounds computed can be read in by Lamatto and used by the solver to improve building of other models like the 
+discretization. The impact of the computed flow bounds on this model is a measure of the actual benefits acyclic 
+flow bounds could have on the solving process. The tables in \ref{appendix:modelbuild} show how model sizes change when 
+reading in bounds from the different models.
+
+
 \begin{center}
-\begin{tabular}{ l | c | c | c | c | c }
-\textbf{gaslib-40} & Fixed Dirs & nonlin. functions & variables (cont,discr)&constraints\\
+\begin{tabular}{ l | c | c | c }
+\textbf{gaslib-40} & Fixed Directions & Variables&Constraints\\
 \hline
- cyclic bounds&24 & 57& 1477 (948+529)&2009 \\
- cyclic bounds+flowsum& 24 & 57& 1477 (948+529)&2009 \\
- cycle base& 26 & 57 & 955 (687+268)  & 1473\\
- heuristic& 24 & 57& 1477 (948+529)&2009&\\
- nodepotential& 25 &57  &955 (687+268)  &1473  \\ 
- sepa& 34 &57  &955 (687+268)  &1473 \\
+ cyclic bounds&24 &1477&2009 \\
+ cyclic bounds+flowsum &24 & 1477 &2009 \\
+ nodepotential& 25 &955 &1473  \\ 
+ sepa& 34 &955 &1473 \\
 \end{tabular} 
 \end{center}
 If we compare the results on this small gaslib-40 network with its table of bound values there are two interesting 
 points. In building the model there is no difference between the cyclic bounds that were computed with respect to the 
 sum of ingoing flow and the ones were the sum of ingoing flow was not set as upper flow bound. Obviously these bounds 
 are already used implicitely. Nevertheless it is worth using these natural bounds already in the bound computation, 
-since the separation algorithms run much faster and give better results when they are given these bounds before. 
+since all the algorithms run much faster and give better results when they are given these bounds before. 
 
-The second point is that the number of fixed flow directions in the last two entries increases a lot, although the 
-exact algorithms both found the same optimal solution. The reason is a single numerical difference. It might be useful 
-to round values which are extremely close to zero (like this $1^{-10}$) to get more fixations for the model. 
+The second point is that the number of fixed flow directions differs a lot from the nodepotential to the separation 
+model, although the exact algorithms both found the same optimal solution. The reason is a single numerical difference. 
+It might be useful to round values which are extremely close to zero (like in this case $1^{-10}$) to get more 
+fixations for the model.\\
 
-\begin{center}
-\begin{tabular}{ l | c | c | c | c | c }
-\textbf{gaslib-582 cold\_100} & Fixed Dirs & nonlin. functions & variables (cont,discr)&constraints\\
-\hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& 440 & 241& 5727 (4113+1614)&8216 \\
-%  cycle base& $ $ &  &  & \\
- heuristic& 440& 241 & 5675 (4087+1588)&8162\\
-%  nodepotential& $ $ &  &  &  \\ 
- sepa\_1000& 467 & 237& 5471 (3977+1944) & 7930 \\
- sepa\_5000& 467& 237& 5185 (3834+1351)& 7641  \\
- sepa\_20000& 467 & 237 & 5185 (3834+1351)& 7640 \\
- sepa\_60000& 469 &237 & 4903 (3693+1210)& 7339 \\
-\end{tabular} 
-\end{center}
+As we could expect the optimal solutions yield smaller models both in the number of variables and the number of 
+constraints. 
 
-\begin{center}
-\begin{tabular}{ l | c | c | c | c | c }
-\textbf{gaslib-582 freezing\_1} & Fixed Dirs & nonlin. functions & variables 
-(cont,discr)&constraints\\
-\hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& 438 & 241& 5757 (4128+1629)&8246 \\
-%  cycle base& $ $ &  &  & \\
- heuristic& 438& 241 & 5701 (4100+1601)&8188\\
-%  nodepotential& $ $ &  &  &  \\ 
- sepa\_1000& 466 & 237& 5443 (3963+1480) & 7905 \\
- sepa\_5000& 469& 237& 5171 (3827+1344)& 7632  \\
- sepa\_20000& 466 & 237 & 5099 (3791+1308)& 7553 \\
- sepa\_60000& 472 &237 & 4747 (3615+1132)& 7192 \\
-\end{tabular} 
-\end{center}
-
-
-\begin{center}
-\begin{tabular}{ l | c | c | c | c | c }
-\textbf{gaslib-582 cool\_12} & Fixed Dirs & nonlin. functions & variables 
-(cont,discr)&constraints\\
-\hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& 450 & 241& 5427 (3963+1464)&7926 \\
-%  cycle base& $ $ &  &  & \\
- heuristic& 450& 241 & 5371 (3935+1436)&7868\\
-%  nodepotential& $ $ &  &  &  \\ 
- sepa\_1000& 480 & 237& 4993 (3738+1255) & 7464 \\
- sepa\_5000& 480& 237& 4805 (3644+1161)& 7268  \\
- sepa\_20000& 480 & 237 & 4803 (3643+1160)& 7266 \\
- sepa\_60000& 482 &237 & 4655 (3569+1086)& 7099 \\
-\end{tabular} 
-\end{center}
+As example we take the results of gaslib-582 with the nomination warm\_1111 to see how the model changes with better 
+bounds. The behavior is similar for the other nominations, for more tables see \ref{appendix:modelbuild}.
 \begin{center}
 \begin{tabular}{ l | c | c | c | c | c }
 
-\textbf{gaslib-582 mild\_10} & Fixed Dirs & nonlin. functions& variables 
-(cont,discr)&constraints\\
+\textbf{gaslib-582 warm\_1111} & Fixed Directions &Variables &Constraints\\
 \hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& 458 & 241& 5569 (4034+1535)&8077 \\
-%  cycle base& $ $ &  &  & \\
- heuristic& 458& 241 & 5491 (3995+1496)&7997\\
-%  nodepotential& $ $ &  &  &  \\ 
- sepa\_1000& 488 & 237& 4991 (3737+1254) & 7469 \\
- sepa\_5000& 490& 237& 4871 (3677+1194)& 7344  \\
- sepa\_20000& 492 & 237 & 4709 (3596+1113)& 7163 \\
- sepa\_60000& 494 &237 & 4675 (3579+1096)& 7117 \\
+ cyclic bounds+flowsum& 458 & 5673 &8183 \\
+ heuristic& 458& 5589 &8097\\
+ sepa\_1000& 487 & 4865 & 7335 \\
+ sepa\_5000& 492& 4745 & 7212  \\
+ sepa\_20000& 494 & 4433& 6886 \\
+ sepa\_60000& 496 & 4371 & 6823 \\
 \end{tabular} 
 \end{center}
-\begin{center}
-\begin{tabular}{ l | c | c | c | c | c }
 
-\textbf{gaslib-582 warm\_1111} & Fixed Dirs & nonlin. functions & variables 
-(cont,discr)&constraints\\
-\hline
-%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
- cyclic bounds+flowsum& 458 & 241& 5673 (4086+1587)&8183 \\
-%  cycle base& $ $ &  &  & \\
- heuristic& 458& 241 & 5589 (4044+1545)&8097\\
-%  nodepotential& $ $ &  &  &  \\ 
- sepa\_1000& 487 & 237& 4865 (3674+1191) & 7335 \\
- sepa\_5000& 492& 237& 4745 (3614+1131)& 7212  \\
- sepa\_20000& 494 & 237 & 4433 (3458+975)& 6886 \\
- sepa\_60000& 496 &237 & 4371 (3427+944)& 6823 \\
-\end{tabular} 
-\end{center}
+The table show that the number of fixed direction is increasing only little when better bounds are available, but the 
+number of Variables might decrease by more than 20\% and the number of constraints by more than 16\% , even if the 
+bounds are still far from optimal. This example has the highest improvements, but also the other ones show a 
+significant decline of used variables and constraint by more than 10\%.\\
+
 
 For the big networks we are only able to compare the results of heuristics because the exact algorithms take far 
 too long for solving. Among them the original heuristic approach is the onyl one that really can be called fast. But if 
 there is enough time the exact models with node limits do find better bounds. The tables show that improved bounds 
 yield a smaller model. The more nodes we allow in the 
 separation process, the tighter the bounds. With tighter bounds we get a smaller model. Because of the smaller model 
-sizes it could in fact make sense to compute such bounds to accelerate the solving process in the end. For this there 
-are even more improvements one could try to make: 
-
-In a graph there can be induced paths (i.e. neighboring vertices with degree 2).
-On a path the flow value has to be the same on each edge, so also the bounds have to be the same and it is sufficient to 
-compute the bound on one arc of a path and automatically set the same bound on the other arcs of this path.
-
-Another improvement could be to immediately write the computed bounds into the network for all further computations. 
-Currently every arcs bounds are computed on the same network with default flow bounds. It might improve the algorithm 
-if the already computed bounds are set directly into the network and used when another arcs bound is computed. It could 
-also work to compute bounds only on a small selection of interesting arcs and propagate these bounds. In an incomplete 
-acyclicity constraint separation algorithm like what we used for the gaslib-582 networks there are sometimes arcs where 
-the MIP solver did find a good solution, while it did not find one on neighboring arcs. Since the heuristic in a way 
-propagates flow bounds it even could improve the bounds to let the heuristic run again after setting the bounds already 
-found.
-
-There might also be models or algorithms than the ones described in this thesis. The results show that in 
-practice some relevant improvements on the flow bounds can be achieved by taking into account that gas flow has to be 
-acyclic. It also shows the differences between cyclic and acyclic flow bounds can be huge not only in theory (the gap 
-can be unbounded as we have shown) but also in practice.
+sizes it could in fact make sense to compute such bounds to accelerate the solving process in the end. 

@@ -1,2 +1,206 @@
 %Tabellen und Rechenergebnisse aufgeschluesselt, die man nicht unbedingt im normalen text der Arbeit drin stehen haben 
 % will oder muss. Im Prinzip koennten auch Beispiele hier rein die man sonst nicht unterbringen kann.
+\section{Tables of bound improvements}
+\label{appendix:boundimprove}
+This section holds the bound results of the computations as described in chapter \ref{chapter:compresults}.
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+\textbf{gaslib-40} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\hline
+ cyclic bounds& $<1$ s& 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $<1$ s& 21 & - & - \\
+ cycle base& $1$ s & 21 & 48 & 1372.4\\
+ heuristic& $<1$ s& 21& 0 & 0\\
+ nodepotential& $4$ s& 21 & 48 & 1372.4 \\ 
+ sepa\_all& $112$ s& 21 & 48 & 1372.4\\
+\end{tabular} 
+\end{center}
+%ergebnisse fuer 135: nodepotential hatte gerade einmal das erste pipe berechnet (600) mit beiden schranken, nach 293 h 
+%rechenzeit, sepa (auf nur einem kern aber im gleichen rechner) war ebenfalls nicht fertig
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+\textbf{gaslib-582 warm\_1111} & Time  & Fixed Flows & Bounds tightened & avg improvement \\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1$ s& 365 & - & -\\
+ heuristic& $ 11$ s& 365& 164 & 5047.2 \\
+%  nodepotential& $ $ &  &  &   \\ 
+ nodepot\_60000& $20$ min/8 cores &370  &53  &3232.1   \\ 
+ nodepot\_500000& $132$ min/8 cores & 370 & 74 & 2825.7  \\ 
+ sepa\_1000& $ 50$ min & 382 & 107 & 3802.1 \\
+ sepa\_5000& $ 159$ min & 382 & 180 & 3971.6 \\
+ sepa\_20000& $ 281$ min & 382 & 264 & 4312.5 \\
+ sepa\_60000& $702$ min  & 382& 278& 4267.7\\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+
+\textbf{gaslib-582 cool\_12} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1$ s & 365 & - & - \\
+ heuristic& $11$ s & 365 & 164 & 4050.9 \\
+%  nodepotential& $ $ &  &  &    \\ 
+ nodepot\_60000& $19$ min/8 cores & 366 & 63 &  2175.6 \\ 
+ nodepot\_500000& $135$ min/8 cores & 366 & 74 & 2291.8  \\ 
+ sepa\_1000& $ 50$ min  & 378 & 100 & 3025.2\\
+ sepa\_5000& $ 158$ min & 378 & 211 & 3525.6\\ 
+ sepa\_20000& $ 361$ min & 378 & 242 & 3648.3  \\
+ sepa\_60000& $678$ min  & 378 & 276 & 3390.3 \\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+
+\textbf{gaslib-582 cold\_100} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1s$ & 365 & - & -  \\
+ heuristic& $ 10s $& 365& 164 & 5157.4\\
+ nodepot\_60000& $19$ min/8 cores & 370 & 63 & 3539.6  \\ 
+ nodepot\_500000& $123$ min/8 cores & 370 & 71 & 3142  \\ 
+ sepa\_1000& $50$ min  & 378 & 88 & 4265.5 \\
+ sepa\_5000& $ 127$ min & 378 & 242 & 4508.9  \\
+ sepa\_20000& $ 382$ min &  378& 241 & 4526.3  \\
+ sepa\_60000& $635$ min  & 378& 283& 4200\\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+
+\textbf{gaslib-582 freezing\_1} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1s$ & 365 & - & - \\
+ heuristic& $ 11$s& 365& 148 & 6148.2\\
+ nodepot\_5000& $ 5$ min/8 cores & 365 & 0 & 0 \\ 
+ nodepot\_60000& $18$ min/8 cores & 366 & 51 & 4123.2 \\ 
+ nodepot\_500000& $127$ min/8 cores &366  & 57 & 4224.7 \\ 
+ sepa\_1000& $50$ min & 374 & 90 & 5405.4 \\
+ sepa\_5000& $ 154$ min & 374 & 231 & 5104  \\
+ sepa\_20000& $366$ min & 374 & 244 & 4929.8 \\
+ sepa\_60000& $593$ min & 374 & 276 & 4777.6\\
+ sepa\_300000& $3135$ min & 374 & 295 & 4652.8\\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c }
+
+\textbf{gaslib-582 mild\_10} & Time  & Fixed Flows & Bounds tightened & avg improvement\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& $1$ s& 365 & - & -\\
+ heuristic& $11$ s& 365 & 164 & 4291.5\\
+ nodepot\_60000& $20$ min/8 cores & 366 & 63 & 2383.5 \\ 
+ nodepot\_500000& $135$ min/8 cores & 366 & 74 & 2372.6 \\ 
+ sepa\_1000& $50$ min & 378 & 105 & 3271.3 \\
+ sepa\_5000& $ 158$ min  & 378 & 188 & 3329.5 \\
+ sepa\_20000& $ 394$ min & 378 & 216 &3144.6 \\
+ sepa\_60000& $651$ min  & 378& 289 & 3593.3 \\
+\end{tabular} 
+\end{center}
+
+\section{Tables of the model building impact}
+\label{appendix:modelbuild}
+This section holds the data tables of the model building impact the bounds shown in the above tables
+\ref{appendix:boundimprove} have.
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+\textbf{gaslib-40} & Fixed Dirs & nonlin. functions & variables (cont,discr)&constraints\\
+\hline
+ cyclic bounds&24 & 57& 1477 (948+529)&2009 \\
+ cyclic bounds+flowsum& 24 & 57& 1477 (948+529)&2009 \\
+ cycle base& 26 & 57 & 955 (687+268)  & 1473\\
+ heuristic& 24 & 57& 1477 (948+529)&2009&\\
+ nodepotential& 25 &57  &955 (687+268)  &1473  \\ 
+ sepa& 34 &57  &955 (687+268)  &1473 \\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+\textbf{gaslib-582 cold\_100} & Fixed Dirs & nonlin. functions & variables (cont,discr)&constraints\\
+\hline
+ cyclic bounds+flowsum& 440 & 241& 5727 (4113+1614)&8216 \\
+ heuristic& 440& 241 & 5675 (4087+1588)&8162\\
+ sepa\_1000& 467 & 237& 5471 (3977+1944) & 7930 \\
+ sepa\_5000& 467& 237& 5185 (3834+1351)& 7641  \\
+ sepa\_20000& 467 & 237 & 5185 (3834+1351)& 7640 \\
+ sepa\_60000& 469 &237 & 4903 (3693+1210)& 7339 \\
+\end{tabular} 
+\end{center}
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+\textbf{gaslib-582 freezing\_1} & Fixed Dirs & nonlin. functions & variables 
+(cont,discr)&constraints\\
+\hline
+ cyclic bounds+flowsum& 438 & 241& 5757 (4128+1629)&8246 \\
+ heuristic& 438& 241 & 5701 (4100+1601)&8188\\
+ sepa\_1000& 466 & 237& 5443 (3963+1480) & 7905 \\
+ sepa\_5000& 469& 237& 5171 (3827+1344)& 7632  \\
+ sepa\_20000& 466 & 237 & 5099 (3791+1308)& 7553 \\
+ sepa\_60000& 472 &237 & 4747 (3615+1132)& 7192 \\
+\end{tabular} 
+\end{center}
+
+
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+\textbf{gaslib-582 cool\_12} & Fixed Dirs & nonlin. functions & variables 
+(cont,discr)&constraints\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& 450 & 241& 5427 (3963+1464)&7926 \\
+%  cycle base& $ $ &  &  & \\
+ heuristic& 450& 241 & 5371 (3935+1436)&7868\\
+%  nodepotential& $ $ &  &  &  \\ 
+ sepa\_1000& 480 & 237& 4993 (3738+1255) & 7464 \\
+ sepa\_5000& 480& 237& 4805 (3644+1161)& 7268  \\
+ sepa\_20000& 480 & 237 & 4803 (3643+1160)& 7266 \\
+ sepa\_60000& 482 &237 & 4655 (3569+1086)& 7099 \\
+\end{tabular} 
+\end{center}
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+
+\textbf{gaslib-582 mild\_10} & Fixed Dirs & nonlin. functions& variables 
+(cont,discr)&constraints\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& 458 & 241& 5569 (4034+1535)&8077 \\
+%  cycle base& $ $ &  &  & \\
+ heuristic& 458& 241 & 5491 (3995+1496)&7997\\
+%  nodepotential& $ $ &  &  &  \\ 
+ sepa\_1000& 488 & 237& 4991 (3737+1254) & 7469 \\
+ sepa\_5000& 490& 237& 4871 (3677+1194)& 7344  \\
+ sepa\_20000& 492 & 237 & 4709 (3596+1113)& 7163 \\
+ sepa\_60000& 494 &237 & 4675 (3579+1096)& 7117 \\
+\end{tabular} 
+\end{center}
+\begin{center}
+\begin{tabular}{ l | c | c | c | c | c }
+
+\textbf{gaslib-582 warm\_1111} & Fixed Dirs & nonlin. functions & variables 
+(cont,discr)&constraints\\
+\hline
+%  cyclic bounds& $<1s$ & 21 & [-48] & [-7825.0] \\
+ cyclic bounds+flowsum& 458 & 241& 5673 (4086+1587)&8183 \\
+%  cycle base& $ $ &  &  & \\
+ heuristic& 458& 241 & 5589 (4044+1545)&8097\\
+%  nodepotential& $ $ &  &  &  \\ 
+ sepa\_1000& 487 & 237& 4865 (3674+1191) & 7335 \\
+ sepa\_5000& 492& 237& 4745 (3614+1131)& 7212  \\
+ sepa\_20000& 494 & 237 & 4433 (3458+975)& 6886 \\
+ sepa\_60000& 496 &237 & 4371 (3427+944)& 6823 \\
+\end{tabular} 
+\end{center}
+

@@ -123,6 +123,17 @@ A \textit{cycle} is a graph $(\{v_1, \dots , v_k\}, \{e_1, \dots, e_k\})$ such t
  
 \end{definition}
 An easy induction argument shows that the edge set of a closed walk can be partitioned into edge sets of cycles.
+
+%eingefuegt: definition kreisbasis
+\begin{definition}
+ For cycles $C_1$, $C_2$ in a graph we define a cycle addition operation or sum of cycles as symmetric difference 
+ $C_1+C_2=(C_1\cup C_2)\setminus (C_1\cap C_2)$. 
+ 
+ With this operation we can define a \textit{cycle base} as a minimal 
+set of cycles $\mathbb{B}=\{C_1,C_2,\dots, C_l\}$ such that we can represent every possible cycle in the graph as sum 
+$\sum_{i=1}^k C_i\,|\C_i\in\mathbb{B}$ of cycles in the cycle base.
+\end{definition}
+
  
 \begin{definition}
 The length of a path or cycle is the number of its edges. If it is a subgraph of $G$, we speak of a path or cycle in 

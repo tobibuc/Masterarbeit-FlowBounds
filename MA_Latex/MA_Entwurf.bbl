@@ -16,7 +16,7 @@
   2015.
 
 \bibitem{gaslib}
-\emph{{GasLib:a library of gas network instances}}, 2016.
+\emph{{GasLib: a library of gas network instances}}, 2016.
 
 \bibitem{lamatto}
 \emph{{Lamatto++: A Framework for Modeling and Solving Mixed-Integer Nonlinear
@@ -25,6 +25,11 @@
 
 \bibitem{Achterberg2007}
 Tobias Achterberg, \emph{Constraint integer programming}, Ph.D. thesis, 2007.
+
+\bibitem{Achterberg2009}
+\bysame, \emph{Scip: Solving constraint integer programs}, Mathematical
+  Programming Computation \textbf{1} (2009), no.~1, 1--41,
+  \url{http://mpc.zib.de/index.php/MPC/article/view/4}.
 
 \bibitem{Aggarwal96afaster}
 C.~Aggarwal, H.~Kaplan, J.~Orlin, and R.~Tarjan, \emph{A faster primal network
