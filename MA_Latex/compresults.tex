@@ -61,7 +61,7 @@ or the number of nodes in the branch-and-bound process. We use a node limit in o
 We refer to this model solved within a node limit of $X$ nodes as \textit{nodepot\_X}.
  
  
- \subsection{MIP with Binary Direction Variables and a Separation of Acyclicity Constraints}
+ \subsection{MIP with Binary Direction Variables and Separation of Acyclicity Constraints}
 In section \ref{model:AcyclicityConstraints} we described a model using acyclicity constraints on the binary directions 
 for each cycle that was found during the solving process.
 This model itself is independent of the implementation of the acyclicity constraints. But since a graph can have an 
@@ -162,7 +162,9 @@ The other network is the GasLib-582 network (see figure \ref{bild:gaslib582} ) c
 inner nodes, 278 pipes, 269 shortpipes and a number of other connection elements. This network is based on distorted 
 real-world data in order to yield computationally realistic behavior. In this network not only the number of elements 
 but also the number of cycles in the graph is much higher. The expectation is thus a much higher running time and 
-difficulty to find good solutions. \\
+difficulty to find good solutions. GasLib contains several distinct nominations for this network. The test were 
+carried out on a set of 5 nominations chosen, one for each temperature class. The result tables show that the behavior
+of the algorithms is only by a small part affected by the nominations, which yield rather similar overall outcomes.\\
 
 \begin{figure}[h!, scale = 0.6]
   \centering

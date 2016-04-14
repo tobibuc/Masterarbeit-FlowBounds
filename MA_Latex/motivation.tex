@@ -20,7 +20,7 @@ preprocessing routines can help a lot by reducing the domains and model sizes be
 
 Since the flow of gas in the network is always determined by pressure differences and flow is always going from higher 
 pressure to lower pressure we know that flow in the network in general has to be acyclic. The only exception of this 
-rule is a compressor station. While  active compressor stations increase
+rule is a compressor station. Because active compressor stations increase
 pressure it is possible that they cause cyclic flow. But of course in real gas networks a compressor station would 
 normally be placed at a point where it has the highest impact. This is naturally at a place where it is unlikely to 
 waste energy by sending flow on a cycle. The pressure would rather be controlled by resistors, valves and control valves 
@@ -70,4 +70,9 @@ Here we aim at computing more general acyclic flow bounds. So we can not only fi
 cases but also give upper bounds on possible flow and bounds in cases were it is not clear which direction flow has to 
 take. It still yields flow directions in the cases described. But in practice a combination of our models with the 
 flow direction fixing Göllner did could improve runtime and quality, because for big networks we can only use heuristic 
-algorithms in practice.
+algorithms in practice.\\
+
+Despite looking for other related work on acyclic network flows I could not manage to find publications dealing with this 
+problem. This might be due to the fact that many applications just need some flow through a network without being 
+interested in influencing its path, or that it is enough to make a flow acyclic by the shifting described here, or maybe
+ I just searched the wrong places and did not discover it. 
